@@ -1,0 +1,41 @@
+.node {
+  list-style: none;
+  white-space: nowrap;
+  padding: 4px;
+}
+
+.searchModeOn li.node {
+  padding-left: 0 !important;
+}
+
+.searchModeOn .toggle {
+  display: none;
+}
+
+.toggle {
+  white-space: pre;
+  margin-right: 4px;
+}
+
+.toggle:after {
+  content: " ";
+}
+
+.toggle.collapsed:after {
+  cursor: pointer;
+  content: "+";
+}
+
+.toggle.expanded:after {
+  cursor: pointer;
+  content: "-";
+}
+
+.node.leaf.collapsed {
+  display: none;
+}
+
+.checkbox-item {
+  vertical-align: middle;
+  margin: 0 4px 0 0;
+}

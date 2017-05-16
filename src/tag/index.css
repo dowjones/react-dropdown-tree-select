@@ -1,0 +1,17 @@
+.tag {
+  background-color: #f4f4f4;
+  border: 1px solid #E9E9E9;
+  padding: 2px 0 2px 2px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.tag-remove {
+  color: #a0a0a0;
+  font-size: 75%;
+  line-height: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}

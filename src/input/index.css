@@ -1,0 +1,19 @@
+.node > label {
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.tag-list {
+  display: inline;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-item {
+  display: inline-block;
+  margin: 4px;
+}
+
+.tag-item:last-child {
+  margin-right: 4px;
+}

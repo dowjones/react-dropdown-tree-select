@@ -35,3 +35,12 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# build outputs
+demo/bundle.js
+demo/bundle.css
+dist
+*.tgz
+
+# Webstorm cache
+.idea

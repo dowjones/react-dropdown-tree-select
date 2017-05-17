@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown-tree-select",
-  "version": "0.0.1-beta.1",
+  "version": "0.0.1-beta.2",
   "description": "A React Dropdown with Checkboxes that supports Tree data",
   "main": "dist/react-dropdown-tree-select.min.js",
   "repository": "https://github.com/dowjones/react-dropdown-tree-select.git",

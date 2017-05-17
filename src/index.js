@@ -62,6 +62,12 @@ class DropdownTreeSelect extends Component {
     this.setState({tree, tags})
   }
 
+  componentWillReceiveProps (nextProps) {
+    const tree = this.createList(nextProps.data)
+    const tags = this.treeManager.getTags()
+    this.setState({tree, tags})
+  }
+
   onDrowdownHide () {
     // needed when you click an item in tree and then click back in the input box.
     // react-simple-dropdown behavior is toggle since its single select only

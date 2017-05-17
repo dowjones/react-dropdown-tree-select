@@ -20,24 +20,35 @@
 
 A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection.
 
-## Screenshots
+## Table of Contents
+- [Screenshot](#screenshot)
+- [Example](#example)
+- [Install](#install)
+  - [Peer Dependencies](#peer-dependencies)
+- [Usage](#usage)
+- [Props](#props)
+  - [className](#classname)
+  - [onChange](#onchange)
+  - [data](#data)
+  - [placeholderText](#placeholdertext)
+- [Styling and Customization](#styling-and-customization)
+- [Performance](#performance)
+  - [Search optimizations](#search-optimizations)
+  - [Search debouncing](#search-debouncing)
+  - [Virtualized rendering](#virtualized-rendering)
+  - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
+- [Development](#development)
+- [License](#license)
+
+## Screenshot
 
 ![demo](/docs/demo.gif)
 
 ## Example
 
-### Local Demo
-```
-npm run demo
-```
-
-Open `examples/index.html` in any browser.
-
-### Online Demo
-http://dowjones.github.io/react-dropdown-tree-select/
+Online demo: http://dowjones.github.io/react-dropdown-tree-select/
 
 ## Install
-
 
 ```
 > npm i react-dropdown-tree-select -S
@@ -101,7 +112,7 @@ Fires when a node change event occurs. Currently the following actions trigger a
 
 Calls the handler with the current node object. Example:
 
-```js
+```jsx
 function onChange (node) {
   // node: { label, value, children, expanded, checked, className, ...extraProps }
 }
@@ -110,6 +121,7 @@ return <DropdownTreeSelect data={data} onChange={onChange} />
 ```
 
 ### data
+
 Type: `Object` or `Array`
 
 Data for rendering the tree select items. The object requires the following structure:
@@ -144,32 +156,31 @@ An array renders a tree with multiple root level items whereas an object renders
 
 Type: `string`
 
-The text to display as placeholder on the search box. Defaults to `Search...`
+The text to display as placeholder on the search box. Defaults to `Choose...`
 
 ## Styling and Customization
 
-The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. Checkout /demo folder for some examples.
+The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. Checkout `/docs` folder for some examples.
 
 ## Performance
 
 ### Search optimizations
 
- - The tree creates a flat list of nodes from hierachical tree data to perform searches that are linear in time irrespective of the tree depth or size.
+ - The tree creates a flat list of nodes from hierarchical tree data to perform searches that are linear in time irrespective of the tree depth or size.
  - It also memoizes each search term, so subsequent searches are instantaneous (almost).
- - Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogther and the user wants to filter nodes that contain  the text: "2002". As the user enters each keypress the search goes like this:
+ - Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogether and the user wants to filter nodes that contain  the text: "2002". As the user enters each key press the search goes like this:
 
 ```
-keypress  : 2-----20-----200-----2002
+key press  : 2-----20-----200-----2002
             |     |      |       |
 search set: 967   834    49      7
 ```
 
 The search for "20" happens against the previously matched set of 967 as opposed to all 4000 nodes; "200" happens against 834 nodes and so on.
 
-
 ### Search debouncing
 
-The tree debounces keypresses to avoid costly search calculations. The default duration is 100ms.
+The tree debounces key presses to avoid costly search calculations. The default duration is 100ms.
 
 ### Virtualized rendering
 
@@ -182,6 +193,28 @@ Planned feature: Use [react-virtualized](https://github.com/bvaughn/react-virtua
 The tree tries to minimize the DOM manipulations as much as possible. E.g., during searching, the non-matching nodes are simply `hidden` and css adjusted on remaining to create the perception of a new filtered list.
 Node toggling also achieves the expand/collapse effect by manipulating css classes instead of creating new tree with filtered out nodes.
 
+## Development
+
+Clone the git repo and install dependencies.
+```
+npm i
+
+// or
+
+yarn install
+```
+
+You can then run following scripts for local development
+
+```
+npm run demo  // local demo, watches and rebuilds on changes
+
+npm test  // test your changes
+
+npm lint  // fixes anything that can be fixed and reports remaining errors
+
+npm run test:cov  // test coverage
+```
 
 ## License
 

@@ -1,9 +1,10 @@
-/**
+/*!
  * React Dropdown Tree Select
  * A lightweight, fast and highly customizable tree select component.
  * Hrusikesh Panda <hrusikesh.panda@dowjones.com>
  * Copyright (c) 2017 Dow Jones, Inc. <support@dowjones.com> (http://dowjones.com)
- * @LICENSE MIT
+ * license MIT
+ * see https://github.com/dowjones/react-dropdown-tree-select
  */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'

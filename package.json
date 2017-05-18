@@ -7,8 +7,9 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
     "build:umd": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
     "lint": "eslint --fix src docs webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test"
@@ -33,6 +34,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "coveralls": "^2.13.1",
     "cross-env": "^4.0.0",
     "css-loader": "^0.28.0",
     "enzyme": "^2.8.2",
@@ -79,7 +81,14 @@
       "text-summary"
     ],
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js",
+      "**/node_modules/**",
+      "dist",
+      "demo"
+    ]
   }
 }

@@ -5,16 +5,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
   devtool: 'source-map',
   entry: {
-    'react-dropdown-tree-select': './src/index.js',
-    'react-dropdown-tree-select.min': './src/index.js'
+    'react-dropdown-tree-select': './src/index.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactDropdownTreeSelect',
-    umdNamedDefine: true,
-    sourceMapFilename: '[name].map.js'
+    umdNamedDefine: true
   },
   externals: {
     react: {
@@ -31,10 +29,10 @@ module.exports = {
     }
   },
   plugins: [
+    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/
-    }),
-    new ExtractTextPlugin('styles.css')
+      sourceMap: true
+    })
   ],
   module: {
     rules: [

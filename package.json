@@ -7,7 +7,7 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build:umd": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
+    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
     "lint": "eslint --fix src docs webpack.config.js",

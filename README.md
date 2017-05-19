@@ -86,7 +86,7 @@ const tree = {
   ]
 }
 
-const onChange = (nodes) => { console.log('onChange::', nodes) }
+const onChange = (currentNode, selectedNodes) => { console.log('onChange::', currentNode, selectedNodes) }
 const onAction = ({action, node}) => { console.log(`onAction:: [${action}]`, node) }
 
 ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} />, document.body)  // in real world, you'd want to render to an element, instead of body.
@@ -110,11 +110,12 @@ Fires when a node change event occurs. Currently the following actions trigger a
  - Checkbox click which checks/unchecks the item
  - Closing of pill (which unchecks the corresponding checkbox item)
 
-Calls the handler with the current node object. Example:
+Calls the handler with the current node object and all selected nodes (if any). Example:
 
 ```jsx
-function onChange (node) {
-  // node: { label, value, children, expanded, checked, className, ...extraProps }
+function onChange (currentNode, selectedNodes) {
+  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+  // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
 }
 
 return <DropdownTreeSelect data={data} onChange={onChange} />

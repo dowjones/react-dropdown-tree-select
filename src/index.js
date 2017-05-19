@@ -100,7 +100,7 @@ class DropdownTreeSelect extends Component {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
     this.setState({tree: this.treeManager.tree, tags})
-    this.notifyChange(tags)
+    this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 
   onAction = (actionId, nodeId) => {

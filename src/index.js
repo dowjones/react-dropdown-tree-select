@@ -41,8 +41,8 @@ class DropdownTreeSelect extends Component {
     this.onNodeToggle = this.onNodeToggle.bind(this)
   }
 
-  notifyChange (data) {
-    typeof this.props.onChange === 'function' && this.props.onChange(data)
+  notifyChange (...args) {
+    typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
   createList (tree) {

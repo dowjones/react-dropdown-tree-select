@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 class Action extends Component {
   static propTypes = {
     title: PropTypes.string,
+    text: PropTypes.string,
     className: PropTypes.string,
     actionData: PropTypes.object,
     onAction: PropTypes.func
@@ -16,8 +17,8 @@ class Action extends Component {
   }
 
   render () {
-    const { title, className } = this.props
-    return <i title={title} className={className} onClick={this.onClick} />
+    const { title, className, text } = this.props
+    return <i title={title} className={className} onClick={this.onClick}>{text}</i>
   }
 }
 

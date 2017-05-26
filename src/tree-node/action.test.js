@@ -8,12 +8,14 @@ test('renders action with given props', t => {
   const props = {
     title: 'action',
     className: 'cn0-0-0',
+    text: 'hello',
     junk: '1'
   }
 
   const wrapper = shallow(<Action {...props} />)
 
   t.is(wrapper.props().title, props.title)
+  t.is(wrapper.text(), props.text)
   t.is(wrapper.props().className, props.className)
   t.is(wrapper.props().junk, undefined)
 })

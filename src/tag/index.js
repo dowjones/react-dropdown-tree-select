@@ -13,12 +13,11 @@ class Button extends Component {
 
   render () {
     return (
-      <button onClick={this.onClick} className={cx('tag-remove')}>x</button>
+      <button onClick={this.onClick} className={cx('tag-remove')} type='button'>x</button>
     )
   }
 
-  onClick = (e) => {
-    e.stopPropagation()
+  onClick = () => {
     this.props.onDelete(this.props.id)
   }
 }

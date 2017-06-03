@@ -38,7 +38,7 @@ class TreeNode extends Component {
         <label title={node.title || node.label}>
           <input type='checkbox'
             name={node._id}
-            className={cx('checkbox-item', {cs: true})}
+            className='checkbox-item'
             checked={node.checked}
             onChange={e => onCheckboxChange(node._id, e.target.checked)}
             value={node.value} />

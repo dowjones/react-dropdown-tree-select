@@ -9,8 +9,6 @@
 [travis-url]: https://travis-ci.org/dowjones/react-dropdown-tree-select
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master
-[gemnasium-image]: http://img.shields.io/gemnasium/dowjones/react-dropdown-tree-select.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/dowjones/react-dropdown-tree-select
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/react-dropdown-tree-select.svg?style=flat-square
@@ -129,14 +127,15 @@ Data for rendering the tree select items. The object requires the following stru
 
 ```js
 {
-  label,     // required: Checkbox label
-  value,     // required: Checkbox value
-  children,  // optional: Array of child objects
-  checked,   // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
-  expanded,  // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
-  className, // optional: Additional css class for the node. this is helpful to style the nodes your way
-  actions,   // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
-  ...        // optional: Any extra properties that you'd like to receive during `onChange` event
+  label,        // required: Checkbox label
+  value,        // required: Checkbox value
+  children,     // optional: Array of child objects
+  checked,      // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
+  expanded,     // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
+  className,    // optional: Additional css class for the node. This is helpful to style the nodes your way
+  tagClassName, // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
+  actions,      // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
+  ...           // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```
 

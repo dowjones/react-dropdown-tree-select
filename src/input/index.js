@@ -36,11 +36,12 @@ class Input extends Component {
   getTags (tags = [], onDelete) {
     return tags.map(
       (tag, i) => {
+        const { _id, label, tagClassName } = tag
         return (
-          <li className={cx('tag-item')} key={`tag-${i}`}>
+          <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
             <Tag
-              label={tag.label}
-              id={tag._id}
+              label={label}
+              id={_id}
               onDelete={onDelete}
             />
           </li>

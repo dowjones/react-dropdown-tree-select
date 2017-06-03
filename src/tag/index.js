@@ -17,7 +17,9 @@ class Button extends Component {
     )
   }
 
-  onClick = () => {
+  onClick = (e) => {
+    // this is needed to stop the drawer from closing
+    e.stopPropagation()
     this.props.onDelete(this.props.id)
   }
 }

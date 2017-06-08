@@ -26,7 +26,8 @@ class DropdownTreeSelect extends Component {
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     onChange: PropTypes.func,
-    onAction: PropTypes.func
+    onAction: PropTypes.func,
+    onNodeToggle: PropTypes.func
   }
 
   constructor (props) {
@@ -94,6 +95,7 @@ class DropdownTreeSelect extends Component {
   onNodeToggle (id) {
     this.treeManager.toggleNodeExpandState(id)
     this.setState({ tree: this.treeManager.tree })
+    typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
   onCheckboxChange (id, checked) {

@@ -5,5 +5,6 @@ import data from './demo-data.json'
 
 const onChange = (curNode, selectedNodes) => { console.log('onChange::', curNode, selectedNodes) }
 const onAction = ({action, node}) => { console.log(`onAction:: [${action}]`, node) }
+const onNodeToggle = (curNode) => { console.log('onNodeToggle::', curNode) }
 
-ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} />, document.getElementById('app'))
+ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />, document.getElementById('app'))

@@ -27,6 +27,7 @@ A lightweight and fast control to render a select component that can display hie
 - [Props](#props)
   - [className](#classname)
   - [onChange](#onchange)
+  - [onNodeToggle](#onnodetoggle)
   - [data](#data)
   - [placeholderText](#placeholdertext)
 - [Styling and Customization](#styling-and-customization)
@@ -86,8 +87,9 @@ const tree = {
 
 const onChange = (currentNode, selectedNodes) => { console.log('onChange::', currentNode, selectedNodes) }
 const onAction = ({action, node}) => { console.log(`onAction:: [${action}]`, node) }
+const onNodeToggle = (currentNode) => { console.log('onNodeToggle::', currentNode) }
 
-ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} />, document.body)  // in real world, you'd want to render to an element, instead of body.
+ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />, document.body)  // in real world, you'd want to render to an element, instead of body.
 
 ```
 
@@ -117,6 +119,22 @@ function onChange (currentNode, selectedNodes) {
 }
 
 return <DropdownTreeSelect data={data} onChange={onChange} />
+```
+
+### onNodeToggle
+
+Type: `function`
+
+Fires when a node is expanded or collapsed.
+
+Calls the handler with the current node object. Example:
+
+```jsx
+function onNodeToggle (currentNode) {
+  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+}
+
+return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
 ```
 
 ### data

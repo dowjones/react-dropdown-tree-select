@@ -1,4 +1,14 @@
 language: node_js
+cache:
+  directories:
+  - node_modules
 node_js:
-- "6"
+- '8'
+- '7'
+- '6'
+before_install:
+- npm install -g npm@5
+- npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
 after_success: "npm run coveralls"

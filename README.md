@@ -1,6 +1,8 @@
 # react-dropdown-tree-select
 ----
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg)](https://greenkeeper.io/)
+
 [![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![gemnasium deps][gemnasium-image]][gemnasium-url] [![npm download][download-image]][npm-url]
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square

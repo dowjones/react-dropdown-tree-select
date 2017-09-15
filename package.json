@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown-tree-select",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A React Dropdown with Checkboxes that supports Tree data",
   "main": "dist/react-dropdown-tree-select.js",
   "repository": "https://github.com/dowjones/react-dropdown-tree-select.git",
@@ -10,6 +10,7 @@
     "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
+    "prepublishOnly": "npm run build",
     "lint": "eslint --fix src docs webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test"

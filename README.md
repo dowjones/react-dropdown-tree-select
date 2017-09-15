@@ -264,7 +264,7 @@ Then include your own custom styles in your project.
 If you believe this aspect can be improved further, feel free to raise an issue.
 
 ### My question is not listed here
-Raise an issue using the [issue tracker](https://github.com/dowjones/react-dropdown-tree-select/issues).
+Find more questions and their answers in the [issue tracker](https://github.com/dowjones/react-dropdown-tree-select/issues?utf8=%E2%9C%93&q=%20label%3Aquestion%20). If it still doesn't answer your questions, please raise an issue.
 
 ## Development
 

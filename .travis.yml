@@ -1,22 +1,19 @@
 language: node_js
 cache:
   directories:
-  - node_modules
-node_js:
-- '8'
-- '7'
-- '6'
+    - node_modules
+node_js: 
+  - '8'
+  - '7'
+  - '6'
 before_install:
-- npm install -g npm@5
-- npm install -g greenkeeper-lockfile@1
-before_script: 
-  - curl -Lo travis_after_all.py https://git.io/vLSON
-  - greenkeeper-lockfile-update
+  - npm install -g npm@5
+  - npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 after_success: 
-  - python travis_after_all.py
-  - npm run semantic-release
   - npm run coveralls
+  - npm run semantic-release
 branches:
   except:
-    - "/^v\\d+\\.\\d+\\.\\d+$/"
+    - /^v\d+\.\d+\.\d+$/

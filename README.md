@@ -40,6 +40,7 @@ A lightweight and fast control to render a select component that can display hie
   - [Search debouncing](#search-debouncing)
   - [Virtualized rendering](#virtualized-rendering)
   - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
+- [FAQ](#faq)
 - [Development](#development)
 - [License](#license)
 
@@ -54,7 +55,7 @@ Online demo: http://dowjones.github.io/react-dropdown-tree-select/
 ## Install
 
 ```
-> npm i react-dropdown-tree-select -S
+> npm i react-dropdown-tree-select
 
 // or if using yarn
 
@@ -215,6 +216,52 @@ Planned feature: Use [react-virtualized](https://github.com/bvaughn/react-virtua
 
 The tree tries to minimize the DOM manipulations as much as possible. E.g., during searching, the non-matching nodes are simply `hidden` and css adjusted on remaining to create the perception of a new filtered list.
 Node toggling also achieves the expand/collapse effect by manipulating css classes instead of creating new tree with filtered out nodes.
+
+## FAQ
+### How do I change the placeholder text?
+The default [placeholder](#placeholderText) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
+
+```jsx
+<DropdownTreeSelect placeholderText="Search" />
+```
+
+### How do I tweak styles?
+Easy style customization is one of the design goals of this component. Every visual aspect of this dropdown can be tweaked without going through extensive hacks. E.g., to change how disabled nodes appear:
+
+```css
+.node .fa-ban {
+  color: #ccc;
+}
+```
+
+The css classes needed to overide can be found by inspecting the component via developer tools (chrome/safari/ie) or firebug (firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
+
+### I do not want the default styles, do I need to fork the project?
+Absolutely not! Simply do not import the styles (webpack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
+
+```pug
+div.react-dropdown-tree-select
+  div.dropdown 
+    a.dropdown__trigger.dropdown-trigger
+      span
+    ul.tag-list
+      li.tag-item
+        input
+    div.dropdown__content.dropdown-content
+      ul.root 
+        li.node.tree
+          i.toggle.collapsed
+          label
+            input.checkbox-item
+              span.node-label
+```
+
+Write your own styles from scratch or copy [existing styles](https://github.com/search?utf8=%E2%9C%93&q=repo%3Adowjones%2Freact-dropdown-tree-select+language%3ACSS+path%3A%2Fsrc&type=Code&ref=advsearch&l=CSS&l=) and tweak them.
+Then include your own custom styles in your project. 
+
+:bulb: Pro tip: Leverage [node's](#data) `className`, `tagClassName` or [action's](#data) `className` prop to emit your own class name. Then override/add css propeties in your class. Remember that last person wins in CSS (unless specificity or `!important` is involved). Often times, this may suffice and may be easier then writin all the styles from the ground up.
+
+If you believe this aspect can be improved further, feel free to raise an issue.
 
 ## Development
 

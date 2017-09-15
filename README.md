@@ -219,7 +219,7 @@ Node toggling also achieves the expand/collapse effect by manipulating css class
 
 ## FAQ
 ### How do I change the placeholder text?
-The default [placeholder](#placeholderText) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
+The default [placeholder](#placeholdertext) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
 
 ```jsx
 <DropdownTreeSelect placeholderText="Search" />
@@ -262,6 +262,9 @@ Then include your own custom styles in your project.
 :bulb: Pro tip: Leverage [node's](#data) `className`, `tagClassName` or [action's](#data) `className` prop to emit your own class name. Then override/add css propeties in your class. Remember that last person wins in CSS (unless specificity or `!important` is involved). Often times, this may suffice and may be easier then writin all the styles from the ground up.
 
 If you believe this aspect can be improved further, feel free to raise an issue.
+
+### My question is not listed here
+Raise an issue using the [issue tracker](https://github.com/dowjones/react-dropdown-tree-select/issues).
 
 ## Development
 

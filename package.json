@@ -56,7 +56,7 @@
     "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1",
     "semantic-release": "^7.0.2",
-    "sinon": "^3.2.1",
+    "sinon": "^4.0.0",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.6"
   },

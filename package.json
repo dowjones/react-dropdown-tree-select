@@ -52,7 +52,7 @@
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
     "nyc": "^11.2.1",
-    "react-dom": "^15.5.4",
+    "react-dom": "^16.0.0",
     "react-test-renderer": "^15.5.4",
     "rimraf": "^2.6.1",
     "semantic-release": "^7.0.2",

@@ -25,6 +25,7 @@ class DropdownTreeSelect extends Component {
     ]).isRequired,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
+    className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func
@@ -111,7 +112,7 @@ class DropdownTreeSelect extends Component {
 
   render () {
     return (
-      <div className='react-dropdown-tree-select'>
+      <div className={cn(this.props.className, 'react-dropdown-tree-select')}>
         <Dropdown ref={el => { this.dropdown = el }} onHide={this.onDrowdownHide}>
           <DropdownTrigger className={cx('dropdown-trigger')}>
             <Input

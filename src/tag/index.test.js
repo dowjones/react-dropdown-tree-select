@@ -25,6 +25,6 @@ test('should not cause form submit', t => {
       <Tag label='hello' id='abc' onDelete={onDelete} />
     </form>
   )
-  wrapper.find('.tag-remove').get(0).click()
+  wrapper.find('.tag-remove').simulate('click')
   t.false(onSubmit.called)
 })

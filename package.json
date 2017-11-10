@@ -10,6 +10,7 @@
     "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
+    "demo:bs": "webpack --progress --colors --watch --config docs/examples/bootstrap/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint --fix src docs webpack.config.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",

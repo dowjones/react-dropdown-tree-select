@@ -9,4 +9,4 @@ engines:
       languages:
       - javascript:
 exclude_paths:
- - docs/bundle.js
+ - docs/**/*

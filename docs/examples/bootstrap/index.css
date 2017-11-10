@@ -1,0 +1,52 @@
+body, html, #app {
+  height: 100%;
+}
+
+body {
+  margin: 20px;
+  width: calc(100% - 10px);
+}
+
+h2 {
+  margin: 0;
+}
+
+#app {
+  height: 50%;
+  width: 500px;
+}
+
+.suspended .node-label {
+  font-style: italic;
+  text-decoration: line-through;
+}
+
+.dropdown-content {
+  max-height: 400px;
+
+}
+
+/* bootstrap-demo is a custom classname to increases the specificity of our styles. It can be anything. 
+ * The idea is that it is easy to extend/override builtin styles with very little effort.
+ */
+.bootstrap-demo .dropdown-trigger {
+  border-radius: 0.25rem;
+}
+
+.bootstrap-demo .dropdown-trigger > span:after {
+  font-size: 12px;
+  color: #555;
+}
+
+.bootstrap-demo .toggle {
+  font: normal normal normal 12px/1 FontAwesome;
+  color:#555
+}
+
+.bootstrap-demo .toggle.collapsed::after {
+  content: "\f067";
+}
+
+.bootstrap-demo .toggle.expanded::after {
+  content: "\f068";
+}

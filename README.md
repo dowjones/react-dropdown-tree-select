@@ -25,7 +25,7 @@ A lightweight and fast control to render a select component that can display hie
 ## Table of Contents
 - [Screenshot](#screenshot)
 - [Demo](#example)
-  - [Vanilla (no framework)](#vanilla)
+  - [Vanilla (no framework)](#vanilla-no-framework)
   - [With Bootstrap](#with-bootstrap) 
 - [Install](#install)
   - [Peer Dependencies](#peer-dependencies)
@@ -37,7 +37,7 @@ A lightweight and fast control to render a select component that can display hie
   - [data](#data)
   - [placeholderText](#placeholdertext)
 - [Styling and Customization](#styling-and-customization)
-  - [With Bootstrap styles](#with-bootstrap-styles)
+  - [With Bootstrap styles](#tyling-and-customization)
 - [Performance](#performance)
   - [Search optimizations](#search-optimizations)
   - [Search debouncing](#search-debouncing)

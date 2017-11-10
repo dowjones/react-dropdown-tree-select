@@ -24,7 +24,9 @@ A lightweight and fast control to render a select component that can display hie
 
 ## Table of Contents
 - [Screenshot](#screenshot)
-- [Example](#example)
+- [Demo](#example)
+  - [Vanilla (no framework)](#vanilla)
+  - [With Bootstrap](#with-bootstrap) 
 - [Install](#install)
   - [Peer Dependencies](#peer-dependencies)
 - [Usage](#usage)
@@ -35,7 +37,7 @@ A lightweight and fast control to render a select component that can display hie
   - [data](#data)
   - [placeholderText](#placeholdertext)
 - [Styling and Customization](#styling-and-customization)
-  - With Bootstrap styles
+  - [With Bootstrap styles](#with-bootstrap-styles)
 - [Performance](#performance)
   - [Search optimizations](#search-optimizations)
   - [Search debouncing](#search-debouncing)
@@ -49,10 +51,13 @@ A lightweight and fast control to render a select component that can display hie
 
 ![demo](/docs/demo.gif)
 
-## Example
+## Demo
 
+###### Vanilla, no framework
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/
-With Bootstrap: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
+
+###### With Bootstrap 
+Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
 
 ## Install
 

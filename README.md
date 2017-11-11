@@ -27,6 +27,7 @@ A lightweight and fast control to render a select component that can display hie
 - [Demo](#example)
   - [Vanilla (no framework)](#vanilla-no-framework)
   - [With Bootstrap](#with-bootstrap) 
+  - [With Material Design](#with-material-design )
 - [Install](#install)
   - [Peer Dependencies](#peer-dependencies)
 - [Usage](#usage)
@@ -38,6 +39,7 @@ A lightweight and fast control to render a select component that can display hie
   - [placeholderText](#placeholdertext)
 - [Styling and Customization](#styling-and-customization)
   - [With Bootstrap styles](#styling-and-customization)
+  - [With Material Design styles](#styling-and-customization)
 - [Performance](#performance)
   - [Search optimizations](#search-optimizations)
   - [Search debouncing](#search-debouncing)
@@ -58,6 +60,9 @@ Online demo: http://dowjones.github.io/react-dropdown-tree-select/
 
 ##### With Bootstrap 
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
+
+##### With Material Design 
+Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
 
 ## Install
 
@@ -194,6 +199,7 @@ The text to display as placeholder on the search box. Defaults to `Choose...`
 The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. Checkout `/docs` folder for some examples.
 
  - [With Bootstrap](/docs/examples/bootstrap)
+ - [With Material Design ](/docs/examples/material)
  
 ## Performance
 

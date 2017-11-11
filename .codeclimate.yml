@@ -10,3 +10,6 @@ engines:
       - javascript:
 exclude_paths:
  - docs/**/*
+ratings:
+   paths:
+   - "src/**/*"

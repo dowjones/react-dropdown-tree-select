@@ -9,9 +9,7 @@
   "scripts": {
     "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "demo": "webpack --progress --colors --watch --config docs/webpack.config.js",
-    "demo:bs": "webpack --progress --colors --watch --config docs/examples/bootstrap/webpack.config.js",
-    "demo:mdl": "webpack --progress --colors --watch --config docs/examples/material/webpack.config.js",
+    "demo": "webpack-dev-server --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint --fix src docs webpack.config.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
@@ -54,6 +52,7 @@
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
     "nyc": "^11.2.1",
+    "open": "^0.0.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
@@ -61,7 +60,8 @@
     "semantic-release": "^7.0.2",
     "sinon": "^4.0.0",
     "style-loader": "^0.19.0",
-    "webpack": "^3.5.6"
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.9.4"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",

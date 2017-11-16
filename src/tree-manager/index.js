@@ -51,7 +51,7 @@ class TreeManager {
   }
 
   filterTree (searchTerm) {
-    const matches = this.getMatches(searchTerm)
+    const matches = this.getMatches(searchTerm.toLowerCase())
 
     this.tree.forEach(node => {
       node.hide = true

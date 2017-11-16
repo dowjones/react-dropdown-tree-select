@@ -373,3 +373,28 @@ test('should restore nodes', t => {
   const visibleNodes = ['i1', 'i2', 'c1', 'c2']
   visibleNodes.forEach(n => t.false(manager.getNodeById(n).hide))
 })
+
+test('should get matching nodes with mixed case when searched', t => {
+  const tree = {
+    id: 'i1',
+    label: 'search me',
+    value: 'v1',
+    children: [{
+      id: 'c1',
+      label: 'SeaRch me too',
+      value: 'l1v1',
+      children: [{
+        id: 'c2',
+        label: 'No one can get me',
+        value: 'l2v1'
+      }]
+    }]
+  }
+  const manager = new TreeManager(tree)
+  const {
+    allNodesHidden
+  } = manager.filterTree('SearCH')
+  t.false(allNodesHidden)
+  const nodes = ['i1', 'c1']
+  nodes.forEach(n => t.false(manager.getNodeById(n).hide))
+})

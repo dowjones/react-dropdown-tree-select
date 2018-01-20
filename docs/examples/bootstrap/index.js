@@ -8,10 +8,10 @@ const onAction = ({action, node}) => { console.log(`onAction:: [${action}]`, nod
 const onNodeToggle = (curNode) => { console.log('onNodeToggle::', curNode) }
 
 ReactDOM.render(
-<DropdownTreeSelect 
-    data={data} 
-    onChange={onChange} 
-    onAction={onAction} 
-    onNodeToggle={onNodeToggle} 
+  <DropdownTreeSelect
+    data={data}
+    onChange={onChange}
+    onAction={onAction}
+    onNodeToggle={onNodeToggle}
     className="bootstrap-demo"
-/>, document.getElementById('app'))
+  />, document.getElementById('app'))

@@ -128,10 +128,10 @@ class DropdownTreeSelect extends Component {
             {this.state.allNodesHidden
               ? <span className='no-matches'>No matches found</span>
               : (<Tree data={this.state.tree}
-                       searchModeOn={this.state.searchModeOn}
-                       onAction={this.onAction}
-                       onCheckboxChange={this.onCheckboxChange}
-                       onNodeToggle={this.onNodeToggle} />)
+                searchModeOn={this.state.searchModeOn}
+                onAction={this.onAction}
+                onCheckboxChange={this.onCheckboxChange}
+                onNodeToggle={this.onNodeToggle} />)
             }
           </DropdownContent>
         </Dropdown>

@@ -66,9 +66,9 @@ test('renders only expanded tree nodes when search mode is off', t => {
         value: 'value2-1',
         className: 'should-not-be-rendered',
         children: [
-            {label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered'},
-            {label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered'},
-            {label: 'item2-1-3', value: 'value2-1-3', className: 'should-not-be-rendered', children: [{label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered'}]}
+          {label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered'},
+          {label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered'},
+          {label: 'item2-1-3', value: 'value2-1-3', className: 'should-not-be-rendered', children: [{label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered'}]}
         ]
       },
       {

@@ -1,25 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-class Action extends Component {
-  static propTypes = {
-    title: PropTypes.string,
-    text: PropTypes.string,
-    className: PropTypes.string,
-    actionData: PropTypes.object,
-    onAction: PropTypes.func
-  }
+const Action = (props) => {
+  const { title, className, text, onAction, actionData } = props
 
-  onClick = (e) => {
-    if (typeof this.props.onAction === 'function') {
-      this.props.onAction(this.props.actionData)
+  const onClick = (e) => {
+    if (typeof onAction === 'function') {
+      onAction(actionData)
     }
   }
 
-  render () {
-    const { title, className, text } = this.props
-    return <i title={title} className={className} onClick={this.onClick}>{text}</i>
-  }
+  return <i title={title} className={className} onClick={onClick}>{text}</i>
+}
+
+Action.propTypes = {
+  title: PropTypes.string,
+  text: PropTypes.string,
+  className: PropTypes.string,
+  actionData: PropTypes.object,
+  onAction: PropTypes.func
 }
 
 export default Action

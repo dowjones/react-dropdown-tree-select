@@ -1,46 +1,44 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import TreeNode from '../tree-node'
 
-class Tree extends Component {
-  static propTypes = {
-    data: PropTypes.object,
-    searchModeOn: PropTypes.bool,
-    onChange: PropTypes.func,
-    onNodeToggle: PropTypes.func,
-    onAction: PropTypes.func,
-    onCheckboxChange: PropTypes.func
-  }
+const shouldRenderNode = (node, searchModeOn, data) => {
+  if (searchModeOn || node.expanded) return true
 
-  shouldRenderNode = (node) => {
-    if (this.props.searchModeOn || node.expanded) return true
+  const parent = node._parent && data.get(node._parent)
+  // if it has a parent, then check parent's state.
+  // otherwise root nodes are always rendered
+  return !parent || parent.expanded
+}
 
-    const parent = node._parent && this.props.data.get(node._parent)
-    // if it has a parent, then check parent's state.
-    // otherwise root nodes are always rendered
-    return !parent || parent.expanded
-  }
+const getNodes = (props) => {
+  const {searchModeOn, data, onAction, onChange, onCheckboxChange, onNodeToggle} = props
+  const items = []
+  data.forEach((node, key) => {
+    if (shouldRenderNode(node, searchModeOn, data)) {
+      items.push(<TreeNode key={key} node={node} onChange={onChange} onCheckboxChange={onCheckboxChange} onNodeToggle={onNodeToggle} onAction={onAction} />)
+    }
+  })
+  return items
+}
 
-  getNodes = (data) => {
-    const {onAction, onChange, onCheckboxChange, onNodeToggle} = this.props
-    const items = []
-    data.forEach((node, key) => {
-      if (this.shouldRenderNode(node)) {
-        items.push(<TreeNode key={key} node={node} onChange={onChange} onCheckboxChange={onCheckboxChange} onNodeToggle={onNodeToggle} onAction={onAction} />)
-      }
-    })
-    return items
-  }
+const Tree = (props) => {
+  const { searchModeOn } = props
 
-  render () {
-    const { data, searchModeOn } = this.props
+  return (
+    <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>
+      { getNodes(props) }
+    </ul>
+  )
+}
 
-    return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>
-        { this.getNodes(data) }
-      </ul>
-    )
-  }
+Tree.propTypes = {
+  data: PropTypes.object,
+  searchModeOn: PropTypes.bool,
+  onChange: PropTypes.func,
+  onNodeToggle: PropTypes.func,
+  onAction: PropTypes.func,
+  onCheckboxChange: PropTypes.func
 }
 
 export default Tree

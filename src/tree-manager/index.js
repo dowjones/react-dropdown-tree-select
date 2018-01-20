@@ -1,11 +1,10 @@
-import isEmpty from 'lodash/isEmpty'
-import cloneDeep from 'lodash/cloneDeep'
+import isEmpty from 'lodash.isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
   constructor (tree) {
     this._src = tree
-    this.tree = flattenTree(cloneDeep(tree))
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
     this.tree.forEach(node => { this.setInitialCheckState(node) })
     this.searchMaps = new Map()
   }

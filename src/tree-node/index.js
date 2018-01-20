@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import isEmpty from 'lodash/isEmpty'
+import isEmpty from 'lodash.isEmpty'
 import Action from './action'
 import cn from 'classnames/bind'
 import styles from './index.css'

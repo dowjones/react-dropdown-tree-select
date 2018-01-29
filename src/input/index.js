@@ -1,27 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import debounce from 'lodash/debounce'
+import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
 
 const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete) => {
-  return tags.map(
-    (tag, i) => {
-      const { _id, label, tagClassName } = tag
-      return (
-        <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
-          <Tag
-            label={label}
-            id={_id}
-            onDelete={onDelete}
-          />
-        </li>
-      )
-    }
-  )
+  return tags.map((tag, i) => {
+    const {_id, label, tagClassName} = tag
+    return (
+      <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
+        <Tag label={label} id={_id} onDelete={onDelete}/>
+      </li>
+    )
+  })
 }
 
 const Input = (props) => {
@@ -36,9 +30,7 @@ const Input = (props) => {
 
   const delayedCallback = debounce((e) => {
     props.onInputChange(e.target.value)
-  }, 50, {
-    leading: true
-  })
+  }, 50, {leading: true})
 
   const onInputChange = (e) => {
     e.persist()
@@ -46,19 +38,19 @@ const Input = (props) => {
   }
 
   return (
-    <span>
-      <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove)}
-        <li className={cx('tag-item')}>
-          <input type='text'
-            ref={inputRef}
-            placeholder={placeholderText}
-            onChange={onInputChange}
-            onFocus={onFocus}
-            onBlur={onBlur} />
-        </li>
-      </ul>
-    </span>
+    <ul className={cx('tag-list')}>
+      {getTags(tags, onTagRemove)}
+      <li className={cx('tag-item')}>
+        <input
+          type='text'
+          ref={inputRef}
+          className={cx('search')}
+          placeholder={placeholderText}
+          onChange={onInputChange}
+          onFocus={onFocus}
+          onBlur={onBlur}/>
+      </li>
+    </ul>
   )
 }
 

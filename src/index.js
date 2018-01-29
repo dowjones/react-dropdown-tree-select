@@ -9,7 +9,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown'
 import TreeManager from './tree-manager'
 import Tree from './tree'
 import Input from './input'
@@ -19,10 +18,9 @@ const cx = cn.bind(styles)
 
 class DropdownTreeSelect extends Component {
   static propTypes = {
-    data: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array
-    ]).isRequired,
+    data: PropTypes
+      .oneOfType([PropTypes.object, PropTypes.array])
+      .isRequired,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -33,28 +31,28 @@ class DropdownTreeSelect extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {dropdownActive: this.props.showDropdown || false, searchModeOn: false}
-
-    this.onInputChange = this.onInputChange.bind(this)
-    this.onDrowdownHide = this.onDrowdownHide.bind(this)
-    this.onCheckboxChange = this.onCheckboxChange.bind(this)
-    this.notifyChange = this.notifyChange.bind(this)
-    this.onTagRemove = this.onTagRemove.bind(this)
-    this.onNodeToggle = this.onNodeToggle.bind(this)
+    this.state = {
+      showDropdown: this.props.showDropdown || false,
+      searchModeOn: false
+    }
   }
 
-  notifyChange (...args) {
+  notifyChange = (...args) => {
     typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
-  createList (tree) {
+  createList = (tree) => {
     this.treeManager = new TreeManager(tree)
     return this.treeManager.tree
   }
 
   resetSearch = () => {
     // restore the tree to its pre-search state
-    this.setState({tree: this.treeManager.restoreNodes(), searchModeOn: false, allNodesHidden: false})
+    this.setState({
+      tree: this.treeManager.restoreNodes(),
+      searchModeOn: false,
+      allNodesHidden: false
+    })
     // clear the search criteria and avoid react controlled/uncontrolled warning
     this.searchInput.value = ''
   }
@@ -62,47 +60,56 @@ class DropdownTreeSelect extends Component {
   componentWillMount () {
     const tree = this.createList(this.props.data)
     const tags = this.treeManager.getTags()
-    this.setState({tree, tags})
+    this.setState({ tree, tags })
   }
 
   componentWillReceiveProps (nextProps) {
     const tree = this.createList(nextProps.data)
     const tags = this.treeManager.getTags()
-    this.setState({tree, tags})
+    this.setState({ tree, tags })
   }
 
-  onDrowdownHide () {
-    // needed when you click an item in tree and then click back in the input box.
-    // react-simple-dropdown behavior is toggle since its single select only
-    // but we want the drawer to remain open in this scenario as we support multi select
-    if (this.keepDropdownActive) {
-      this.dropdown.show()
+  handleClick = () => {
+    if (!this.state.showDropdown) {
+      document.addEventListener('click', this.handleOutsideClick, false)
     } else {
-      this.resetSearch()
+      document.removeEventListener('click', this.handleOutsideClick, false)
     }
+
+    this.setState(prevState => ({
+      showDropdown: !prevState.showDropdown
+    }))
   }
 
-  onInputChange (value) {
-    const {allNodesHidden, tree} = this.treeManager.filterTree(value)
+  handleOutsideClick = (e) => {
+    if (this.node.contains(e.target)) {
+      return
+    }
+
+    this.handleClick()
+  }
+
+  onInputChange = (value) => {
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value)
     const searchModeOn = value.length > 0
 
-    this.setState({tree, searchModeOn, allNodesHidden})
+    this.setState({ tree, searchModeOn, allNodesHidden })
   }
 
-  onTagRemove (id) {
+  onTagRemove = (id) => {
     this.onCheckboxChange(id, false)
   }
 
-  onNodeToggle (id) {
+  onNodeToggle = (id) => {
     this.treeManager.toggleNodeExpandState(id)
     this.setState({ tree: this.treeManager.tree })
     typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
-  onCheckboxChange (id, checked) {
+  onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    this.setState({tree: this.treeManager.tree, tags})
+    this.setState({ tree: this.treeManager.tree, tags })
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 
@@ -112,9 +119,13 @@ class DropdownTreeSelect extends Component {
 
   render () {
     return (
-      <div className={cn(this.props.className, 'react-dropdown-tree-select')}>
-        <Dropdown ref={el => { this.dropdown = el }} onHide={this.onDrowdownHide}>
-          <DropdownTrigger className={cx('dropdown-trigger')}>
+      <div
+        className={cx(this.props.className, 'react-dropdown-tree-select')}
+        ref={node => {
+          this.node = node
+        }}>
+        <div className={cx('input-wrap')}>
+          <div className={cx('tag-list-wrap')}>
             <Input
               inputRef={el => { this.searchInput = el }}
               tags={this.state.tags}
@@ -123,18 +134,30 @@ class DropdownTreeSelect extends Component {
               onFocus={() => { this.keepDropdownActive = true }}
               onBlur={() => { this.keepDropdownActive = false }}
               onTagRemove={this.onTagRemove} />
-          </DropdownTrigger>
-          <DropdownContent className={cx('dropdown-content')}>
+          </div>
+          <div className={cx('trigger-wrap')}>
+            <div
+              className={cx({
+                arrow: true,
+                top: this.state.showDropdown,
+                bottom: !this.state.showDropdown
+              })}
+              onClick={this.handleClick} />
+          </div>
+        </div>
+        {this.state.showDropdown && (
+          <div className={cx('dropdown-content')}>
             {this.state.allNodesHidden
               ? <span className='no-matches'>No matches found</span>
-              : (<Tree data={this.state.tree}
+              : (<Tree
+                data={this.state.tree}
                 searchModeOn={this.state.searchModeOn}
                 onAction={this.onAction}
                 onCheckboxChange={this.onCheckboxChange}
                 onNodeToggle={this.onNodeToggle} />)
             }
-          </DropdownContent>
-        </Dropdown>
+          </div>
+        )}
       </div>
     )
   }

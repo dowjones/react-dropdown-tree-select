@@ -11,6 +11,7 @@ const Tag = (props) => {
   const onClick = (e) => {
     // this is needed to stop the drawer from closing
     e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
     onDelete(id)
   }
 

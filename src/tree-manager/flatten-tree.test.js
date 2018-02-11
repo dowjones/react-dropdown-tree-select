@@ -42,6 +42,7 @@ test('flattens tree with no root', t => {
         '0-1'
       ],
       _depth: 0,
+      children: undefined,
       name: 'item1',
       value: 'value1'
     },
@@ -52,6 +53,7 @@ test('flattens tree with no root', t => {
         '1-1'
       ],
       _depth: 0,
+      children: undefined,
       name: 'item2',
       value: 'value2'
     },
@@ -63,6 +65,7 @@ test('flattens tree with no root', t => {
         '0-0-1'
       ],
       _depth: 1,
+      children: undefined,
       name: 'item1-1',
       value: 'value1-1'
     },
@@ -96,6 +99,7 @@ test('flattens tree with no root', t => {
         '1-0-2'
       ],
       _depth: 1,
+      children: undefined,
       name: 'item2-1',
       value: 'value2-1'
     },
@@ -127,6 +131,7 @@ test('flattens tree with no root', t => {
         '1-0-2-0'
       ],
       _depth: 2,
+      children: undefined,
       name: 'item2-1-3',
       value: 'value2-1-3'
     },
@@ -165,6 +170,7 @@ test('flattens tree with root', t => {
         '0-1'
       ],
       _depth: 0,
+      children: undefined,
       name: 'item1',
       value: 'value1'
     },
@@ -176,6 +182,7 @@ test('flattens tree with root', t => {
         '0-0-1'
       ],
       _depth: 1,
+      children: undefined,
       name: 'item1-1',
       value: 'value1-1'
     },

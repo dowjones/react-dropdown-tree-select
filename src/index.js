@@ -70,15 +70,22 @@ class DropdownTreeSelect extends Component {
   }
 
   handleClick = () => {
-    if (!this.state.showDropdown) {
-      document.addEventListener('click', this.handleOutsideClick, false)
-    } else {
-      document.removeEventListener('click', this.handleOutsideClick, false)
-    }
+    this.setState(prevState => {
+      // keep dropdown active when typing in search box
+      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
 
-    this.setState(prevState => ({
-      showDropdown: !prevState.showDropdown
-    }))
+      // register event listeners only if there is a state change
+      if (showDropdown !== prevState.showDropdown) {
+        if (showDropdown) {
+          document.addEventListener('click', this.handleOutsideClick, false)
+        } else {
+          document.removeEventListener('click', this.handleOutsideClick, false)
+        }
+      }
+
+      if (!showDropdown) this.resetSearch()
+      return { showDropdown }
+    })
   }
 
   handleOutsideClick = (e) => {
@@ -118,14 +125,17 @@ class DropdownTreeSelect extends Component {
   }
 
   render () {
+    const dropdownTriggerClassname = cx({
+      'dropdown-trigger': true,
+      arrow: true,
+      top: this.state.showDropdown,
+      bottom: !this.state.showDropdown
+    })
     return (
       <div
-        className={cx(this.props.className, 'react-dropdown-tree-select')}
-        ref={node => {
-          this.node = node
-        }}>
-        <div className={cx('input-wrap')}>
-          <div className={cx('tag-list-wrap')}>
+        className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
+        <div className="dropdown">
+          <a className={dropdownTriggerClassname} onClick={this.handleClick}>
             <Input
               inputRef={el => { this.searchInput = el }}
               tags={this.state.tags}
@@ -134,30 +144,21 @@ class DropdownTreeSelect extends Component {
               onFocus={() => { this.keepDropdownActive = true }}
               onBlur={() => { this.keepDropdownActive = false }}
               onTagRemove={this.onTagRemove} />
-          </div>
-          <div className={cx('trigger-wrap')}>
-            <div
-              className={cx({
-                arrow: true,
-                top: this.state.showDropdown,
-                bottom: !this.state.showDropdown
-              })}
-              onClick={this.handleClick} />
-          </div>
+          </a>
+          {this.state.showDropdown && (
+            <div className={cx('dropdown-content')}>
+              {this.state.allNodesHidden
+                ? <span className='no-matches'>No matches found</span>
+                : (<Tree
+                  data={this.state.tree}
+                  searchModeOn={this.state.searchModeOn}
+                  onAction={this.onAction}
+                  onCheckboxChange={this.onCheckboxChange}
+                  onNodeToggle={this.onNodeToggle} />)
+              }
+            </div>
+          )}
         </div>
-        {this.state.showDropdown && (
-          <div className={cx('dropdown-content')}>
-            {this.state.allNodesHidden
-              ? <span className='no-matches'>No matches found</span>
-              : (<Tree
-                data={this.state.tree}
-                searchModeOn={this.state.searchModeOn}
-                onAction={this.onAction}
-                onCheckboxChange={this.onCheckboxChange}
-                onNodeToggle={this.onNodeToggle} />)
-            }
-          </div>
-        )}
       </div>
     )
   }

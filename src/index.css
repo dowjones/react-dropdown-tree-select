@@ -4,55 +4,49 @@
 }
 
 .react-dropdown-tree-select {
-  position: relative;
-  display: table;
-  border: 1px solid rgb(185, 185, 185);
-
-  .input-wrap {
+  .dropdown {
+    position: relative;
     display: table;
-    width: 100%;
-    padding: 4px 0 4px 4px;
 
-    .tag-list-wrap,
-    .trigger-wrap {
-      display: table-cell;
-      vertical-align: middle;
-    }
-  }
+    .dropdown-trigger {
+      padding: 4px;
+      line-height: 20px;
+      max-height: 200px;
+      display: inline-block;
+      overflow: auto;
+      border: 1px solid rgb(185, 185, 185);
 
-  .trigger-wrap {
-    padding: 8px;
-    font-size: 12px;
-    text-align: center;
+      &.arrow {
+        cursor: pointer;
 
-    .arrow {
-      cursor: pointer;
+        &.bottom:after {
+          content: "\25BC";
+          vertical-align: middle;
+          color: #3c3c3c;
+          margin-right: 2px;
+        }
 
-      &.bottom::after {
-        content: "\25BC";
-        vertical-align: middle;
-        color: #3c3c3c;
-      }
-
-      &.top:after {
-        content: "\25B2";
-        vertical-align: middle;
-        color: #3c3c3c;
+        &.top:after {
+          content: "\25B2";
+          vertical-align: middle;
+          color: #3c3c3c;
+          margin-right: 2px;
+        }
       }
     }
-  }
 
-  .dropdown-content {    
-    position: absolute;
-    padding: 4px;
-    z-index: 1;
-    background: white;
-    border-top: rgba(0, 0, 0, 0.05) 1px solid;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+    .dropdown-content {
+      position: absolute;
+      padding: 4px;
+      z-index: 1;
+      background: white;
+      border-top: rgba(0, 0, 0, 0.05) 1px solid;
+      box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
 
-    ul {
-      margin: 0;
-      padding: 0;
+      ul {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }

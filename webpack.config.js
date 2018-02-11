@@ -21,12 +21,6 @@ module.exports = {
       commonjs2: 'react',
       commonjs: 'react',
       amd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
     }
   },
   plugins: [
@@ -37,7 +31,7 @@ module.exports = {
     new webpack
       .optimize
       .UglifyJsPlugin({sourceMap: true, exclude: /node_modules/}),
-    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false})
+    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true})
   ],
   module: {
     rules: [

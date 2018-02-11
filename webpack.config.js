@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
 
 module.exports = {
   devtool: 'source-map',
@@ -34,14 +34,10 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new ExtractTextPlugin('styles.css'),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      exclude: /node_modules/
-    }),
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: false
-    })
+    new webpack
+      .optimize
+      .UglifyJsPlugin({sourceMap: true, exclude: /node_modules/}),
+    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false})
   ],
   module: {
     rules: [
@@ -54,12 +50,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: {
-            loader: 'css-loader',
-            options: {
-              localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]'
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
+                importLoaders: 1,
+                minimize: true
+              }
             }
-          }
+          ]
         }),
         include: /src/,
         exclude: /node_modules/

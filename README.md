@@ -38,8 +38,8 @@ A lightweight and fast control to render a select component that can display hie
   - [data](#data)
   - [placeholderText](#placeholdertext)
 - [Styling and Customization](#styling-and-customization)
-  - [With Bootstrap styles](#styling-and-customization)
-  - [With Material Design styles](#styling-and-customization)
+  - [Using default styles](#default-styles)
+  - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
 - [Performance](#performance)
   - [Search optimizations](#search-optimizations)
   - [Search debouncing](#search-debouncing)
@@ -196,7 +196,46 @@ The text to display as placeholder on the search box. Defaults to `Choose...`
 
 ## Styling and Customization
 
-The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. Checkout `/docs` folder for some examples.
+### Default styles
+
+The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. 
+
+#### Using WebPack
+
+If you're using a bundler like webpack, make sure you configure webpack to import the default styles. To do so, simply add this rule to your webpack config:
+
+```js
+// allow webpack to import/bundle styles from node_modules for this component
+module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader'
+        }]
+      }),
+      include: /node_modules[/\\]react-dropdown-tree-select/
+    }
+  ]
+}
+```
+
+#### Using a CDN
+You can import and place a style link directly by referencing it from a CDN.
+
+```html
+<link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet">
+```
+
+Note: Above example will always fetch the latest version. To fetch a specific version, use `https://unpkg.com/react-dropdown-tree-select@<version>/dist/styles.css`. Visit [unpkg.com](https://unpkg.com/#/) to see other options.
+
+#### Using with other bundlers
+You can reference the files from `node_modules/react-dropdown-tree-select/dist/styles.css` to include in your own bundle via gulp or any other bundlers you have.
+
+### Customizing styles
+Once you import default styles, it is easy to add/override the provided styles to match popular frameworks. Checkout `/docs` folder for some examples.
 
  - [With Bootstrap](/docs/examples/bootstrap)
  - [With Material Design ](/docs/examples/material)

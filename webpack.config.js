@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
-const UnminifiedWebpackPlugin = require('unminified-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -11,7 +10,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].min.js',
+    filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactDropdownTreeSelect',
     umdNamedDefine: true
@@ -34,11 +33,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new ExtractTextPlugin('styles.min.css'),
+    new ExtractTextPlugin('styles.css'),
     new webpack
       .optimize
       .UglifyJsPlugin({sourceMap: true, exclude: /node_modules/}),
-    new UnminifiedWebpackPlugin(),
     new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false})
   ],
   module: {

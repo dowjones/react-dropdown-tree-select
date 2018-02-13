@@ -18,9 +18,7 @@ const cx = cn.bind(styles)
 
 class DropdownTreeSelect extends Component {
   static propTypes = {
-    data: PropTypes
-      .oneOfType([PropTypes.object, PropTypes.array])
-      .isRequired,
+    data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -41,7 +39,7 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
-  createList = (tree) => {
+  createList = tree => {
     this.treeManager = new TreeManager(tree)
     return this.treeManager.tree
   }
@@ -88,7 +86,7 @@ class DropdownTreeSelect extends Component {
     })
   }
 
-  handleOutsideClick = (e) => {
+  handleOutsideClick = e => {
     if (this.node.contains(e.target)) {
       return
     }
@@ -96,21 +94,22 @@ class DropdownTreeSelect extends Component {
     this.handleClick()
   }
 
-  onInputChange = (value) => {
+  onInputChange = value => {
     const { allNodesHidden, tree } = this.treeManager.filterTree(value)
     const searchModeOn = value.length > 0
 
     this.setState({ tree, searchModeOn, allNodesHidden })
   }
 
-  onTagRemove = (id) => {
+  onTagRemove = id => {
     this.onCheckboxChange(id, false)
   }
 
-  onNodeToggle = (id) => {
+  onNodeToggle = id => {
     this.treeManager.toggleNodeExpandState(id)
     this.setState({ tree: this.treeManager.tree })
-    typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
+    typeof this.props.onNodeToggle === 'function' &&
+      this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
   onCheckboxChange = (id, checked) => {
@@ -121,7 +120,8 @@ class DropdownTreeSelect extends Component {
   }
 
   onAction = (actionId, nodeId) => {
-    typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
+    typeof this.props.onAction === 'function' &&
+      this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
   render () {
@@ -133,29 +133,42 @@ class DropdownTreeSelect extends Component {
     })
     return (
       <div
-        className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
+        className={cx(this.props.className, 'react-dropdown-tree-select')}
+        ref={node => {
+          this.node = node
+        }}
+      >
         <div className="dropdown">
           <a className={dropdownTriggerClassname} onClick={this.handleClick}>
             <Input
-              inputRef={el => { this.searchInput = el }}
+              inputRef={el => {
+                this.searchInput = el
+              }}
               tags={this.state.tags}
               placeholderText={this.props.placeholderText}
               onInputChange={this.onInputChange}
-              onFocus={() => { this.keepDropdownActive = true }}
-              onBlur={() => { this.keepDropdownActive = false }}
-              onTagRemove={this.onTagRemove} />
+              onFocus={() => {
+                this.keepDropdownActive = true
+              }}
+              onBlur={() => {
+                this.keepDropdownActive = false
+              }}
+              onTagRemove={this.onTagRemove}
+            />
           </a>
           {this.state.showDropdown && (
             <div className={cx('dropdown-content')}>
-              {this.state.allNodesHidden
-                ? <span className='no-matches'>No matches found</span>
-                : (<Tree
+              {this.state.allNodesHidden ? (
+                <span className="no-matches">No matches found</span>
+              ) : (
+                <Tree
                   data={this.state.tree}
                   searchModeOn={this.state.searchModeOn}
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
-                  onNodeToggle={this.onNodeToggle} />)
-              }
+                  onNodeToggle={this.onNodeToggle}
+                />
+              )}
             </div>
           )}
         </div>

@@ -6,11 +6,9 @@
       "modules": true
     }
   },
-  "extends": [
-    "standard",
-    "plugin:react/recommended"
-  ],
-  "plugins": [
-    "react"
-  ]
+  "extends": ["standard", "plugin:react/recommended"],
+  "plugins": ["react"],
+  "rules": {
+    "max-len": ["error", { "code": 120 }]
+  }
 }

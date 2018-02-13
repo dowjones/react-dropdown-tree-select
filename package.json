@@ -27,7 +27,7 @@
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack-dev-server --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
-    "lint": "eslint --fix src docs webpack.config.js && stylelint \"**/*.css, !**/dist/**\" --fix",
+    "lint": "eslint --fix src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "test": "cross-env NODE_ENV=test ava",

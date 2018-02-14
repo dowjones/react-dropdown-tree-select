@@ -8,25 +8,25 @@
   padding-left: 0 !important;
 }
 
-.searchModeOn .toggle {
-  display: none;
-}
-
 .toggle {
   white-space: pre;
   margin-right: 4px;
 }
 
-.toggle:after {
+.searchModeOn .toggle {
+  display: none;
+}
+
+.toggle::after {
   content: " ";
 }
 
-.toggle.collapsed:after {
+.toggle.collapsed::after {
   cursor: pointer;
   content: "+";
 }
 
-.toggle.expanded:after {
+.toggle.expanded::after {
   cursor: pointer;
   content: "-";
 }

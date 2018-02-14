@@ -21,12 +21,6 @@ module.exports = {
       commonjs2: 'react',
       commonjs: 'react',
       amd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom'
     }
   },
   plugins: [
@@ -37,7 +31,7 @@ module.exports = {
     new webpack
       .optimize
       .UglifyJsPlugin({sourceMap: true, exclude: /node_modules/}),
-    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false})
+    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true})
   ],
   module: {
     rules: [
@@ -46,8 +40,7 @@ module.exports = {
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/
-      },
-      {
+      }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: [
@@ -58,6 +51,9 @@ module.exports = {
                 importLoaders: 1,
                 minimize: true
               }
+            },
+            {
+              loader: 'postcss-loader'
             }
           ]
         }),

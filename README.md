@@ -26,7 +26,7 @@ A lightweight and fast control to render a select component that can display hie
 - [Screenshot](#screenshot)
 - [Demo](#example)
   - [Vanilla (no framework)](#vanilla-no-framework)
-  - [With Bootstrap](#with-bootstrap) 
+  - [With Bootstrap](#with-bootstrap)
   - [With Material Design](#with-material-design )
 - [Install](#install)
   - [Peer Dependencies](#peer-dependencies)
@@ -58,10 +58,10 @@ A lightweight and fast control to render a select component that can display hie
 ##### Vanilla, no framework
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/
 
-##### With Bootstrap 
+##### With Bootstrap
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
 
-##### With Material Design 
+##### With Material Design
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
 
 ## Install
@@ -198,7 +198,7 @@ The text to display as placeholder on the search box. Defaults to `Choose...`
 
 ### Default styles
 
-The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs. 
+The component brings minimal styles for bare-bones functional rendering. It is kept purposefully minimal so that user can style/customize it completely to suit their needs.
 
 #### Using WebPack
 
@@ -239,7 +239,7 @@ Once you import default styles, it is easy to add/override the provided styles t
 
  - [With Bootstrap](/docs/examples/bootstrap)
  - [With Material Design ](/docs/examples/material)
- 
+
 ## Performance
 
 ### Search optimizations
@@ -295,14 +295,14 @@ Absolutely not! Simply do not import the styles (webpack) or include it in your 
 
 ```pug
 div.react-dropdown-tree-select
-  div.dropdown 
-    a.dropdown__trigger.dropdown-trigger
+  div.dropdown
+    a.dropdown-trigger
       span
     ul.tag-list
       li.tag-item
         input
-    div.dropdown__content.dropdown-content
-      ul.root 
+    div.dropdown-content
+      ul.root
         li.node.tree
           i.toggle.collapsed
           label
@@ -311,9 +311,9 @@ div.react-dropdown-tree-select
 ```
 
 Write your own styles from scratch or copy [existing styles](https://github.com/search?utf8=%E2%9C%93&q=repo%3Adowjones%2Freact-dropdown-tree-select+language%3ACSS+path%3A%2Fsrc&type=Code&ref=advsearch&l=CSS&l=) and tweak them.
-Then include your own custom styles in your project. 
+Then include your own custom styles in your project.
 
-:bulb: Pro tip: Leverage [node's](#data) `className`, `tagClassName` or [action's](#data) `className` prop to emit your own class name. Then override/add css propeties in your class. Remember that last person wins in CSS (unless specificity or `!important` is involved). Often times, this may suffice and may be easier then writin all the styles from the ground up.
+:bulb: Pro tip: Leverage [node's](#data) `className`, `tagClassName` or [action's](#data) `className` prop to emit your own class name. Then override/add css propeties in your class. Remember that last person wins in CSS (unless specificity or `!important` is involved). Often times, this may suffice and may be easier then writing all the styles from the ground up.
 
 If you believe this aspect can be improved further, feel free to raise an issue.
 

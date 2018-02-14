@@ -7,7 +7,7 @@ import styles from './index.css'
 
 const cx = cn.bind(styles)
 
-const TreeNode = (props) => {
+const TreeNode = props => {
   const { node, onNodeToggle, onCheckboxChange, onAction } = props
   const actions = node.actions || []
   const isLeaf = isEmpty(node._children)
@@ -18,15 +18,19 @@ const TreeNode = (props) => {
     <li className={liCx} style={{ paddingLeft: `${node._depth * 20}px` }}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
-        <input type='checkbox'
+        <input
+          type="checkbox"
           name={node._id}
-          className='checkbox-item'
+          className="checkbox-item"
           checked={node.checked}
           onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value} />
-        <span className='node-label'>{node.label}</span>
+          value={node.value}
+        />
+        <span className="node-label">{node.label}</span>
       </label>
-      {actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{action: a.id, node}} onAction={onAction} />)}
+      {actions.map((a, idx) => (
+        <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
+      ))}
     </li>
   )
 }

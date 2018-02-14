@@ -24,6 +24,7 @@ const getNodes = props => {
           onCheckboxChange={onCheckboxChange}
           onNodeToggle={onNodeToggle}
           onAction={onAction}
+          searchModeOn={searchModeOn}
         />
       )
     }

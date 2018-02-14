@@ -4,10 +4,6 @@
   padding: 4px;
 }
 
-.searchModeOn li.node {
-  padding-left: 0 !important;
-}
-
 .toggle {
   white-space: pre;
   margin-right: 4px;

@@ -163,10 +163,10 @@ class DropdownTreeSelect extends Component {
               ) : (
                 <Tree
                   data={this.state.tree}
-                  searchModeOn={this.state.searchModeOn}
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
+                  searchModeOn={this.state.searchModeOn}
                 />
               )}
             </div>

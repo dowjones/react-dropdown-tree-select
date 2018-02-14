@@ -8,14 +8,14 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 const TreeNode = props => {
-  const { node, onNodeToggle, onCheckboxChange, onAction } = props
+  const { node, onNodeToggle, onCheckboxChange, onAction, searchModeOn } = props
   const actions = node.actions || []
   const isLeaf = isEmpty(node._children)
   const liCx = cx('node', { leaf: isLeaf, tree: !isLeaf, hide: node.hide }, node.className)
   const toggleCx = cx('toggle', { expanded: !isLeaf && node.expanded, collapsed: !isLeaf && !node.expanded })
 
   return (
-    <li className={liCx} style={{ paddingLeft: `${node._depth * 20}px` }}>
+    <li className={liCx} style={!searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
         <input
@@ -49,7 +49,8 @@ TreeNode.propTypes = {
   }).isRequired,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
+  searchModeOn: PropTypes.bool
 }
 
 export default TreeNode

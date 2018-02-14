@@ -15,9 +15,18 @@ const baseConfig = {
     {
       test: /\.css$/,
       use: [
-        'style-loader',
         {
-          loader: 'css-loader'
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
+            importLoaders: 1
+          }
+        },
+        {
+          loader: 'postcss-loader'
         }
       ],
       include: /src/

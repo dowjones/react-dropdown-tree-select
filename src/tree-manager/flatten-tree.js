@@ -112,7 +112,7 @@ function walkNodes ({nodes, list = new Map(), parent, depth = 0}) {
     if (node.children) {
       node._children = []
       walkNodes({nodes: node.children, list, parent: node, depth: depth + 1})
-      delete node.children
+      node.children = undefined
     }
   })
   return list

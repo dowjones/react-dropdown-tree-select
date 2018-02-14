@@ -215,6 +215,13 @@ Type: `string`
 
 The text to display as placeholder on the search box. Defaults to `Choose...`
 
+### keepTreeOnSearch
+
+
+Type: `bool`
+
+Displays search results as a tree instead of flatten results
+
 ## Styling and Customization
 
 ### Default styles

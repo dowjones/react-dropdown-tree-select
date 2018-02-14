@@ -12,19 +12,20 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 const getNodes = props => {
-  const { searchModeOn, data, onAction, onChange, onCheckboxChange, onNodeToggle } = props
+  const { data, keepTreeOnSearch, searchModeOn, onAction, onChange, onCheckboxChange, onNodeToggle } = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
       items.push(
         <TreeNode
+          keepTreeOnSearch={keepTreeOnSearch}
           key={key}
           node={node}
+          searchModeOn={searchModeOn}
           onChange={onChange}
           onCheckboxChange={onCheckboxChange}
           onNodeToggle={onNodeToggle}
           onAction={onAction}
-          searchModeOn={searchModeOn}
         />
       )
     }
@@ -40,6 +41,7 @@ const Tree = props => {
 
 Tree.propTypes = {
   data: PropTypes.object,
+  keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onChange: PropTypes.func,
   onNodeToggle: PropTypes.func,

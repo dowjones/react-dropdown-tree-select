@@ -8,15 +8,19 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 const TreeNode = props => {
-  const { node, onNodeToggle, onCheckboxChange, onAction, searchModeOn } = props
+  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, onAction } = props
   const actions = node.actions || []
   const isLeaf = isEmpty(node._children)
-  const liCx = cx('node', { leaf: isLeaf, tree: !isLeaf, hide: node.hide }, node.className)
+  const liCx = cx(
+    'node',
+    { leaf: isLeaf, tree: !isLeaf, hide: node.hide, 'match-in-children': keepTreeOnSearch && node.matchInChildren },
+    node.className
+  )
   const toggleCx = cx('toggle', { expanded: !isLeaf && node.expanded, collapsed: !isLeaf && !node.expanded })
 
   return (
-    <li className={liCx} style={!searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
-      <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
+    <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
+      {(!searchModeOn || keepTreeOnSearch) && <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />}
       <label title={node.title || node.label}>
         <input
           type="checkbox"
@@ -47,10 +51,11 @@ TreeNode.propTypes = {
     checked: PropTypes.bool,
     expanded: PropTypes.bool
   }).isRequired,
+  keepTreeOnSearch: PropTypes.bool,
+  searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func,
-  searchModeOn: PropTypes.bool
+  onCheckboxChange: PropTypes.func
 }
 
 export default TreeNode

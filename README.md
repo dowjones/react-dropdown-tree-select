@@ -1,9 +1,10 @@
 # react-dropdown-tree-select
-----
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg)](https://greenkeeper.io/)
+---
 
-[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url]
+[![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+
+[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url]
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -16,38 +17,42 @@
 [download-image]: https://img.shields.io/npm/dm/react-dropdown-tree-select.svg?style=flat-square
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
-
+[commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen-url]: http://commitizen.github.io/cz-cli/
+[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg
+[greenkeeper-url]: https://greenkeeper.io/
 
 ## React Dropdown Tree Select
 
 A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection.
 
 ## Table of Contents
-- [Screenshot](#screenshot)
-- [Demo](#example)
-  - [Vanilla (no framework)](#vanilla-no-framework)
-  - [With Bootstrap](#with-bootstrap)
-  - [With Material Design](#with-material-design )
-- [Install](#install)
-  - [Peer Dependencies](#peer-dependencies)
-- [Usage](#usage)
-- [Props](#props)
-  - [className](#classname)
-  - [onChange](#onchange)
-  - [onNodeToggle](#onnodetoggle)
-  - [data](#data)
-  - [placeholderText](#placeholdertext)
-- [Styling and Customization](#styling-and-customization)
-  - [Using default styles](#default-styles)
-  - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
-- [Performance](#performance)
-  - [Search optimizations](#search-optimizations)
-  - [Search debouncing](#search-debouncing)
-  - [Virtualized rendering](#virtualized-rendering)
-  - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
-- [FAQ](#faq)
-- [Development](#development)
-- [License](#license)
+
+* [Screenshot](#screenshot)
+* [Demo](#example)
+  * [Vanilla (no framework)](#vanilla-no-framework)
+  * [With Bootstrap](#with-bootstrap)
+  * [With Material Design](#with-material-design)
+* [Install](#install)
+  * [Peer Dependencies](#peer-dependencies)
+* [Usage](#usage)
+* [Props](#props)
+  * [className](#classname)
+  * [onChange](#onchange)
+  * [onNodeToggle](#onnodetoggle)
+  * [data](#data)
+  * [placeholderText](#placeholdertext)
+* [Styling and Customization](#styling-and-customization)
+  * [Using default styles](#default-styles)
+  * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
+* [Performance](#performance)
+  * [Search optimizations](#search-optimizations)
+  * [Search debouncing](#search-debouncing)
+  * [Virtualized rendering](#virtualized-rendering)
+  * [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
+* [FAQ](#faq)
+* [Development](#development)
+* [License](#license)
 
 ## Screenshot
 
@@ -56,12 +61,15 @@ A lightweight and fast control to render a select component that can display hie
 ## Demo
 
 ##### Vanilla, no framework
+
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/
 
 ##### With Bootstrap
+
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
 
 ##### With Material Design
+
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
 
 ## Install
@@ -81,33 +89,46 @@ In order to avoid version conflicts in your project, you must specify and instal
 ## Usage
 
 ```jsx
-import React from 'react'
-import ReactDOM from 'react-dom'
-import DropdownTreeSelect from 'react-dropdown-tree-select'
+import React from "react";
+import ReactDOM from "react-dom";
+import DropdownTreeSelect from "react-dropdown-tree-select";
 
 const tree = {
-  "label": "search me",
-  "value": "searchme",
-  "children": [
+  label: "search me",
+  value: "searchme",
+  children: [
     {
-      "label": "search me too",
-      "value": "searchmetoo",
-      "children": [
+      label: "search me too",
+      value: "searchmetoo",
+      children: [
         {
-          "label": "No one can get me",
-          "value": "anonymous"
+          label: "No one can get me",
+          value: "anonymous"
         }
       ]
     }
   ]
-}
+};
 
-const onChange = (currentNode, selectedNodes) => { console.log('onChange::', currentNode, selectedNodes) }
-const onAction = ({action, node}) => { console.log(`onAction:: [${action}]`, node) }
-const onNodeToggle = (currentNode) => { console.log('onNodeToggle::', currentNode) }
+const onChange = (currentNode, selectedNodes) => {
+  console.log("onChange::", currentNode, selectedNodes);
+};
+const onAction = ({ action, node }) => {
+  console.log(`onAction:: [${action}]`, node);
+};
+const onNodeToggle = currentNode => {
+  console.log("onNodeToggle::", currentNode);
+};
 
-ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />, document.body)  // in real world, you'd want to render to an element, instead of body.
-
+ReactDOM.render(
+  <DropdownTreeSelect
+    data={data}
+    onChange={onChange}
+    onAction={onAction}
+    onNodeToggle={onNodeToggle}
+  />,
+  document.body
+); // in real world, you'd want to render to an element, instead of body.
 ```
 
 ## Props
@@ -118,24 +139,24 @@ Type: `string`
 
 Additional classname for container. The container renders with a default classname of `react-dropdown-tree-select`.
 
-
 ### onChange
 
 Type: `function`
 
 Fires when a node change event occurs. Currently the following actions trigger a node change:
- - Checkbox click which checks/unchecks the item
- - Closing of pill (which unchecks the corresponding checkbox item)
+
+* Checkbox click which checks/unchecks the item
+* Closing of pill (which unchecks the corresponding checkbox item)
 
 Calls the handler with the current node object and all selected nodes (if any). Example:
 
 ```jsx
-function onChange (currentNode, selectedNodes) {
+function onChange(currentNode, selectedNodes) {
   // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
   // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
 }
 
-return <DropdownTreeSelect data={data} onChange={onChange} />
+return <DropdownTreeSelect data={data} onChange={onChange} />;
 ```
 
 ### onNodeToggle
@@ -147,11 +168,11 @@ Fires when a node is expanded or collapsed.
 Calls the handler with the current node object. Example:
 
 ```jsx
-function onNodeToggle (currentNode) {
+function onNodeToggle(currentNode) {
   // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
 }
 
-return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
+return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />;
 ```
 
 ### data
@@ -211,18 +232,21 @@ module: {
     {
       test: /\.css$/,
       use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader'
-        }]
+        fallback: "style-loader",
+        use: [
+          {
+            loader: "css-loader"
+          }
+        ]
       }),
       include: /node_modules[/\\]react-dropdown-tree-select/
     }
-  ]
+  ];
 }
 ```
 
 #### Using a CDN
+
 You can import and place a style link directly by referencing it from a CDN.
 
 ```html
@@ -232,21 +256,23 @@ You can import and place a style link directly by referencing it from a CDN.
 Note: Above example will always fetch the latest version. To fetch a specific version, use `https://unpkg.com/react-dropdown-tree-select@<version>/dist/styles.css`. Visit [unpkg.com](https://unpkg.com/#/) to see other options.
 
 #### Using with other bundlers
+
 You can reference the files from `node_modules/react-dropdown-tree-select/dist/styles.css` to include in your own bundle via gulp or any other bundlers you have.
 
 ### Customizing styles
+
 Once you import default styles, it is easy to add/override the provided styles to match popular frameworks. Checkout `/docs` folder for some examples.
 
- - [With Bootstrap](/docs/examples/bootstrap)
- - [With Material Design ](/docs/examples/material)
+* [With Bootstrap](/docs/examples/bootstrap)
+* [With Material Design ](/docs/examples/material)
 
 ## Performance
 
 ### Search optimizations
 
- - The tree creates a flat list of nodes from hierarchical tree data to perform searches that are linear in time irrespective of the tree depth or size.
- - It also memoizes each search term, so subsequent searches are instantaneous (almost).
- - Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogether and the user wants to filter nodes that contain  the text: "2002". As the user enters each key press the search goes like this:
+* The tree creates a flat list of nodes from hierarchical tree data to perform searches that are linear in time irrespective of the tree depth or size.
+* It also memoizes each search term, so subsequent searches are instantaneous (almost).
+* Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogether and the user wants to filter nodes that contain the text: "2002". As the user enters each key press the search goes like this:
 
 ```
 key press  : 2-----20-----200-----2002
@@ -272,7 +298,9 @@ The tree tries to minimize the DOM manipulations as much as possible. E.g., duri
 Node toggling also achieves the expand/collapse effect by manipulating css classes instead of creating new tree with filtered out nodes.
 
 ## FAQ
+
 ### How do I change the placeholder text?
+
 The default [placeholder](#placeholdertext) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
 
 ```jsx
@@ -280,6 +308,7 @@ The default [placeholder](#placeholdertext) is `Choose...`. If you want to chang
 ```
 
 ### How do I tweak styles?
+
 Easy style customization is one of the design goals of this component. Every visual aspect of this dropdown can be tweaked without going through extensive hacks. E.g., to change how disabled nodes appear:
 
 ```css
@@ -291,6 +320,7 @@ Easy style customization is one of the design goals of this component. Every vis
 The css classes needed to overide can be found by inspecting the component via developer tools (chrome/safari/ie) or firebug (firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
 
 ### I do not want the default styles, do I need to fork the project?
+
 Absolutely not! Simply do not import the styles (webpack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
 
 ```pug
@@ -318,11 +348,13 @@ Then include your own custom styles in your project.
 If you believe this aspect can be improved further, feel free to raise an issue.
 
 ### My question is not listed here
+
 Find more questions and their answers in the [issue tracker](https://github.com/dowjones/react-dropdown-tree-select/issues?utf8=%E2%9C%93&q=%20label%3Aquestion%20). If it still doesn't answer your questions, please raise an issue.
 
 ## Development
 
 Clone the git repo and install dependencies.
+
 ```
 npm i
 

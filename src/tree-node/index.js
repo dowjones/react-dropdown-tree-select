@@ -9,18 +9,15 @@ const cx = cn.bind(styles)
 
 const TreeNode = props => {
   const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, onAction } = props
-  const actions = node.actions || []
   const isLeaf = isEmpty(node._children)
-  const liCx = cx(
-    'node',
-    { leaf: isLeaf, tree: !isLeaf, hide: node.hide, 'match-in-children': keepTreeOnSearch && node.matchInChildren },
-    node.className
-  )
+  const hasMatchInChildren = keepTreeOnSearch && node.matchInChildren
+  const nodeCx = { leaf: isLeaf, tree: !isLeaf, hide: node.hide, 'match-in-children': hasMatchInChildren }
+  const liCx = cx('node', nodeCx, node.className)
   const toggleCx = cx('toggle', { expanded: !isLeaf && node.expanded, collapsed: !isLeaf && !node.expanded })
 
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
-      {(!searchModeOn || keepTreeOnSearch) && <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />}
+      <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
         <input
           type="checkbox"
@@ -32,7 +29,7 @@ const TreeNode = props => {
         />
         <span className="node-label">{node.label}</span>
       </label>
-      {actions.map((a, idx) => (
+      {(node.actions || []).map((a, idx) => (
         <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
       ))}
     </li>

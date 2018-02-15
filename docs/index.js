@@ -14,6 +14,12 @@ const onNodeToggle = curNode => {
 }
 
 ReactDOM.render(
-  <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />,
+  <DropdownTreeSelect
+    data={data}
+    onChange={onChange}
+    onAction={onAction}
+    onNodeToggle={onNodeToggle}
+    keepTreeOnSearch
+  />,
   document.getElementById('app')
 )

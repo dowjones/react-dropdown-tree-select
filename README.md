@@ -42,6 +42,7 @@ A lightweight and fast control to render a select component that can display hie
   * [onNodeToggle](#onnodetoggle)
   * [data](#data)
   * [placeholderText](#placeholdertext)
+  * [keepTreeOnSearch](#keeptreeonsearch)
 * [Styling and Customization](#styling-and-customization)
   * [Using default styles](#default-styles)
   * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -216,7 +217,6 @@ Type: `string`
 The text to display as placeholder on the search box. Defaults to `Choose...`
 
 ### keepTreeOnSearch
-
 
 Type: `bool`
 

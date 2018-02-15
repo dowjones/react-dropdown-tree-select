@@ -49,16 +49,26 @@ class TreeManager {
     return matches
   }
 
+  setChildMatchStatus (id) {
+    if (id !== undefined) {
+      const node = this.getNodeById(id)
+      node.matchInChildren = true
+      this.setChildMatchStatus(node._parent)
+    }
+  }
+
   filterTree (searchTerm) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
     this.tree.forEach(node => {
       node.hide = true
+      node.matchInChildren = false
     })
 
     matches.forEach(m => {
       const node = this.getNodeById(m)
       node.hide = false
+      this.setChildMatchStatus(node._parent)
     })
 
     const allNodesHidden = matches.length === 0

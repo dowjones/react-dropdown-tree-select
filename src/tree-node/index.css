@@ -4,10 +4,6 @@
   padding: 4px;
 }
 
-.searchModeOn li.node {
-  padding-left: 0 !important;
-}
-
 .toggle {
   white-space: pre;
   margin-right: 4px;
@@ -38,4 +34,8 @@
 .checkbox-item {
   vertical-align: middle;
   margin: 0 4px 0 0;
+}
+
+.match-in-children.hide .node-label {
+  opacity: 0.5;
 }

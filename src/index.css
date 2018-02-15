@@ -1,5 +1,5 @@
 /* component styles */
-.hide {
+.hide:not(.match-in-children) {
   display: none;
 }
 

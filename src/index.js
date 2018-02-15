@@ -19,6 +19,7 @@ const cx = cn.bind(styles)
 class DropdownTreeSelect extends Component {
   static propTypes = {
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    keepTreeOnSearch: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -163,6 +164,7 @@ class DropdownTreeSelect extends Component {
               ) : (
                 <Tree
                   data={this.state.tree}
+                  keepTreeOnSearch={this.props.keepTreeOnSearch}
                   searchModeOn={this.state.searchModeOn}
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}

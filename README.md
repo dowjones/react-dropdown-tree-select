@@ -134,6 +134,12 @@ ReactDOM.render(
 
 ## Props
 
+### availableSelectionFromLevel
+
+Type: `number`
+
+Remove selection on specific levels of the tree.
+
 ### className
 
 Type: `string`

@@ -79,3 +79,17 @@ test('remove gap during search', t => {
 
   t.false(hasGap(wrapper))
 })
+
+test('remove checkbox if no selection at this level is available', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item1-1-1',
+    value: 'value1-1-1',
+    className: 'cn0-0-0'
+  }
+
+  const wrapper = shallow(<TreeNode node={node} searchModeOn={true} availableSelectionFromLevel={1} />)
+
+  t.false(wrapper.find('.checkbox-item').exists())
+})

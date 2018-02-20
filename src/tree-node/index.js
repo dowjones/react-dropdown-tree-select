@@ -10,23 +10,23 @@ const cx = cn.bind(styles)
 const TreeNode = props => {
   const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, onAction } = props
   const isLeaf = isEmpty(node._children)
+  const isSelectable = !props.availableSelectionFromLevel || node._depth >= props.availableSelectionFromLevel
   const hasMatchInChildren = keepTreeOnSearch && node.matchInChildren
   const nodeCx = { leaf: isLeaf, tree: !isLeaf, hide: node.hide, 'match-in-children': hasMatchInChildren }
   const liCx = cx('node', nodeCx, node.className)
   const toggleCx = cx('toggle', { expanded: !isLeaf && node.expanded, collapsed: !isLeaf && !node.expanded })
-
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
-        <input
+        {isSelectable && <input
           type="checkbox"
           name={node._id}
           className="checkbox-item"
           checked={node.checked}
           onChange={e => onCheckboxChange(node._id, e.target.checked)}
           value={node.value}
-        />
+        />}
         <span className="node-label">{node.label}</span>
       </label>
       {(node.actions || []).map((a, idx) => (
@@ -48,6 +48,7 @@ TreeNode.propTypes = {
     checked: PropTypes.bool,
     expanded: PropTypes.bool
   }).isRequired,
+  availableSelectionFromLevel: PropTypes.number,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,

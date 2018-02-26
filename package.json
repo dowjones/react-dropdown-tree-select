@@ -35,7 +35,9 @@
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.debounce": "^4.0.8",
@@ -91,32 +93,56 @@
     "travis-deploy-once": "^4.3.2",
     "webpack": "^3.5.6",
     "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-cli": "^2.0.9",
     "webpack-dev-server": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": ["src/**/*.test.js"],
-    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "jsdom-global/register",
+      "./setupEnzyme"
+    ],
     "babel": "inherit"
   },
   "nyc": {
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": ["html", "text-summary"],
+    "reporter": [
+      "html",
+      "text-summary"
+    ],
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js",
+      "**/node_modules/**",
+      "dist",
+      "demo"
+    ]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "rules": {
-      "subject-case": [2, "always", "sentence-case"]
+      "subject-case": [
+        2,
+        "always",
+        "sentence-case"
+      ]
     }
   },
   "config": {

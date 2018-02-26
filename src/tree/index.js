@@ -12,14 +12,13 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 const getNodes = props => {
-  const { availableSelectionFromLevel, data, keepTreeOnSearch, searchModeOn } = props
+  const { data, keepTreeOnSearch, searchModeOn } = props
   const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
       items.push(
         <TreeNode
-          availableSelectionFromLevel={availableSelectionFromLevel}
           keepTreeOnSearch={keepTreeOnSearch}
           key={key}
           node={node}
@@ -42,7 +41,6 @@ const Tree = props => {
 }
 
 Tree.propTypes = {
-  availableSelectionFromLevel: PropTypes.number,
   data: PropTypes.object,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,

@@ -31,6 +31,7 @@ test('renders tree node', t => {
   t.true(wrapper.find('label').exists())
   t.true(wrapper.find('.checkbox-item').exists())
   t.true(hasGap(wrapper))
+  t.false(wrapper.hasClass('disabled'))
 })
 
 test('notifies checkbox changes', t => {
@@ -80,16 +81,18 @@ test('remove gap during search', t => {
   t.false(hasGap(wrapper))
 })
 
-test('remove checkbox if no selection at this level is available', t => {
+test('disable checkbox if the node has disabled status', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
+    disabled: true,
     label: 'item1-1-1',
     value: 'value1-1-1',
     className: 'cn0-0-0'
   }
 
-  const wrapper = shallow(<TreeNode node={node} searchModeOn={true} availableSelectionFromLevel={1} />)
+  const wrapper = shallow(<TreeNode node={node} searchModeOn={true} />)
 
-  t.false(wrapper.find('.checkbox-item').exists())
+  t.true(wrapper.hasClass('disabled'))
+  t.true(wrapper.find('.checkbox-item').is('[disabled]'))
 })

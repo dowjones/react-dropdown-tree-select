@@ -91,7 +91,7 @@
     "travis-deploy-once": "^4.3.2",
     "webpack": "^4.0.0",
     "webpack-bundle-analyzer": "^2.9.2",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"

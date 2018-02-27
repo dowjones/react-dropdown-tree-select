@@ -104,6 +104,10 @@ function walkNodes ({nodes, list = new Map(), parent, depth = 0}) {
       node._id = node.id || `${parent._id}-${i}`
       node._parent = parent._id
       parent._children.push(node._id)
+
+      if (undefined === node.disabled) {
+        node.disabled = parent.disabled
+      }
     } else {
       node._id = node.id || `${i}`
     }

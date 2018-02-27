@@ -45,7 +45,11 @@ const TreeNode = props => {
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   return (
-    <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
+    <li
+      data-nb-children={node._children ? node._children.length : 0}
+      data-nb-leaves={node._nbLeaves}
+      className={liCx}
+      style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
         <input

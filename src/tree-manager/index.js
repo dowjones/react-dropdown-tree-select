@@ -89,11 +89,9 @@ class TreeManager {
   * @param {object} node [description]
   */
   setInitialStatus (node) {
-    if (node.checked === undefined || node.disabled === undefined) {
-      const { parentCheckState, parentDisabledState } = this.getNodeStatus(node)
-      if (node.checked === undefined) node.checked = node.checked || parentCheckState
-      if (node.disabled === undefined) node.disabled = node.disabled || parentDisabledState
-    }
+    const { parentCheckState, parentDisabledState } = this.getNodeStatus(node)
+    if (node.checked === undefined) node.checked = parentCheckState
+    if (node.disabled === undefined) node.disabled = parentDisabledState
   }
 
   /**

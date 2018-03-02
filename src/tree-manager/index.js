@@ -5,7 +5,7 @@ class TreeManager {
   constructor (tree) {
     this._src = tree
     this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
-    this.tree.forEach(node => { this.setInitialCheckState(node) })
+    this.tree.forEach(node => { this.setInitialStatus(node) })
     this.searchMaps = new Map()
   }
 
@@ -85,29 +85,37 @@ class TreeManager {
 
   /**
   * If the node didn't specify anything on its own
-  * figure out the initial state based on parent selections
+  * figure out the initial state for checked and disabled based on parent
   * @param {object} node [description]
   */
-  setInitialCheckState (node) {
-    if (node.checked === undefined) node.checked = this.getNodeCheckedState(node)
+  setInitialStatus (node) {
+    if (node.checked === undefined || node.disabled === undefined) {
+      const { parentCheckState, parentDisabledState } = this.getNodeStatus(node)
+      if (node.checked === undefined) node.checked = node.checked || parentCheckState
+      if (node.disabled === undefined) node.disabled = node.disabled || parentDisabledState
+    }
   }
 
   /**
-   * Figure out the check state based on parent selections.
+   * Figure out the checked and disabled state based on parent.
    * @param  {[type]} node    [description]
    * @param  {[type]} tree    [description]
    * @return {[type]}         [description]
    */
-  getNodeCheckedState (node) {
+  getNodeStatus (node) {
     let parentCheckState = false
+    let parentDisabledState = false
     let parent = node._parent
-    while (parent && !parentCheckState) {
+    while (parent && (!parentCheckState || !parentDisabledState)) {
       const parentNode = this.getNodeById(parent)
-      parentCheckState = parentNode.checked || false
+
+      if (!parentCheckState && parentNode.checked) parentCheckState = parentNode.checked
+      if (!parentDisabledState && parentNode.disabled) parentDisabledState = parentNode.disabled
+
       parent = parentNode._parent
     }
 
-    return parentCheckState
+    return { parentCheckState, parentDisabledState }
   }
 
   setNodeCheckedState (id, checked) {

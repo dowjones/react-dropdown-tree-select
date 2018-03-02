@@ -188,6 +188,7 @@ Data for rendering the tree select items. The object requires the following stru
   value,        // required: Checkbox value
   children,     // optional: Array of child objects
   checked,      // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
+  disabled,     // optional: Selectable state of checkbox. if true, the checkbox is disabled and the node is not selectable.
   expanded,     // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
   className,    // optional: Additional css class for the node. This is helpful to style the nodes your way
   tagClassName, // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.

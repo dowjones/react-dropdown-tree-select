@@ -7,14 +7,43 @@ import styles from './index.css'
 
 const cx = cn.bind(styles)
 
-const TreeNode = props => {
-  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, onAction } = props
-  const isLeaf = isEmpty(node._children)
-  const hasMatchInChildren = keepTreeOnSearch && node.matchInChildren
-  const nodeCx = { leaf: isLeaf, tree: !isLeaf, hide: node.hide, 'match-in-children': hasMatchInChildren }
-  const liCx = cx('node', nodeCx, node.className)
-  const toggleCx = cx('toggle', { expanded: !isLeaf && node.expanded, collapsed: !isLeaf && !node.expanded })
+const isLeaf = (node) => isEmpty(node._children)
 
+const getNodeCx = (props) => {
+  const { keepTreeOnSearch, node } = props
+
+  return cx(
+    'node',
+    {
+      leaf: isLeaf(node),
+      tree: !isLeaf(node),
+      disabled: node.disabled,
+      hide: node.hide,
+      'match-in-children': keepTreeOnSearch && node.matchInChildren
+    },
+    node.className
+  )
+}
+
+const getToggleCx = ({ node }) => {
+  return cx(
+    'toggle',
+    { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded }
+  )
+}
+
+const getNodeActions = (props) => {
+  const {node, onAction} = props
+
+  return (node.actions || []).map((a, idx) => (
+    <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
+  ))
+}
+
+const TreeNode = props => {
+  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
+  const liCx = getNodeCx(props)
+  const toggleCx = getToggleCx(props)
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
@@ -26,12 +55,11 @@ const TreeNode = props => {
           checked={node.checked}
           onChange={e => onCheckboxChange(node._id, e.target.checked)}
           value={node.value}
+          disabled={node.disabled}
         />
         <span className="node-label">{node.label}</span>
       </label>
-      {(node.actions || []).map((a, idx) => (
-        <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
-      ))}
+      {getNodeActions(props)}
     </li>
   )
 }
@@ -46,7 +74,8 @@ TreeNode.propTypes = {
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
     checked: PropTypes.bool,
-    expanded: PropTypes.bool
+    expanded: PropTypes.bool,
+    disabled: PropTypes.bool
   }).isRequired,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,

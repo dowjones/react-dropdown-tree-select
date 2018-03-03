@@ -5,7 +5,6 @@ class TreeManager {
   constructor (tree) {
     this._src = tree
     this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
-    this.tree.forEach(node => { this.setInitialStatus(node) })
     this.searchMaps = new Map()
   }
 
@@ -81,39 +80,6 @@ class TreeManager {
     })
 
     return this.tree
-  }
-
-  /**
-  * If the node didn't specify anything on its own
-  * figure out the initial state for checked and disabled based on parent
-  * @param {object} node [description]
-  */
-  setInitialStatus (node) {
-    const { parentCheckState, parentDisabledState } = this.getNodeStatus(node)
-    if (node.checked === undefined) node.checked = parentCheckState
-    if (node.disabled === undefined) node.disabled = parentDisabledState
-  }
-
-  /**
-   * Figure out the checked and disabled state based on parent.
-   * @param  {[type]} node    [description]
-   * @param  {[type]} tree    [description]
-   * @return {[type]}         [description]
-   */
-  getNodeStatus (node) {
-    let parentCheckState = false
-    let parentDisabledState = false
-    let parent = node._parent
-    while (parent && (!parentCheckState || !parentDisabledState)) {
-      const parentNode = this.getNodeById(parent)
-
-      if (!parentCheckState && parentNode.checked) parentCheckState = parentNode.checked
-      if (!parentDisabledState && parentNode.disabled) parentDisabledState = parentNode.disabled
-
-      parent = parentNode._parent
-    }
-
-    return { parentCheckState, parentDisabledState }
   }
 
   setNodeCheckedState (id, checked) {

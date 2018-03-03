@@ -96,6 +96,24 @@ function flattenTree (tree) {
   return list
 }
 
+/**
+  * If the node didn't specify anything on its own
+  * figure out the initial state based on parent
+  * @param {object} node [curernt node]
+  * @param {object} parent [node's immediate parent]
+  */
+function setInitialStateProps (node, parent = {}) {
+  const stateProps = ['checked', 'disabled']
+  for (let index = 0; index < stateProps.length; index++) {
+    const prop = stateProps[index]
+
+    // if and only if, node doesn't explicitly define a prop, grab it from parent
+    if (node[prop] === undefined && parent[prop] !== undefined) {
+      node[prop] = parent[prop]
+    }
+  }
+}
+
 function walkNodes ({nodes, list = new Map(), parent, depth = 0}) {
   nodes.forEach((node, i) => {
     node._depth = depth
@@ -107,6 +125,8 @@ function walkNodes ({nodes, list = new Map(), parent, depth = 0}) {
     } else {
       node._id = node.id || `${i}`
     }
+
+    setInitialStateProps(node, parent)
 
     list.set(node._id, node)
     if (node.children) {

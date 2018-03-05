@@ -35,7 +35,9 @@
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.debounce": "^4.0.8",
@@ -67,7 +69,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.0.0",
     "eslint-plugin-standard": "^3.0.1",
-    "extract-text-webpack-plugin": "^3.0.0",
+    "github-markdown-css": "^2.10.0",
     "husky": "^0.14.3",
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.2.0",
@@ -79,8 +81,10 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",
     "postcss-nested": "^3.0.0",
+    "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-story": "^0.0.10",
     "react-test-renderer": "^16.0.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^12.2.2",
@@ -89,6 +93,7 @@
     "stylelint": "^8.4.0",
     "stylelint-config-standard": "^18.0.0",
     "travis-deploy-once": "^4.3.2",
+    "url-loader": "^1.0.1",
     "webpack": "^3.5.6",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dev-server": "^2.9.4"
@@ -97,26 +102,49 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": ["src/**/*.test.js"],
-    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "jsdom-global/register",
+      "./setupEnzyme"
+    ],
     "babel": "inherit"
   },
   "nyc": {
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": ["html", "text-summary"],
+    "reporter": [
+      "html",
+      "text-summary"
+    ],
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js",
+      "**/node_modules/**",
+      "dist",
+      "demo"
+    ]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "rules": {
-      "subject-case": [2, "always", "sentence-case"]
+      "subject-case": [
+        2,
+        "always",
+        "sentence-case"
+      ]
     }
   },
   "config": {

@@ -14,22 +14,16 @@ const baseConfig = {
     },
     {
       test: /\.css$/,
-      use: [
-        {
-          loader: 'style-loader'
-        },
-        {
-          loader: 'css-loader',
-          options: {
-            localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
-            importLoaders: 1
-          }
-        },
-        {
-          loader: 'postcss-loader'
+      loader: 'style-loader!css-loader'
+    },
+    {
+      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 100000
         }
-      ],
-      include: /src/
+      }
     }]
   },
   devServer: {
@@ -43,23 +37,9 @@ const baseConfig = {
 
 module.exports = [{
   ...baseConfig,
-  entry: __dirname,
+  entry: path.join(__dirname, 'src'),
   output: {
     path: __dirname,
-    filename: 'bundle.js'
-  }
-}, {
-  ...baseConfig,
-  entry: path.join(__dirname, 'examples/bootstrap'),
-  output: {
-    path: path.join(__dirname, 'examples/bootstrap'),
-    filename: 'bundle.js'
-  }
-}, {
-  ...baseConfig,
-  entry: path.join(__dirname, 'examples/material'),
-  output: {
-    path: path.join(__dirname, 'examples/material'),
     filename: 'bundle.js'
   }
 }]

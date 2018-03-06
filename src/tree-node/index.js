@@ -4,6 +4,7 @@ import isEmpty from '../isEmpty'
 import Action from './action'
 import cn from 'classnames/bind'
 import styles from './index.css'
+import { getDataset } from '../dataset-utils'
 
 const cx = cn.bind(styles)
 
@@ -44,8 +45,9 @@ const TreeNode = props => {
   const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
+  const styles = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}
   return (
-    <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
+    <li className={liCx} style={styles} {...getDataset(node.dataset)}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
         <input
@@ -75,7 +77,8 @@ TreeNode.propTypes = {
     label: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    dataset: PropTypes.object
   }).isRequired,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,

@@ -1,0 +1,463 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tree/> renders only expanded tree nodes when search mode is off 1`] = `
+<ul
+  className="root "
+>
+  <li
+    className="node tree should-be-rendered"
+    style={
+      Object {
+        "paddingLeft": "0px",
+      }
+    }
+  >
+    <i
+      className="toggle expanded"
+      onClick={[Function]}
+    />
+    <label
+      title="item1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1"
+      />
+      <span
+        className="node-label"
+      >
+        item1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree should-be-rendered"
+    style={
+      Object {
+        "paddingLeft": "20px",
+      }
+    }
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-1"
+      />
+      <span
+        className="node-label"
+      >
+        item1-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf should-be-rendered"
+    style={
+      Object {
+        "paddingLeft": "20px",
+      }
+    }
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-2"
+      />
+      <span
+        className="node-label"
+      >
+        item1-2
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree should-be-rendered"
+    style={
+      Object {
+        "paddingLeft": "0px",
+      }
+    }
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2"
+      />
+      <span
+        className="node-label"
+      >
+        item2
+      </span>
+    </label>
+  </li>
+</ul>
+`;
+
+exports[`<Tree/> renders tree nodes when search mode is on 1`] = `
+<ul
+  className="root searchModeOn"
+>
+  <li
+    className="node tree"
+    style={Object {}}
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1"
+      />
+      <span
+        className="node-label"
+      >
+        item1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree"
+    style={Object {}}
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-1"
+      />
+      <span
+        className="node-label"
+      >
+        item1-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-1-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-0-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-1-1"
+      />
+      <span
+        className="node-label"
+      >
+        item1-1-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-1-2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-0-1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-1-2"
+      />
+      <span
+        className="node-label"
+      >
+        item1-1-2
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item1-2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="0-1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value1-2"
+      />
+      <span
+        className="node-label"
+      >
+        item1-2
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree"
+    style={Object {}}
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2"
+      />
+      <span
+        className="node-label"
+      >
+        item2
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree"
+    style={Object {}}
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-1"
+      />
+      <span
+        className="node-label"
+      >
+        item2-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-1-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-0-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-1-1"
+      />
+      <span
+        className="node-label"
+      >
+        item2-1-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-1-2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-0-1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-1-2"
+      />
+      <span
+        className="node-label"
+      >
+        item2-1-2
+      </span>
+    </label>
+  </li>
+  <li
+    className="node tree"
+    style={Object {}}
+  >
+    <i
+      className="toggle collapsed"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-1-3"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-0-2"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-1-3"
+      />
+      <span
+        className="node-label"
+      >
+        item2-1-3
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-1-3-1"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-0-2-0"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-1-3-1"
+      />
+      <span
+        className="node-label"
+      >
+        item2-1-3-1
+      </span>
+    </label>
+  </li>
+  <li
+    className="node leaf"
+    style={Object {}}
+  >
+    <i
+      className="toggle"
+      onClick={[Function]}
+    />
+    <label
+      title="item2-2"
+    >
+      <input
+        checked={undefined}
+        className="checkbox-item"
+        disabled={undefined}
+        name="1-1"
+        onChange={[Function]}
+        type="checkbox"
+        value="value2-2"
+      />
+      <span
+        className="node-label"
+      >
+        item2-2
+      </span>
+    </label>
+  </li>
+</ul>
+`;

@@ -1,31 +1,35 @@
+import { mount } from 'enzyme'
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import { spy } from 'sinon'
+import renderer from 'react-test-renderer'
+
 import Tag from './index'
 
 const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => {} } }
 
-test('renders label when passed in', () => {
-  const actual = shallow(<Tag label='hello' id='abc' />).html()
-  const expected = '<span class="tag">hello<button class="tag-remove" type="button">x</button></span>'
-  expect(actual).toEqual(expected)
-})
+describe('<Tag/>', () => {
+  it('renders label when passed in', () => {
+    const tree = renderer
+      .create(<Tag label='hello' id='abc' />)
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
-test('call onDelete handler when pill is closed', () => {
-  const onDelete = spy()
-  const wrapper = mount(<Tag label='hello' id='abc' onDelete={onDelete} />)
-  wrapper.find('.tag-remove').simulate('click', nativeEvent)
-  expect(onDelete.calledWith('abc')).toBe(true)
-})
+  it('call onDelete handler when pill is closed', () => {
+    const onDelete = jest.fn()
+    const wrapper = mount(<Tag label='hello' id='abc' onDelete={onDelete} />)
+    wrapper.find('.tag-remove').simulate('click', nativeEvent)
+    expect(onDelete).toBeCalledWith('abc')
+  })
 
-test('should not cause form submit', () => {
-  const onSubmit = spy()
-  const onDelete = spy()
-  const wrapper = mount(
-    <form onSubmit={onSubmit}>
-      <Tag label='hello' id='abc' onDelete={onDelete} />
-    </form>
-  )
-  wrapper.find('.tag-remove').simulate('click', nativeEvent)
-  expect(onSubmit.called).toBe(false)
+  it('should not cause form submit', () => {
+    const onSubmit = jest.fn()
+    const onDelete = jest.fn()
+    const wrapper = mount(
+      <form onSubmit={onSubmit}>
+        <Tag label='hello' id='abc' onDelete={onDelete} />
+      </form>
+    )
+    wrapper.find('.tag-remove').simulate('click', nativeEvent)
+    expect(onSubmit).not.toBeCalled()
+  })
 })

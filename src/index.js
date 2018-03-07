@@ -125,6 +125,14 @@ class DropdownTreeSelect extends Component {
       this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
+  handleFocus = () => {
+    this.keepDropdownActive = true
+  }
+
+  handleBlur = () => {
+    this.keepDropdownActive = false
+  }
+
   render () {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
@@ -148,12 +156,8 @@ class DropdownTreeSelect extends Component {
               tags={this.state.tags}
               placeholderText={this.props.placeholderText}
               onInputChange={this.onInputChange}
-              onFocus={() => {
-                this.keepDropdownActive = true
-              }}
-              onBlur={() => {
-                this.keepDropdownActive = false
-              }}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
               onTagRemove={this.onTagRemove}
             />
           </a>

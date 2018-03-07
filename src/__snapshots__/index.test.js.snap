@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DropdownTreeSelect/> renders correctly 1`] = `
+<div
+  className="react-dropdown-tree-select"
+>
+  <div
+    className="dropdown"
+  >
+    <a
+      className="dropdown-trigger arrow bottom"
+      onClick={[Function]}
+    >
+      <ul
+        className="tag-list"
+      >
+        <li
+          className="tag-item"
+        >
+          <input
+            className="search"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Choose..."
+            type="text"
+          />
+        </li>
+      </ul>
+    </a>
+  </div>
+</div>
+`;

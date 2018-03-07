@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tag/> renders label when passed in 1`] = `
+<span
+  className="tag"
+>
+  hello
+  <button
+    className="tag-remove"
+    onClick={[Function]}
+    type="button"
+  >
+    x
+  </button>
+</span>
+`;

@@ -1,97 +1,101 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
-import TreeManager from '../tree-manager'
+import renderer from 'react-test-renderer'
+
 import Tree from './index'
+import TreeManager from '../tree-manager'
 
-test('renders tree nodes when search mode is on', () => {
-  const tree = [
-    {
-      label: 'item1',
-      value: 'value1',
-      children: [
-        {
-          label: 'item1-1',
-          value: 'value1-1',
-          children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }]
-        },
-        { label: 'item1-2', value: 'value1-2' }
-      ]
-    },
-    {
-      label: 'item2',
-      value: 'value2',
-      children: [
-        {
-          label: 'item2-1',
-          value: 'value2-1',
-          children: [
-            { label: 'item2-1-1', value: 'value2-1-1' },
-            { label: 'item2-1-2', value: 'value2-1-2' },
-            { label: 'item2-1-3', value: 'value2-1-3', children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }] }
-          ]
-        },
-        { label: 'item2-2', value: 'value2-2' }
-      ]
-    }
-  ]
-  const treeManager = new TreeManager(tree)
-  const wrapper = shallow(<Tree data={treeManager.tree} searchModeOn />)
-  expect(wrapper.find('ul.root').hasClass('searchModeOn')).toBe(true)
-})
+describe('<Tree/>', () => {
+  it('renders tree nodes when search mode is on', () => {
+    const treeData = [
+      {
+        label: 'item1',
+        value: 'value1',
+        children: [
+          {
+            label: 'item1-1',
+            value: 'value1-1',
+            children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }]
+          },
+          { label: 'item1-2', value: 'value1-2' }
+        ]
+      },
+      {
+        label: 'item2',
+        value: 'value2',
+        children: [
+          {
+            label: 'item2-1',
+            value: 'value2-1',
+            children: [
+              { label: 'item2-1-1', value: 'value2-1-1' },
+              { label: 'item2-1-2', value: 'value2-1-2' },
+              { label: 'item2-1-3', value: 'value2-1-3', children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }] }
+            ]
+          },
+          { label: 'item2-2', value: 'value2-2' }
+        ]
+      }
+    ]
+    const treeManager = new TreeManager(treeData)
+    const tree = renderer
+      .create(<Tree data={treeManager.tree} searchModeOn />)
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
-test('renders only expanded tree nodes when search mode is off', () => {
-  const tree = [
-    {
-      label: 'item1',
-      value: 'value1',
-      expanded: true,
-      className: 'should-be-rendered',
-      children: [
-        {
-          label: 'item1-1',
-          value: 'value1-1',
-          className: 'should-be-rendered',
-          children: [
-            { label: 'item1-1-1', value: 'value1-1-1', className: 'should-not-be-rendered' },
-            { label: 'item1-1-2', value: 'value1-1-2', className: 'should-not-be-rendered' }
-          ]
-        },
-        { label: 'item1-2', value: 'value1-2', className: 'should-be-rendered' }
-      ]
-    },
-    {
-      label: 'item2',
-      value: 'value2',
-      className: 'should-be-rendered',
-      children: [
-        {
-          label: 'item2-1',
-          value: 'value2-1',
-          className: 'should-not-be-rendered',
-          children: [
-            { label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered' },
-            { label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered' },
-            {
-              label: 'item2-1-3',
-              value: 'value2-1-3',
-              className: 'should-not-be-rendered',
-              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered' }]
-            }
-          ]
-        },
-        {
-          label: 'item2-2',
-          value: 'value2-2',
-          className: 'should-not-be-rendered'
-        }
-      ]
-    }
-  ]
+  it('renders only expanded tree nodes when search mode is off', () => {
+    const treeData = [
+      {
+        label: 'item1',
+        value: 'value1',
+        expanded: true,
+        className: 'should-be-rendered',
+        children: [
+          {
+            label: 'item1-1',
+            value: 'value1-1',
+            className: 'should-be-rendered',
+            children: [
+              { label: 'item1-1-1', value: 'value1-1-1', className: 'should-not-be-rendered' },
+              { label: 'item1-1-2', value: 'value1-1-2', className: 'should-not-be-rendered' }
+            ]
+          },
+          { label: 'item1-2', value: 'value1-2', className: 'should-be-rendered' }
+        ]
+      },
+      {
+        label: 'item2',
+        value: 'value2',
+        className: 'should-be-rendered',
+        children: [
+          {
+            label: 'item2-1',
+            value: 'value2-1',
+            className: 'should-not-be-rendered',
+            children: [
+              { label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered' },
+              { label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered' },
+              {
+                label: 'item2-1-3',
+                value: 'value2-1-3',
+                className: 'should-not-be-rendered',
+                children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered' }]
+              }
+            ]
+          },
+          {
+            label: 'item2-2',
+            value: 'value2-2',
+            className: 'should-not-be-rendered'
+          }
+        ]
+      }
+    ]
 
-  const treeManager = new TreeManager(tree)
-  const wrapper = mount(<Tree data={treeManager.tree} />)
-
-  // 4 since expanding a parent should also render all children (but not grandchildren and beyond)
-  expect(wrapper.find('.should-be-rendered').length).toBe(4)
-  expect(wrapper.find('.should-not-be-rendered').length).toBe(0)
+    const treeManager = new TreeManager(treeData)
+    const tree = renderer
+      .create(<Tree data={treeManager.tree} />)
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 })

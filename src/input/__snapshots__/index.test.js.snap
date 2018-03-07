@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input/> renders input when no tags are passed 1`] = `
+<ul
+  className="tag-list"
+>
+  <li
+    className="tag-item"
+  >
+    <input
+      className="search"
+      onBlur={undefined}
+      onChange={[Function]}
+      onFocus={undefined}
+      placeholder="Choose..."
+      type="text"
+    />
+  </li>
+</ul>
+`;
+
+exports[`<Input/> renders placeholder 1`] = `
+<ul
+  className="tag-list"
+>
+  <li
+    className="tag-item"
+  >
+    <input
+      className="search"
+      onBlur={undefined}
+      onChange={[Function]}
+      onFocus={undefined}
+      placeholder="select something"
+      type="text"
+    />
+  </li>
+</ul>
+`;
+
+exports[`<Input/> renders tags 1`] = `
+<ul
+  className="tag-list"
+>
+  <li
+    className="tag-item"
+  >
+    <span
+      className="tag"
+    >
+      l1
+      <button
+        className="tag-remove"
+        onClick={[Function]}
+        type="button"
+      >
+        x
+      </button>
+    </span>
+  </li>
+  <li
+    className="tag-item"
+  >
+    <span
+      className="tag"
+    >
+      l2
+      <button
+        className="tag-remove"
+        onClick={[Function]}
+        type="button"
+      >
+        x
+      </button>
+    </span>
+  </li>
+  <li
+    className="tag-item"
+  >
+    <input
+      className="search"
+      onBlur={undefined}
+      onChange={[Function]}
+      onFocus={undefined}
+      placeholder="Choose..."
+      type="text"
+    />
+  </li>
+</ul>
+`;

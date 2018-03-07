@@ -1,6 +1,5 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { spy, match } from 'sinon'
 import Action from './action'
 
 test('renders action with given props', () => {
@@ -20,7 +19,7 @@ test('renders action with given props', () => {
 })
 
 test('notifies clicks if handler is passed', () => {
-  const onClick = spy()
+  const onClick = jest.fn()
   const props = {
     title: 'action',
     className: 'cn0-0-0',
@@ -30,12 +29,12 @@ test('notifies clicks if handler is passed', () => {
 
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
-  expect(onClick.calledOnce).toBe(true)
-  expect(onClick.calledWith(match({id: 'actionA'}))).toBe(true)
+  expect(onClick).toHaveBeenCalledTimes(1)
+  expect(onClick).toBeCalledWith({id: 'actionA'})
 })
 
 test('doesn\'t notify clicks if handler is not passed', () => {
-  const onClick = spy()
+  const onClick = jest.fn()
   const props = {
     title: 'action',
     className: 'cn0-0-0',
@@ -45,5 +44,5 @@ test('doesn\'t notify clicks if handler is not passed', () => {
 
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
-  expect(onClick.called).toBe(false)
+  expect(onClick).not.toBeCalled()
 })

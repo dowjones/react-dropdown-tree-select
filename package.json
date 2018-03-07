@@ -32,8 +32,7 @@
     "lint": "eslint --fix src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
-    "test": "cross-env NODE_ENV=test ava",
-    "test:cov": "rimraf .nyc_output && nyc npm test"
+    "test": "cross-env NODE_ENV=test jest --coverage"
   },
   "files": [
     "dist"
@@ -49,6 +48,7 @@
     "ava": "^0.25.0",
     "babel-core": "^6.24.1",
     "babel-eslint": "^8.0.0",
+    "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -72,6 +72,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "husky": "^0.14.3",
     "ignore-styles": "^5.0.1",
+    "jest": "^22.4.2",
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
     "nyc": "^11.2.1",
@@ -83,7 +84,7 @@
     "postcss-nested": "^3.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0",
+    "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.1",
     "semantic-release": "^12.2.2",
     "sinon": "^4.0.0",
@@ -99,36 +100,26 @@
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
   },
-  "ava": {
-    "files": [
-      "src/**/*.test.js"
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js"
     ],
-    "require": [
-      "babel-register",
-      "ignore-styles",
-      "jsdom-global/register",
-      "./setupEnzyme"
+    "moduleNameMapper": {
+      ".*\\.css$": "<rootDir>/jest/styleMock.js",
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/jest/assetMock.js"
+    },
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
     ],
-    "babel": "inherit"
-  },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false,
-    "cache": true,
-    "reporter": [
-      "html",
-      "text-summary"
-    ],
-    "all": true,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "**/*.test.js",
-      "**/node_modules/**",
-      "dist",
-      "demo"
-    ]
+    "coverageThreshold": {
+      "global": {
+        "branches": 94.01,
+        "functions": 95.97,
+        "lines": 96.83,
+        "statements": 96.55
+      }
+    }
   },
   "stylelint": {
     "extends": "stylelint-config-standard"

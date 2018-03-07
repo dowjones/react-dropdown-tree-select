@@ -1,4 +1,3 @@
-import test from 'ava'
 import React from 'react'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
@@ -8,7 +7,7 @@ const hasGap = (wrapper) => {
   return !!wrapper.find('li').first().props().style.paddingLeft
 }
 
-test('renders tree node', t => {
+test('renders tree node', () => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -26,15 +25,15 @@ test('renders tree node', t => {
 
   const wrapper = shallow(<TreeNode node={node} />)
 
-  t.true(wrapper.find('.node.cn0-0-0').exists())
-  t.true(wrapper.find('.toggle').exists())
-  t.true(wrapper.find('label').exists())
-  t.true(wrapper.find('.checkbox-item').exists())
-  t.true(hasGap(wrapper))
-  t.false(wrapper.hasClass('disabled'))
+  expect(wrapper.find('.node.cn0-0-0').exists()).toBe(true)
+  expect(wrapper.find('.toggle').exists()).toBe(true)
+  expect(wrapper.find('label').exists()).toBe(true)
+  expect(wrapper.find('.checkbox-item').exists()).toBe(true)
+  expect(hasGap(wrapper)).toBe(true)
+  expect(wrapper.hasClass('disabled')).toBe(false)
 })
 
-test('notifies checkbox changes', t => {
+test('notifies checkbox changes', () => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -48,10 +47,10 @@ test('notifies checkbox changes', t => {
 
   const wrapper = shallow(<TreeNode node={node} onCheckboxChange={onChange} />)
   wrapper.find('.checkbox-item').simulate('change', {target: {checked: true}})
-  t.true(onChange.calledWith('0-0-0', true))
+  expect(onChange.calledWith('0-0-0', true)).toBe(true)
 })
 
-test('notifies node toggle changes', t => {
+test('notifies node toggle changes', () => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -64,10 +63,10 @@ test('notifies node toggle changes', t => {
 
   const wrapper = shallow(<TreeNode node={node} onNodeToggle={onChange} />)
   wrapper.find('.toggle').simulate('click')
-  t.true(onChange.calledWith('0-0-0'))
+  expect(onChange.calledWith('0-0-0')).toBe(true)
 })
 
-test('remove gap during search', t => {
+test('remove gap during search', () => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -78,10 +77,10 @@ test('remove gap during search', t => {
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn={true} />)
 
-  t.false(hasGap(wrapper))
+  expect(hasGap(wrapper)).toBe(false)
 })
 
-test('disable checkbox if the node has disabled status', t => {
+test('disable checkbox if the node has disabled status', () => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -93,6 +92,6 @@ test('disable checkbox if the node has disabled status', t => {
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn={true} />)
 
-  t.true(wrapper.hasClass('disabled'))
-  t.true(wrapper.find('.checkbox-item').is('[disabled]'))
+  expect(wrapper.hasClass('disabled')).toBe(true)
+  expect(wrapper.find('.checkbox-item').is('[disabled]')).toBe(true)
 })

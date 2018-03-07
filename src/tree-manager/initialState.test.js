@@ -1,8 +1,7 @@
-import test from 'ava'
 import TreeManager from './index'
 
 // eslint-disable-next-line max-len
-test('should set initial disabled state based on parent disabled state when node disabled state is not defined', t => {
+test('should set initial disabled state based on parent disabled state when node disabled state is not defined', () => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -15,12 +14,12 @@ test('should set initial disabled state based on parent disabled state when node
     disabled: true
   }
   const manager = new TreeManager(tree)
-  t.true(manager.getNodeById('c1').disabled)
+  expect(manager.getNodeById('c1').disabled).toBe(true)
 })
 
 // should set initial disabled state based on parent disabled state
 // when node disabled state is not defined and parent checked is defined
-test('when node disabled state is not defined and parent checked is defined', t => {
+test('when node disabled state is not defined and parent checked is defined', () => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -33,12 +32,12 @@ test('when node disabled state is not defined and parent checked is defined', t 
     disabled: true
   }
   const manager = new TreeManager(tree)
-  t.true(manager.getNodeById('c1').disabled)
+  expect(manager.getNodeById('c1').disabled).toBe(true)
 })
 
 // should set initial disabled state based on parent disabled state
 // when node disabled state is not defined and parent checked is defined
-test('when node disabled state is not defined and parent checked is defined', t => {
+test('when node disabled state is not defined and parent checked is defined', () => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -57,13 +56,13 @@ test('when node disabled state is not defined and parent checked is defined', t 
     disabled: true
   }
   const manager = new TreeManager(tree)
-  t.true(manager.getNodeById('c1').disabled)
-  t.true(manager.getNodeById('gc1').disabled)
+  expect(manager.getNodeById('c1').disabled).toBe(true)
+  expect(manager.getNodeById('gc1').disabled).toBe(true)
 })
 
 // should set initial disabled state based on parent disabled state
 // when node disabled state is not defined and parent checked is defined
-test('when node disabled state is not defined and grand parent checked is defined', t => {
+test('when node disabled state is not defined and grand parent checked is defined', () => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -82,14 +81,14 @@ test('when node disabled state is not defined and grand parent checked is define
     checked: true
   }
   const manager = new TreeManager(tree)
-  t.true(manager.getNodeById('c1').disabled)
-  t.true(manager.getNodeById('gc1').disabled)
-  t.true(manager.getNodeById('c1').checked)
-  t.true(manager.getNodeById('gc1').checked)
+  expect(manager.getNodeById('c1').disabled).toBe(true)
+  expect(manager.getNodeById('gc1').disabled).toBe(true)
+  expect(manager.getNodeById('c1').checked).toBe(true)
+  expect(manager.getNodeById('gc1').checked).toBe(true)
 })
 
 // eslint-disable-next-line max-len
-test('when node disabled is not defined, parent checked/disabled is defined and grand parent checked/disabled is defined', t => {
+test('when node disabled is not defined, parent checked/disabled is defined and grand parent checked/disabled is defined', () => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -110,8 +109,8 @@ test('when node disabled is not defined, parent checked/disabled is defined and 
     disabled: true
   }
   const manager = new TreeManager(tree)
-  t.false(manager.getNodeById('c1').disabled)
-  t.false(manager.getNodeById('c1').checked)
-  t.falsy(manager.getNodeById('gc1').checked)
-  t.falsy(manager.getNodeById('gc1').disabled)
+  expect(manager.getNodeById('c1').disabled).toBe(false)
+  expect(manager.getNodeById('c1').checked).toBe(false)
+  expect(manager.getNodeById('gc1').checked).toBeFalsy()
+  expect(manager.getNodeById('gc1').disabled).toBeFalsy()
 })

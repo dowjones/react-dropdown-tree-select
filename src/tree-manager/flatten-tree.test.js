@@ -1,8 +1,7 @@
-import test from 'ava'
 import flattenTree from './flatten-tree'
 import {mapToObj} from '../map-utils'
 
-test('flattens tree with no root', t => {
+test('flattens tree with no root', () => {
   const tree = [
     {
       name: 'item1',
@@ -145,10 +144,10 @@ test('flattens tree with no root', t => {
   }
 
   const list = flattenTree(tree)
-  t.deepEqual(mapToObj(list), expected)
+  expect(mapToObj(list)).toEqual(expected)
 })
 
-test('flattens tree with root', t => {
+test('flattens tree with root', () => {
   const tree = {
     name: 'item1',
     value: 'value1',
@@ -210,5 +209,5 @@ test('flattens tree with root', t => {
   }
 
   const list = flattenTree(tree)
-  t.deepEqual(mapToObj(list), expected)
+  expect(mapToObj(list)).toEqual(expected)
 })

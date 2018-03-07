@@ -1,10 +1,9 @@
-import test from 'ava'
 import React from 'react'
 import { shallow } from 'enzyme'
 import { spy, match } from 'sinon'
 import Action from './action'
 
-test('renders action with given props', t => {
+test('renders action with given props', () => {
   const props = {
     title: 'action',
     className: 'cn0-0-0',
@@ -14,13 +13,13 @@ test('renders action with given props', t => {
 
   const wrapper = shallow(<Action {...props} />)
 
-  t.is(wrapper.props().title, props.title)
-  t.is(wrapper.text(), props.text)
-  t.is(wrapper.props().className, props.className)
-  t.is(wrapper.props().junk, undefined)
+  expect(wrapper.props().title).toBe(props.title)
+  expect(wrapper.text()).toBe(props.text)
+  expect(wrapper.props().className).toBe(props.className)
+  expect(wrapper.props().junk).toBe(undefined)
 })
 
-test('notifies clicks if handler is passed', t => {
+test('notifies clicks if handler is passed', () => {
   const onClick = spy()
   const props = {
     title: 'action',
@@ -31,11 +30,11 @@ test('notifies clicks if handler is passed', t => {
 
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
-  t.true(onClick.calledOnce)
-  t.true(onClick.calledWith(match({id: 'actionA'})))
+  expect(onClick.calledOnce).toBe(true)
+  expect(onClick.calledWith(match({id: 'actionA'}))).toBe(true)
 })
 
-test('doesn\'t notify clicks if handler is not passed', t => {
+test('doesn\'t notify clicks if handler is not passed', () => {
   const onClick = spy()
   const props = {
     title: 'action',
@@ -46,5 +45,5 @@ test('doesn\'t notify clicks if handler is not passed', t => {
 
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
-  t.false(onClick.called)
+  expect(onClick.called).toBe(false)
 })

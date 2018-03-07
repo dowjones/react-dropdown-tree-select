@@ -1,4 +1,3 @@
-import test from 'ava'
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { spy } from 'sinon'
@@ -6,20 +5,20 @@ import Tag from './index'
 
 const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => {} } }
 
-test('renders label when passed in', t => {
+test('renders label when passed in', () => {
   const actual = shallow(<Tag label='hello' id='abc' />).html()
   const expected = '<span class="tag">hello<button class="tag-remove" type="button">x</button></span>'
-  t.deepEqual(actual, expected)
+  expect(actual).toEqual(expected)
 })
 
-test('call onDelete handler when pill is closed', t => {
+test('call onDelete handler when pill is closed', () => {
   const onDelete = spy()
   const wrapper = mount(<Tag label='hello' id='abc' onDelete={onDelete} />)
   wrapper.find('.tag-remove').simulate('click', nativeEvent)
-  t.true(onDelete.calledWith('abc'))
+  expect(onDelete.calledWith('abc')).toBe(true)
 })
 
-test('should not cause form submit', t => {
+test('should not cause form submit', () => {
   const onSubmit = spy()
   const onDelete = spy()
   const wrapper = mount(
@@ -28,5 +27,5 @@ test('should not cause form submit', t => {
     </form>
   )
   wrapper.find('.tag-remove').simulate('click', nativeEvent)
-  t.false(onSubmit.called)
+  expect(onSubmit.called).toBe(false)
 })

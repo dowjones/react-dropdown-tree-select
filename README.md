@@ -4,7 +4,8 @@
 
 [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
 
-[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url]
+[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![gzip size][gzip-image]][gzip-url] 
+
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -21,6 +22,9 @@
 [commitizen-url]: http://commitizen.github.io/cz-cli/
 [greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg
 [greenkeeper-url]: https://greenkeeper.io/
+[gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip
+[gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
+
 
 ## React Dropdown Tree Select
 

@@ -13,16 +13,14 @@
 [travis-url]: https://travis-ci.org/dowjones/react-dropdown-tree-select
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master
-[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
-[node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/react-dropdown-tree-select.svg?style=flat-square
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
-[commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 [commitizen-url]: http://commitizen.github.io/cz-cli/
-[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg
+[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [greenkeeper-url]: https://greenkeeper.io/
-[gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip
+[gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip&style=flat-square
 [gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
 
 

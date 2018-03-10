@@ -2,9 +2,9 @@
 
 ---
 
-[![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+[![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url] 
 
-[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![gzip size][gzip-image]][gzip-url] 
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
 
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square

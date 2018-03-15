@@ -25,7 +25,8 @@ class DropdownTreeSelect extends Component {
     className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
-    onNodeToggle: PropTypes.func
+    onNodeToggle: PropTypes.func,
+    simpleSelect: PropTypes.bool
   }
 
   constructor (props) {
@@ -40,8 +41,8 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
-  createList = tree => {
-    this.treeManager = new TreeManager(tree)
+  createList = (tree, simple) => {
+    this.treeManager = new TreeManager(tree, simple)
     return this.treeManager.tree
   }
 
@@ -57,13 +58,13 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount () {
-    const tree = this.createList(this.props.data)
+    const tree = this.createList(this.props.data, this.props.simpleSelect)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
 
   componentWillReceiveProps (nextProps) {
-    const tree = this.createList(nextProps.data)
+    const tree = this.createList(nextProps.data, nextProps.simpleSelect)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -116,7 +117,9 @@ class DropdownTreeSelect extends Component {
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    this.setState({ tree: this.treeManager.tree, tags })
+    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
+    this.setState({ tree: this.treeManager.tree, tags, showDropdown })
+    if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 
@@ -132,6 +135,7 @@ class DropdownTreeSelect extends Component {
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
+
     return (
       <div
         className={cx(this.props.className, 'react-dropdown-tree-select')}
@@ -169,6 +173,7 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
+                  simpleSelect={this.props.simpleSelect}
                 />
               )}
             </div>

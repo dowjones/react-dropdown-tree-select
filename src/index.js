@@ -70,7 +70,6 @@ class DropdownTreeSelect extends Component {
   }
 
   handleClick = () => {
-    console.log('hc')
     this.setState(prevState => {
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
@@ -95,10 +94,6 @@ class DropdownTreeSelect extends Component {
     }
 
     this.handleClick()
-  }
-
-  hideDropdown = () => {
-    this.setState({ showDropdown: false })
   }
 
   onInputChange = value => {
@@ -140,8 +135,6 @@ class DropdownTreeSelect extends Component {
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
-
-    console.log('sd', this.state.showDropdown)
 
     return (
       <div

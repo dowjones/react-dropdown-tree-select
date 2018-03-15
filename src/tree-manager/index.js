@@ -83,14 +83,18 @@ class TreeManager {
     return this.tree
   }
 
+  togglePreviousChecked (id) {
+    const prevChecked = this.currentChecked
+    if (prevChecked) this.getNodeById(prevChecked).checked = false
+    this.currentChecked = id
+  }
+
   setNodeCheckedState (id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
 
     if (this.simpleSelect) {
-      const prevChecked = this.currentChecked
-      if (prevChecked) this.getNodeById(prevChecked).checked = false
-      this.currentChecked = id
+      this.togglePreviousChecked(id)
     } else {
       this.toggleChildren(id, checked)
 

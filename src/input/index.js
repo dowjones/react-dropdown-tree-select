@@ -9,10 +9,15 @@ const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete) => {
   return tags.map((tag, i) => {
-    const {_id, label, tagClassName} = tag
+    const {_id, _children, _nbLeaves, label, tagClassName} = tag
     return (
       <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
-        <Tag label={label} id={_id} onDelete={onDelete}/>
+        <Tag
+          label={label}
+          id={_id}
+          nbChildren={_children ? _children.length : 0}
+          nbLeaves={_nbLeaves}
+          onDelete={onDelete}/>
       </li>
     )
   })

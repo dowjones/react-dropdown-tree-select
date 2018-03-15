@@ -131,11 +131,27 @@ function walkNodes ({ nodes, list = new Map(), parent, depth = 0, simple }) {
     list.set(node._id, node)
     if (!simple && node.children) {
       node._children = []
+      node._nbLeaves = getLeafCount(node)
       walkNodes({nodes: node.children, list, parent: node, depth: depth + 1})
       node.children = undefined
     }
   })
   return list
+}
+
+/**
+ * Recursively count the number of leaves for a specific node
+ *
+ * @param node
+ * @returns {number}
+ */
+function getLeafCount (node) {
+  if (!node.children) {
+    return 1
+  }
+
+  return node.children.map(getLeafCount)
+    .reduce((last, current) => last + current, 0)
 }
 
 export default flattenTree

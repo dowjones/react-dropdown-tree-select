@@ -16,7 +16,7 @@ const Tag = (props) => {
   }
 
   return (
-    <span className={cx('tag')}>
+    <span className={cx('tag')} data-nb-children={props.nbChildren} data-nb-leaves={props.nbLeaves}>
       {label}
       <button onClick={onClick} className={cx('tag-remove')} type='button'>x</button>
     </span>
@@ -26,6 +26,8 @@ const Tag = (props) => {
 Tag.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  nbChildren: PropTypes.number,
+  nbLeaves: PropTypes.number,
   onDelete: PropTypes.func
 }
 

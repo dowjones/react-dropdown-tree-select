@@ -2,7 +2,7 @@
 
 ---
 
-[![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url] 
+[![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
 [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
 
@@ -74,6 +74,10 @@ Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/boots
 ##### With Material Design
 
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
+
+##### As Single Select
+
+Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/simple
 
 ## Install
 
@@ -223,7 +227,13 @@ The text to display as placeholder on the search box. Defaults to `Choose...`
 
 Type: `bool`
 
-Displays search results as a tree instead of flatten results
+Displays search results as a tree instead of flattened results
+
+### simpleSelect
+
+Type: `bool` (default: `false`)
+
+Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
 
 ## Styling and Customization
 

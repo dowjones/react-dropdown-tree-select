@@ -41,23 +41,37 @@ const getNodeActions = (props) => {
 }
 
 const TreeNode = props => {
-  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
+  const nodeLabelProps = {
+    className: 'node-label'
+  }
+
+  if (simpleSelect) {
+    nodeLabelProps.onClick = (e) => {
+      e.stopPropagation()
+      e.nativeEvent.stopImmediatePropagation()
+      onCheckboxChange(node._id, true)
+    }
+  }
+
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <label title={node.title || node.label}>
-        <input
-          type="checkbox"
-          name={node._id}
-          className="checkbox-item"
-          checked={node.checked}
-          onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value}
-          disabled={node.disabled}
-        />
-        <span className="node-label">{node.label}</span>
+        {
+          !simpleSelect && <input
+            type="checkbox"
+            name={node._id}
+            className="checkbox-item"
+            checked={node.checked}
+            onChange={e => onCheckboxChange(node._id, e.target.checked)}
+            value={node.value}
+            disabled={node.disabled}
+          />
+        }
+        <span {...nodeLabelProps}>{node.label}</span>
       </label>
       {getNodeActions(props)}
     </li>
@@ -81,7 +95,8 @@ TreeNode.propTypes = {
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
+  simpleSelect: PropTypes.bool
 }
 
 export default TreeNode

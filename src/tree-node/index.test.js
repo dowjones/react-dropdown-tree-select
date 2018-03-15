@@ -96,3 +96,24 @@ test('disable checkbox if the node has disabled status', t => {
   t.true(wrapper.hasClass('disabled'))
   t.true(wrapper.find('.checkbox-item').is('[disabled]'))
 })
+
+test('notifies clicks in simple mode', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item1-1-1',
+    value: 'value1-1-1',
+    className: 'cn0-0-0',
+    checked: false
+  }
+
+  const onChange = spy()
+  const stopPropagation = spy()
+  const stopImmediatePropagation = spy()
+
+  const wrapper = shallow(<TreeNode node={node} onCheckboxChange={onChange} simpleSelect />)
+  wrapper.find('.node-label').simulate('click', {stopPropagation, nativeEvent: {stopImmediatePropagation}})
+  t.true(onChange.calledWith('0-0-0', true))
+  t.true(stopPropagation.calledOnce)
+  t.true(stopImmediatePropagation.calledOnce)
+})

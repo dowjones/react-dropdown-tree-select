@@ -2,9 +2,9 @@ import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree) {
+  constructor (tree, simple) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
     this.searchMaps = new Map()
   }
 

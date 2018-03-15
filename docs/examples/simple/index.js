@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import DropdownTreeSelect from '../src'
-import data from '../demo-data.json'
+import DropdownTreeSelect from '../../../src'
+import data from '../../demo-data.json'
 
 const onChange = (curNode, selectedNodes) => {
   console.log('onChange::', curNode, selectedNodes)
@@ -20,6 +20,7 @@ ReactDOM.render(
     onAction={onAction}
     onNodeToggle={onNodeToggle}
     keepTreeOnSearch
+    simpleSelect
   />,
   document.getElementById('app')
 )

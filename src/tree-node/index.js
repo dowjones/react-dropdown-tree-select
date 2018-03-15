@@ -1,8 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import isEmpty from '../isEmpty'
-import Action from './action'
 import cn from 'classnames/bind'
+import PropTypes from 'prop-types'
+import React from 'react'
+
+import Action from './action'
+import isEmpty from '../isEmpty'
+import NodeLabel from './node-label'
+
 import styles from './index.css'
 
 const cx = cn.bind(styles)
@@ -32,7 +35,7 @@ const getToggleCx = ({ node }) => {
   )
 }
 
-const renderNodeActions = (props) => {
+const getNodeActions = (props) => {
   const { node, onAction } = props
 
   return (node.actions || []).map((a, idx) => (
@@ -40,45 +43,16 @@ const renderNodeActions = (props) => {
   ))
 }
 
-const renderLabel = (props) => {
-  const { simpleSelect, node, onCheckboxChange } = props
-  const nodeLabelProps = { className: 'node-label' }
-
-  if (simpleSelect) {
-    nodeLabelProps.onClick = (e) => {
-      e.stopPropagation()
-      e.nativeEvent.stopImmediatePropagation()
-      onCheckboxChange(node._id, true)
-    }
-  }
-
-  return (
-    <label title={node.title || node.label}>
-      {
-        !simpleSelect && <input
-          type="checkbox"
-          name={node._id}
-          className="checkbox-item"
-          checked={node.checked}
-          onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value}
-          disabled={node.disabled}
-        />
-      }
-      <span {...nodeLabelProps}>{node.label}</span>
-    </label>)
-}
-
 const TreeNode = props => {
-  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle } = props
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
 
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
-      {renderLabel(props)}
-      {renderNodeActions(props)}
+      <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} />
+      {getNodeActions(props)}
     </li>
   )
 }

@@ -35,6 +35,7 @@ A lightweight and fast control to render a select component that can display hie
   * [Vanilla (no framework)](#vanilla-no-framework)
   * [With Bootstrap](#with-bootstrap)
   * [With Material Design](#with-material-design)
+  * [As Single Select](#as-single-select)
 * [Install](#install)
   * [Peer Dependencies](#peer-dependencies)
 * [Usage](#usage)

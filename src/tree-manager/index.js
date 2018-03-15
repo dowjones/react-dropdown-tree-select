@@ -5,6 +5,7 @@ class TreeManager {
   constructor (tree, simple) {
     this._src = tree
     this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.simpleSelect = simple
     this.searchMaps = new Map()
   }
 
@@ -85,10 +86,17 @@ class TreeManager {
   setNodeCheckedState (id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
-    this.toggleChildren(id, checked)
 
-    if (!checked) {
-      this.unCheckParents(node)
+    if (this.simpleSelect) {
+      const prevChecked = this.currentChecked
+      if (prevChecked) this.getNodeById(prevChecked).checked = false
+      this.currentChecked = id
+    } else {
+      this.toggleChildren(id, checked)
+
+      if (!checked) {
+        this.unCheckParents(node)
+      }
     }
   }
 

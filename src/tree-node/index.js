@@ -40,20 +40,22 @@ const getNodeActions = (props) => {
   ))
 }
 
+const registerSelectHandler = (props, id, handler) => {
+  props.onClick = (e) => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+    handler(id, true)
+  }
+}
+
 const TreeNode = props => {
   const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
-  const nodeLabelProps = {
-    className: 'node-label'
-  }
+  const nodeLabelProps = { className: 'node-label' }
 
   if (simpleSelect) {
-    nodeLabelProps.onClick = (e) => {
-      e.stopPropagation()
-      e.nativeEvent.stopImmediatePropagation()
-      onCheckboxChange(node._id, true)
-    }
+    registerSelectHandler(nodeLabelProps, node._id, onCheckboxChange)
   }
 
   return (

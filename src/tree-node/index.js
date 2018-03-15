@@ -32,50 +32,53 @@ const getToggleCx = ({ node }) => {
   )
 }
 
-const getNodeActions = (props) => {
-  const {node, onAction} = props
+const renderNodeActions = (props) => {
+  const { node, onAction } = props
 
   return (node.actions || []).map((a, idx) => (
     <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
   ))
 }
 
-const registerSelectHandler = (props, id, handler) => {
-  props.onClick = (e) => {
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
-    handler(id, true)
-  }
-}
-
-const TreeNode = props => {
-  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
-  const liCx = getNodeCx(props)
-  const toggleCx = getToggleCx(props)
+const renderLabel = (props) => {
+  const { simpleSelect, node, onCheckboxChange } = props
   const nodeLabelProps = { className: 'node-label' }
 
   if (simpleSelect) {
-    registerSelectHandler(nodeLabelProps, node._id, onCheckboxChange)
+    nodeLabelProps.onClick = (e) => {
+      e.stopPropagation()
+      e.nativeEvent.stopImmediatePropagation()
+      onCheckboxChange(node._id, true)
+    }
   }
+
+  return (
+    <label title={node.title || node.label}>
+      {
+        !simpleSelect && <input
+          type="checkbox"
+          name={node._id}
+          className="checkbox-item"
+          checked={node.checked}
+          onChange={e => onCheckboxChange(node._id, e.target.checked)}
+          value={node.value}
+          disabled={node.disabled}
+        />
+      }
+      <span {...nodeLabelProps}>{node.label}</span>
+    </label>)
+}
+
+const TreeNode = props => {
+  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle } = props
+  const liCx = getNodeCx(props)
+  const toggleCx = getToggleCx(props)
 
   return (
     <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
-      <label title={node.title || node.label}>
-        {
-          !simpleSelect && <input
-            type="checkbox"
-            name={node._id}
-            className="checkbox-item"
-            checked={node.checked}
-            onChange={e => onCheckboxChange(node._id, e.target.checked)}
-            value={node.value}
-            disabled={node.disabled}
-          />
-        }
-        <span {...nodeLabelProps}>{node.label}</span>
-      </label>
-      {getNodeActions(props)}
+      {renderLabel(props)}
+      {renderNodeActions(props)}
     </li>
   )
 }

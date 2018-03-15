@@ -26,7 +26,8 @@ class DropdownTreeSelect extends Component {
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
-    simpleSelect: PropTypes.bool
+    simpleSelect: PropTypes.bool,
+    noMatchesText: PropTypes.string
   }
 
   constructor (props) {
@@ -164,7 +165,7 @@ class DropdownTreeSelect extends Component {
           {this.state.showDropdown && (
             <div className={cx('dropdown-content')}>
               {this.state.allNodesHidden ? (
-                <span className="no-matches">No matches found</span>
+                <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (
                 <Tree
                   data={this.state.tree}

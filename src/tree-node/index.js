@@ -50,7 +50,7 @@ const TreeNode = props => {
   const toggleCx = getToggleCx(props)
 
   return (
-    <li className={liCx} style={styles} {...getDataset(node.dataset)}>
+    <li className={liCx} style={keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}} {...getDataset(node.dataset)}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
       <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} />
       {getNodeActions(props)}

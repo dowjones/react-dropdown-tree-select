@@ -2,9 +2,10 @@ import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree) {
+  constructor (tree, simple) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.simpleSelect = simple
     this.searchMaps = new Map()
   }
 
@@ -82,13 +83,24 @@ class TreeManager {
     return this.tree
   }
 
+  togglePreviousChecked (id) {
+    const prevChecked = this.currentChecked
+    if (prevChecked) this.getNodeById(prevChecked).checked = false
+    this.currentChecked = id
+  }
+
   setNodeCheckedState (id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
-    this.toggleChildren(id, checked)
 
-    if (!checked) {
-      this.unCheckParents(node)
+    if (this.simpleSelect) {
+      this.togglePreviousChecked(id)
+    } else {
+      this.toggleChildren(id, checked)
+
+      if (!checked) {
+        this.unCheckParents(node)
+      }
     }
   }
 

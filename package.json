@@ -24,6 +24,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
+    "build:docs": "webpack --config docs/webpack.config.js --bail",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
@@ -33,7 +34,7 @@
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "test": "cross-env NODE_ENV=test ava",
-    "test:cov": "rimraf .nyc_output && nyc npm test"
+    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
   },
   "files": [
     "dist"

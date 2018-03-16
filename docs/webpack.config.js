@@ -62,4 +62,11 @@ module.exports = [{
     path: path.join(__dirname, 'examples/material'),
     filename: 'bundle.js'
   }
+}, {
+  ...baseConfig,
+  entry: path.join(__dirname, 'examples/simple'),
+  output: {
+    path: path.join(__dirname, 'examples/simple'),
+    filename: 'bundle.js'
+  }
 }]

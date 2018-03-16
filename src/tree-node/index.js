@@ -1,8 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import isEmpty from '../isEmpty'
-import Action from './action'
 import cn from 'classnames/bind'
+import PropTypes from 'prop-types'
+import React from 'react'
+
+import Action from './action'
+import isEmpty from '../isEmpty'
+import NodeLabel from './node-label'
+
 import styles from './index.css'
 import { getDataset } from '../dataset-utils'
 
@@ -34,7 +37,7 @@ const getToggleCx = ({ node }) => {
 }
 
 const getNodeActions = (props) => {
-  const {node, onAction} = props
+  const { node, onAction } = props
 
   return (node.actions || []).map((a, idx) => (
     <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
@@ -42,25 +45,14 @@ const getNodeActions = (props) => {
 }
 
 const TreeNode = props => {
-  const { keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
-  const styles = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}
+
   return (
     <li className={liCx} style={styles} {...getDataset(node.dataset)}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
-      <label title={node.title || node.label}>
-        <input
-          type="checkbox"
-          name={node._id}
-          className="checkbox-item"
-          checked={node.checked}
-          onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value}
-          disabled={node.disabled}
-        />
-        <span className="node-label">{node.label}</span>
-      </label>
+      <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} />
       {getNodeActions(props)}
     </li>
   )
@@ -84,7 +76,8 @@ TreeNode.propTypes = {
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
+  simpleSelect: PropTypes.bool
 }
 
 export default TreeNode

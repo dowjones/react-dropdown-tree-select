@@ -76,3 +76,20 @@ test('disable checkbox if the node has disabled status', t => {
 
   t.true(wrapper.hasClass('disabled'))
 })
+
+test('should render data attributes', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item1-1-1',
+    value: 'value1-1-1',
+    dataset: {
+      first: 'john',
+      last: 'smith'
+    }
+  }
+
+  const wrapper = shallow(<TreeNode node={node} />)
+  t.is(wrapper.prop('data-first'), 'john')
+  t.is(wrapper.prop('data-last'), 'smith')
+})

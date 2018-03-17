@@ -200,6 +200,7 @@ Data for rendering the tree select items. The object requires the following stru
   className,    // optional: Additional css class for the node. This is helpful to style the nodes your way
   tagClassName, // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
   actions,      // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
+  dataset,      // optional: Allows data-* attributes to be set on the node and tag elements
   ...           // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```

@@ -2,9 +2,10 @@
 
 ---
 
-[![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+[![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
-[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![npm download][download-image]][npm-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url]
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -12,15 +13,16 @@
 [travis-url]: https://travis-ci.org/dowjones/react-dropdown-tree-select
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master
-[node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
-[node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/react-dropdown-tree-select.svg?style=flat-square
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
-[commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 [commitizen-url]: http://commitizen.github.io/cz-cli/
-[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg
+[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [greenkeeper-url]: https://greenkeeper.io/
+[gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip&style=flat-square
+[gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
+
 
 ## React Dropdown Tree Select
 
@@ -33,6 +35,7 @@ A lightweight and fast control to render a select component that can display hie
   * [Vanilla (no framework)](#vanilla-no-framework)
   * [With Bootstrap](#with-bootstrap)
   * [With Material Design](#with-material-design)
+  * [As Single Select](#as-single-select)
 * [Install](#install)
   * [Peer Dependencies](#peer-dependencies)
 * [Usage](#usage)
@@ -72,6 +75,10 @@ Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/boots
 ##### With Material Design
 
 Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
+
+##### As Single Select
+
+Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/simple
 
 ## Install
 
@@ -188,10 +195,12 @@ Data for rendering the tree select items. The object requires the following stru
   value,        // required: Checkbox value
   children,     // optional: Array of child objects
   checked,      // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
+  disabled,     // optional: Selectable state of checkbox. if true, the checkbox is disabled and the node is not selectable.
   expanded,     // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
   className,    // optional: Additional css class for the node. This is helpful to style the nodes your way
   tagClassName, // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
   actions,      // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
+  dataset,      // optional: Allows data-* attributes to be set on the node and tag elements
   ...           // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```
@@ -220,7 +229,13 @@ The text to display as placeholder on the search box. Defaults to `Choose...`
 
 Type: `bool`
 
-Displays search results as a tree instead of flatten results
+Displays search results as a tree instead of flattened results
+
+### simpleSelect
+
+Type: `bool` (default: `false`)
+
+Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
 
 ## Styling and Customization
 

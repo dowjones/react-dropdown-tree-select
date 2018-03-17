@@ -2,10 +2,10 @@ import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree) {
+  constructor (tree, simple) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)))
-    this.tree.forEach(node => { this.setInitialCheckState(node) })
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.simpleSelect = simple
     this.searchMaps = new Map()
   }
 
@@ -83,40 +83,24 @@ class TreeManager {
     return this.tree
   }
 
-  /**
-  * If the node didn't specify anything on its own
-  * figure out the initial state based on parent selections
-  * @param {object} node [description]
-  */
-  setInitialCheckState (node) {
-    if (node.checked === undefined) node.checked = this.getNodeCheckedState(node)
-  }
-
-  /**
-   * Figure out the check state based on parent selections.
-   * @param  {[type]} node    [description]
-   * @param  {[type]} tree    [description]
-   * @return {[type]}         [description]
-   */
-  getNodeCheckedState (node) {
-    let parentCheckState = false
-    let parent = node._parent
-    while (parent && !parentCheckState) {
-      const parentNode = this.getNodeById(parent)
-      parentCheckState = parentNode.checked || false
-      parent = parentNode._parent
-    }
-
-    return parentCheckState
+  togglePreviousChecked (id) {
+    const prevChecked = this.currentChecked
+    if (prevChecked) this.getNodeById(prevChecked).checked = false
+    this.currentChecked = id
   }
 
   setNodeCheckedState (id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
-    this.toggleChildren(id, checked)
 
-    if (!checked) {
-      this.unCheckParents(node)
+    if (this.simpleSelect) {
+      this.togglePreviousChecked(id)
+    } else {
+      this.toggleChildren(id, checked)
+
+      if (!checked) {
+        this.unCheckParents(node)
+      }
     }
   }
 

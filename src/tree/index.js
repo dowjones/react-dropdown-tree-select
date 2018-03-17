@@ -12,7 +12,8 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 const getNodes = props => {
-  const { data, keepTreeOnSearch, searchModeOn, onAction, onChange, onCheckboxChange, onNodeToggle } = props
+  const { data, keepTreeOnSearch, searchModeOn, simpleSelect } = props
+  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
@@ -26,6 +27,7 @@ const getNodes = props => {
           onCheckboxChange={onCheckboxChange}
           onNodeToggle={onNodeToggle}
           onAction={onAction}
+          simpleSelect={simpleSelect}
         />
       )
     }
@@ -46,7 +48,8 @@ Tree.propTypes = {
   onChange: PropTypes.func,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
+  simpleSelect: PropTypes.bool
 }
 
 export default Tree

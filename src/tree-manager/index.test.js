@@ -398,3 +398,36 @@ test('should get matching nodes with mixed case when searched', t => {
   const nodes = ['i1', 'c1']
   nodes.forEach(n => t.false(manager.getNodeById(n).hide))
 })
+
+test('should uncheck previous node in simple select mode', t => {
+  const tree = [{
+    id: 'i1',
+    label: 'l1',
+    value: 'v1',
+    children: [{
+      id: 'c1',
+      label: 'l1c1',
+      value: 'l1v1'
+    }]
+  }, {
+    id: 'i2',
+    label: 'l2',
+    value: 'v2',
+    children: [{
+      id: 'c2',
+      label: 'l2c2',
+      value: 'l2v2'
+    }]
+  }]
+  const manager = new TreeManager(tree, true)
+  manager.setNodeCheckedState('i1', true)
+  t.true(manager.getNodeById('i1').checked)
+
+  manager.setNodeCheckedState('i2', true)
+  t.false(manager.getNodeById('i1').checked)
+  t.true(manager.getNodeById('i2').checked)
+
+  manager.setNodeCheckedState('i1', true)
+  t.true(manager.getNodeById('i1').checked)
+  t.false(manager.getNodeById('i2').checked)
+})

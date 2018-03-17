@@ -4,14 +4,15 @@ import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
+import { getDataset } from '../dataset-utils'
 
 const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete) => {
   return tags.map((tag, i) => {
-    const {_id, label, tagClassName} = tag
+    const {_id, label, tagClassName, dataset} = tag
     return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
+      <li className={cx('tag-item', tagClassName)} key={`tag-${i}`} {...getDataset(dataset)}>
         <Tag label={label} id={_id} onDelete={onDelete}/>
       </li>
     )

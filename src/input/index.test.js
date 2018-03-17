@@ -28,3 +28,18 @@ test('raises onchange', t => {
   wrapper.find('input').simulate('change', {target: {value: 'hello'}, persist: spy()})
   t.true(onChange.calledWith('hello'))
 })
+
+test('should render data attributes', t => {
+  const tags = [{_id: 'i1',
+    label: 'l1',
+    tagClassName: 'test',
+    dataset: {
+      first: 'john',
+      last: 'smith'
+    }}]
+
+  const wrapper = shallow(<Input tags={tags} />)
+
+  t.is(wrapper.find('.test').prop('data-first'), 'john')
+  t.is(wrapper.find('.test').prop('data-last'), 'smith')
+})

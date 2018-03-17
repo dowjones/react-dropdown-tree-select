@@ -11,7 +11,7 @@ export default class Story extends React.Component {
     return (
       <div style={{ padding: '10px' }}>
         <span
-          className='markdown-body'
+          className="markdown-body"
           dangerouslySetInnerHTML={{ __html: marked(Readme) }}
         />
       </div>

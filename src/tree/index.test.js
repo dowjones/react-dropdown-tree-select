@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import TreeManager from '../tree-manager'
 import Tree from './index'
 
-test('renders tree nodes when search mode is on', t => {
+test('renders tree nodes when search mode is on', (t) => {
   const tree = [
     {
       label: 'item1',
@@ -40,7 +40,7 @@ test('renders tree nodes when search mode is on', t => {
   t.true(wrapper.find('ul.root').hasClass('searchModeOn'))
 })
 
-test('renders only expanded tree nodes when search mode is off', t => {
+test('renders only expanded tree nodes when search mode is off', (t) => {
   const tree = [
     {
       label: 'item1',

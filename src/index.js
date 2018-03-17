@@ -29,7 +29,7 @@ class DropdownTreeSelect extends Component {
     simpleSelect: PropTypes.bool
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
@@ -57,13 +57,13 @@ class DropdownTreeSelect extends Component {
     this.searchInput.value = ''
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const tree = this.createList(this.props.data, this.props.simpleSelect)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const tree = this.createList(nextProps.data, nextProps.simpleSelect)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
@@ -117,7 +117,9 @@ class DropdownTreeSelect extends Component {
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
+    const showDropdown = this.props.simpleSelect
+      ? false
+      : this.state.showDropdown
     this.setState({ tree: this.treeManager.tree, tags, showDropdown })
     if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
@@ -128,7 +130,7 @@ class DropdownTreeSelect extends Component {
       this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
-  render () {
+  render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,

@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { spy, match } from 'sinon'
 import Action from './action'
 
-test('renders action with given props', t => {
+test('renders action with given props', (t) => {
   const props = {
     title: 'action',
     className: 'cn0-0-0',
@@ -20,28 +20,28 @@ test('renders action with given props', t => {
   t.is(wrapper.props().junk, undefined)
 })
 
-test('notifies clicks if handler is passed', t => {
+test('notifies clicks if handler is passed', (t) => {
   const onClick = spy()
   const props = {
     title: 'action',
     className: 'cn0-0-0',
     onAction: onClick,
-    actionData: {id: 'actionA'}
+    actionData: { id: 'actionA' }
   }
 
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
   t.true(onClick.calledOnce)
-  t.true(onClick.calledWith(match({id: 'actionA'})))
+  t.true(onClick.calledWith(match({ id: 'actionA' })))
 })
 
-test('doesn\'t notify clicks if handler is not passed', t => {
+test('doesn\'t notify clicks if handler is not passed', (t) => {
   const onClick = spy()
   const props = {
     title: 'action',
     className: 'cn0-0-0',
     onClick,
-    actionData: {id: 'actionA'}
+    actionData: { id: 'actionA' }
   }
 
   const wrapper = shallow(<Action {...props} />)

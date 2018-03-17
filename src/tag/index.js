@@ -18,7 +18,7 @@ const Tag = (props) => {
   return (
     <span className={cx('tag')}>
       {label}
-      <button onClick={onClick} className={cx('tag-remove')} type='button'>x</button>
+      <button onClick={onClick} className={cx('tag-remove')} type="button">x</button>
     </span>
   )
 }

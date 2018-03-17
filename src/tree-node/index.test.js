@@ -4,11 +4,9 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import TreeNode from './index'
 
-const hasGap = (wrapper) => {
-  return !!wrapper.find('li').first().props().style.paddingLeft
-}
+const hasGap = wrapper => !!wrapper.find('li').first().props().style.paddingLeft
 
-test('renders tree node', t => {
+test('renders tree node', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -32,7 +30,7 @@ test('renders tree node', t => {
   t.false(wrapper.hasClass('disabled'))
 })
 
-test('notifies node toggle changes', t => {
+test('notifies node toggle changes', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -48,7 +46,7 @@ test('notifies node toggle changes', t => {
   t.true(onChange.calledWith('0-0-0'))
 })
 
-test('remove gap during search', t => {
+test('remove gap during search', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -57,12 +55,12 @@ test('remove gap during search', t => {
     className: 'cn0-0-0'
   }
 
-  const wrapper = shallow(<TreeNode node={node} searchModeOn={true} />)
+  const wrapper = shallow(<TreeNode node={node} searchModeOn />)
 
   t.false(hasGap(wrapper))
 })
 
-test('disable checkbox if the node has disabled status', t => {
+test('disable checkbox if the node has disabled status', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -72,12 +70,12 @@ test('disable checkbox if the node has disabled status', t => {
     className: 'cn0-0-0'
   }
 
-  const wrapper = shallow(<TreeNode node={node} searchModeOn={true} />)
+  const wrapper = shallow(<TreeNode node={node} searchModeOn />)
 
   t.true(wrapper.hasClass('disabled'))
 })
 
-test('should render data attributes', t => {
+test('should render data attributes', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',

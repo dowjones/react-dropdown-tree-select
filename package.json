@@ -1,7 +1,8 @@
 {
   "name": "react-dropdown-tree-select",
   "version": "0.0.0-semantic-release",
-  "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
+  "description":
+    "Lightweight, customizable and fast Dropdown Tree Select component for React",
   "keywords": [
     "react",
     "tree-select",
@@ -30,15 +31,15 @@
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack-dev-server --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
-    "lint": "eslint --fix src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
+    "lint":
+      "eslint --fix src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "test": "cross-env NODE_ENV=test ava",
-    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
+    "test:cov":
+      "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.debounce": "^4.0.8",
@@ -63,18 +64,23 @@
     "cz-conventional-changelog-emoji": "^0.1.0",
     "enzyme": "^3.1.1",
     "enzyme-adapter-react-16": "^1.0.4",
-    "eslint": "^4.6.1",
+    "eslint": "^4.19.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-react-app": "^2.1.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^6.0.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.0.0",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-react": "^7.7.0",
     "eslint-plugin-standard": "^3.0.1",
     "github-markdown-css": "^2.10.0",
     "husky": "^0.14.3",
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
+    "marked": "^0.3.17",
     "nyc": "^11.2.1",
     "open": "^0.0.5",
     "postcss": "^6.0.16",
@@ -104,9 +110,7 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": [
-      "src/**/*.test.js"
-    ],
+    "files": ["src/**/*.test.js"],
     "require": [
       "babel-register",
       "ignore-styles",
@@ -119,34 +123,18 @@
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": [
-      "html",
-      "text-summary"
-    ],
+    "reporter": ["html", "text-summary"],
     "all": true,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "**/*.test.js",
-      "**/node_modules/**",
-      "dist",
-      "demo"
-    ]
+    "include": ["src/**/*.js"],
+    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
+    "extends": ["@commitlint/config-conventional"],
     "rules": {
-      "subject-case": [
-        2,
-        "always",
-        "sentence-case"
-      ]
+      "subject-case": [2, "always", "sentence-case"]
     }
   },
   "config": {

@@ -10,6 +10,7 @@ This documentation is about expanding react-dropdown-tree-select using Higher Or
   * [External Select All, Unselect All buttons](#external-select-all--unselect-all-buttons)
   * [Internal Select All Checkbox](#internal-select-all-checkbox)
   * [Prevent re-render on parent prop/state changes](#prevent-re-render-on-parent-prop-state-changes)
+  * [Tree Node Paths](#tree-node-paths)
 
 ## What are HOCs
 

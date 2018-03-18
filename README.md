@@ -44,6 +44,7 @@ A lightweight and fast control to render a select component that can display hie
   * [data](#data)
   * [placeholderText](#placeholdertext)
   * [keepTreeOnSearch](#keeptreeonsearch)
+  * [simpleSelect](#simpleselect)
 * [Styling and Customization](#styling-and-customization)
   * [Using default styles](#default-styles)
   * [Customizing with Bootstrap, Material Design styles](#customizing-styles)

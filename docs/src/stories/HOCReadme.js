@@ -1,23 +1,22 @@
-/* eslint-disable  */
-import React from 'react'
 import marked from 'marked'
-//
-import HOCReadme from '!raw-loader!../../../README.md'
+import React from 'react'
+
+import HOCReadme from '!raw-loader!../../HOC.md'
 import 'github-markdown-css/github-markdown.css'
 import './utils/prism.js'
 
 export default class HOCStory extends React.Component {
-  render () {
+  render() {
     return (
       <div style={{ padding: '10px' }}>
         <span
-          className='markdown-body'
+          className="markdown-body"
           dangerouslySetInnerHTML={{ __html: marked(HOCReadme) }}
         />
       </div>
     )
   }
-  componentDidMount () {
+  componentDidMount() {
     global.Prism && global.Prism.highlightAll()
   }
 }

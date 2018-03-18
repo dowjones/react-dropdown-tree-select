@@ -1,13 +1,12 @@
-/* eslint-disable import/no-webpack-loader-syntax */
-import React from 'react'
 import marked from 'marked'
-//
+import React from 'react'
+
 import Readme from '!raw-loader!../../../README.md'
 import 'github-markdown-css/github-markdown.css'
 import './utils/prism.js'
 
 export default class Story extends React.Component {
-  render () {
+  render() {
     return (
       <div style={{ padding: '10px' }}>
         <span
@@ -17,7 +16,7 @@ export default class Story extends React.Component {
       </div>
     )
   }
-  componentDidMount () {
+  componentDidMount() {
     global.Prism && global.Prism.highlightAll()
   }
 }

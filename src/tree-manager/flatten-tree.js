@@ -114,7 +114,9 @@ function setInitialStateProps (node, parent = {}) {
   }
 }
 
-function walkNodes ({ nodes, list = new Map(), parent, depth = 0, simple }) {
+function walkNodes ({
+  nodes, list = new Map(), parent, depth = 0, simple
+}) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -131,7 +133,9 @@ function walkNodes ({ nodes, list = new Map(), parent, depth = 0, simple }) {
     list.set(node._id, node)
     if (!simple && node.children) {
       node._children = []
-      walkNodes({nodes: node.children, list, parent: node, depth: depth + 1})
+      walkNodes({
+        nodes: node.children, list, parent: node, depth: depth + 1
+      })
       node.children = undefined
     }
   })

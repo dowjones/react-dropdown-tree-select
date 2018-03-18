@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Action = props => {
-  const { title, className, text, onAction, actionData } = props
+const Action = (props) => {
+  const {
+    title, className, text, onAction, actionData
+  } = props
 
   const onClick = () => {
     if (typeof onAction === 'function') {

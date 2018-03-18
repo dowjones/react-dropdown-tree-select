@@ -7,30 +7,30 @@ const baseConfig = {
     modules: ['node_modules']
   },
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    },
-    {
-      test: /\.css$/,
-      use: [
-        {
-          loader: 'style-loader'
-        },
-        {
-          loader: 'css-loader',
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        use: {
+          loader: 'url-loader',
           options: {
-            localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
-            importLoaders: 1
+            limit: 100000
           }
-        },
-        {
-          loader: 'postcss-loader'
         }
-      ],
-      include: /src/
-    }]
+      },
+      {
+        test: /\.md$/,
+        use: 'raw-loader'
+      }
+    ]
   },
   devServer: {
     contentBase: './docs',
@@ -41,32 +41,13 @@ const baseConfig = {
   }
 }
 
-module.exports = [{
-  ...baseConfig,
-  entry: __dirname,
-  output: {
-    path: __dirname,
-    filename: 'bundle.js'
+module.exports = [
+  {
+    ...baseConfig,
+    entry: path.join(__dirname, 'src'),
+    output: {
+      path: __dirname,
+      filename: 'bundle.js'
+    }
   }
-}, {
-  ...baseConfig,
-  entry: path.join(__dirname, 'examples/bootstrap'),
-  output: {
-    path: path.join(__dirname, 'examples/bootstrap'),
-    filename: 'bundle.js'
-  }
-}, {
-  ...baseConfig,
-  entry: path.join(__dirname, 'examples/material'),
-  output: {
-    path: path.join(__dirname, 'examples/material'),
-    filename: 'bundle.js'
-  }
-}, {
-  ...baseConfig,
-  entry: path.join(__dirname, 'examples/simple'),
-  output: {
-    path: path.join(__dirname, 'examples/simple'),
-    filename: 'bundle.js'
-  }
-}]
+]

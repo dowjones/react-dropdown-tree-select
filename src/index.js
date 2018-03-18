@@ -117,7 +117,9 @@ class DropdownTreeSelect extends Component {
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
+    const showDropdown = this.props.simpleSelect
+      ? false
+      : this.state.showDropdown
     this.setState({ tree: this.treeManager.tree, tags, showDropdown })
     if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)

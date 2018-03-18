@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
   devtool: 'source-map',
@@ -30,8 +30,8 @@ module.exports = {
     new ExtractTextPlugin('styles.css'),
     new webpack
       .optimize
-      .UglifyJsPlugin({sourceMap: true, exclude: /node_modules/}),
-    new BundleAnalyzerPlugin({analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true})
+      .UglifyJsPlugin({ sourceMap: true, exclude: /node_modules/ }),
+    new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true })
   ],
   module: {
     rules: [

@@ -31,14 +31,14 @@ class TreeManager {
 
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
-      superMatches.forEach(key => {
+      superMatches.forEach((key) => {
         const node = this.getNodeById(key)
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
       })
     } else {
-      this.tree.forEach(node => {
+      this.tree.forEach((node) => {
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
@@ -60,12 +60,12 @@ class TreeManager {
   filterTree (searchTerm) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
-    this.tree.forEach(node => {
+    this.tree.forEach((node) => {
       node.hide = true
       node.matchInChildren = false
     })
 
-    matches.forEach(m => {
+    matches.forEach((m) => {
       const node = this.getNodeById(m)
       node.hide = false
       this.setChildMatchStatus(node._parent)
@@ -76,7 +76,7 @@ class TreeManager {
   }
 
   restoreNodes () {
-    this.tree.forEach(node => {
+    this.tree.forEach((node) => {
       node.hide = false
     })
 
@@ -112,7 +112,7 @@ class TreeManager {
   unCheckParents (node) {
     let parent = node._parent
     while (parent) {
-      let next = this.getNodeById(parent)
+      const next = this.getNodeById(parent)
       next.checked = false
       parent = next._parent
     }

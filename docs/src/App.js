@@ -11,10 +11,11 @@ const stories = [
   { name: 'Readme', component: Readme },
   { name: 'HOC Readme', component: HOCReadme },
 
-  { name: 'With Vanilla Styles', component: CodeSandbox('X6npLXPRW') },
+  { name: 'With Vanilla Styles', component: CodeSandbox('v0nmw5ykk5') },
   { name: 'With Bootstrap Styles', component: CodeSandbox('382pjronm') },
   { name: 'With Material Design Styles', component: CodeSandbox('2o1pv6925p') },
   { name: 'With Country flags', component: CodeSandbox('6w41wlvj8z') },
+  { name: 'Simple Select', component: CodeSandbox('5xzn337wjn') },
   {
     name: 'Custom Select/Unselect All Buttons (HOC)',
     component: CodeSandbox('n348v2qox0')
@@ -31,7 +32,7 @@ const stories = [
 ]
 
 export default class App extends React.Component {
-  render () {
+  render() {
     return (
       <ReactStory
         style={{
@@ -48,23 +49,6 @@ export default class App extends React.Component {
               flexDirection: 'column'
             }}
           >
-            <a
-              href="//github.com/react-tools/react-table"
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                borderBottom: 'solid 3px #cccccc'
-              }}
-            >
-              <img
-                src="https://github.com/react-tools/media/raw/master/logo-react-table.png"
-                alt="React Table Logo"
-                style={{
-                  width: '150px',
-                  padding: '10px'
-                }}
-              />
-            </a>
             <div
               {...props}
               style={{

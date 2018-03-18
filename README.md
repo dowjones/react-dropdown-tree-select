@@ -59,25 +59,25 @@ A lightweight and fast control to render a select component that can display hie
 
 ## Screenshot
 
-![demo](/docs/demo.gif)
+![animated demo screenshot](https://user-images.githubusercontent.com/781818/37562235-0ae9e9ec-2a3a-11e8-8266-b0e6b716d0d1.gif)
 
 ## Demo
 
 ##### Vanilla, no framework
 
-Online demo: http://dowjones.github.io/react-dropdown-tree-select/
+Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-vanilla-styles
 
 ##### With Bootstrap
 
-Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/bootstrap
+Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-bootstrap-styles
 
 ##### With Material Design
 
-Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/material
+Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-material-design-styles
 
 ##### As Single Select
 
-Online demo: http://dowjones.github.io/react-dropdown-tree-select/examples/simple
+Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/simple-select
 
 ## Install
 

@@ -25,6 +25,10 @@ const baseConfig = {
             limit: 100000
           }
         }
+      },
+      {
+        test: /\.md$/,
+        use: 'raw-loader'
       }
     ]
   },

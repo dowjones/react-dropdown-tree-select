@@ -101,7 +101,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import DropdownTreeSelect from 'react-dropdown-tree-select'
 
-const tree = {
+const data = {
   label: 'search me',
   value: 'searchme',
   children: [

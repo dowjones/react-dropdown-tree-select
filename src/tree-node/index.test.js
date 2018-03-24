@@ -6,7 +6,7 @@ import TreeNode from './index'
 
 const hasGap = wrapper => !!wrapper.find('li').first().props().style.paddingLeft
 
-test('renders tree node', (t) => {
+test('renders tree node', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -17,9 +17,9 @@ test('renders tree node', (t) => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban',
-      },
-    ],
+        className: 'fa fa-ban'
+      }
+    ]
   }
 
   const wrapper = shallow(<TreeNode node={node} />)
@@ -30,13 +30,13 @@ test('renders tree node', (t) => {
   t.false(wrapper.hasClass('disabled'))
 })
 
-test('notifies node toggle changes', (t) => {
+test('notifies node toggle changes', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0',
+    className: 'cn0-0-0'
   }
 
   const onChange = spy()
@@ -46,13 +46,13 @@ test('notifies node toggle changes', (t) => {
   t.true(onChange.calledWith('0-0-0'))
 })
 
-test('remove gap during search', (t) => {
+test('remove gap during search', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0',
+    className: 'cn0-0-0'
   }
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn />)
@@ -60,14 +60,14 @@ test('remove gap during search', (t) => {
   t.false(hasGap(wrapper))
 })
 
-test('disable checkbox if the node has disabled status', (t) => {
+test('disable checkbox if the node has disabled status', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     disabled: true,
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0',
+    className: 'cn0-0-0'
   }
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn />)
@@ -75,7 +75,7 @@ test('disable checkbox if the node has disabled status', (t) => {
   t.true(wrapper.hasClass('disabled'))
 })
 
-test('should render data attributes', (t) => {
+test('should render data attributes', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -83,8 +83,8 @@ test('should render data attributes', (t) => {
     value: 'value1-1-1',
     dataset: {
       first: 'john',
-      last: 'smith',
-    },
+      last: 'smith'
+    }
   }
 
   const wrapper = shallow(<TreeNode node={node} />)

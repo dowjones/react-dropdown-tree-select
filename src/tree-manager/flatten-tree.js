@@ -92,16 +92,17 @@ const tree = [
  */
 function flattenTree(tree, simple) {
   const forest = Array.isArray(tree) ? tree : [tree]
+  // eslint-disable-next-line no-use-before-define
   const list = walkNodes({ nodes: forest, simple })
   return list
 }
 
 /**
-  * If the node didn't specify anything on its own
-  * figure out the initial state based on parent
-  * @param {object} node [curernt node]
-  * @param {object} parent [node's immediate parent]
-  */
+ * If the node didn't specify anything on its own
+ * figure out the initial state based on parent
+ * @param {object} node [curernt node]
+ * @param {object} parent [node's immediate parent]
+ */
 function setInitialStateProps(node, parent = {}) {
   const stateProps = ['checked', 'disabled']
   for (let index = 0; index < stateProps.length; index++) {
@@ -114,9 +115,7 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({
-  nodes, list = new Map(), parent, depth = 0, simple,
-}) {
+function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -134,7 +133,10 @@ function walkNodes({
     if (!simple && node.children) {
       node._children = []
       walkNodes({
-        nodes: node.children, list, parent: node, depth: depth + 1,
+        nodes: node.children,
+        list,
+        parent: node,
+        depth: depth + 1
       })
       node.children = undefined
     }

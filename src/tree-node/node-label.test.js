@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import NodeLabel from './node-label'
 
-test('renders  node label', (t) => {
+test('renders  node label', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -15,9 +15,9 @@ test('renders  node label', (t) => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban',
-      },
-    ],
+        className: 'fa fa-ban'
+      }
+    ]
   }
 
   const wrapper = shallow(<NodeLabel node={node} />)
@@ -27,14 +27,14 @@ test('renders  node label', (t) => {
   t.false(wrapper.hasClass('disabled'))
 })
 
-test('notifies checkbox changes', (t) => {
+test('notifies checkbox changes', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
     className: 'cn0-0-0',
-    checked: false,
+    checked: false
   }
 
   const onChange = spy()
@@ -44,14 +44,14 @@ test('notifies checkbox changes', (t) => {
   t.true(onChange.calledWith('0-0-0', true))
 })
 
-test('disable checkbox if the node has disabled status', (t) => {
+test('disable checkbox if the node has disabled status', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     disabled: true,
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0',
+    className: 'cn0-0-0'
   }
 
   const wrapper = shallow(<NodeLabel node={node} searchModeOn />)
@@ -59,14 +59,14 @@ test('disable checkbox if the node has disabled status', (t) => {
   t.true(wrapper.find('.checkbox-item').is('[disabled]'))
 })
 
-test('notifies clicks in simple mode', (t) => {
+test('notifies clicks in simple mode', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
     className: 'cn0-0-0',
-    checked: false,
+    checked: false
   }
 
   const onChange = spy()

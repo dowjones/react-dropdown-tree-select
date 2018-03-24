@@ -13,7 +13,7 @@ const cx = cn.bind(styles)
 
 const isLeaf = node => isEmpty(node._children)
 
-const getNodeCx = (props) => {
+const getNodeCx = props => {
   const { keepTreeOnSearch, node } = props
 
   return cx(
@@ -23,29 +23,22 @@ const getNodeCx = (props) => {
       tree: !isLeaf(node),
       disabled: node.disabled,
       hide: node.hide,
-      'match-in-children': keepTreeOnSearch && node.matchInChildren,
+      'match-in-children': keepTreeOnSearch && node.matchInChildren
     },
-    node.className,
+    node.className
   )
 }
 
-const getToggleCx = ({ node }) => cx(
-  'toggle',
-  { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded },
-)
+const getToggleCx = ({ node }) => cx('toggle', { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded })
 
-const getNodeActions = (props) => {
+const getNodeActions = props => {
   const { node, onAction } = props
 
-  return (node.actions || []).map((a, idx) => (
-    <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />
-  ))
+  return (node.actions || []).map(a => <Action key={a.id} {...a} actionData={{ action: a.id, node }} onAction={onAction} />)
 }
 
-const TreeNode = (props) => {
-  const {
-    simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange,
-  } = props
+const TreeNode = props => {
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}
@@ -71,14 +64,14 @@ TreeNode.propTypes = {
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
-    dataset: PropTypes.object,
+    dataset: PropTypes.object
   }).isRequired,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
   onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool,
+  simpleSelect: PropTypes.bool
 }
 
 export default TreeNode

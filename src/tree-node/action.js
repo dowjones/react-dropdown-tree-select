@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Action = (props) => {
+const Action = props => {
   const {
-    title, className, text, onAction, actionData,
+    title, className, text, onAction, actionData
   } = props
 
   const onClick = () => {
@@ -20,7 +20,7 @@ Action.propTypes = {
   text: PropTypes.string,
   className: PropTypes.string,
   actionData: PropTypes.object,
-  onAction: PropTypes.func,
+  onAction: PropTypes.func
 }
 
 export default Action

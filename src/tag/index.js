@@ -5,10 +5,10 @@ import styles from './index.css'
 
 const cx = cn.bind(styles)
 
-const Tag = (props) => {
+const Tag = props => {
   const { id, label, onDelete } = props
 
-  const onClick = (e) => {
+  const onClick = e => {
     // this is needed to stop the drawer from closing
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
@@ -26,7 +26,7 @@ const Tag = (props) => {
 Tag.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onDelete: PropTypes.func,
+  onDelete: PropTypes.func
 }
 
 export default Tag

@@ -11,42 +11,40 @@ const shouldRenderNode = (node, searchModeOn, data) => {
   return !parent || parent.expanded
 }
 
-const Tree = props => {
-  const { data, keepTreeOnSearch, searchModeOn, simpleSelect } = props
-  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
-  return (
-    <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>
-      {data.map(node => {
-        if (shouldRenderNode(node, searchModeOn, data)) {
-          return (
-            <TreeNode
-              keepTreeOnSearch={keepTreeOnSearch}
-              key={node._id}
-              node={node}
-              searchModeOn={searchModeOn}
-              onChange={onChange}
-              onCheckboxChange={onCheckboxChange}
-              onNodeToggle={onNodeToggle}
-              onAction={onAction}
-              simpleSelect={simpleSelect}
-            />
-          )
-        }
-        return null
-      })}
-    </ul>
-  )
+const getNodes = props => {
+  const { searchModeOn, data, onAction, onChange, onCheckboxChange, onNodeToggle } = props
+  const items = []
+  data.forEach(node => {
+    if (shouldRenderNode(node, searchModeOn, data)) {
+      items.push(<TreeNode
+        key={node._id}
+        node={node}
+        onChange={onChange}
+        onCheckboxChange={onCheckboxChange}
+        onNodeToggle={onNodeToggle}
+        onAction={onAction}
+      />)
+    }
+  })
+  return items
 }
 
+const Tree = props => {
+  const { searchModeOn } = props
+
+  return <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>{getNodes(props)}</ul>
+}
+
+/* eslint-disable react/no-unused-prop-types */
+// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md#false-positives-sfc
 Tree.propTypes = {
   data: PropTypes.object,
-  keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onChange: PropTypes.func,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool
+  onCheckboxChange: PropTypes.func
 }
+/* eslint-enable react/no-unused-prop-types */
 
 export default Tree

@@ -4,19 +4,20 @@ import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
+import { getDataset } from '../dataset-utils'
 
 const cx = cn.bind(styles)
 
-const getTags = (tags = [], onDelete) => {
-  return tags.map((tag, i) => {
-    const {_id, label, tagClassName} = tag
-    return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-${i}`}>
-        <Tag label={label} id={_id} onDelete={onDelete}/>
-      </li>
-    )
-  })
-}
+const getTags = (tags = [], onDelete) => tags.map((tag, i) => {
+  const {
+    _id, label, tagClassName, dataset
+  } = tag
+  return (
+    <li className={cx('tag-item', tagClassName)} key={`tag-${i}`} {...getDataset(dataset)}>
+      <Tag label={label} id={_id} onDelete={onDelete} />
+    </li>
+  )
+})
 
 const Input = (props) => {
   const {
@@ -30,7 +31,7 @@ const Input = (props) => {
 
   const delayedCallback = debounce((e) => {
     props.onInputChange(e.target.value)
-  }, 50, {leading: true})
+  }, 50, { leading: true })
 
   const onInputChange = (e) => {
     e.persist()
@@ -42,13 +43,14 @@ const Input = (props) => {
       {getTags(tags, onTagRemove)}
       <li className={cx('tag-item')}>
         <input
-          type='text'
+          type="text"
           ref={inputRef}
           className={cx('search')}
           placeholder={placeholderText}
           onChange={onInputChange}
           onFocus={onFocus}
-          onBlur={onBlur}/>
+          onBlur={onBlur}
+        />
       </li>
     </ul>
   )

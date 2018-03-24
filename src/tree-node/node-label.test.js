@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import NodeLabel from './node-label'
 
-test('renders  node label', t => {
+test('renders  node label', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -27,7 +27,7 @@ test('renders  node label', t => {
   t.false(wrapper.hasClass('disabled'))
 })
 
-test('notifies checkbox changes', t => {
+test('notifies checkbox changes', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -40,11 +40,11 @@ test('notifies checkbox changes', t => {
   const onChange = spy()
 
   const wrapper = shallow(<NodeLabel node={node} onCheckboxChange={onChange} />)
-  wrapper.find('.checkbox-item').simulate('change', {target: {checked: true}})
+  wrapper.find('.checkbox-item').simulate('change', { target: { checked: true } })
   t.true(onChange.calledWith('0-0-0', true))
 })
 
-test('disable checkbox if the node has disabled status', t => {
+test('disable checkbox if the node has disabled status', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -54,12 +54,12 @@ test('disable checkbox if the node has disabled status', t => {
     className: 'cn0-0-0'
   }
 
-  const wrapper = shallow(<NodeLabel node={node} searchModeOn={true} />)
+  const wrapper = shallow(<NodeLabel node={node} searchModeOn />)
 
   t.true(wrapper.find('.checkbox-item').is('[disabled]'))
 })
 
-test('notifies clicks in simple mode', t => {
+test('notifies clicks in simple mode', (t) => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -74,7 +74,7 @@ test('notifies clicks in simple mode', t => {
   const stopImmediatePropagation = spy()
 
   const wrapper = shallow(<NodeLabel node={node} onCheckboxChange={onChange} simpleSelect />)
-  wrapper.find('.node-label').simulate('click', {stopPropagation, nativeEvent: {stopImmediatePropagation}})
+  wrapper.find('.node-label').simulate('click', { stopPropagation, nativeEvent: { stopImmediatePropagation } })
   t.true(onChange.calledWith('0-0-0', true))
   t.true(stopPropagation.calledOnce)
   t.true(stopImmediatePropagation.calledOnce)

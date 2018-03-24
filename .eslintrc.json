@@ -1,14 +1,30 @@
 {
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true,
-      "modules": true
-    }
-  },
-  "extends": ["standard", "plugin:react/recommended"],
-  "plugins": ["react"],
+  "extends": ["standard", "react-app"],
   "rules": {
-    "max-len": ["error", { "code": 120 }]
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      2,
+      {
+        "devDependencies": true
+      }
+    ],
+    "import/prefer-default-export": 0,
+    "no-underscore-dangle": 0,
+    "no-plusplus": 0,
+    "no-shadow": 0,
+    "no-param-reassign": 0,
+    "react/require-default-props": 0,
+    "semi": [2, "never"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "jsx-a11y/href-no-hash": 0
+  },
+  "globals": {
+    "document": true
   }
 }

@@ -1,7 +1,7 @@
 import test from 'ava'
 import TreeManager from './index'
 
-test('should not mutate input', t => {
+test('should not mutate input', (t) => {
   const expected = {
     label: 'l1',
     value: 'v1',
@@ -23,7 +23,7 @@ test('should not mutate input', t => {
   t.deepEqual(actual, expected)
 })
 
-test('should set initial check state based on parent check state when node check state is not defined', t => {
+test('should set initial check state based on parent check state when node check state is not defined', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -39,7 +39,7 @@ test('should set initial check state based on parent check state when node check
   t.true(manager.getNodeById('c1').checked)
 })
 
-test('should set initial check state based on node check state when node check state is defined', t => {
+test('should set initial check state based on node check state when node check state is defined', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -55,7 +55,7 @@ test('should set initial check state based on node check state when node check s
   t.true(manager.getNodeById('c1').checked)
 })
 
-test('should set initial check state based on node check state when node check state is defined', t => {
+test('should set initial check state based on node check state when node check state is defined', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -71,7 +71,7 @@ test('should set initial check state based on node check state when node check s
   t.false(manager.getNodeById('c1').checked)
 })
 
-test('should get tags based on children check state', t => {
+test('should get tags based on children check state', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -87,7 +87,7 @@ test('should get tags based on children check state', t => {
   t.deepEqual(manager.getTags().map(t => t.label), ['l1c1'])
 })
 
-test('should get tags based on parent check state', t => {
+test('should get tags based on parent check state', (t) => {
   const tree = {
     label: 'l1',
     value: 'v1',
@@ -102,7 +102,7 @@ test('should get tags based on parent check state', t => {
   t.deepEqual(manager.getTags().map(t => t.label), ['l1'])
 })
 
-test('should get tags based on multiple parent check state', t => {
+test('should get tags based on multiple parent check state', (t) => {
   const tree = [{
     label: 'l1',
     value: 'v1',
@@ -124,7 +124,7 @@ test('should get tags based on multiple parent check state', t => {
   t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2'])
 })
 
-test('should get tags based on multiple parent/child check state', t => {
+test('should get tags based on multiple parent/child check state', (t) => {
   const tree = [{
     label: 'l1',
     value: 'v1',
@@ -146,7 +146,7 @@ test('should get tags based on multiple parent/child check state', t => {
   t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2c2'])
 })
 
-test('should toggle children when checked', t => {
+test('should toggle children when checked', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -162,7 +162,7 @@ test('should toggle children when checked', t => {
   t.true(manager.getNodeById('c1').checked)
 })
 
-test('should toggle children when unchecked', t => {
+test('should toggle children when unchecked', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -179,7 +179,7 @@ test('should toggle children when unchecked', t => {
   t.false(manager.getNodeById('c1').checked)
 })
 
-test('should uncheck parent when unchecked', t => {
+test('should uncheck parent when unchecked', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -196,7 +196,7 @@ test('should uncheck parent when unchecked', t => {
   t.false(manager.getNodeById('i1').checked)
 })
 
-test('should uncheck all parents when unchecked', t => {
+test('should uncheck all parents when unchecked', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -218,7 +218,7 @@ test('should uncheck all parents when unchecked', t => {
   t.false(manager.getNodeById('i1').checked)
 })
 
-test('should collapse all children when collapsed', t => {
+test('should collapse all children when collapsed', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -243,7 +243,7 @@ test('should collapse all children when collapsed', t => {
   t.false(manager.getNodeById('c2').expanded)
 })
 
-test('should expand node (and not children) when expanded', t => {
+test('should expand node (and not children) when expanded', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -266,7 +266,7 @@ test('should expand node (and not children) when expanded', t => {
   t.falsy(manager.getNodeById('c2').expanded)
 })
 
-test('should get matching nodes when searched', t => {
+test('should get matching nodes when searched', (t) => {
   const tree = {
     id: 'i1',
     label: 'search me',
@@ -291,7 +291,7 @@ test('should get matching nodes when searched', t => {
   nodes.forEach(n => t.false(manager.getNodeById(n).hide))
 })
 
-test('should hide all nodes when search term is not found', t => {
+test('should hide all nodes when search term is not found', (t) => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -316,7 +316,7 @@ test('should hide all nodes when search term is not found', t => {
   nodes.forEach(n => t.true(manager.getNodeById(n).hide))
 })
 
-test('should use cached results for subsequent searches', t => {
+test('should use cached results for subsequent searches', (t) => {
   const tree = [{
     id: 'i1',
     label: 'search me',
@@ -347,7 +347,7 @@ test('should use cached results for subsequent searches', t => {
   t.false(allNodesHidden)
 })
 
-test('should restore nodes', t => {
+test('should restore nodes', (t) => {
   const tree = [{
     id: 'i1',
     label: 'search me',
@@ -374,7 +374,7 @@ test('should restore nodes', t => {
   visibleNodes.forEach(n => t.false(manager.getNodeById(n).hide))
 })
 
-test('should get matching nodes with mixed case when searched', t => {
+test('should get matching nodes with mixed case when searched', (t) => {
   const tree = {
     id: 'i1',
     label: 'search me',
@@ -399,7 +399,7 @@ test('should get matching nodes with mixed case when searched', t => {
   nodes.forEach(n => t.false(manager.getNodeById(n).hide))
 })
 
-test('should uncheck previous node in simple select mode', t => {
+test('should uncheck previous node in simple select mode', (t) => {
   const tree = [{
     id: 'i1',
     label: 'l1',

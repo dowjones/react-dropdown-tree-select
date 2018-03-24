@@ -10,7 +10,7 @@ const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete) => tags.map((tag, i) => {
   const {
-    _id, label, tagClassName, dataset
+    _id, label, tagClassName, dataset,
   } = tag
   return (
     <li className={cx('tag-item', tagClassName)} key={`tag-${i}`} {...getDataset(dataset)}>
@@ -26,7 +26,7 @@ const Input = (props) => {
     inputRef,
     placeholderText = 'Choose...',
     onFocus,
-    onBlur
+    onBlur,
   } = props
 
   const delayedCallback = debounce((e) => {
@@ -64,7 +64,7 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   onTagRemove: PropTypes.func,
-  inputRef: PropTypes.func
+  inputRef: PropTypes.func,
 }
 
 export default Input

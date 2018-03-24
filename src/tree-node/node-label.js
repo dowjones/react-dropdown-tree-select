@@ -33,7 +33,7 @@ const NodeLabel = (props) => {
 NodeLabel.propTypes = {
   node: PropTypes.any,
   simpleSelect: PropTypes.bool,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
 }
 
 export default NodeLabel

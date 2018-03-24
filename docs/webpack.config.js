@@ -4,41 +4,41 @@ const baseConfig = {
   devtool: 'eval',
   resolve: {
     extensions: ['.js', '.css'],
-    modules: ['node_modules']
+    modules: ['node_modules'],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: 'style-loader!css-loader',
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         use: {
           loader: 'url-loader',
           options: {
-            limit: 100000
-          }
-        }
+            limit: 100000,
+          },
+        },
       },
       {
         test: /\.md$/,
-        use: 'raw-loader'
-      }
-    ]
+        use: 'raw-loader',
+      },
+    ],
   },
   devServer: {
     contentBase: './docs',
     port: 3000,
     historyApiFallback: true,
     open: true,
-    watchContentBase: true
-  }
+    watchContentBase: true,
+  },
 }
 
 module.exports = [
@@ -47,7 +47,7 @@ module.exports = [
     entry: path.join(__dirname, 'src'),
     output: {
       path: __dirname,
-      filename: 'bundle.js'
-    }
-  }
+      filename: 'bundle.js',
+    },
+  },
 ]

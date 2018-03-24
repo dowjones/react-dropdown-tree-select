@@ -17,9 +17,9 @@ test('renders tree node', (t) => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban'
-      }
-    ]
+        className: 'fa fa-ban',
+      },
+    ],
   }
 
   const wrapper = shallow(<TreeNode node={node} />)
@@ -36,7 +36,7 @@ test('notifies node toggle changes', (t) => {
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const onChange = spy()
@@ -52,7 +52,7 @@ test('remove gap during search', (t) => {
     _parent: '0-0',
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn />)
@@ -67,7 +67,7 @@ test('disable checkbox if the node has disabled status', (t) => {
     disabled: true,
     label: 'item1-1-1',
     value: 'value1-1-1',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const wrapper = shallow(<TreeNode node={node} searchModeOn />)
@@ -83,8 +83,8 @@ test('should render data attributes', (t) => {
     value: 'value1-1-1',
     dataset: {
       first: 'john',
-      last: 'smith'
-    }
+      last: 'smith',
+    },
   }
 
   const wrapper = shallow(<TreeNode node={node} />)

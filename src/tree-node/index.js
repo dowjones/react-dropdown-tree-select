@@ -23,15 +23,15 @@ const getNodeCx = (props) => {
       tree: !isLeaf(node),
       disabled: node.disabled,
       hide: node.hide,
-      'match-in-children': keepTreeOnSearch && node.matchInChildren
+      'match-in-children': keepTreeOnSearch && node.matchInChildren,
     },
-    node.className
+    node.className,
   )
 }
 
 const getToggleCx = ({ node }) => cx(
   'toggle',
-  { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded }
+  { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded },
 )
 
 const getNodeActions = (props) => {
@@ -44,7 +44,7 @@ const getNodeActions = (props) => {
 
 const TreeNode = (props) => {
   const {
-    simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange
+    simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange,
   } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
@@ -71,14 +71,14 @@ TreeNode.propTypes = {
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
-    dataset: PropTypes.object
+    dataset: PropTypes.object,
   }).isRequired,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
   onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool
+  simpleSelect: PropTypes.bool,
 }
 
 export default TreeNode

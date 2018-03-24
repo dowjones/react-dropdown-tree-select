@@ -1,11 +1,25 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "react-app"],
+  "extends": "airbnb",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
   "rules": {
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".js", ".jsx"]
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
       }
     ],
     "import/no-extraneous-dependencies": [
@@ -20,8 +34,17 @@
     "no-shadow": 0,
     "no-param-reassign": 0,
     "react/require-default-props": 0,
-    "semi": [2, "never"],
-    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": [
+      2,
+      "never"
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "jsx-a11y/href-no-hash": 0
   },
   "globals": {

@@ -10,9 +10,9 @@ test('should set initial disabled state based on parent disabled state when node
     children: [{
       id: 'c1',
       label: 'l1c1',
-      value: 'l1v1'
+      value: 'l1v1',
     }],
-    disabled: true
+    disabled: true,
   }
   const manager = new TreeManager(tree)
   t.true(manager.getNodeById('c1').disabled)
@@ -28,9 +28,9 @@ test('when node disabled state is not defined and parent checked is defined', (t
     children: [{
       id: 'c1',
       label: 'l1c1',
-      value: 'l1v1'
+      value: 'l1v1',
     }],
-    disabled: true
+    disabled: true,
   }
   const manager = new TreeManager(tree)
   t.true(manager.getNodeById('c1').disabled)
@@ -51,10 +51,10 @@ test('when node disabled state is not defined and parent checked is defined', (t
       children: [{
         id: 'gc1',
         label: 'l2c1',
-        value: 'l2v1'
-      }]
+        value: 'l2v1',
+      }],
     }],
-    disabled: true
+    disabled: true,
   }
   const manager = new TreeManager(tree)
   t.true(manager.getNodeById('c1').disabled)
@@ -76,10 +76,10 @@ test('when node disabled state is not defined and grand parent checked is define
       children: [{
         id: 'gc1',
         label: 'l2c1',
-        value: 'l2v1'
-      }]
+        value: 'l2v1',
+      }],
     }],
-    checked: true
+    checked: true,
   }
   const manager = new TreeManager(tree)
   t.true(manager.getNodeById('c1').disabled)
@@ -103,11 +103,11 @@ test('when node disabled is not defined, parent checked/disabled is defined and 
       children: [{
         id: 'gc1',
         label: 'l2c1',
-        value: 'l2v1'
-      }]
+        value: 'l2v1',
+      }],
     }],
     checked: true,
-    disabled: true
+    disabled: true,
   }
   const manager = new TreeManager(tree)
   t.false(manager.getNodeById('c1').disabled)

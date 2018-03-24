@@ -36,8 +36,8 @@ test('should render data attributes', (t) => {
     tagClassName: 'test',
     dataset: {
       first: 'john',
-      last: 'smith'
-    }
+      last: 'smith',
+    },
   }]
 
   const wrapper = shallow(<Input tags={tags} />)

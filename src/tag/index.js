@@ -26,7 +26,7 @@ const Tag = (props) => {
 Tag.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 }
 
 export default Tag

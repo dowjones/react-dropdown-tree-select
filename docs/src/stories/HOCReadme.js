@@ -6,7 +6,7 @@ import 'github-markdown-css/github-markdown.css'
 import './utils/prism.js'
 
 export default class HOCStory extends React.Component {
-  render () {
+  render() {
     return (
       <div style={{ padding: '10px' }}>
         <span
@@ -16,7 +16,7 @@ export default class HOCStory extends React.Component {
       </div>
     )
   }
-  componentDidMount () {
+  componentDidMount() {
     global.Prism && global.Prism.highlightAll()
   }
 }

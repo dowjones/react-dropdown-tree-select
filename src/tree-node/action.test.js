@@ -9,7 +9,7 @@ test('renders action with given props', (t) => {
     title: 'action',
     className: 'cn0-0-0',
     text: 'hello',
-    junk: '1'
+    junk: '1',
   }
 
   const wrapper = shallow(<Action {...props} />)
@@ -26,7 +26,7 @@ test('notifies clicks if handler is passed', (t) => {
     title: 'action',
     className: 'cn0-0-0',
     onAction: onClick,
-    actionData: { id: 'actionA' }
+    actionData: { id: 'actionA' },
   }
 
   const wrapper = shallow(<Action {...props} />)
@@ -41,7 +41,7 @@ test('doesn\'t notify clicks if handler is not passed', (t) => {
     title: 'action',
     className: 'cn0-0-0',
     onClick,
-    actionData: { id: 'actionA' }
+    actionData: { id: 'actionA' },
   }
 
   const wrapper = shallow(<Action {...props} />)

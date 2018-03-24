@@ -90,7 +90,7 @@ const tree = [
  * @param  {[type]} tree The incoming tree object
  * @return {object}      The flattened list
  */
-function flattenTree (tree, simple) {
+function flattenTree(tree, simple) {
   const forest = Array.isArray(tree) ? tree : [tree]
   const list = walkNodes({ nodes: forest, simple })
   return list
@@ -102,7 +102,7 @@ function flattenTree (tree, simple) {
   * @param {object} node [curernt node]
   * @param {object} parent [node's immediate parent]
   */
-function setInitialStateProps (node, parent = {}) {
+function setInitialStateProps(node, parent = {}) {
   const stateProps = ['checked', 'disabled']
   for (let index = 0; index < stateProps.length; index++) {
     const prop = stateProps[index]
@@ -114,8 +114,8 @@ function setInitialStateProps (node, parent = {}) {
   }
 }
 
-function walkNodes ({
-  nodes, list = new Map(), parent, depth = 0, simple
+function walkNodes({
+  nodes, list = new Map(), parent, depth = 0, simple,
 }) {
   nodes.forEach((node, i) => {
     node._depth = depth
@@ -134,7 +134,7 @@ function walkNodes ({
     if (!simple && node.children) {
       node._children = []
       walkNodes({
-        nodes: node.children, list, parent: node, depth: depth + 1
+        nodes: node.children, list, parent: node, depth: depth + 1,
       })
       node.children = undefined
     }

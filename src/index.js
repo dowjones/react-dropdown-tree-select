@@ -27,7 +27,8 @@ class DropdownTreeSelect extends Component {
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
     simpleSelect: PropTypes.bool,
-    noMatchesText: PropTypes.string
+    noMatchesText: PropTypes.string,
+    showPartiallySelected: PropTypes.bool
   }
 
   constructor (props) {
@@ -42,8 +43,8 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
-  createList = (tree, simple) => {
-    this.treeManager = new TreeManager(tree, simple)
+  createList = (tree, simple, showPartial) => {
+    this.treeManager = new TreeManager(tree, simple, showPartial)
     return this.treeManager.tree
   }
 
@@ -59,13 +60,13 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount () {
-    const tree = this.createList(this.props.data, this.props.simpleSelect)
+    const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
 
   componentWillReceiveProps (nextProps) {
-    const tree = this.createList(nextProps.data, nextProps.simpleSelect)
+    const tree = this.createList(nextProps.data, nextProps.simpleSelect, nextProps.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -173,6 +174,7 @@ class DropdownTreeSelect extends Component {
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
                   simpleSelect={this.props.simpleSelect}
+                  showPartiallySelected={this.props.showPartiallySelected}
                 />
               )}
             </div>

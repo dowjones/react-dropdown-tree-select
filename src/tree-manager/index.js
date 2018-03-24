@@ -2,10 +2,11 @@ import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree, simple) {
+  constructor (tree, simple, showPartialState) {
     this._src = tree
     this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
     this.simpleSelect = simple
+    this.showPartialState = showPartialState
     this.searchMaps = new Map()
   }
 
@@ -31,14 +32,14 @@ class TreeManager {
 
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
-      superMatches.forEach((key) => {
+      superMatches.forEach(key => {
         const node = this.getNodeById(key)
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
       })
     } else {
-      this.tree.forEach((node) => {
+      this.tree.forEach(node => {
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
@@ -60,12 +61,12 @@ class TreeManager {
   filterTree (searchTerm) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
-    this.tree.forEach((node) => {
+    this.tree.forEach(node => {
       node.hide = true
       node.matchInChildren = false
     })
 
-    matches.forEach((m) => {
+    matches.forEach(m => {
       const node = this.getNodeById(m)
       node.hide = false
       this.setChildMatchStatus(node._parent)
@@ -76,7 +77,7 @@ class TreeManager {
   }
 
   restoreNodes () {
-    this.tree.forEach((node) => {
+    this.tree.forEach(node => {
       node.hide = false
     })
 
@@ -98,10 +99,19 @@ class TreeManager {
     } else {
       this.toggleChildren(id, checked)
 
+      if (this.showPartialState && checked) {
+        this.partialCheckParents(node)
+      }
+
       if (!checked) {
         this.unCheckParents(node)
       }
     }
+  }
+
+  someButNotAll (arr, func) {
+    const some = arr.filter(func)
+    return some.length !== 0 && some.length !== arr.length
   }
 
   /**
@@ -114,6 +124,28 @@ class TreeManager {
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = false
+      next.partial = this.someButNotAll(next._children, c => {
+        const n = this.getNodeById(c)
+        return n.checked || n.partial
+      })
+      parent = next._parent
+    }
+  }
+
+  /**
+   * Walks up the tree setting partial state on parent nodes
+   * @param  {[type]} node [description]
+   * @return {[type]}      [description]
+   */
+  partialCheckParents (node) {
+    let parent = node._parent
+    while (parent) {
+      const next = this.getNodeById(parent)
+      next.checked = next._children.every(c => this.getNodeById(c).checked)
+      next.partial = this.someButNotAll(next._children, c => {
+        const n = this.getNodeById(c)
+        return n.checked || n.partial
+      })
       parent = next._parent
     }
   }
@@ -143,7 +175,7 @@ class TreeManager {
   getTags () {
     const tags = []
     const visited = {}
-    const markSubTreeVisited = (node) => {
+    const markSubTreeVisited = node => {
       visited[node._id] = true
       if (!isEmpty(node._children)) node._children.forEach(c => markSubTreeVisited(this.getNodeById(c)))
     }

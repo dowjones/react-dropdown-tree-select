@@ -24,7 +24,7 @@
 
 ## React Dropdown Tree Select
 
-A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection.
+A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection. Also supports displaying partially selected nodes.
 
 ## Table of Contents
 
@@ -48,6 +48,7 @@ A lightweight and fast control to render a select component that can display hie
   * [noMatchesText](#noMatchesText)
   * [keepTreeOnSearch](#keeptreeonsearch)
   * [simpleSelect](#simpleselect)
+  * [showPartiallySelected](#showPartiallySelected)
 * [Styling and Customization](#styling-and-customization)
   * [Using default styles](#default-styles)
   * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -266,6 +267,12 @@ Displays search results as a tree instead of flattened results
 Type: `bool` (default: `false`)
 
 Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+
+### showPartiallySelected
+
+Type: `bool` (default: `false`)
+
+If set to true, shows checkboxes in a partial state when one, but not all of their children are selected. Allows styling of partially selected nodes as well, by using [:indeterminate](https://developer.mozilla.org/en-US/docs/Web/CSS/:indeterminate) pseudo class. Simply add desired styles to `.node.partial .checkbox-item:indeterminate { ... }` in your CSS.
 
 ## Styling and Customization
 

@@ -8,10 +8,10 @@ import './index.css'
 import data from './data.json'
 
 class WithOptions extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    this.state = { keepTreeOnSearch: false, simpleSelect: false }
+    this.state = { keepTreeOnSearch: false, simpleSelect: false, showPartiallySelected: false }
   }
 
   onChange = (curNode, selectedNodes) => {
@@ -28,8 +28,8 @@ class WithOptions extends PureComponent {
     this.setState({ [value]: !this.state[value] })
   }
 
-  render() {
-    const { keepTreeOnSearch, simpleSelect } = this.state
+  render () {
+    const { keepTreeOnSearch, simpleSelect, showPartiallySelected } = this.state
 
     return (
       <div>
@@ -38,6 +38,7 @@ class WithOptions extends PureComponent {
         <div style={{ border: '1px solid #ccc', borderRadius: '4px', marginBottom: '20px', padding: 10 }}>
           <Checkbox label="Keep tree on search" value="keepTreeOnSearch" checked={keepTreeOnSearch} onChange={this.onOptionsChange} />
           <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
+          <Checkbox label="Show Partially Selected" value="showPartiallySelected" checked={showPartiallySelected} onChange={this.onOptionsChange} />
         </div>
         <div>
           <DropdownTreeSelect
@@ -47,6 +48,7 @@ class WithOptions extends PureComponent {
             onNodeToggle={this.onNodeToggle}
             keepTreeOnSearch={keepTreeOnSearch}
             simpleSelect={simpleSelect}
+            showPartiallySelected={showPartiallySelected}
           />
         </div>
       </div>

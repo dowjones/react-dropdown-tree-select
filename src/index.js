@@ -111,24 +111,20 @@ class DropdownTreeSelect extends Component {
   onNodeToggle = id => {
     this.treeManager.toggleNodeExpandState(id)
     this.setState({ tree: this.treeManager.tree })
-    typeof this.props.onNodeToggle === 'function' &&
-      this.props.onNodeToggle(this.treeManager.getNodeById(id))
+    typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    const showDropdown = this.props.simpleSelect
-      ? false
-      : this.state.showDropdown
+    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
     this.setState({ tree: this.treeManager.tree, tags, showDropdown })
     if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 
   onAction = (actionId, nodeId) => {
-    typeof this.props.onAction === 'function' &&
-      this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
+    typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
   render () {

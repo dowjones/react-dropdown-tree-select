@@ -11,33 +11,31 @@ const shouldRenderNode = (node, searchModeOn, data) => {
   return !parent || parent.expanded
 }
 
-const getNodes = (props) => {
-  const {
-    data, keepTreeOnSearch, searchModeOn, simpleSelect
-  } = props
-  const {
-    onAction, onChange, onCheckboxChange, onNodeToggle
-  } = props
+const getNodes = props => {
+  const { data, keepTreeOnSearch, searchModeOn, simpleSelect } = props
+  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
-      items.push(<TreeNode
-        keepTreeOnSearch={keepTreeOnSearch}
-        key={key}
-        node={node}
-        searchModeOn={searchModeOn}
-        onChange={onChange}
-        onCheckboxChange={onCheckboxChange}
-        onNodeToggle={onNodeToggle}
-        onAction={onAction}
-        simpleSelect={simpleSelect}
-      />)
+      items.push(
+        <TreeNode
+          keepTreeOnSearch={keepTreeOnSearch}
+          key={key}
+          node={node}
+          searchModeOn={searchModeOn}
+          onChange={onChange}
+          onCheckboxChange={onCheckboxChange}
+          onNodeToggle={onNodeToggle}
+          onAction={onAction}
+          simpleSelect={simpleSelect}
+        />
+      )
     }
   })
   return items
 }
 
-const Tree = (props) => {
+const Tree = props => {
   const { searchModeOn } = props
 
   return <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>{getNodes(props)}</ul>

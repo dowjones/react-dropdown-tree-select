@@ -38,6 +38,26 @@ class DropdownTreeSelect extends Component {
     }
   }
 
+  notifyChange = (...args) => {
+    typeof this.props.onChange === 'function' && this.props.onChange(...args)
+  }
+
+  createList = (tree, simple) => {
+    this.treeManager = new TreeManager(tree, simple)
+    return this.treeManager.tree
+  }
+
+  resetSearch = () => {
+    // restore the tree to its pre-search state
+    this.setState({
+      tree: this.treeManager.restoreNodes(),
+      searchModeOn: false,
+      allNodesHidden: false
+    })
+    // clear the search criteria and avoid react controlled/uncontrolled warning
+    this.searchInput.value = ''
+  }
+
   componentWillMount() {
     const tree = this.createList(this.props.data, this.props.simpleSelect)
     const tags = this.treeManager.getTags()
@@ -48,6 +68,33 @@ class DropdownTreeSelect extends Component {
     const tree = this.createList(nextProps.data, nextProps.simpleSelect)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
+  }
+
+  handleClick = () => {
+    this.setState(prevState => {
+      // keep dropdown active when typing in search box
+      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
+
+      // register event listeners only if there is a state change
+      if (showDropdown !== prevState.showDropdown) {
+        if (showDropdown) {
+          document.addEventListener('click', this.handleOutsideClick, false)
+        } else {
+          document.removeEventListener('click', this.handleOutsideClick, false)
+        }
+      }
+
+      if (!showDropdown) this.resetSearch()
+      return { showDropdown }
+    })
+  }
+
+  handleOutsideClick = e => {
+    if (this.node.contains(e.target)) {
+      return
+    }
+
+    this.handleClick()
   }
 
   onInputChange = value => {
@@ -78,53 +125,6 @@ class DropdownTreeSelect extends Component {
 
   onAction = (actionId, nodeId) => {
     typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
-  }
-
-  handleClick = () => {
-    this.setState(prevState => {
-      // keep dropdown active when typing in search box
-      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
-
-      // register event listeners only if there is a state change
-      if (showDropdown !== prevState.showDropdown) {
-        if (showDropdown) {
-          document.addEventListener('click', this.handleOutsideClick, false)
-        } else {
-          document.removeEventListener('click', this.handleOutsideClick, false)
-        }
-      }
-
-      if (!showDropdown) this.resetSearch()
-      return { showDropdown }
-    })
-  }
-
-  handleOutsideClick = e => {
-    if (this.node.contains(e.target)) {
-      return
-    }
-
-    this.handleClick()
-  }
-
-  createList = (tree, simple) => {
-    this.treeManager = new TreeManager(tree, simple)
-    return this.treeManager.tree
-  }
-
-  notifyChange = (...args) => {
-    typeof this.props.onChange === 'function' && this.props.onChange(...args)
-  }
-
-  resetSearch = () => {
-    // restore the tree to its pre-search state
-    this.setState({
-      tree: this.treeManager.restoreNodes(),
-      searchModeOn: false,
-      allNodesHidden: false
-    })
-    // clear the search criteria and avoid react controlled/uncontrolled warning
-    this.searchInput.value = ''
   }
 
   render() {

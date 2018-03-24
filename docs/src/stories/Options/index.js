@@ -25,13 +25,12 @@ class WithOptions extends PureComponent {
   }
 
   onOptionsChange = value => {
-    console.log(value, this.state[value], !this.state[value])
     this.setState({ [value]: !this.state[value] })
   }
 
   render() {
     const { keepTreeOnSearch, simpleSelect } = this.state
-    console.log('keepTreeOnSearch', keepTreeOnSearch, 'simpleSelect', simpleSelect)
+
     return (
       <div>
         <h1>Options playground</h1>

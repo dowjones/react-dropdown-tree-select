@@ -12,17 +12,25 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 const getNodes = props => {
-  const { searchModeOn, data, onAction, onChange, onCheckboxChange, onNodeToggle } = props
+  const {
+    data, keepTreeOnSearch, searchModeOn, simpleSelect
+  } = props
+  const {
+    onAction, onChange, onCheckboxChange, onNodeToggle
+  } = props
   const items = []
-  data.forEach(node => {
+  data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
       items.push(<TreeNode
-        key={node._id}
+        keepTreeOnSearch={keepTreeOnSearch}
+        key={key}
         node={node}
+        searchModeOn={searchModeOn}
         onChange={onChange}
         onCheckboxChange={onCheckboxChange}
         onNodeToggle={onNodeToggle}
         onAction={onAction}
+        simpleSelect={simpleSelect}
       />)
     }
   })
@@ -35,16 +43,15 @@ const Tree = props => {
   return <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>{getNodes(props)}</ul>
 }
 
-/* eslint-disable react/no-unused-prop-types */
-// https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-unused-prop-types.md#false-positives-sfc
 Tree.propTypes = {
   data: PropTypes.object,
+  keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onChange: PropTypes.func,
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func
+  onCheckboxChange: PropTypes.func,
+  simpleSelect: PropTypes.bool
 }
-/* eslint-enable react/no-unused-prop-types */
 
 export default Tree

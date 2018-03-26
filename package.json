@@ -40,6 +40,7 @@
     "dist"
   ],
   "dependencies": {
+    "array.partial": "^1.0.2",
     "classnames": "^2.2.5",
     "lodash.debounce": "^4.0.8",
     "prop-types": "^15.6.0"

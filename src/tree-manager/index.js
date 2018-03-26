@@ -1,3 +1,5 @@
+import partial from 'array.partial'
+
 import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
@@ -109,11 +111,6 @@ class TreeManager {
     }
   }
 
-  someButNotAll (arr, func) {
-    const some = arr.filter(func)
-    return some.length !== 0 && some.length !== arr.length
-  }
-
   /**
    * Walks up the tree unchecking parent nodes
    * @param  {[type]} node [description]
@@ -124,7 +121,7 @@ class TreeManager {
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = false
-      next.partial = this.someButNotAll(next._children, c => {
+      next.partial = partial(next._children, c => {
         const n = this.getNodeById(c)
         return n.checked || n.partial
       })
@@ -142,7 +139,7 @@ class TreeManager {
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = next._children.every(c => this.getNodeById(c).checked)
-      next.partial = this.someButNotAll(next._children, c => {
+      next.partial = partial(next._children, c => {
         const n = this.getNodeById(c)
         return n.checked || n.partial
       })

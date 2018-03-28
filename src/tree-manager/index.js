@@ -1,22 +1,22 @@
-import partial from 'array.partial'
+import getPartialState from './getPartialState'
 
 import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree, simple, showPartialState) {
+  constructor(tree, simple, showPartialState) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
     this.simpleSelect = simple
     this.showPartialState = showPartialState
     this.searchMaps = new Map()
   }
 
-  getNodeById (id) {
+  getNodeById(id) {
     return this.tree.get(id)
   }
 
-  getMatches (searchTerm) {
+  getMatches(searchTerm) {
     if (this.searchMaps.has(searchTerm)) {
       return this.searchMaps.get(searchTerm)
     }
@@ -52,7 +52,7 @@ class TreeManager {
     return matches
   }
 
-  setChildMatchStatus (id) {
+  setChildMatchStatus(id) {
     if (id !== undefined) {
       const node = this.getNodeById(id)
       node.matchInChildren = true
@@ -60,7 +60,7 @@ class TreeManager {
     }
   }
 
-  filterTree (searchTerm) {
+  filterTree(searchTerm) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
     this.tree.forEach(node => {
@@ -78,7 +78,7 @@ class TreeManager {
     return { allNodesHidden, tree: this.tree }
   }
 
-  restoreNodes () {
+  restoreNodes() {
     this.tree.forEach(node => {
       node.hide = false
     })
@@ -86,22 +86,26 @@ class TreeManager {
     return this.tree
   }
 
-  togglePreviousChecked (id) {
+  togglePreviousChecked(id) {
     const prevChecked = this.currentChecked
     if (prevChecked) this.getNodeById(prevChecked).checked = false
     this.currentChecked = id
   }
 
-  setNodeCheckedState (id, checked) {
+  setNodeCheckedState(id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
+
+    if (this.showPartialState) {
+      node.partial = false
+    }
 
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
     } else {
       this.toggleChildren(id, checked)
 
-      if (this.showPartialState && checked) {
+      if (this.showPartialState) {
         this.partialCheckParents(node)
       }
 
@@ -116,15 +120,12 @@ class TreeManager {
    * @param  {[type]} node [description]
    * @return {[type]}      [description]
    */
-  unCheckParents (node) {
+  unCheckParents(node) {
     let parent = node._parent
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = false
-      next.partial = partial(next._children, c => {
-        const n = this.getNodeById(c)
-        return n.checked || n.partial
-      })
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
       parent = next._parent
     }
   }
@@ -134,20 +135,17 @@ class TreeManager {
    * @param  {[type]} node [description]
    * @return {[type]}      [description]
    */
-  partialCheckParents (node) {
+  partialCheckParents(node) {
     let parent = node._parent
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = next._children.every(c => this.getNodeById(c).checked)
-      next.partial = partial(next._children, c => {
-        const n = this.getNodeById(c)
-        return n.checked || n.partial
-      })
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
       parent = next._parent
     }
   }
 
-  toggleChildren (id, state) {
+  toggleChildren(id, state) {
     const node = this.getNodeById(id)
     node.checked = state
     if (!isEmpty(node._children)) {
@@ -155,21 +153,21 @@ class TreeManager {
     }
   }
 
-  toggleNodeExpandState (id) {
+  toggleNodeExpandState(id) {
     const node = this.getNodeById(id)
     node.expanded = !node.expanded
     if (!node.expanded) this.collapseChildren(node)
     return this.tree
   }
 
-  collapseChildren (node) {
+  collapseChildren(node) {
     node.expanded = false
     if (!isEmpty(node._children)) {
       node._children.forEach(c => this.collapseChildren(this.getNodeById(c)))
     }
   }
 
-  getTags () {
+  getTags() {
     const tags = []
     const visited = {}
     const markSubTreeVisited = node => {

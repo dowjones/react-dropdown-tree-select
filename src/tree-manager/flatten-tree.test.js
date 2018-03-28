@@ -26,7 +26,9 @@ test('flattens tree with no root', (t) => {
           children: [
             { name: 'item2-1-1', value: 'value2-1-1' },
             { name: 'item2-1-2', value: 'value2-1-2' },
-            { name: 'item2-1-3', value: 'value2-1-3', children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }] }
+            {
+ name: 'item2-1-3', value: 'value2-1-3', children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }] 
+}
           ]
         },
         { name: 'item2-2', value: 'value2-2' }

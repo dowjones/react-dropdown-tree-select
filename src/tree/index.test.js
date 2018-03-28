@@ -28,7 +28,9 @@ test('renders tree nodes when search mode is on', (t) => {
           children: [
             { label: 'item2-1-1', value: 'value2-1-1' },
             { label: 'item2-1-2', value: 'value2-1-2' },
-            { label: 'item2-1-3', value: 'value2-1-3', children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }] }
+            {
+ label: 'item2-1-3', value: 'value2-1-3', children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }] 
+}
           ]
         },
         { label: 'item2-2', value: 'value2-2' }
@@ -53,11 +55,17 @@ test('renders only expanded tree nodes when search mode is off', (t) => {
           value: 'value1-1',
           className: 'should-be-rendered',
           children: [
-            { label: 'item1-1-1', value: 'value1-1-1', className: 'should-not-be-rendered' },
-            { label: 'item1-1-2', value: 'value1-1-2', className: 'should-not-be-rendered' }
+            {
+ label: 'item1-1-1', value: 'value1-1-1', className: 'should-not-be-rendered' 
+},
+            {
+ label: 'item1-1-2', value: 'value1-1-2', className: 'should-not-be-rendered' 
+}
           ]
         },
-        { label: 'item1-2', value: 'value1-2', className: 'should-be-rendered' }
+        {
+ label: 'item1-2', value: 'value1-2', className: 'should-be-rendered' 
+}
       ]
     },
     {
@@ -70,13 +78,19 @@ test('renders only expanded tree nodes when search mode is off', (t) => {
           value: 'value2-1',
           className: 'should-not-be-rendered',
           children: [
-            { label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered' },
-            { label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered' },
+            {
+ label: 'item2-1-1', value: 'value2-1-1', className: 'should-not-be-rendered' 
+},
+            {
+ label: 'item2-1-2', value: 'value2-1-2', className: 'should-not-be-rendered' 
+},
             {
               label: 'item2-1-3',
               value: 'value2-1-3',
               className: 'should-not-be-rendered',
-              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered' }]
+              children: [{
+ label: 'item2-1-3-1', value: 'value2-1-3-1', className: 'should-not-be-rendered' 
+}]
             }
           ]
         },

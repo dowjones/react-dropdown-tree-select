@@ -102,7 +102,9 @@ class DropdownTreeSelect extends Component {
     const { allNodesHidden, tree } = this.treeManager.filterTree(value)
     const searchModeOn = value.length > 0
 
-    this.setState({ tree, searchModeOn, allNodesHidden })
+    this.setState({
+ tree, searchModeOn, allNodesHidden 
+})
   }
 
   onTagRemove = id => {
@@ -119,7 +121,9 @@ class DropdownTreeSelect extends Component {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
     const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
-    this.setState({ tree: this.treeManager.tree, tags, showDropdown })
+    this.setState({
+ tree: this.treeManager.tree, tags, showDropdown 
+})
     if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }

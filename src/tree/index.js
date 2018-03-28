@@ -12,8 +12,12 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 const getNodes = props => {
-  const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected } = props
-  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
+  const {
+ data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected 
+} = props
+  const {
+ onAction, onChange, onCheckboxChange, onNodeToggle 
+} = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {

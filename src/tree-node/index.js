@@ -39,7 +39,7 @@ const getNodeActions = props => {
 }
 
 const TreeNode = props => {
-  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected, partiallySelected } = props
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}

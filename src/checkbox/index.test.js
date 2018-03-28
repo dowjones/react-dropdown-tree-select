@@ -1,5 +1,4 @@
-import { shallow, mount } from 'enzyme'
-import { spy } from 'sinon'
+import { shallow } from 'enzyme'
 import React from 'react'
 import test from 'ava'
 import toJson from 'enzyme-to-json'

@@ -43,6 +43,7 @@ A lightweight and fast control to render a select component that can display hie
   * [onNodeToggle](#onnodetoggle)
   * [data](#data)
   * [placeholderText](#placeholdertext)
+  * [noMatchesText](#noMatchesText)
   * [keepTreeOnSearch](#keeptreeonsearch)
   * [simpleSelect](#simpleselect)
 * [Styling and Customization](#styling-and-customization)
@@ -224,6 +225,12 @@ An array renders a tree with multiple root level items whereas an object renders
 Type: `string`
 
 The text to display as placeholder on the search box. Defaults to `Choose...`
+
+### noMatchesText
+
+Type: `string`
+
+The text to display when the search does not find results in the content list. Defaults to `No matches found`
 
 ### keepTreeOnSearch
 

@@ -148,6 +148,11 @@ class TreeManager {
   toggleChildren(id, state) {
     const node = this.getNodeById(id)
     node.checked = state
+
+    if (this.showPartialState) {
+      node.partial = false
+    }
+
     if (!isEmpty(node._children)) {
       node._children.forEach(id => this.toggleChildren(id, state))
     }

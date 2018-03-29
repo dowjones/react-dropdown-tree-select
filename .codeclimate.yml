@@ -1,6 +1,8 @@
-engines:
+version: "2"
+plugins:
   eslint:
     enabled: true
+    channel: "eslint-4"
   stylelint:
     enabled: true
   duplication:
@@ -8,8 +10,7 @@ engines:
     config:
       languages:
       - javascript:
-exclude_paths:
- - docs/**/*
-ratings:
-   paths:
-   - "src/**/*"
+exclude_patterns:
+ - "docs/"
+ - "snapshots/"
+ - "**/*.test.js"

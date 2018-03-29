@@ -1,5 +1,5 @@
 import test from 'ava'
-import TreeManager from './index'
+import TreeManager from '..'
 
 test('should set partial state if at least one child is partial', t => {
   const tree = {

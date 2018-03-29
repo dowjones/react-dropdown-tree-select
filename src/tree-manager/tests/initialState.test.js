@@ -1,5 +1,5 @@
 import test from 'ava'
-import TreeManager from './index'
+import TreeManager from '..'
 
 // eslint-disable-next-line max-len
 test('should set initial disabled state based on parent disabled state when node disabled state is not defined', t => {

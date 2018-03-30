@@ -107,7 +107,7 @@ function flattenTree(tree, simple, showPartialState) {
 /**
  * If the node didn't specify anything on its own
  * figure out the initial state based on parent
- * @param {object} node [curernt node]
+ * @param {object} node [current node]
  * @param {object} parent [node's immediate parent]
  */
 function setInitialStateProps(node, parent = {}) {

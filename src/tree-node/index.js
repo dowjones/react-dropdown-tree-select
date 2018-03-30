@@ -69,8 +69,7 @@ TreeNode.propTypes = {
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
-    dataset: PropTypes.object,
-    partiallySelected: PropTypes.bool
+    dataset: PropTypes.object
   }).isRequired,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,

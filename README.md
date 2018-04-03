@@ -165,6 +165,12 @@ Type: `string`
 
 Additional classname for container. The container renders with a default classname of `react-dropdown-tree-select`.
 
+### clearSearchOnChange
+
+Type: `bool`
+
+Clear the input search if a node has been selected/unselected.
+
 ### onChange
 
 Type: `function`

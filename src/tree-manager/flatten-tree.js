@@ -151,6 +151,11 @@ function walkNodes({
 
       if (showPartialState && !node.checked) {
         node.partial = getPartialState(node)
+
+        // re-check if all children are checked. if so, check thyself
+        if (node.children.every(c => c.checked)) {
+          node.checked = true
+        }
       }
 
       node.children = undefined

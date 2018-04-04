@@ -1,5 +1,8 @@
 import test from 'ava'
 import TreeManager from '..'
+import {
+ grandParent, parent1, parent2, parents, childrenOfParent1, childrenOfParent2, children, assertTreeInExpectedState 
+} from './partial-setup'
 
 const tree = {
   id: '1',
@@ -13,27 +16,6 @@ const tree = {
       children: [{ id: '1-2-1' }, { id: '1-2-2' }, { id: '1-2-3' }]
     }
   ]
-}
-
-const grandParent = '1'
-
-const parent1 = '1-1'
-const parent2 = '1-2'
-const parents = [parent1, parent2]
-
-const childrenOfParent1 = ['1-1-1', '1-1-2']
-const childrenOfParent2 = ['1-2-1', '1-2-2', '1-2-3']
-const children = [...childrenOfParent1, ...childrenOfParent2]
-
-const assertTreeInExpectedState = (t, manager, expected) => {
-  const {
- checked = [], partial = [], unchecked = [], nonPartial = [] 
-} = expected
-
-  checked.forEach(c => t.truthy(manager.getNodeById(c).checked, `Expected node ${c} to be in checked state`))
-  partial.forEach(c => t.truthy(manager.getNodeById(c).partial, `Expected node ${c} to be in partial state`))
-  unchecked.forEach(c => t.falsy(manager.getNodeById(c).checked, `Expected node ${c} to be in unchecked state`))
-  nonPartial.forEach(c => t.falsy(manager.getNodeById(c).partial, `Expected node ${c} to be in non-partial state`))
 }
 
 // gp: grand parent

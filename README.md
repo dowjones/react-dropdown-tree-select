@@ -41,6 +41,7 @@ A lightweight and fast control to render a select component that can display hie
 * [Usage](#usage)
 * [Props](#props)
   * [className](#classname)
+  * [clearSearchOnChange](#clearsearchonchange)
   * [onChange](#onchange)
   * [onNodeToggle](#onnodetoggle)
   * [data](#data)

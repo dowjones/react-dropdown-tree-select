@@ -95,13 +95,6 @@ npm i react-dropdown-tree-select
 yarn add react-dropdown-tree-select
 ```
 
-To start using it, import `react-dropdown-tree-select` and its styles in your application:
-
-```jsx
-import DropdownTreeSelect from 'react-dropdown-tree-select'
-import 'react-dropdown-tree-select/dist/styles.css'
-```
-
 ### Using a CDN
 
 You can import the standalone UMD build from a CDN such as:

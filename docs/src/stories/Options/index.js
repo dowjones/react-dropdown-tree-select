@@ -12,8 +12,10 @@ class WithOptions extends PureComponent {
     super(props)
 
     this.state = {
- keepTreeOnSearch: false, simpleSelect: false, showPartiallySelected: false 
-}
+      keepTreeOnSearch: false,
+      simpleSelect: false,
+      showPartiallySelected: false
+    }
   }
 
   onChange = (curNode, selectedNodes) => {
@@ -39,9 +41,14 @@ class WithOptions extends PureComponent {
       <div>
         <h1>Options playground</h1>
         <p>Toggle different options to see its effect on the dropdown.</p>
-        <div style={{
- border: '1px solid #ccc', borderRadius: '4px', marginBottom: '20px', padding: 10 
-}}>
+        <div
+          style={{
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            marginBottom: '20px',
+            padding: 10
+          }}
+        >
           <Checkbox label="Keep tree on search" value="keepTreeOnSearch" checked={keepTreeOnSearch} onChange={this.onOptionsChange} />
           <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
           <Checkbox label="Show Partially Selected" value="showPartiallySelected" checked={showPartiallySelected} onChange={this.onOptionsChange} />

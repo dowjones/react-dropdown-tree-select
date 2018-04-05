@@ -64,7 +64,7 @@ test('should set partial state if at least one grandchild is partial', t => {
   assertTreeInExpectedState(t, manager, expected)
 })
 
-test.only('should not set partial state if all of the children are checked', t => {
+test('should not set partial state if all of the children are checked', t => {
   tree.children[0].checked = true
   tree.children[1].checked = true
 

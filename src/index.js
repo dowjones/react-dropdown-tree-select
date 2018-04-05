@@ -31,7 +31,7 @@ class DropdownTreeSelect extends Component {
     showPartiallySelected: PropTypes.bool
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
@@ -59,13 +59,13 @@ class DropdownTreeSelect extends Component {
     this.searchInput.value = ''
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const tree = this.createList(nextProps.data, nextProps.simpleSelect, nextProps.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
@@ -103,8 +103,10 @@ class DropdownTreeSelect extends Component {
     const searchModeOn = value.length > 0
 
     this.setState({
- tree, searchModeOn, allNodesHidden 
-})
+      tree,
+      searchModeOn,
+      allNodesHidden
+    })
   }
 
   onTagRemove = id => {
@@ -122,8 +124,10 @@ class DropdownTreeSelect extends Component {
     const tags = this.treeManager.getTags()
     const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
     this.setState({
- tree: this.treeManager.tree, tags, showDropdown 
-})
+      tree: this.treeManager.tree,
+      tags,
+      showDropdown
+    })
     if (this.props.simpleSelect) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
@@ -132,7 +136,7 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
-  render () {
+  render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,

@@ -41,6 +41,7 @@ A lightweight and fast control to render a select component that can display hie
 * [Usage](#usage)
 * [Props](#props)
   * [className](#classname)
+  * [clearSearchOnChange](#clearsearchonchange)
   * [onChange](#onchange)
   * [onNodeToggle](#onnodetoggle)
   * [data](#data)
@@ -164,6 +165,12 @@ ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={on
 Type: `string`
 
 Additional classname for container. The container renders with a default classname of `react-dropdown-tree-select`.
+
+### clearSearchOnChange
+
+Type: `bool`
+
+Clear the input search if a node has been selected/unselected.
 
 ### onChange
 

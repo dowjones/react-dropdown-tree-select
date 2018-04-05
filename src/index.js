@@ -129,11 +129,8 @@ class DropdownTreeSelect extends Component {
       tags,
       showDropdown
     })
-    if (this.props.simpleSelect) this.resetSearch()
+    if (this.props.simpleSelect || this.props.clearSearchOnChange) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
-    if (this.props.clearSearchOnChange) {
-      this.resetSearch()
-    }
   }
 
   onAction = (actionId, nodeId) => {

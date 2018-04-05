@@ -5,9 +5,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
   devtool: 'source-map',
-  entry: {
-    'react-dropdown-tree-select': './src/index.js'
-  },
+  entry: {'react-dropdown-tree-select': './src/index.js'},
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js',
@@ -24,14 +22,14 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
+    new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify('production')}),
     new ExtractTextPlugin('styles.css'),
     new webpack
       .optimize
       .UglifyJsPlugin({ sourceMap: true, exclude: /node_modules/ }),
-    new BundleAnalyzerPlugin({ analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true })
+    new BundleAnalyzerPlugin({
+ analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true 
+})
   ],
   module: {
     rules: [
@@ -52,9 +50,7 @@ module.exports = {
                 minimize: true
               }
             },
-            {
-              loader: 'postcss-loader'
-            }
+            {loader: 'postcss-loader'}
           ]
         }),
         include: /src/,

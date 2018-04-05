@@ -6,7 +6,9 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 const Tag = (props) => {
-  const { id, label, onDelete } = props
+  const {
+ id, label, onDelete 
+} = props
 
   const onClick = (e) => {
     // this is needed to stop the drawer from closing

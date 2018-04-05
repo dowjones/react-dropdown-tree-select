@@ -612,9 +612,9 @@ array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
 
-array.partial@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/array.partial/-/array.partial-1.0.2.tgz#76a27889d0ee2e4f04534097b09456879314cb72"
+array.partial@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/array.partial/-/array.partial-1.0.4.tgz#a88c8372953d8a8d495b24b8c94bdb285084d2a6"
 
 arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"

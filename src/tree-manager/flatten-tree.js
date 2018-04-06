@@ -123,7 +123,7 @@ function setInitialStateProps(node, parent = {}) {
 }
 
 function walkNodes({
- nodes, list = new Map(), parent, depth = 0, simple, showPartialState 
+  nodes, list = new Map(), parent, depth = 0, simple, showPartialState
 }) {
   nodes.forEach((node, i) => {
     node._depth = depth

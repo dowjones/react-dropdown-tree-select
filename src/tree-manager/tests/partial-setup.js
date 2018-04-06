@@ -10,8 +10,8 @@ export const children = [...childrenOfParent1, ...childrenOfParent2]
 
 export const assertTreeInExpectedState = (t, manager, expected) => {
   const {
- checked = [], partial = [], unchecked = [], nonPartial = [] 
-} = expected
+    checked = [], partial = [], unchecked = [], nonPartial = []
+  } = expected
 
   checked.forEach(c => t.truthy(manager.getNodeById(c).checked, `Expected node ${c} to be in checked state`))
   partial.forEach(c => t.truthy(manager.getNodeById(c).partial, `Expected node ${c} to be in partial state`))

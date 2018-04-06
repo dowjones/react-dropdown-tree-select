@@ -1,7 +1,7 @@
 import test from 'ava'
 import TreeManager from '..'
 import {
- grandParent, parent1, parent2, parents, childrenOfParent1, childrenOfParent2, children, assertTreeInExpectedState 
+  grandParent, parent1, parent2, parents, childrenOfParent1, childrenOfParent2, children, assertTreeInExpectedState
 } from './partial-setup'
 
 const tree = {

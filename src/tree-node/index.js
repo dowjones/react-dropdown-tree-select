@@ -15,8 +15,8 @@ const isLeaf = node => isEmpty(node._children)
 
 const getNodeCx = props => {
   const {
- keepTreeOnSearch, node, showPartiallySelected 
-} = props
+    keepTreeOnSearch, node, showPartiallySelected
+  } = props
 
   return cx(
     'node',
@@ -42,8 +42,8 @@ const getNodeActions = props => {
 
 const TreeNode = props => {
   const {
- simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected 
-} = props
+    simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected
+  } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}

@@ -5,8 +5,8 @@ import Checkbox from '../checkbox'
 
 const NodeLabel = props => {
   const {
- simpleSelect, node, onCheckboxChange, showPartiallySelected 
-} = props
+    simpleSelect, node, onCheckboxChange, showPartiallySelected
+  } = props
   const nodeLabelProps = { className: 'node-label' }
 
   if (simpleSelect) {

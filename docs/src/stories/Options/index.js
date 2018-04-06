@@ -35,8 +35,8 @@ class WithOptions extends PureComponent {
 
   render() {
     const {
-  clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected
-} = this.state
+      clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected
+    } = this.state
 
     return (
       <div>

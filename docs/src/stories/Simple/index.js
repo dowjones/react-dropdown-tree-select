@@ -31,7 +31,7 @@ const Simple = () => (
       As a side effect, it also helps rule out issues arising out of using custom frameworks (if something doesn&apos;t look right in your app but
       looks OK here, you know what is messing things up).
     </p>
-    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} keepTreeOnSearch />
+    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
   </div>
 )
 

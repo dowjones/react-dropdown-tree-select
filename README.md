@@ -24,7 +24,7 @@
 
 ## React Dropdown Tree Select
 
-A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection.
+A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection. Also supports displaying partially selected nodes.
 
 ## Table of Contents
 
@@ -41,6 +41,7 @@ A lightweight and fast control to render a select component that can display hie
 * [Usage](#usage)
 * [Props](#props)
   * [className](#classname)
+  * [clearSearchOnChange](#clearsearchonchange)
   * [onChange](#onchange)
   * [onNodeToggle](#onnodetoggle)
   * [data](#data)
@@ -48,6 +49,7 @@ A lightweight and fast control to render a select component that can display hie
   * [noMatchesText](#noMatchesText)
   * [keepTreeOnSearch](#keeptreeonsearch)
   * [simpleSelect](#simpleselect)
+  * [showPartiallySelected](#showPartiallySelected)
 * [Styling and Customization](#styling-and-customization)
   * [Using default styles](#default-styles)
   * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -92,13 +94,6 @@ npm i react-dropdown-tree-select
 
 // or if using yarn
 yarn add react-dropdown-tree-select
-```
-
-To start using it, import `react-dropdown-tree-select` and its styles in your application:
-
-```jsx
-import DropdownTreeSelect from 'react-dropdown-tree-select'
-import 'react-dropdown-tree-select/dist/styles.css'
 ```
 
 ### Using a CDN
@@ -170,6 +165,12 @@ ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={on
 Type: `string`
 
 Additional classname for container. The container renders with a default classname of `react-dropdown-tree-select`.
+
+### clearSearchOnChange
+
+Type: `bool`
+
+Clear the input search if a node has been selected/unselected.
 
 ### onChange
 
@@ -266,6 +267,12 @@ Displays search results as a tree instead of flattened results
 Type: `bool` (default: `false`)
 
 Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+
+### showPartiallySelected
+
+Type: `bool` (default: `false`)
+
+If set to true, shows checkboxes in a partial state when one, but not all of their children are selected. Allows styling of partially selected nodes as well, by using [:indeterminate](https://developer.mozilla.org/en-US/docs/Web/CSS/:indeterminate) pseudo class. Simply add desired styles to `.node.partial .checkbox-item:indeterminate { ... }` in your CSS.
 
 ## Styling and Customization
 

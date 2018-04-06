@@ -13,25 +13,28 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 
 const getNodes = props => {
   const {
-    data, keepTreeOnSearch, searchModeOn, simpleSelect
-  } = props
+ data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected 
+} = props
   const {
-    onAction, onChange, onCheckboxChange, onNodeToggle
-  } = props
+ onAction, onChange, onCheckboxChange, onNodeToggle 
+} = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
-      items.push(<TreeNode
-        keepTreeOnSearch={keepTreeOnSearch}
-        key={key}
-        node={node}
-        searchModeOn={searchModeOn}
-        onChange={onChange}
-        onCheckboxChange={onCheckboxChange}
-        onNodeToggle={onNodeToggle}
-        onAction={onAction}
-        simpleSelect={simpleSelect}
-      />)
+      items.push(
+        <TreeNode
+          keepTreeOnSearch={keepTreeOnSearch}
+          key={key}
+          node={node}
+          searchModeOn={searchModeOn}
+          onChange={onChange}
+          onCheckboxChange={onCheckboxChange}
+          onNodeToggle={onNodeToggle}
+          onAction={onAction}
+          simpleSelect={simpleSelect}
+          showPartiallySelected={showPartiallySelected}
+        />
+      )
     }
   })
   return items
@@ -51,7 +54,8 @@ Tree.propTypes = {
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
   onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool
+  simpleSelect: PropTypes.bool,
+  showPartiallySelected: PropTypes.bool
 }
 
 export default Tree

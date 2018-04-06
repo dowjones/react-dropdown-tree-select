@@ -1,3 +1,5 @@
+import getPartialState from './getPartialState'
+
 /**
  * Converts a nested node into an associative array with pointers to child and parent nodes
  * Given:
@@ -87,20 +89,25 @@ const tree = [
   }
 }
 ```
- * @param  {[type]} tree The incoming tree object
- * @return {object}      The flattened list
+ * @param  {[type]} tree              The incoming tree object
+ * @param  {[bool]} simple            Whether its in Single slect mode (simple dropdown)
+ * @param  {[bool]} showPartialState  Whether to show partially checked state
+ * @return {object}                   The flattened list
  */
-function flattenTree(tree, simple) {
+function flattenTree(tree, simple, showPartialState) {
   const forest = Array.isArray(tree) ? tree : [tree]
-  // eslint-disable-next-line no-use-before-define
-  const list = walkNodes({ nodes: forest, simple })
+  const list = walkNodes({
+    nodes: forest,
+    simple,
+    showPartialState
+  })
   return list
 }
 
 /**
  * If the node didn't specify anything on its own
  * figure out the initial state based on parent
- * @param {object} node [curernt node]
+ * @param {object} node [current node]
  * @param {object} parent [node's immediate parent]
  */
 function setInitialStateProps(node, parent = {}) {
@@ -115,7 +122,9 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple }) {
+function walkNodes({
+ nodes, list = new Map(), parent, depth = 0, simple, showPartialState 
+}) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -136,8 +145,19 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple }) {
         nodes: node.children,
         list,
         parent: node,
-        depth: depth + 1
+        depth: depth + 1,
+        showPartialState
       })
+
+      if (showPartialState && !node.checked) {
+        node.partial = getPartialState(node)
+
+        // re-check if all children are checked. if so, check thyself
+        if (node.children.every(c => c.checked)) {
+          node.checked = true
+        }
+      }
+
       node.children = undefined
     }
   })

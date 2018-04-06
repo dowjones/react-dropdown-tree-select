@@ -1,11 +1,14 @@
+import getPartialState from './getPartialState'
+
 import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor(tree, simple) {
+  constructor(tree, simple, showPartialState) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
     this.simpleSelect = simple
+    this.showPartialState = showPartialState
     this.searchMaps = new Map()
   }
 
@@ -93,10 +96,18 @@ class TreeManager {
     const node = this.getNodeById(id)
     node.checked = checked
 
+    if (this.showPartialState) {
+      node.partial = false
+    }
+
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
     } else {
       this.toggleChildren(id, checked)
+
+      if (this.showPartialState) {
+        this.partialCheckParents(node)
+      }
 
       if (!checked) {
         this.unCheckParents(node)
@@ -114,6 +125,22 @@ class TreeManager {
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = false
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
+      parent = next._parent
+    }
+  }
+
+  /**
+   * Walks up the tree setting partial state on parent nodes
+   * @param  {[type]} node [description]
+   * @return {[type]}      [description]
+   */
+  partialCheckParents(node) {
+    let parent = node._parent
+    while (parent) {
+      const next = this.getNodeById(parent)
+      next.checked = next._children.every(c => this.getNodeById(c).checked)
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
       parent = next._parent
     }
   }
@@ -121,6 +148,11 @@ class TreeManager {
   toggleChildren(id, state) {
     const node = this.getNodeById(id)
     node.checked = state
+
+    if (this.showPartialState) {
+      node.partial = false
+    }
+
     if (!isEmpty(node._children)) {
       node._children.forEach(id => this.toggleChildren(id, state))
     }

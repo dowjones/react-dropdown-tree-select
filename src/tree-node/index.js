@@ -14,7 +14,9 @@ const cx = cn.bind(styles)
 const isLeaf = node => isEmpty(node._children)
 
 const getNodeCx = props => {
-  const { keepTreeOnSearch, node } = props
+  const {
+ keepTreeOnSearch, node, showPartiallySelected 
+} = props
 
   return cx(
     'node',
@@ -23,7 +25,8 @@ const getNodeCx = props => {
       tree: !isLeaf(node),
       disabled: node.disabled,
       hide: node.hide,
-      'match-in-children': keepTreeOnSearch && node.matchInChildren
+      'match-in-children': keepTreeOnSearch && node.matchInChildren,
+      partial: showPartiallySelected && node.partial
     },
     node.className
   )
@@ -34,11 +37,13 @@ const getToggleCx = ({ node }) => cx('toggle', { expanded: !isLeaf(node) && node
 const getNodeActions = props => {
   const { node, onAction } = props
 
-  return (node.actions || []).map(a => <Action key={a.id} {...a} actionData={{ action: a.id, node }} onAction={onAction} />)
+  return (node.actions || []).map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />)
 }
 
 const TreeNode = props => {
-  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange } = props
+  const {
+ simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected 
+} = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}
@@ -46,7 +51,7 @@ const TreeNode = props => {
   return (
     <li className={liCx} style={style} {...getDataset(node.dataset)}>
       <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
-      <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} />
+      <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} showPartiallySelected={showPartiallySelected} />
       {getNodeActions(props)}
     </li>
   )
@@ -71,7 +76,8 @@ TreeNode.propTypes = {
   onNodeToggle: PropTypes.func,
   onAction: PropTypes.func,
   onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool
+  simpleSelect: PropTypes.bool,
+  showPartiallySelected: PropTypes.bool
 }
 
 export default TreeNode

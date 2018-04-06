@@ -21,9 +21,7 @@ const baseConfig = {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         use: {
           loader: 'url-loader',
-          options: {
-            limit: 100000
-          }
+          options: {limit: 100000}
         }
       },
       {

@@ -2,16 +2,12 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 class Checkbox extends PureComponent {
-  state = {
-    isChecked: this.props.checked || false
-  }
+  state = {isChecked: this.props.checked || false}
 
   toggleCheckboxChange = () => {
     const { onChange, value } = this.props
 
-    this.setState(({ isChecked }) => ({
-      isChecked: !isChecked
-    }))
+    this.setState(({ isChecked }) => ({isChecked: !isChecked}))
 
     onChange(value)
   }

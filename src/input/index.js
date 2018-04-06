@@ -8,32 +8,28 @@ import { getDataset } from '../dataset-utils'
 
 const cx = cn.bind(styles)
 
-const getTags = (tags = [], onDelete) => tags.map((tag, i) => {
-  const {
-    _id, label, tagClassName, dataset
-  } = tag
-  return (
-    <li className={cx('tag-item', tagClassName)} key={`tag-${i}`} {...getDataset(dataset)}>
-      <Tag label={label} id={_id} onDelete={onDelete} />
-    </li>
+const getTags = (tags = [], onDelete) =>
+  tags.map(tag => {
+    const { _id, label, tagClassName, dataset } = tag
+    return (
+      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
+        <Tag label={label} id={_id} onDelete={onDelete} />
+      </li>
+    )
+  })
+
+const Input = props => {
+  const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = props
+
+  const delayedCallback = debounce(
+    e => {
+      props.onInputChange(e.target.value)
+    },
+    50,
+    { leading: true }
   )
-})
 
-const Input = (props) => {
-  const {
-    tags,
-    onTagRemove,
-    inputRef,
-    placeholderText = 'Choose...',
-    onFocus,
-    onBlur
-  } = props
-
-  const delayedCallback = debounce((e) => {
-    props.onInputChange(e.target.value)
-  }, 50, { leading: true })
-
-  const onInputChange = (e) => {
+  const onInputChange = e => {
     e.persist()
     delayedCallback(e)
   }
@@ -58,7 +54,6 @@ const Input = (props) => {
 
 Input.propTypes = {
   tags: PropTypes.array,
-  value: PropTypes.string,
   placeholderText: PropTypes.string,
   onInputChange: PropTypes.func,
   onFocus: PropTypes.func,

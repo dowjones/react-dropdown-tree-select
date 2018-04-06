@@ -1,19 +1,22 @@
+import getPartialState from './getPartialState'
+
 import isEmpty from '../isEmpty'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor (tree, simple) {
+  constructor(tree, simple, showPartialState) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple)
+    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
     this.simpleSelect = simple
+    this.showPartialState = showPartialState
     this.searchMaps = new Map()
   }
 
-  getNodeById (id) {
+  getNodeById(id) {
     return this.tree.get(id)
   }
 
-  getMatches (searchTerm) {
+  getMatches(searchTerm) {
     if (this.searchMaps.has(searchTerm)) {
       return this.searchMaps.get(searchTerm)
     }
@@ -31,14 +34,14 @@ class TreeManager {
 
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
-      superMatches.forEach((key) => {
+      superMatches.forEach(key => {
         const node = this.getNodeById(key)
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
       })
     } else {
-      this.tree.forEach((node) => {
+      this.tree.forEach(node => {
         if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
           matches.push(node._id)
         }
@@ -49,7 +52,7 @@ class TreeManager {
     return matches
   }
 
-  setChildMatchStatus (id) {
+  setChildMatchStatus(id) {
     if (id !== undefined) {
       const node = this.getNodeById(id)
       node.matchInChildren = true
@@ -57,15 +60,15 @@ class TreeManager {
     }
   }
 
-  filterTree (searchTerm) {
+  filterTree(searchTerm) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
-    this.tree.forEach((node) => {
+    this.tree.forEach(node => {
       node.hide = true
       node.matchInChildren = false
     })
 
-    matches.forEach((m) => {
+    matches.forEach(m => {
       const node = this.getNodeById(m)
       node.hide = false
       this.setChildMatchStatus(node._parent)
@@ -75,28 +78,36 @@ class TreeManager {
     return { allNodesHidden, tree: this.tree }
   }
 
-  restoreNodes () {
-    this.tree.forEach((node) => {
+  restoreNodes() {
+    this.tree.forEach(node => {
       node.hide = false
     })
 
     return this.tree
   }
 
-  togglePreviousChecked (id) {
+  togglePreviousChecked(id) {
     const prevChecked = this.currentChecked
     if (prevChecked) this.getNodeById(prevChecked).checked = false
     this.currentChecked = id
   }
 
-  setNodeCheckedState (id, checked) {
+  setNodeCheckedState(id, checked) {
     const node = this.getNodeById(id)
     node.checked = checked
+
+    if (this.showPartialState) {
+      node.partial = false
+    }
 
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
     } else {
       this.toggleChildren(id, checked)
+
+      if (this.showPartialState) {
+        this.partialCheckParents(node)
+      }
 
       if (!checked) {
         this.unCheckParents(node)
@@ -109,41 +120,62 @@ class TreeManager {
    * @param  {[type]} node [description]
    * @return {[type]}      [description]
    */
-  unCheckParents (node) {
+  unCheckParents(node) {
     let parent = node._parent
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = false
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
       parent = next._parent
     }
   }
 
-  toggleChildren (id, state) {
+  /**
+   * Walks up the tree setting partial state on parent nodes
+   * @param  {[type]} node [description]
+   * @return {[type]}      [description]
+   */
+  partialCheckParents(node) {
+    let parent = node._parent
+    while (parent) {
+      const next = this.getNodeById(parent)
+      next.checked = next._children.every(c => this.getNodeById(c).checked)
+      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
+      parent = next._parent
+    }
+  }
+
+  toggleChildren(id, state) {
     const node = this.getNodeById(id)
     node.checked = state
+
+    if (this.showPartialState) {
+      node.partial = false
+    }
+
     if (!isEmpty(node._children)) {
       node._children.forEach(id => this.toggleChildren(id, state))
     }
   }
 
-  toggleNodeExpandState (id) {
+  toggleNodeExpandState(id) {
     const node = this.getNodeById(id)
     node.expanded = !node.expanded
     if (!node.expanded) this.collapseChildren(node)
     return this.tree
   }
 
-  collapseChildren (node) {
+  collapseChildren(node) {
     node.expanded = false
     if (!isEmpty(node._children)) {
       node._children.forEach(c => this.collapseChildren(this.getNodeById(c)))
     }
   }
 
-  getTags () {
+  getTags() {
     const tags = []
     const visited = {}
-    const markSubTreeVisited = (node) => {
+    const markSubTreeVisited = node => {
       visited[node._id] = true
       if (!isEmpty(node._children)) node._children.forEach(c => markSubTreeVisited(this.getNodeById(c)))
     }

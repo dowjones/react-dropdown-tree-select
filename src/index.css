@@ -20,14 +20,14 @@
         cursor: pointer;
 
         &.bottom::after {
-          content: "\25BC";
+          content: '\25BC';
           vertical-align: middle;
           color: #3c3c3c;
           margin-right: 2px;
         }
 
         &.top::after {
-          content: "\25B2";
+          content: '\25B2';
           vertical-align: middle;
           color: #3c3c3c;
           margin-right: 2px;

@@ -19,6 +19,7 @@ const cx = cn.bind(styles)
 class DropdownTreeSelect extends Component {
   static propTypes = {
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
@@ -26,10 +27,12 @@ class DropdownTreeSelect extends Component {
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
-    simpleSelect: PropTypes.bool
+    simpleSelect: PropTypes.bool,
+    noMatchesText: PropTypes.string,
+    showPartiallySelected: PropTypes.bool
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
@@ -41,8 +44,8 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
-  createList = (tree, simple) => {
-    this.treeManager = new TreeManager(tree, simple)
+  createList = (tree, simple, showPartial) => {
+    this.treeManager = new TreeManager(tree, simple, showPartial)
     return this.treeManager.tree
   }
 
@@ -57,14 +60,14 @@ class DropdownTreeSelect extends Component {
     this.searchInput.value = ''
   }
 
-  componentWillMount () {
-    const tree = this.createList(this.props.data, this.props.simpleSelect)
+  componentWillMount() {
+    const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
 
-  componentWillReceiveProps (nextProps) {
-    const tree = this.createList(nextProps.data, nextProps.simpleSelect)
+  componentWillReceiveProps(nextProps) {
+    const tree = this.createList(nextProps.data, nextProps.simpleSelect, nextProps.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -100,7 +103,11 @@ class DropdownTreeSelect extends Component {
     const { allNodesHidden, tree } = this.treeManager.filterTree(value)
     const searchModeOn = value.length > 0
 
-    this.setState({ tree, searchModeOn, allNodesHidden })
+    this.setState({
+      tree,
+      searchModeOn,
+      allNodesHidden
+    })
   }
 
   onTagRemove = id => {
@@ -110,27 +117,27 @@ class DropdownTreeSelect extends Component {
   onNodeToggle = id => {
     this.treeManager.toggleNodeExpandState(id)
     this.setState({ tree: this.treeManager.tree })
-    typeof this.props.onNodeToggle === 'function' &&
-      this.props.onNodeToggle(this.treeManager.getNodeById(id))
+    typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
-    const showDropdown = this.props.simpleSelect
-      ? false
-      : this.state.showDropdown
-    this.setState({ tree: this.treeManager.tree, tags, showDropdown })
-    if (this.props.simpleSelect) this.resetSearch()
+    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
+    this.setState({
+      tree: this.treeManager.tree,
+      tags,
+      showDropdown
+    })
+    if (this.props.simpleSelect || this.props.clearSearchOnChange) this.resetSearch()
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 
   onAction = (actionId, nodeId) => {
-    typeof this.props.onAction === 'function' &&
-      this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
+    typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
   }
 
-  render () {
+  render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,
@@ -166,7 +173,7 @@ class DropdownTreeSelect extends Component {
           {this.state.showDropdown && (
             <div className={cx('dropdown-content')}>
               {this.state.allNodesHidden ? (
-                <span className="no-matches">No matches found</span>
+                <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (
                 <Tree
                   data={this.state.tree}
@@ -176,6 +183,7 @@ class DropdownTreeSelect extends Component {
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
                   simpleSelect={this.props.simpleSelect}
+                  showPartiallySelected={this.props.showPartiallySelected}
                 />
               )}
             </div>

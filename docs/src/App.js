@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactStory, { defaultProps } from 'react-story'
 
-import CodeSandbox from './CodeSandbox.js'
-import HOCReadme from './stories/HOCReadme.js'
-import Readme from './stories/Readme.js'
+import CodeSandbox from './CodeSandbox'
+import HOCReadme from './stories/HOCReadme'
+import Readme from './stories/Readme'
+import Simple from './stories/Simple'
+import Options from './stories/Options'
 
 import './stories/utils/prism.css'
 
@@ -11,7 +13,8 @@ const stories = [
   { name: 'Readme', component: Readme },
   { name: 'HOC Readme', component: HOCReadme },
 
-  { name: 'With Vanilla Styles', component: CodeSandbox('v0nmw5ykk5') },
+  { name: 'Basic (no extra styles)', component: Simple },
+  { name: 'Options', component: Options },
   { name: 'With Bootstrap Styles', component: CodeSandbox('382pjronm') },
   { name: 'With Material Design Styles', component: CodeSandbox('2o1pv6925p') },
   { name: 'With Country flags', component: CodeSandbox('6w41wlvj8z') },
@@ -31,35 +34,33 @@ const stories = [
   { name: 'Tree Node Paths (HOC)', component: CodeSandbox('l765q6lmrq') }
 ]
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <ReactStory
-        style={{
-          display: 'block',
-          width: '100%',
-          height: '100%'
+const App = () => (
+  <ReactStory
+    style={{
+      display: 'block',
+      width: '100%',
+      height: '100%'
+    }}
+    pathPrefix="story/"
+    Story={props => (
+      <defaultProps.StoryWrapper
+        css={{
+          padding: 0,
+          display: 'flex',
+          flexDirection: 'column'
         }}
-        pathPrefix="story/"
-        Story={props => (
-          <defaultProps.StoryWrapper
-            css={{
-              padding: 0,
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            <div
-              {...props}
-              style={{
-                flex: '1 0 auto',
-                position: 'relative'
-              }}
-            />
-          </defaultProps.StoryWrapper>
-        )}
-        stories={stories}
-      />
-    )
-  }
-}
+      >
+        <div
+          {...props}
+          style={{
+            flex: '1 0 auto',
+            position: 'relative'
+          }}
+        />
+      </defaultProps.StoryWrapper>
+    )}
+    stories={stories}
+  />
+)
+
+export default App

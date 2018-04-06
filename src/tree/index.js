@@ -11,19 +11,16 @@ const shouldRenderNode = (node, searchModeOn, data) => {
   return !parent || parent.expanded
 }
 
-const getNodes = (props) => {
-  const {
-    data, keepTreeOnSearch, searchModeOn, simpleSelect
-  } = props
-  const {
-    onAction, onChange, onCheckboxChange, onNodeToggle
-  } = props
+const getNodes = props => {
+  const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected } = props
+  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
   const items = []
   data.forEach((node, key) => {
     if (shouldRenderNode(node, searchModeOn, data)) {
+      // we _do_ want to rely on array index here
       items.push(<TreeNode
         keepTreeOnSearch={keepTreeOnSearch}
-        key={key}
+        key={key} // eslint-disable-line react/no-array-index-key
         node={node}
         searchModeOn={searchModeOn}
         onChange={onChange}
@@ -31,19 +28,20 @@ const getNodes = (props) => {
         onNodeToggle={onNodeToggle}
         onAction={onAction}
         simpleSelect={simpleSelect}
+        showPartiallySelected={showPartiallySelected}
       />)
     }
   })
   return items
 }
 
-const Tree = (props) => {
+const Tree = props => {
   const { searchModeOn } = props
 
   return <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>{getNodes(props)}</ul>
 }
 
-Tree.propTypes = {
+getNodes.propTypes = {
   data: PropTypes.object,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
@@ -52,6 +50,10 @@ Tree.propTypes = {
   onAction: PropTypes.func,
   onCheckboxChange: PropTypes.func,
   simpleSelect: PropTypes.bool
+}
+
+Tree.propTypes = {
+  searchModeOn: PropTypes.bool
 }
 
 export default Tree

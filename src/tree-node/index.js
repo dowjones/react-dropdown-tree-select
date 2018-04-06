@@ -14,9 +14,7 @@ const cx = cn.bind(styles)
 const isLeaf = node => isEmpty(node._children)
 
 const getNodeCx = props => {
-  const {
-    keepTreeOnSearch, node, showPartiallySelected
-  } = props
+  const { keepTreeOnSearch, node, showPartiallySelected } = props
 
   return cx(
     'node',
@@ -37,13 +35,13 @@ const getToggleCx = ({ node }) => cx('toggle', { expanded: !isLeaf(node) && node
 const getNodeActions = props => {
   const { node, onAction } = props
 
+  // we _do_ want to rely on array index here
+  // eslint-disable-next-line react/no-array-index-key
   return (node.actions || []).map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />)
 }
 
 const TreeNode = props => {
-  const {
-    simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected
-  } = props
+  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
   const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}

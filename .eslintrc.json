@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb",
-  "plugins": ["react"],
+  "plugins": ["react", "jsx-a11y", "import"],
   "env": {
     "browser": true,
     "node": true,
@@ -34,7 +34,6 @@
     ],
     "no-nested-ternary": 0,
     "no-underscore-dangle": 0,
-    "no-unused-vars": 1,
     "no-console": 0,
     "no-bitwise": [
       2,
@@ -57,6 +56,7 @@
     ],
     "react/jsx-wrap-multilines": 0,
     "react/jsx-closing-tag-location": 0,
+    "react/sort-comp": 0,
     "semi": [2, "never"],
     "space-infix-ops": 0,
     "jsx-a11y/anchor-is-valid": 0,

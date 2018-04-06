@@ -96,6 +96,8 @@ const tree = [
  */
 function flattenTree(tree, simple, showPartialState) {
   const forest = Array.isArray(tree) ? tree : [tree]
+
+  // eslint-disable-next-line no-use-before-define
   const list = walkNodes({
     nodes: forest,
     simple,
@@ -122,9 +124,7 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({
-  nodes, list = new Map(), parent, depth = 0, simple, showPartialState
-}) {
+function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 

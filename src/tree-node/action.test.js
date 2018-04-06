@@ -35,7 +35,7 @@ test('notifies clicks if handler is passed', t => {
   t.true(onClick.calledWith(match({ id: 'actionA' })))
 })
 
-test('doesn\'t notify clicks if handler is not passed', t => {
+test("doesn't notify clicks if handler is not passed", t => {
   const onClick = spy()
   const props = {
     title: 'action',

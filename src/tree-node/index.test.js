@@ -4,7 +4,11 @@ import { shallow } from 'enzyme'
 import { spy } from 'sinon'
 import TreeNode from './index'
 
-const hasGap = wrapper => !!wrapper.find('li').first().props().style.paddingLeft
+const hasGap = wrapper =>
+  !!wrapper
+    .find('li')
+    .first()
+    .props().style.paddingLeft
 
 test('renders tree node', t => {
   const node = {

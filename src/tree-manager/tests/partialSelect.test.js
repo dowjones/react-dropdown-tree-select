@@ -1,12 +1,10 @@
 import test from 'ava'
 import TreeManager from '..'
-import {
-  grandParent, parent1, parent2, parents, childrenOfParent1, childrenOfParent2, children, assertTreeInExpectedState
-} from './partial-setup'
+import { grandParent, parent1, parent2, parents, childrenOfParent1, childrenOfParent2, children, assertTreeInExpectedState } from './partial-setup'
 
 let tree
 
-test.beforeEach(t => {
+test.beforeEach(() => {
   tree = {
     id: '1',
     children: [

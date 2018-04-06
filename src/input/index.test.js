@@ -30,15 +30,17 @@ test('raises onchange', t => {
 })
 
 test('should render data attributes', t => {
-  const tags = [{
-    _id: 'i1',
-    label: 'l1',
-    tagClassName: 'test',
-    dataset: {
-      first: 'john',
-      last: 'smith'
+  const tags = [
+    {
+      _id: 'i1',
+      label: 'l1',
+      tagClassName: 'test',
+      dataset: {
+        first: 'john',
+        last: 'smith'
+      }
     }
-  }]
+  ]
 
   const wrapper = shallow(<Input tags={tags} />)
 

@@ -30,15 +30,14 @@
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack-dev-server --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
-    "lint": "eslint --fix src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
+    "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
+    "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
@@ -67,15 +66,9 @@
     "enzyme-to-json": "^3.3.3",
     "eslint": "^4.19.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-react-app": "^2.1.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-flowtype": "^2.46.1",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-react": "^7.7.0",
-    "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "github-markdown-css": "^2.10.0",
     "husky": "^0.14.3",
@@ -90,6 +83,8 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",
     "postcss-nested": "^3.0.0",
+    "prettier-eslint-cli": "^4.7.1",
+    "prettier-stylelint": "^0.4.2",
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -111,15 +106,8 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": [
-      "src/**/*.test.js"
-    ],
-    "require": [
-      "babel-register",
-      "ignore-styles",
-      "jsdom-global/register",
-      "./setupEnzyme"
-    ],
+    "files": ["src/**/*.test.js"],
+    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
     "babel": "inherit",
     "snapshotDir": "__snapshots__"
   },
@@ -127,34 +115,18 @@
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": [
-      "html",
-      "text-summary"
-    ],
+    "reporter": ["html", "text-summary"],
     "all": true,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "**/*.test.js",
-      "**/node_modules/**",
-      "dist",
-      "demo"
-    ]
+    "include": ["src/**/*.js"],
+    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
+    "extends": ["@commitlint/config-conventional"],
     "rules": {
-      "subject-case": [
-        2,
-        "always",
-        "sentence-case"
-      ]
+      "subject-case": [2, "always", "sentence-case"]
     }
   },
   "config": {

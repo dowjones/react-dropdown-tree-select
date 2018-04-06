@@ -1,5 +1,6 @@
-const mapToObj = (map) => {
+const mapToObj = map => {
   const obj = Object.create(null)
+  // eslint-disable-next-line no-restricted-syntax
   for (const [k, v] of map) {
     // We don’t escape the key '__proto__'
     // which can cause problems on older engines

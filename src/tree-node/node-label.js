@@ -4,9 +4,7 @@ import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
 
 const NodeLabel = props => {
-  const {
- simpleSelect, node, onCheckboxChange, showPartiallySelected 
-} = props
+  const { simpleSelect, node, onCheckboxChange, showPartiallySelected } = props
   const nodeLabelProps = { className: 'node-label' }
 
   if (simpleSelect) {
@@ -38,6 +36,7 @@ const NodeLabel = props => {
 NodeLabel.propTypes = {
   node: PropTypes.any,
   simpleSelect: PropTypes.bool,
+  showPartiallySelected: PropTypes.bool,
   onCheckboxChange: PropTypes.func
 }
 

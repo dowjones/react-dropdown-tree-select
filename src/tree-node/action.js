@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Action = (props) => {
-  const {
-    title, className, text, onAction, actionData
-  } = props
+const Action = props => {
+  const { title, className, text, onAction, actionData } = props
 
   const onClick = () => {
     if (typeof onAction === 'function') {
@@ -12,7 +10,11 @@ const Action = (props) => {
     }
   }
 
-  return <i title={title} className={className} onClick={onClick}>{text}</i>
+  return (
+    <i title={title} className={className} onClick={onClick}>
+      {text}
+    </i>
+  )
 }
 
 Action.propTypes = {

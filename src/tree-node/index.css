@@ -14,17 +14,17 @@
 }
 
 .toggle::after {
-  content: " ";
+  content: ' ';
 }
 
 .toggle.collapsed::after {
   cursor: pointer;
-  content: "+";
+  content: '+';
 }
 
 .toggle.expanded::after {
   cursor: pointer;
-  content: "-";
+  content: '-';
 }
 
 .node.leaf.collapsed {

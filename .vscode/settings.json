@@ -3,7 +3,6 @@
     "spellright.documentTypes": [
         "markdown",
         "latex",
-        "plaintext",
-        "javascript"
+        "plaintext"
     ]
 }

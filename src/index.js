@@ -49,15 +49,14 @@ class DropdownTreeSelect extends Component {
     return this.treeManager.tree
   }
 
-  resetSearch = () => {
-    // restore the tree to its pre-search state
-    this.setState({
-      tree: this.treeManager.restoreNodes(),
-      searchModeOn: false,
-      allNodesHidden: false
-    })
+  resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
     this.searchInput.value = ''
+    return {
+      tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
+      searchModeOn: false,
+      allNodesHidden: false
+    }
   }
 
   componentWillMount() {
@@ -86,8 +85,7 @@ class DropdownTreeSelect extends Component {
         }
       }
 
-      if (!showDropdown) this.resetSearch()
-      return { showDropdown }
+      return !showDropdown ? { showDropdown, ...this.resetSearchState() } : { showDropdown }
     })
   }
 
@@ -124,12 +122,18 @@ class DropdownTreeSelect extends Component {
     this.treeManager.setNodeCheckedState(id, checked)
     const tags = this.treeManager.getTags()
     const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
-    this.setState({
+
+    const nextState = {
       tree: this.treeManager.tree,
       tags,
       showDropdown
-    })
-    if (this.props.simpleSelect || this.props.clearSearchOnChange) this.resetSearch()
+    }
+
+    if (this.props.simpleSelect || this.props.clearSearchOnChange) {
+      Object.assign(nextState, this.resetSearchState())
+    }
+
+    this.setState(nextState)
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }
 

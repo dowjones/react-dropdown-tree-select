@@ -44,7 +44,7 @@ const TreeNode = props => {
   const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected } = props
   const liCx = getNodeCx(props)
   const toggleCx = getToggleCx(props)
-  const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${node._depth * 20}px` } : {}
+  const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(node._depth || 0) * 20}px` } : {}
 
   return (
     <li className={liCx} style={style} {...getDataset(node.dataset)}>

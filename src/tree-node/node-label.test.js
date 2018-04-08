@@ -1,7 +1,9 @@
-import test from 'ava'
-import React from 'react'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
+import React from 'react'
+import test from 'ava'
+import toJson from 'enzyme-to-json'
+
 import NodeLabel from './node-label'
 
 test('renders  node label', t => {
@@ -22,9 +24,7 @@ test('renders  node label', t => {
 
   const wrapper = shallow(<NodeLabel node={node} />)
 
-  t.true(wrapper.find('label').exists())
-  t.true(wrapper.find('.checkbox-item').exists())
-  t.false(wrapper.hasClass('disabled'))
+  t.snapshot(toJson(wrapper))
 })
 
 test('notifies checkbox changes', t => {
@@ -56,7 +56,7 @@ test('disable checkbox if the node has disabled status', t => {
 
   const wrapper = shallow(<NodeLabel node={node} searchModeOn />)
 
-  t.true(wrapper.find('.checkbox-item').is('[disabled]'))
+  t.snapshot(toJson(wrapper))
 })
 
 test('notifies clicks in simple mode', t => {

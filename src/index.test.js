@@ -4,8 +4,10 @@ import { shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
 
-test('renders default state', t => {
-  const tree = [
+let tree
+
+test.beforeEach(() => {
+  tree = [
     {
       label: 'item1',
       value: 'value1',
@@ -39,6 +41,14 @@ test('renders default state', t => {
       ]
     }
   ]
+})
+
+test('renders default state', t => {
   const wrapper = shallow(<DropdownTreeSelect data={tree} />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('shows dropdown', t => {
+  const wrapper = shallow(<DropdownTreeSelect data={tree} showDropdown />)
   t.snapshot(toJson(wrapper))
 })

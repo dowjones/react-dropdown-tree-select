@@ -90,7 +90,7 @@
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
     "rimraf": "^2.6.1",
-    "semantic-release": "^12.2.2",
+    "semantic-release": "^15.1.6",
     "sinon": "^4.0.0",
     "style-loader": "^0.20.1",
     "stylelint": "^9.0.0",

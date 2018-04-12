@@ -12,6 +12,8 @@ install:
   - yarn install --ignore-engines
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
+script:
+  - yarn test:cov
 after_success:
   - npm run coveralls
 branches:
@@ -22,8 +24,8 @@ jobs:
     # Define the release stage that runs semantic-release
     - stage: release
       node_js: lts/*
-      # Advanced: optionally overwrite your default `script` step to skip the tests
-      # script: skip
+      # overwrite default `script` step to skip the tests
+      script: echo "Deploying to npm ..."
       deploy:
         provider: script
         skip_cleanup: true

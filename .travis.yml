@@ -2,7 +2,7 @@ language: node_js
 cache:
   directories:
     - node_modules
-node_js: 
+node_js:
   - '8'
   - '6'
 before_install:
@@ -12,9 +12,20 @@ install:
   - yarn install --ignore-engines
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
-after_success: 
-  - npm run coveralls  
-  - npm run travis-deploy-once "npm run semantic-release"
+after_success:
+  - npm run coveralls
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+jobs:
+  include:
+    # Define the release stage that runs semantic-release
+    - stage: release
+      node_js: lts/*
+      # Advanced: optionally overwrite your default `script` step to skip the tests
+      # script: skip
+      deploy:
+        provider: script
+        skip_cleanup: true
+        script:
+          - npx semantic-release

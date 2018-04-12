@@ -133,6 +133,10 @@ class DropdownTreeSelect extends Component {
       Object.assign(nextState, this.resetSearchState())
     }
 
+    if (this.props.simpleSelect) {
+      document.removeEventListener('click', this.handleOutsideClick, false)
+    }
+
     this.setState(nextState)
     this.notifyChange(this.treeManager.getNodeById(id), tags)
   }

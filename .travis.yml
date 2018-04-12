@@ -13,9 +13,7 @@ install:
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
-  - yarn test:cov
-after_success:
-  - npm run coveralls
+  - yarn coveralls
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

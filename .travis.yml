@@ -2,6 +2,8 @@ language: node_js
 cache:
   directories:
     - node_modules
+git:
+  depth: 3
 node_js:
   - '8'
   - '6'
@@ -19,7 +21,8 @@ branches:
     - /^v\d+\.\d+\.\d+$/
 jobs:
   include:
-    - if: branch = master
+    - # skip for develop branches
+      if: branch = master
     # Define the release stage that runs semantic-release
     - stage: release
       node_js: lts/*

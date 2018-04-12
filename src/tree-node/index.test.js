@@ -1,7 +1,9 @@
-import test from 'ava'
-import React from 'react'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
+import React from 'react'
+import test from 'ava'
+import toJson from 'enzyme-to-json'
+
 import TreeNode from './index'
 
 const hasGap = wrapper =>
@@ -27,11 +29,8 @@ test('renders tree node', t => {
   }
 
   const wrapper = shallow(<TreeNode node={node} />)
-
-  t.true(wrapper.find('.node.cn0-0-0').exists())
-  t.true(wrapper.find('.toggle').exists())
+  t.snapshot(toJson(wrapper))
   t.true(hasGap(wrapper))
-  t.false(wrapper.hasClass('disabled'))
 })
 
 test('notifies node toggle changes', t => {

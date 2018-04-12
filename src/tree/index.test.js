@@ -1,6 +1,7 @@
 import test from 'ava'
 import React from 'react'
 import { shallow, mount } from 'enzyme'
+import toJson from 'enzyme-to-json'
 import TreeManager from '../tree-manager'
 import Tree from './index'
 
@@ -41,7 +42,7 @@ test('renders tree nodes when search mode is on', t => {
   ]
   const treeManager = new TreeManager(tree)
   const wrapper = shallow(<Tree data={treeManager.tree} searchModeOn />)
-  t.true(wrapper.find('ul.root').hasClass('searchModeOn'))
+  t.snapshot(toJson(wrapper))
 })
 
 test('renders only expanded tree nodes when search mode is off', t => {
@@ -122,7 +123,5 @@ test('renders only expanded tree nodes when search mode is off', t => {
   const treeManager = new TreeManager(tree)
   const wrapper = mount(<Tree data={treeManager.tree} />)
 
-  // 4 since expanding a parent should also render all children (but not grandchildren and beyond)
-  t.is(wrapper.find('.should-be-rendered').length, 4)
-  t.is(wrapper.find('.should-not-be-rendered').length, 0)
+  t.snapshot(toJson(wrapper))
 })

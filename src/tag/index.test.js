@@ -1,15 +1,16 @@
-import test from 'ava'
-import React from 'react'
 import { shallow, mount } from 'enzyme'
 import { spy } from 'sinon'
+import React from 'react'
+import test from 'ava'
+import toJson from 'enzyme-to-json'
+
 import Tag from './index'
 
 const nativeEvent = { nativeEvent: { stopImmediatePropagation: () => {} } }
 
 test('renders label when passed in', t => {
-  const actual = shallow(<Tag label="hello" id="abc" />).html()
-  const expected = '<span class="tag">hello<button class="tag-remove" type="button">x</button></span>'
-  t.deepEqual(actual, expected)
+  const wrapper = toJson(shallow(<Tag label="hello" id="abc" />))
+  t.snapshot(wrapper)
 })
 
 test('call onDelete handler when pill is closed', t => {

@@ -21,10 +21,9 @@ branches:
     - /^v\d+\.\d+\.\d+$/
 jobs:
   include:
-    - # skip for develop branches
-      if: branch = master
     # Define the release stage that runs semantic-release
     - stage: release
+      if: branch = master
       node_js: lts/*
       # overwrite default `script` step to skip the tests
       script: echo "Deploying to npm ..."

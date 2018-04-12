@@ -77,7 +77,6 @@
     "jsdom-global": "^3.0.2",
     "marked": "^0.3.17",
     "nyc": "^11.2.1",
-    "open": "^0.0.5",
     "postcss": "^6.0.16",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",

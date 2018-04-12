@@ -1,25 +1,26 @@
-import test from 'ava'
-import React from 'react'
 import { shallow } from 'enzyme'
 import { spy } from 'sinon'
+import React from 'react'
+import test from 'ava'
+import toJson from 'enzyme-to-json'
+
 import Input from './index'
 
 test('renders tags', t => {
   const tags = [{ _id: 'i1', label: 'l1' }, { _id: 'i2', label: 'l2' }]
-  const wrapper = shallow(<Input tags={tags} />)
-  t.is(wrapper.find('.tag-item').length, 3)
+  const wrapper = toJson(shallow(<Input tags={tags} />))
+  t.snapshot(wrapper)
 })
 
 test('renders input when no tags are passed', t => {
-  const wrapper = shallow(<Input />)
-  t.is(wrapper.find('.tag-item').length, 1)
-  t.is(wrapper.find('input').length, 1)
+  const wrapper = toJson(shallow(<Input />))
+  t.snapshot(wrapper)
 })
 
 test('renders placeholder', t => {
   const placeholderText = 'select something'
-  const wrapper = shallow(<Input placeholderText={placeholderText} />)
-  t.is(wrapper.find('input').prop('placeholder'), placeholderText)
+  const wrapper = toJson(shallow(<Input placeholderText={placeholderText} />))
+  t.snapshot(wrapper)
 })
 
 test('raises onchange', t => {
@@ -42,8 +43,7 @@ test('should render data attributes', t => {
     }
   ]
 
-  const wrapper = shallow(<Input tags={tags} />)
+  const wrapper = toJson(shallow(<Input tags={tags} />))
 
-  t.is(wrapper.find('.test').prop('data-first'), 'john')
-  t.is(wrapper.find('.test').prop('data-last'), 'smith')
+  t.snapshot(wrapper)
 })

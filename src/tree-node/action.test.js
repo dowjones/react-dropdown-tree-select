@@ -1,7 +1,9 @@
-import test from 'ava'
-import React from 'react'
 import { shallow } from 'enzyme'
 import { spy, match } from 'sinon'
+import React from 'react'
+import test from 'ava'
+import toJson from 'enzyme-to-json'
+
 import Action from './action'
 
 test('renders action with given props', t => {
@@ -12,12 +14,9 @@ test('renders action with given props', t => {
     junk: '1'
   }
 
-  const wrapper = shallow(<Action {...props} />)
+  const wrapper = toJson(shallow(<Action {...props} />))
 
-  t.is(wrapper.props().title, props.title)
-  t.is(wrapper.text(), props.text)
-  t.is(wrapper.props().className, props.className)
-  t.is(wrapper.props().junk, undefined)
+  t.snapshot(wrapper)
 })
 
 test('notifies clicks if handler is passed', t => {

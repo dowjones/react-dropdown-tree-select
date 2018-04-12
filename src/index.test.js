@@ -134,3 +134,15 @@ test('toggles dropdown', t => {
   wrapper.instance().handleClick()
   t.false(wrapper.state().showDropdown)
 })
+
+test('keeps dropdown active on focus', t => {
+  const wrapper = shallow(<DropdownTreeSelect data={tree} />)
+  wrapper.instance().onInputFocus()
+  t.true(wrapper.instance().keepDropdownActive)
+})
+
+test('deactivates dropdown active on blur', t => {
+  const wrapper = shallow(<DropdownTreeSelect data={tree} />)
+  wrapper.instance().onInputBlur()
+  t.false(wrapper.instance().keepDropdownActive)
+})

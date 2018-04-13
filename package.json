@@ -23,7 +23,7 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
+    "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail",
     "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -41,8 +41,7 @@
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
-    "lodash.debounce": "^4.0.8",
-    "prop-types": "^15.6.0"
+    "lodash.debounce": "^4.0.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.1.0",
@@ -53,6 +52,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -85,6 +85,7 @@
     "postcss-nested": "^3.0.0",
     "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "^0.4.2",
+    "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -100,7 +101,8 @@
     "webpack": "^3.5.6",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "why-did-you-update": "^0.1.1"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"

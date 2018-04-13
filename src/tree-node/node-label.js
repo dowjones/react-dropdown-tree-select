@@ -4,37 +4,46 @@ import PropTypes from 'prop-types'
 import Checkbox from '../checkbox'
 
 const NodeLabel = props => {
-  const { simpleSelect, node, onCheckboxChange, showPartiallySelected } = props
+  const { simpleSelect, title, label, id, partial, checked, value, disabled, onCheckboxChange, showPartiallySelected } = props
   const nodeLabelProps = { className: 'node-label' }
 
   if (simpleSelect) {
     nodeLabelProps.onClick = e => {
       e.stopPropagation()
       e.nativeEvent.stopImmediatePropagation()
-      onCheckboxChange(node._id, true)
+      onCheckboxChange(id, true)
     }
   }
 
   return (
-    <label title={node.title || node.label}>
+    <label title={title || label}>
       {!simpleSelect && (
         <Checkbox
-          name={node._id}
-          indeterminate={showPartiallySelected && node.partial}
+          name={id}
+          indeterminate={showPartiallySelected && partial}
           className="checkbox-item"
-          checked={node.checked}
-          onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value}
-          disabled={node.disabled}
+          checked={checked}
+          onChange={e => onCheckboxChange(id, e.target.checked)}
+          value={value}
+          disabled={disabled}
         />
       )}
-      <span {...nodeLabelProps}>{node.label}</span>
+      <span {...nodeLabelProps}>{label}</span>
     </label>
   )
 }
 
 NodeLabel.propTypes = {
-  node: PropTypes.any,
+  id: PropTypes.string.isRequired,
+  actions: PropTypes.array,
+  title: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  partial: PropTypes.bool,
+  expanded: PropTypes.bool,
+  disabled: PropTypes.bool,
+  dataset: PropTypes.object,
   simpleSelect: PropTypes.bool,
   showPartiallySelected: PropTypes.bool,
   onCheckboxChange: PropTypes.func

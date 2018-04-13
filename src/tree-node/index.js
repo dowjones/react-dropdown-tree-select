@@ -1,74 +1,103 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { PureComponent } from 'react'
 
+import { getDataset } from '../dataset-utils'
 import Action from './action'
 import isEmpty from '../isEmpty'
 import NodeLabel from './node-label'
+import Toggle from './toggle'
 
 import styles from './index.css'
-import { getDataset } from '../dataset-utils'
 
 const cx = cn.bind(styles)
 
-const isLeaf = node => isEmpty(node._children)
+const isLeaf = children => isEmpty(children)
 
 const getNodeCx = props => {
-  const { keepTreeOnSearch, node, showPartiallySelected } = props
+  const { keepTreeOnSearch, _children, matchInChildren, disabled, partial, hide, className, showPartiallySelected } = props
 
   return cx(
     'node',
     {
-      leaf: isLeaf(node),
-      tree: !isLeaf(node),
-      disabled: node.disabled,
-      hide: node.hide,
-      'match-in-children': keepTreeOnSearch && node.matchInChildren,
-      partial: showPartiallySelected && node.partial
+      leaf: isLeaf(_children),
+      tree: !isLeaf(_children),
+      disabled,
+      hide,
+      'match-in-children': keepTreeOnSearch && matchInChildren,
+      partial: showPartiallySelected && partial
     },
-    node.className
+    className
   )
 }
 
-const getToggleCx = ({ node }) => cx('toggle', { expanded: !isLeaf(node) && node.expanded, collapsed: !isLeaf(node) && !node.expanded })
-
 const getNodeActions = props => {
-  const { node, onAction } = props
+  const { actions, onAction, _id } = props
 
   // we _do_ want to rely on array index here
   // eslint-disable-next-line react/no-array-index-key
-  return (node.actions || []).map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, node }} onAction={onAction} />)
+  return (actions || []).map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, _id }} onAction={onAction} />)
 }
 
-const TreeNode = props => {
-  const { simpleSelect, keepTreeOnSearch, node, searchModeOn, onNodeToggle, onCheckboxChange, showPartiallySelected } = props
-  const liCx = getNodeCx(props)
-  const toggleCx = getToggleCx(props)
-  const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(node._depth || 0) * 20}px` } : {}
-
-  return (
-    <li className={liCx} style={style} {...getDataset(node.dataset)}>
-      <i className={toggleCx} onClick={() => onNodeToggle(node._id)} />
-      <NodeLabel node={node} simpleSelect={simpleSelect} onCheckboxChange={onCheckboxChange} showPartiallySelected={showPartiallySelected} />
-      {getNodeActions(props)}
-    </li>
-  )
+class TreeNode extends PureComponent {
+  render() {
+    const {
+      simpleSelect,
+      keepTreeOnSearch,
+      _id,
+      _children,
+      dataset,
+      _depth,
+      expanded,
+      title,
+      label,
+      partial,
+      checked,
+      value,
+      disabled,
+      searchModeOn,
+      onNodeToggle,
+      onCheckboxChange,
+      showPartiallySelected
+    } = this.props
+    const liCx = getNodeCx(this.props)
+    const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
+    console.log('TN Render', _id, _children)
+    return (
+      <li className={liCx} style={style} {...getDataset(dataset)}>
+        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+        <NodeLabel
+          title={title}
+          label={label}
+          id={_id}
+          partial={partial}
+          checked={checked}
+          value={value}
+          disabled={disabled}
+          simpleSelect={simpleSelect}
+          onCheckboxChange={onCheckboxChange}
+          showPartiallySelected={showPartiallySelected}
+        />
+        {getNodeActions(this.props)}
+      </li>
+    )
+  }
 }
 
 TreeNode.propTypes = {
-  node: PropTypes.shape({
-    _id: PropTypes.string,
-    _depth: PropTypes.number,
-    _children: PropTypes.array,
-    actions: PropTypes.array,
-    className: PropTypes.string,
-    title: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    checked: PropTypes.bool,
-    expanded: PropTypes.bool,
-    disabled: PropTypes.bool,
-    dataset: PropTypes.object
-  }).isRequired,
+  _id: PropTypes.string.isRequired,
+  _depth: PropTypes.number,
+  _children: PropTypes.array,
+  actions: PropTypes.array,
+  className: PropTypes.string,
+  title: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  expanded: PropTypes.bool,
+  disabled: PropTypes.bool,
+  partial: PropTypes.bool,
+  dataset: PropTypes.object,
   keepTreeOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,
   onNodeToggle: PropTypes.func,

@@ -21,7 +21,7 @@ const getNodes = props => {
       items.push(<TreeNode
         keepTreeOnSearch={keepTreeOnSearch}
         key={key} // eslint-disable-line react/no-array-index-key
-        node={node}
+        {...node}
         searchModeOn={searchModeOn}
         onChange={onChange}
         onCheckboxChange={onCheckboxChange}

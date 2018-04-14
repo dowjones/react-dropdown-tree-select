@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 
 import Checkbox from './Checkbox'
 import DropdownTreeSelect from '../../../../src'
-import '../../../../dist/styles.css'
 
 import './index.css'
 import data from './data.json'
@@ -34,9 +33,7 @@ class WithOptions extends PureComponent {
   }
 
   render() {
-    const {
-      clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected
-    } = this.state
+    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected } = this.state
 
     return (
       <div>

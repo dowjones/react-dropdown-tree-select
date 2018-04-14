@@ -13,7 +13,6 @@ class Toggle extends PureComponent {
 
   render() {
     const { expanded, isLeaf } = this.props
-    console.log('Toggle Render', this.props.id, expanded, isLeaf)
     const toggleCx = cx('toggle', { expanded: !isLeaf && expanded, collapsed: !isLeaf && !expanded })
     return <i className={toggleCx} onClick={this.onToggle} />
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
@@ -18,38 +18,43 @@ const getTags = (tags = [], onDelete) =>
     )
   })
 
-const Input = props => {
-  const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = props
-
-  const delayedCallback = debounce(
-    e => {
-      props.onInputChange(e.target.value)
-    },
-    50,
-    { leading: true }
-  )
-
-  const onInputChange = e => {
-    e.persist()
-    delayedCallback(e)
+class Input extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.delayedCallback = debounce(
+      e => {
+        this.props.onInputChange(e.target.value)
+      },
+      50,
+      { leading: true }
+    )
   }
 
-  return (
-    <ul className={cx('tag-list')}>
-      {getTags(tags, onTagRemove)}
-      <li className={cx('tag-item')}>
-        <input
-          type="text"
-          ref={inputRef}
-          className={cx('search')}
-          placeholder={placeholderText}
-          onChange={onInputChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-      </li>
-    </ul>
-  )
+  handleInputChange = e => {
+    e.persist()
+    this.delayedCallback(e)
+  }
+
+  render() {
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = this.props
+
+    return (
+      <ul className={cx('tag-list')}>
+        {getTags(tags, onTagRemove)}
+        <li className={cx('tag-item')}>
+          <input
+            type="text"
+            ref={inputRef}
+            className={cx('search')}
+            placeholder={placeholderText}
+            onChange={this.handleInputChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        </li>
+      </ul>
+    )
+  }
 }
 
 Input.propTypes = {

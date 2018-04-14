@@ -1,36 +1,48 @@
-import React from 'react'
+import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 
 import Checkbox from '../checkbox'
 
-const NodeLabel = props => {
-  const { simpleSelect, title, label, id, partial, checked, value, disabled, onCheckboxChange, showPartiallySelected } = props
-  const nodeLabelProps = { className: 'node-label' }
+import styles from './index.css'
 
-  if (simpleSelect) {
-    nodeLabelProps.onClick = e => {
+const cx = cn.bind(styles)
+
+class NodeLabel extends PureComponent {
+  handleCheckboxChange = e => {
+    const { simpleSelect, id, onCheckboxChange } = this.props
+    let { target: { checked } } = e
+
+    if (simpleSelect) {
       e.stopPropagation()
       e.nativeEvent.stopImmediatePropagation()
-      onCheckboxChange(id, true)
+      checked = true
     }
+
+    onCheckboxChange(id, checked)
   }
 
-  return (
-    <label title={title || label}>
-      {!simpleSelect && (
+  handleCheckboxChange
+  render() {
+    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected } = this.props
+    const nodeLabelProps = { className: 'node-label' }
+
+    return (
+      <label title={title || label} htmlFor={id}>
         <Checkbox
           name={id}
+          id={id}
           indeterminate={showPartiallySelected && partial}
-          className="checkbox-item"
+          className={cx('checkbox-item', { 'simple-select': simpleSelect })}
           checked={checked}
-          onChange={e => onCheckboxChange(id, e.target.checked)}
+          onChange={this.handleCheckboxChange}
           value={value}
           disabled={disabled}
         />
-      )}
-      <span {...nodeLabelProps}>{label}</span>
-    </label>
-  )
+        <span {...nodeLabelProps}>{label}</span>
+      </label>
+    )
+  }
 }
 
 NodeLabel.propTypes = {

@@ -118,7 +118,7 @@
     "reporter": ["html", "text-summary"],
     "all": true,
     "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
+    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo", "src/**/tests/**"]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"

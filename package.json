@@ -23,12 +23,12 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail",
-    "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail",
+    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail --mode=production",
+    "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "demo": "webpack-dev-server --config docs/webpack.config.js",
+    "demo": "webpack-dev-server --mode=development --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
@@ -69,13 +69,13 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "extract-text-webpack-plugin": "^3.0.2",
     "github-markdown-css": "^2.10.0",
     "husky": "^0.14.3",
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
     "marked": "^0.3.17",
+    "mini-css-extract-plugin": "^0.4.0",
     "nyc": "^11.2.1",
     "open": "^0.0.5",
     "postcss": "^6.0.16",
@@ -100,7 +100,7 @@
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^3.1.3"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"

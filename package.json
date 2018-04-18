@@ -92,7 +92,7 @@
     "rimraf": "^2.6.1",
     "semantic-release": "^15.1.6",
     "sinon": "^5.0.0",
-    "style-loader": "^0.20.1",
+    "style-loader": "^0.21.0",
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.0.0",
     "travis-deploy-once": "^4.3.2",

@@ -41,7 +41,8 @@
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^6.1.0",

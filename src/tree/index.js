@@ -1,5 +1,7 @@
-import React from 'react'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+
 import TreeNode from '../tree-node'
 
 const shouldRenderNode = (node, searchModeOn, data) => {
@@ -11,49 +13,104 @@ const shouldRenderNode = (node, searchModeOn, data) => {
   return !parent || parent.expanded
 }
 
-const getNodes = props => {
-  const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected } = props
-  const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
-  const items = []
-  data.forEach((node, key) => {
-    if (shouldRenderNode(node, searchModeOn, data)) {
-      // we _do_ want to rely on array index here
-      items.push(<TreeNode
-        keepTreeOnSearch={keepTreeOnSearch}
-        key={key} // eslint-disable-line react/no-array-index-key
-        {...node}
-        searchModeOn={searchModeOn}
-        onChange={onChange}
-        onCheckboxChange={onCheckboxChange}
-        onNodeToggle={onNodeToggle}
-        onAction={onAction}
-        simpleSelect={simpleSelect}
-        showPartiallySelected={showPartiallySelected}
-      />)
+class Tree extends Component {
+  static propTypes = {
+    data: PropTypes.object,
+    keepTreeOnSearch: PropTypes.bool,
+    searchModeOn: PropTypes.bool,
+    onChange: PropTypes.func,
+    onNodeToggle: PropTypes.func,
+    onAction: PropTypes.func,
+    onCheckboxChange: PropTypes.func,
+    simpleSelect: PropTypes.bool,
+    showPartiallySelected: PropTypes.bool,
+    pageSize: PropTypes.number
+  }
+
+  static defaultProps = {
+    pageSize: 100
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.computeInstanceProps(props)
+
+    this.state = {
+      items: this.allVisibleNodes.slice(0, this.props.pageSize)
     }
-  })
-  return items
-}
+  }
 
-const Tree = props => {
-  const { searchModeOn } = props
+  componentWillReceiveProps = nextProps => {
+    this.computeInstanceProps(nextProps)
+    this.setState({ items: this.allVisibleNodes.slice(0, this.props.pageSize) })
+  }
 
-  return <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`}>{getNodes(props)}</ul>
-}
+  componentDidMount = () => {
+    this.setState({ scrollableTarget: this.node.parentNode })
+  }
 
-getNodes.propTypes = {
-  data: PropTypes.object,
-  keepTreeOnSearch: PropTypes.bool,
-  searchModeOn: PropTypes.bool,
-  onChange: PropTypes.func,
-  onNodeToggle: PropTypes.func,
-  onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool
-}
+  computeInstanceProps = props => {
+    this.allVisibleNodes = this.getNodes(props)
+    this.totalPages = this.allVisibleNodes.length / this.props.pageSize
+    this.currentPage = 1
+  }
 
-Tree.propTypes = {
-  searchModeOn: PropTypes.bool
+  getNodes = props => {
+    const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected } = props
+    const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
+    const items = []
+    data.forEach((node, key) => {
+      if (shouldRenderNode(node, searchModeOn, data)) {
+        // we _do_ want to rely on array index here
+        items.push(<TreeNode
+          keepTreeOnSearch={keepTreeOnSearch}
+          key={key} // eslint-disable-line react/no-array-index-key
+          {...node}
+          searchModeOn={searchModeOn}
+          onChange={onChange}
+          onCheckboxChange={onCheckboxChange}
+          onNodeToggle={onNodeToggle}
+          onAction={onAction}
+          simpleSelect={simpleSelect}
+          showPartiallySelected={showPartiallySelected}
+        />)
+      }
+    })
+    return items
+  }
+
+  hasMore = () => this.currentPage <= this.totalPages
+
+  loadMore = () => {
+    this.currentPage = this.currentPage + 1
+    const nextItems = this.allVisibleNodes.slice(0, this.currentPage + this.props.pageSize)
+    this.setState({ items: nextItems })
+  }
+
+  setNodeRef = node => {
+    this.node = node
+  }
+
+  render() {
+    const { searchModeOn } = this.props
+
+    return (
+      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef}>
+        {this.state.scrollableTarget && (
+          <InfiniteScroll
+            dataLength={this.state.items.length}
+            next={this.loadMore}
+            hasMore={this.hasMore()}
+            loader={<span className="searchLoader">Loading...</span>}
+            scrollableTarget={this.state.scrollableTarget}
+          >
+            {this.state.items}
+          </InfiniteScroll>
+        )}
+      </ul>
+    )
+  }
 }
 
 export default Tree

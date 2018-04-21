@@ -5,6 +5,16 @@ import Action from './action'
 import isEmpty from '../isEmpty'
 
 class Actions extends PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    actions: PropTypes.array,
+    onAction: PropTypes.func
+  }
+
+  static defaultProps = {
+    onAction: () => {}
+  }
+
   render() {
     const { actions, onAction, id } = this.props
 
@@ -14,12 +24,6 @@ class Actions extends PureComponent {
     // eslint-disable-next-line react/no-array-index-key
     return actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, id }} onAction={onAction} />)
   }
-}
-
-Actions.propTypes = {
-  _id: PropTypes.string.isRequired,
-  actions: PropTypes.array,
-  onAction: PropTypes.func
 }
 
 export default Actions

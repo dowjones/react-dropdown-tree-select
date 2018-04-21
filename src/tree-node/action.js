@@ -1,28 +1,26 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-const Action = props => {
-  const { title, className, text, onAction, actionData } = props
-
-  const onClick = () => {
-    if (typeof onAction === 'function') {
-      onAction(actionData)
-    }
+class Action extends PureComponent {
+  static propTypes = {
+    title: PropTypes.string,
+    text: PropTypes.string,
+    className: PropTypes.string,
+    actionData: PropTypes.object,
+    onAction: PropTypes.func
   }
 
-  return (
-    <i title={title} className={className} onClick={onClick}>
-      {text}
-    </i>
-  )
-}
+  handleClick = () => this.props.onAction(this.props.actionData)
 
-Action.propTypes = {
-  title: PropTypes.string,
-  text: PropTypes.string,
-  className: PropTypes.string,
-  actionData: PropTypes.object,
-  onAction: PropTypes.func
+  render() {
+    const { title, className, text } = this.props
+
+    return (
+      <i title={title} className={className} onClick={this.handleClick}>
+        {text}
+      </i>
+    )
+  }
 }
 
 export default Action

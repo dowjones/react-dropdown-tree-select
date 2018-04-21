@@ -35,6 +35,12 @@ class Input extends PureComponent {
     this.delayedCallback(e)
   }
 
+  handleWithStopPropagation = handler => e => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+    handler(e)
+  }
+
   render() {
     const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = this.props
 
@@ -47,9 +53,9 @@ class Input extends PureComponent {
             ref={inputRef}
             className={cx('search')}
             placeholder={placeholderText}
-            onChange={this.handleInputChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
+            onChange={this.handleWithStopPropagation(this.handleInputChange)}
+            onFocus={this.handleWithStopPropagation(onFocus)}
+            onBlur={this.handleWithStopPropagation(onBlur)}
           />
         </li>
       </ul>

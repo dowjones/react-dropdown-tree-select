@@ -13,9 +13,10 @@ class NodeLabel extends PureComponent {
     const { simpleSelect, id, onCheckboxChange } = this.props
     let { target: { checked } } = e
 
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+
     if (simpleSelect) {
-      e.stopPropagation()
-      e.nativeEvent.stopImmediatePropagation()
       checked = true
     }
 

@@ -6,13 +6,13 @@ import isEmpty from '../isEmpty'
 
 class Actions extends PureComponent {
   render() {
-    const { actions, onAction, _id } = this.props
+    const { actions, onAction, id } = this.props
 
     if (isEmpty(actions)) return null
 
     // we _do_ want to rely on array index here
     // eslint-disable-next-line react/no-array-index-key
-    return actions || [].map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, _id }} onAction={onAction} />)
+    return actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, id }} onAction={onAction} />)
   }
 }
 

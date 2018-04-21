@@ -9,6 +9,22 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 class NodeLabel extends PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    actions: PropTypes.array,
+    title: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
+    partial: PropTypes.bool,
+    expanded: PropTypes.bool,
+    disabled: PropTypes.bool,
+    dataset: PropTypes.object,
+    simpleSelect: PropTypes.bool,
+    showPartiallySelected: PropTypes.bool,
+    onCheckboxChange: PropTypes.func
+  }
+
   handleCheckboxChange = e => {
     const { simpleSelect, id, onCheckboxChange } = this.props
     let { target: { checked } } = e
@@ -23,7 +39,6 @@ class NodeLabel extends PureComponent {
     onCheckboxChange(id, checked)
   }
 
-  handleCheckboxChange
   render() {
     const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected } = this.props
     const nodeLabelProps = { className: 'node-label' }
@@ -44,22 +59,6 @@ class NodeLabel extends PureComponent {
       </label>
     )
   }
-}
-
-NodeLabel.propTypes = {
-  id: PropTypes.string.isRequired,
-  actions: PropTypes.array,
-  title: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  checked: PropTypes.bool,
-  partial: PropTypes.bool,
-  expanded: PropTypes.bool,
-  disabled: PropTypes.bool,
-  dataset: PropTypes.object,
-  simpleSelect: PropTypes.bool,
-  showPartiallySelected: PropTypes.bool,
-  onCheckboxChange: PropTypes.func
 }
 
 export default NodeLabel

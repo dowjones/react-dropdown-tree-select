@@ -32,6 +32,29 @@ const getNodeCx = props => {
 }
 
 class TreeNode extends PureComponent {
+  static propTypes = {
+    _id: PropTypes.string.isRequired,
+    _depth: PropTypes.number,
+    _children: PropTypes.array,
+    actions: PropTypes.array,
+    className: PropTypes.string,
+    title: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
+    expanded: PropTypes.bool,
+    disabled: PropTypes.bool,
+    partial: PropTypes.bool,
+    dataset: PropTypes.object,
+    keepTreeOnSearch: PropTypes.bool,
+    searchModeOn: PropTypes.bool,
+    onNodeToggle: PropTypes.func,
+    onAction: PropTypes.func,
+    onCheckboxChange: PropTypes.func,
+    simpleSelect: PropTypes.bool,
+    showPartiallySelected: PropTypes.bool
+  }
+
   render() {
     const {
       simpleSelect,
@@ -76,29 +99,6 @@ class TreeNode extends PureComponent {
       </li>
     )
   }
-}
-
-TreeNode.propTypes = {
-  _id: PropTypes.string.isRequired,
-  _depth: PropTypes.number,
-  _children: PropTypes.array,
-  actions: PropTypes.array,
-  className: PropTypes.string,
-  title: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  checked: PropTypes.bool,
-  expanded: PropTypes.bool,
-  disabled: PropTypes.bool,
-  partial: PropTypes.bool,
-  dataset: PropTypes.object,
-  keepTreeOnSearch: PropTypes.bool,
-  searchModeOn: PropTypes.bool,
-  onNodeToggle: PropTypes.func,
-  onAction: PropTypes.func,
-  onCheckboxChange: PropTypes.func,
-  simpleSelect: PropTypes.bool,
-  showPartiallySelected: PropTypes.bool
 }
 
 export default TreeNode

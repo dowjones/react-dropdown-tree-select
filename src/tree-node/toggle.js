@@ -7,6 +7,13 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 class Toggle extends PureComponent {
+  static propTypes = {
+    expanded: PropTypes.bool,
+    isLeaf: PropTypes.bool,
+    onNodeToggle: PropTypes.func,
+    id: PropTypes.string
+  }
+
   onToggle = () => {
     this.props.onNodeToggle(this.props.id)
   }
@@ -16,13 +23,6 @@ class Toggle extends PureComponent {
     const toggleCx = cx('toggle', { expanded: !isLeaf && expanded, collapsed: !isLeaf && !expanded })
     return <i className={toggleCx} onClick={this.onToggle} />
   }
-}
-
-Toggle.propTypes = {
-  expanded: PropTypes.bool,
-  isLeaf: PropTypes.bool,
-  onNodeToggle: PropTypes.func,
-  id: PropTypes.string
 }
 
 export default Toggle

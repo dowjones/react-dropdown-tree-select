@@ -19,6 +19,16 @@ const getTags = (tags = [], onDelete) =>
   })
 
 class Input extends PureComponent {
+  static propTypes = {
+    tags: PropTypes.array,
+    placeholderText: PropTypes.string,
+    onInputChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onTagRemove: PropTypes.func,
+    inputRef: PropTypes.func
+  }
+
   constructor(props) {
     super(props)
     this.delayedCallback = debounce(
@@ -61,16 +71,6 @@ class Input extends PureComponent {
       </ul>
     )
   }
-}
-
-Input.propTypes = {
-  tags: PropTypes.array,
-  placeholderText: PropTypes.string,
-  onInputChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onTagRemove: PropTypes.func,
-  inputRef: PropTypes.func
 }
 
 export default Input

@@ -11,6 +11,11 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 class Tags extends PureComponent {
+  static propTypes = {
+    tags: PropTypes.array,
+    onDelete: PropTypes.func
+  }
+
   render() {
     const { tags, onDelete } = this.props
 
@@ -25,11 +30,6 @@ class Tags extends PureComponent {
       )
     })
   }
-}
-
-Tags.propTypes = {
-  tags: PropTypes.array,
-  onDelete: PropTypes.func
 }
 
 export default Tags

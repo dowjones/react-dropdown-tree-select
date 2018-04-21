@@ -9,6 +9,12 @@ export const refUpdater = ({ checked, indeterminate }) => input => {
 }
 
 class Checkbox extends PureComponent {
+  static propTypes = {
+    checked: PropTypes.bool,
+    indeterminate: PropTypes.bool,
+    onChange: PropTypes.func
+  }
+
   handleChange = ({ target: { value, checked } }) => {
     this.props.onChange({ value, checked })
   }
@@ -18,12 +24,6 @@ class Checkbox extends PureComponent {
 
     return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={onChange} {...rest} />
   }
-}
-
-Checkbox.propTypes = {
-  checked: PropTypes.bool,
-  indeterminate: PropTypes.bool,
-  onChange: PropTypes.func
 }
 
 export default Checkbox

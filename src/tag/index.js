@@ -6,6 +6,12 @@ import styles from './index.css'
 const cx = cn.bind(styles)
 
 class Tag extends PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    onDelete: PropTypes.func
+  }
+
   handleClick = e => {
     const { id, onDelete } = this.props
 
@@ -27,12 +33,6 @@ class Tag extends PureComponent {
       </span>
     )
   }
-}
-
-Tag.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onDelete: PropTypes.func
 }
 
 export default Tag

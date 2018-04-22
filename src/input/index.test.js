@@ -5,6 +5,7 @@ import test from 'ava'
 import toJson from 'enzyme-to-json'
 
 import Input from './index'
+import { createEventMock } from '../mocks'
 
 test('renders tags', t => {
   const tags = [{ _id: 'i1', label: 'l1' }, { _id: 'i2', label: 'l2' }]
@@ -26,7 +27,7 @@ test('renders placeholder', t => {
 test('raises onchange', t => {
   const onChange = spy()
   const wrapper = shallow(<Input onInputChange={onChange} />)
-  wrapper.find('input').simulate('change', { target: { value: 'hello' }, persist: spy() })
+  wrapper.find('input').simulate('change', { target: { value: 'hello' }, persist: spy(), ...createEventMock() })
   t.true(onChange.calledWith('hello'))
 })
 

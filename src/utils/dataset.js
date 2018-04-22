@@ -6,4 +6,4 @@ const getDataset = (o = {}) =>
     return acc
   }, {})
 
-export { getDataset }
+export default getDataset

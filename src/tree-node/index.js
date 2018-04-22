@@ -2,9 +2,8 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 
-import { getDataset } from '../dataset-utils'
+import { getDataset, isEmpty } from '../utils'
 import Actions from './actions'
-import isEmpty from '../isEmpty'
 import NodeLabel from './node-label'
 import Toggle from './toggle'
 

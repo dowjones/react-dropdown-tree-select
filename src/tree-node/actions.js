@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 
 import Action from './action'
-import isEmpty from '../isEmpty'
+import { isEmpty } from '../utils'
 
 class Actions extends PureComponent {
   static propTypes = {

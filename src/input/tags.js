@@ -2,8 +2,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 
-import { getDataset } from '../dataset-utils'
-import isEmpty from '../isEmpty'
+import { getDataset, isEmpty } from '../utils'
 import Tag from '../tag'
 
 import styles from './index.css'

@@ -4,7 +4,7 @@ import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset } from '../dataset-utils'
+import { getDataset, cancelBubbleEventHandler } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -45,12 +45,6 @@ class Input extends PureComponent {
     this.delayedCallback(e)
   }
 
-  handleWithStopPropagation = handler => e => {
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
-    handler(e)
-  }
-
   render() {
     const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = this.props
 
@@ -63,9 +57,9 @@ class Input extends PureComponent {
             ref={inputRef}
             className={cx('search')}
             placeholder={placeholderText}
-            onChange={this.handleWithStopPropagation(this.handleInputChange)}
-            onFocus={this.handleWithStopPropagation(onFocus)}
-            onBlur={this.handleWithStopPropagation(onBlur)}
+            onChange={cancelBubbleEventHandler(this.handleInputChange)}
+            onFocus={cancelBubbleEventHandler(onFocus)}
+            onBlur={cancelBubbleEventHandler(onBlur)}
           />
         </li>
       </ul>

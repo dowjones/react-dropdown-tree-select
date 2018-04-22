@@ -135,6 +135,7 @@ test('flattens tree with no root', t => {
 
   const list = flattenTree(tree)
   t.deepEqual(mapToObject(list), expected)
+})
 
 test('flattens tree with root', t => {
   const tree = {
@@ -193,3 +194,4 @@ test('flattens tree with root', t => {
 
   const list = flattenTree(tree)
   t.deepEqual(mapToObject(list), expected)
+})

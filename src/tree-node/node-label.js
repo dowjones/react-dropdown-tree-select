@@ -1,7 +1,6 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-
 import Checkbox from '../checkbox'
 
 import styles from './index.css'
@@ -27,21 +26,22 @@ class NodeLabel extends PureComponent {
 
   handleCheckboxChange = e => {
     const { simpleSelect, id, onCheckboxChange } = this.props
-    let { target: { checked } } = e
-
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
 
     if (simpleSelect) {
-      checked = true
+      onCheckboxChange(id, true)
+    } else {
+      const { target: { checked } } = e
+      onCheckboxChange(id, checked)
     }
-
-    onCheckboxChange(id, checked)
   }
 
   render() {
     const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected } = this.props
     const nodeLabelProps = { className: 'node-label' }
+
+    if (simpleSelect) {
+      nodeLabelProps.onClick = this.handleCheckboxChange
+    }
 
     return (
       <label title={title || label} htmlFor={id}>

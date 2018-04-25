@@ -4,7 +4,7 @@ import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset, cancelBubbleEventHandler } from '../utils'
+import { getDataset } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -57,9 +57,9 @@ class Input extends PureComponent {
             ref={inputRef}
             className={cx('search')}
             placeholder={placeholderText}
-            onChange={cancelBubbleEventHandler(this.handleInputChange)}
-            onFocus={cancelBubbleEventHandler(onFocus)}
-            onBlur={cancelBubbleEventHandler(onBlur)}
+            onChange={this.handleInputChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </li>
       </ul>

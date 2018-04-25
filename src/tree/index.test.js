@@ -45,7 +45,7 @@ test('renders tree nodes when search mode is on', t => {
   t.snapshot(toJson(wrapper))
 })
 
-test('renders only expanded tree nodes when search mode is off', t => {
+test('renders only expanded tree nodes when search mode is off', async t => {
   const tree = [
     {
       label: 'item1',
@@ -121,7 +121,9 @@ test('renders only expanded tree nodes when search mode is off', t => {
   ]
 
   const treeManager = new TreeManager(tree)
-  const wrapper = mount(<Tree data={treeManager.tree} />)
+  const wrapper = await mount(<div>
+    <Tree data={treeManager.tree} />
+  </div>)
 
   t.snapshot(toJson(wrapper))
 })

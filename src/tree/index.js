@@ -47,7 +47,8 @@ class Tree extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ scrollableTarget: this.node.parentNode })
+    // prevent ava js from choking
+    if (this.node && this.node.parentNode) this.setState({ scrollableTarget: this.node.parentNode })
   }
 
   computeInstanceProps = props => {

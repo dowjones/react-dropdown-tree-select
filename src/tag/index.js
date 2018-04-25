@@ -1,6 +1,7 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
+import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
+
 import styles from './index.css'
 
 const cx = cn.bind(styles)
@@ -12,12 +13,9 @@ class Tag extends PureComponent {
     onDelete: PropTypes.func
   }
 
-  handleClick = e => {
+  handleClick = () => {
     const { id, onDelete } = this.props
 
-    // this is needed to stop the drawer from closing
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
     onDelete(id)
   }
 

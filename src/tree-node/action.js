@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { cancelBubbleEventHandler } from '../utils'
 
 class Action extends PureComponent {
   static propTypes = {
@@ -15,13 +14,15 @@ class Action extends PureComponent {
     onAction: () => {}
   }
 
-  handleClick = () => this.props.onAction(this.props.actionData)
+  handleClick = () => {
+    this.props.onAction(this.props.actionData)
+  }
 
   render() {
     const { title, className, text } = this.props
 
     return (
-      <i title={title} className={className} onClick={cancelBubbleEventHandler(this.handleClick)}>
+      <i title={title} className={className} onClick={this.handleClick}>
         {text}
       </i>
     )

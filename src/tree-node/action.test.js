@@ -4,7 +4,6 @@ import React from 'react'
 import test from 'ava'
 import toJson from 'enzyme-to-json'
 
-import { createEventMock } from '../mocks'
 import Action from './action'
 
 test('renders action with given props', t => {
@@ -30,7 +29,7 @@ test('notifies clicks if handler is passed', t => {
   }
 
   const wrapper = shallow(<Action {...props} />)
-  wrapper.find('.cn0-0-0').simulate('click', createEventMock())
+  wrapper.find('.cn0-0-0').simulate('click')
   t.true(onClick.calledOnce)
   t.true(onClick.calledWith(match({ id: 'actionA' })))
 })

@@ -6,12 +6,15 @@
  * license MIT
  * see https://github.com/dowjones/react-dropdown-tree-select
  */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import TreeManager from './tree-manager'
-import Tree from './tree'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+
+import { isOutsideClick } from './utils'
 import Input from './input'
+import Tree from './tree'
+import TreeManager from './tree-manager'
+
 import styles from './index.css'
 
 const cx = cn.bind(styles)
@@ -71,10 +74,12 @@ class DropdownTreeSelect extends Component {
     this.setState({ tree, tags })
   }
 
-  handleClick = () => {
+  handleClick = e => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
+
+      console.log('hc', document.activeElement, e, isOutsideClick(e), prevState.showDropdown)
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {
@@ -90,7 +95,10 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (this.node.contains(e.target)) {
+    console.log('hoc', this.node, e.target, this.node.contains(e.target), isOutsideClick(e))
+
+    // if (this.node.contains(e.target)) {
+    if (!isOutsideClick(e)) {
       return
     }
 
@@ -107,6 +115,8 @@ class DropdownTreeSelect extends Component {
       allNodesHidden
     })
   }
+
+  // isOutSideClick = e =>
 
   onTagRemove = id => {
     this.onCheckboxChange(id, false)

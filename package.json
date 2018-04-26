@@ -45,9 +45,11 @@
     "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.0.0-beta.46",
+    "@babel/preset-stage-3": "^7.0.0-beta.46",
     "@commitlint/cli": "^6.1.0",
     "@commitlint/config-conventional": "^6.1.0",
-    "ava": "^0.25.0",
+    "ava": "^1.0.0-beta.4",
     "babel-core": "^6.24.1",
     "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.2",
@@ -111,7 +113,13 @@
   "ava": {
     "files": ["src/**/*.test.js"],
     "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
-    "babel": "inherit",
+    "babel": {
+      "testOptions": {
+        "babelrc": false,
+        "plugins": ["@babel/plugin-syntax-jsx"],
+        "presets": ["@babel/preset-stage-3"]
+      }
+    },
     "snapshotDir": "__snapshots__"
   },
   "nyc": {

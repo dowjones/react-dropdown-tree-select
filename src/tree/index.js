@@ -47,8 +47,7 @@ class Tree extends Component {
   }
 
   componentDidMount = () => {
-    // prevent ava js from choking
-    if (this.node && this.node.parentNode) this.setState({ scrollableTarget: this.node.parentNode })
+    this.setState({ scrollableTarget: this.node.parentNode })
   }
 
   computeInstanceProps = props => {
@@ -61,12 +60,11 @@ class Tree extends Component {
     const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected } = props
     const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
     const items = []
-    data.forEach((node, key) => {
+    data.forEach(node => {
       if (shouldRenderNode(node, searchModeOn, data)) {
-        // we _do_ want to rely on array index here
         items.push(<TreeNode
           keepTreeOnSearch={keepTreeOnSearch}
-          key={key} // eslint-disable-line react/no-array-index-key
+          key={node._id}
           {...node}
           searchModeOn={searchModeOn}
           onChange={onChange}

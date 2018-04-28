@@ -1,15 +1,12 @@
 const getPath = e => {
   if (e.path) return e.path
 
-  const path = [e]
+  let elem = e.target
+  const path = [elem]
 
-  if (!e || !e.parentElement) {
-    return []
-  }
-
-  while (e.parentElement) {
-    e = e.parentElement
-    path.unshift(e)
+  while (elem.parentElement) {
+    elem = elem.parentElement
+    path.unshift(elem)
   }
 
   return path

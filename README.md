@@ -50,6 +50,7 @@ A lightweight and fast control to render a select component that can display hie
   * [keepTreeOnSearch](#keeptreeonsearch)
   * [simpleSelect](#simpleselect)
   * [showPartiallySelected](#showpartiallyselected)
+  * [isDefaultValue](#isdefaultvalue)
 * [Styling and Customization](#styling-and-customization)
   * [Using default styles](#default-styles)
   * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -273,6 +274,12 @@ Turns the dropdown into a simple, single select dropdown. If you pass tree data,
 Type: `bool` (default: `false`)
 
 If set to true, shows checkboxes in a partial state when one, but not all of their children are selected. Allows styling of partially selected nodes as well, by using [:indeterminate](https://developer.mozilla.org/en-US/docs/Web/CSS/:indeterminate) pseudo class. Simply add desired styles to `.node.partial .checkbox-item:indeterminate { ... }` in your CSS.
+
+### isDefaultValue
+
+Type: `bool` (default: `false`)
+
+Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.
 
 ## Styling and Customization
 

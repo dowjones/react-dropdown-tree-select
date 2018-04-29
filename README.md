@@ -435,6 +435,8 @@ npm lint  // fixes anything that can be fixed and reports remaining errors
 npm run test:cov  // test coverage
 ```
 
+**Note:** If your browser doesn't hot reload or reflect changes during `npm run demo`, then delete `docs/bundle.js` and try again. Before submitting final PR, run `npm run build:docs` to build the bundle.js file again.
+
 ## License
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)

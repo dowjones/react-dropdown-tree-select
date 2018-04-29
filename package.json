@@ -95,7 +95,7 @@
     "style-loader": "^0.20.1",
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.0.0",
-    "travis-deploy-once": "^4.3.2",
+    "travis-deploy-once": "^5.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.9.2",

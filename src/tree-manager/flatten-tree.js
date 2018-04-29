@@ -98,12 +98,12 @@ function flattenTree(tree, simple, showPartialState) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
-  const list = walkNodes({
+  const { list, defaultValues } = walkNodes({
     nodes: forest,
     simple,
     showPartialState
   })
-  return list
+  return { list, defaultValues }
 }
 
 /**
@@ -124,7 +124,7 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState }) {
+function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [] }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -134,6 +134,11 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       parent._children.push(node._id)
     } else {
       node._id = node.id || `${i}`
+    }
+
+    if (node.isDefaultValue) {
+      defaultValues.push(node._id)
+      node.checked = true
     }
 
     setInitialStateProps(node, parent)
@@ -146,7 +151,8 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         list,
         parent: node,
         depth: depth + 1,
-        showPartialState
+        showPartialState,
+        defaultValues
       })
 
       if (showPartialState && !node.checked) {
@@ -161,7 +167,7 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       node.children = undefined
     }
   })
-  return list
+  return { list, defaultValues }
 }
 
 export default flattenTree

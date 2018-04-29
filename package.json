@@ -28,7 +28,7 @@
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "demo": "webpack-dev-server --mode=development --config docs/webpack.config.js",
+    "demo": "webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
@@ -100,7 +100,7 @@
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^3.1.3"
+    "webpack-serve": "^0.3.1"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
@@ -118,7 +118,7 @@
     "reporter": ["html", "text-summary"],
     "all": true,
     "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo"]
+    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo", "src/**/tests/**"]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"

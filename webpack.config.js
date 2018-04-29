@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
@@ -23,12 +23,16 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-    new ExtractTextPlugin('styles.css'),
-    new webpack
-      .optimize
-      .UglifyJsPlugin({ sourceMap: true, exclude: /node_modules/ }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'styles.css',
+      chunkFilename: '[id].css'
+    }),
     new BundleAnalyzerPlugin({
-      analyzerMode: 'static', openAnalyzer: false, generateStatsFile: true
+      analyzerMode: 'static',
+      openAnalyzer: false,
+      generateStatsFile: true
     })
   ],
   module: {
@@ -38,23 +42,23 @@ module.exports = {
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/
-      }, {
+      },
+      {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
-                importLoaders: 1,
-                minimize: true
-              }
-            },
-            { loader: 'postcss-loader' }
-          ]
-        }),
         include: /src/,
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
+              importLoaders: 1,
+              minimize: true
+            }
+          },
+          { loader: 'postcss-loader' }
+        ]
       }
     ]
   }

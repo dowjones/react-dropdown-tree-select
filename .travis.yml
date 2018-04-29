@@ -6,9 +6,7 @@ git:
   depth: 3
 node_js:
   - '8'
-  - '6'
 before_install:
-  - npm install -g npm@5
   - npm install -g greenkeeper-lockfile@1
 install:
   - yarn install --ignore-engines

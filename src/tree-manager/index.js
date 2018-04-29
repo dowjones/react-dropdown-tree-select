@@ -6,7 +6,9 @@ import flattenTree from './flatten-tree'
 class TreeManager {
   constructor(tree, simple, showPartialState) {
     this._src = tree
-    this.tree = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
+    const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
+    this.tree = list
+    this.defaultValues = defaultValues
     this.simpleSelect = simple
     this.showPartialState = showPartialState
     this.searchMaps = new Map()
@@ -81,6 +83,14 @@ class TreeManager {
   restoreNodes() {
     this.tree.forEach(node => {
       node.hide = false
+    })
+
+    return this.tree
+  }
+
+  restoreDefaultValues() {
+    this.defaultValues.forEach(id => {
+      this.setNodeCheckedState(id, true)
     })
 
     return this.tree

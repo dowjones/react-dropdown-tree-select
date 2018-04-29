@@ -2,19 +2,17 @@ language: node_js
 cache:
   directories:
     - node_modules
-node_js: 
+node_js:
   - '8'
-  - '6'
 before_install:
-  - npm install -g npm@5
   - npm install -g greenkeeper-lockfile@1
 install:
   - yarn install --ignore-engines
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
-after_success: 
-  - npm run coveralls  
-  - npm run travis-deploy-once "npm run semantic-release"
+after_success:
+  - npm run coveralls
+  - npm run semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

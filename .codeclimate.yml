@@ -37,5 +37,6 @@ plugins:
 exclude_patterns:
 - "docs/"
 - "snapshots/"
+- "**/tests/*"
 - "**/node_modules/"
 - "**/*.test.js"

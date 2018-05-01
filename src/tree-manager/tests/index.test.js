@@ -502,3 +502,44 @@ test('should uncheck previous node in simple select mode', t => {
   t.true(manager.getNodeById('i1').checked)
   t.false(manager.getNodeById('i2').checked)
 })
+
+test('should restore default values', t => {
+  const tree = [
+    {
+      id: 'i1',
+      label: 'l1',
+      value: 'v1',
+      children: [
+        {
+          id: 'c1',
+          label: 'l1c1',
+          value: 'l1v1',
+          isDefaultValue: true
+        }
+      ]
+    },
+    {
+      id: 'i2',
+      label: 'l2',
+      value: 'v2',
+      isDefaultValue: true,
+      children: [
+        {
+          id: 'c2',
+          label: 'l2c2',
+          value: 'l2v2'
+        }
+      ]
+    }
+  ]
+  const manager = new TreeManager(tree)
+  manager.setNodeCheckedState('c1', false)
+  t.false(manager.getNodeById('c1').checked)
+
+  manager.setNodeCheckedState('i2', false)
+  t.false(manager.getNodeById('i2').checked)
+
+  manager.restoreDefaultValues()
+  t.true(manager.getNodeById('c1').checked)
+  t.true(manager.getNodeById('i2').checked)
+})

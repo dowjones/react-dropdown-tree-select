@@ -345,5 +345,5 @@ test('sets default values', t => {
 
   const { defaultValues, list } = flattenTree(tree)
   t.deepEqual(defaultValues, expectedDefaultValues)
-  t.deepEqual(mapToObj(list), expectedTree)
+  t.deepEqual(mapToObject(list), expectedTree)
 })

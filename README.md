@@ -216,17 +216,18 @@ Data for rendering the tree select items. The object requires the following stru
 
 ```js
 {
-  label,        // required: Checkbox label
-  value,        // required: Checkbox value
-  children,     // optional: Array of child objects
-  checked,      // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
-  disabled,     // optional: Selectable state of checkbox. if true, the checkbox is disabled and the node is not selectable.
-  expanded,     // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
-  className,    // optional: Additional css class for the node. This is helpful to style the nodes your way
-  tagClassName, // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
-  actions,      // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
-  dataset,      // optional: Allows data-* attributes to be set on the node and tag elements
-  ...           // optional: Any extra properties that you'd like to receive during `onChange` event
+  label,          // required: Checkbox label
+  value,          // required: Checkbox value
+  children,       // optional: Array of child objects
+  checked,        // optional: Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered.
+  disabled,       // optional: Selectable state of checkbox. if true, the checkbox is disabled and the node is not selectable.
+  expanded,       // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
+  className,      // optional: Additional css class for the node. This is helpful to style the nodes your way
+  tagClassName,   // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
+  actions,        // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
+  dataset,        // optional: Allows data-* attributes to be set on the node and tag elements
+  isDefaultValue, // optional: Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.
+  ...             // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```
 
@@ -433,6 +434,8 @@ npm lint  // fixes anything that can be fixed and reports remaining errors
 
 npm run test:cov  // test coverage
 ```
+
+**Note:** If your browser doesn't hot reload or reflect changes during `npm run demo`, then delete `docs/bundle.js` and try again. Before submitting final PR, run `npm run build:docs` to build the bundle.js file again.
 
 ## License
 

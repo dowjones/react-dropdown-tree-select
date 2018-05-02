@@ -2,6 +2,7 @@ const path = require('path')
 
 const baseConfig = {
   devtool: 'eval',
+  mode: 'development',
   resolve: {
     extensions: ['.js', '.css'],
     modules: ['node_modules']
@@ -29,13 +30,6 @@ const baseConfig = {
         use: 'raw-loader'
       }
     ]
-  },
-  devServer: {
-    contentBase: './docs',
-    port: 3000,
-    historyApiFallback: true,
-    open: true,
-    watchContentBase: true
   }
 }
 

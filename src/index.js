@@ -74,12 +74,10 @@ class DropdownTreeSelect extends Component {
     this.setState({ tree, tags })
   }
 
-  handleClick = e => {
+  handleClick = () => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
-
-      console.log('hc', document.activeElement, e, isOutsideClick(e), prevState.showDropdown)
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {
@@ -95,9 +93,6 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    console.log('hoc', this.node, e.target, this.node.contains(e.target), isOutsideClick(e))
-
-    // if (this.node.contains(e.target)) {
     if (!isOutsideClick(e)) {
       return
     }

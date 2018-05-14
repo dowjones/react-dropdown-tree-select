@@ -115,9 +115,7 @@ class TreeManager {
     } else {
       this.toggleChildren(id, checked)
 
-      if (this.showPartialState) {
-        this.partialCheckParents(node)
-      }
+      this.checkParents(node)
 
       if (!checked) {
         this.unCheckParents(node)
@@ -141,16 +139,18 @@ class TreeManager {
   }
 
   /**
-   * Walks up the tree setting partial state on parent nodes
+   * Walks up the tree setting state on parent nodes
    * @param  {[type]} node [description]
    * @return {[type]}      [description]
    */
-  partialCheckParents(node) {
+  checkParents(node) {
     let parent = node._parent
     while (parent) {
       const next = this.getNodeById(parent)
       next.checked = next._children.every(c => this.getNodeById(c).checked)
-      next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
+      if (this.showPartialState) {
+        next.partial = getPartialState(next, '_children', this.getNodeById.bind(this))
+      }
       parent = next._parent
     }
   }

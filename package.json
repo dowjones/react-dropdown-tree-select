@@ -27,7 +27,7 @@
     "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",

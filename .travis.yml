@@ -23,7 +23,8 @@ jobs:
     if: branch = master
     - stage: release
       node_js: lts/*
-      script: echo "Deploying to npm ..."
+      # problematic, see: https://github.com/travis-ci/travis-ci/issues/9614
+      # script: echo "Deploying to npm ..."
       deploy:
         provider: script
         skip_cleanup: true

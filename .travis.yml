@@ -4,27 +4,28 @@ cache:
     - node_modules
 git:
   depth: 3
-node_js:
-  - '8'
-before_install:
-  - npm install -g greenkeeper-lockfile@1
-install:
-  - yarn install --ignore-engines
-before_script: greenkeeper-lockfile-update
-after_script: greenkeeper-lockfile-upload
-script:
-  - yarn coveralls
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/
 jobs:
   include:
+    - stage: test
+      node_js:
+        - '8'
+      before_install:
+        - npm install -g greenkeeper-lockfile@1
+      install:
+        - yarn install --ignore-engines
+      before_script: greenkeeper-lockfile-update
+      after_script: greenkeeper-lockfile-upload
+      script:
+        - yarn coveralls
+      branches:
+        except:
+          - /^v\d+\.\d+\.\d+$/
     # Define the release stage that runs semantic-release
-    if: branch = master
     - stage: release
+      if: branch = master
       node_js: lts/*
-      # problematic, see: https://github.com/travis-ci/travis-ci/issues/9614
-      # script: echo "Deploying to npm ..."
+      # overwrite default `script` step to skip the tests
+      script: echo "Deploying to npm ..."
       deploy:
         provider: script
         skip_cleanup: true

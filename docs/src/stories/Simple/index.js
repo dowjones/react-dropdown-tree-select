@@ -1,7 +1,6 @@
 import React from 'react'
 
 import DropdownTreeSelect from '../../../../src'
-import '../../../../dist/styles.css'
 
 import './index.css'
 import data from './data.json'
@@ -31,7 +30,7 @@ const Simple = () => (
       As a side effect, it also helps rule out issues arising out of using custom frameworks (if something doesn&apos;t look right in your app but
       looks OK here, you know what is messing things up).
     </p>
-    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} className="demo" />
   </div>
 )
 

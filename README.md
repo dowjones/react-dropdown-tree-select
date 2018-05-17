@@ -350,7 +350,7 @@ The tree debounces key presses to avoid costly search calculations. The default 
 
 The dropdown renders only visible content and skips any nodes that are going to hidden from the user. E.g., if a parent node is not expanded, there is no point in rendering children since they will not be visible anyway.
 
-Planned feature: Use [react-virtualized](https://github.com/bvaughn/react-virtualized) to take this to the next level.
+~~Planned feature: Use [react-virtualized](https://github.com/bvaughn/react-virtualized) to take this to the next level.~~ The search tree now uses infinite scroll, limiting search results to 100 items initially (more load seamlessly as you scroll) - this results in super fast rendering even with large number of nodes (see [#80](https://github.com/dowjones/react-dropdown-tree-select/issues/80)).
 
 ### Reducing costly DOM manipulations
 

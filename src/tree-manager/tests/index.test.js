@@ -63,7 +63,7 @@ test('should set initial check state based on node check state when node check s
   t.true(manager.getNodeById('c1').checked)
 })
 
-test('should set initial check state based on node check state when node check state is defined', t => {
+test('should set initial check state based on node check state when node check state is defined as false', t => {
   const tree = {
     id: 'i1',
     label: 'l1',

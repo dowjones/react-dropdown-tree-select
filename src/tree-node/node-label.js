@@ -1,43 +1,64 @@
-import React from 'react'
+import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-
+import React, { PureComponent } from 'react'
 import Checkbox from '../checkbox'
 
-const NodeLabel = props => {
-  const { simpleSelect, node, onCheckboxChange, showPartiallySelected } = props
-  const nodeLabelProps = { className: 'node-label' }
+import styles from './index.css'
 
-  if (simpleSelect) {
-    nodeLabelProps.onClick = e => {
-      e.stopPropagation()
-      e.nativeEvent.stopImmediatePropagation()
-      onCheckboxChange(node._id, true)
+const cx = cn.bind(styles)
+
+class NodeLabel extends PureComponent {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    actions: PropTypes.array,
+    title: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    checked: PropTypes.bool,
+    partial: PropTypes.bool,
+    expanded: PropTypes.bool,
+    disabled: PropTypes.bool,
+    dataset: PropTypes.object,
+    simpleSelect: PropTypes.bool,
+    showPartiallySelected: PropTypes.bool,
+    onCheckboxChange: PropTypes.func
+  }
+
+  handleCheckboxChange = e => {
+    const { simpleSelect, id, onCheckboxChange } = this.props
+
+    if (simpleSelect) {
+      onCheckboxChange(id, true)
+    } else {
+      const { target: { checked } } = e
+      onCheckboxChange(id, checked)
     }
   }
 
-  return (
-    <label title={node.title || node.label}>
-      {!simpleSelect && (
-        <Checkbox
-          name={node._id}
-          indeterminate={showPartiallySelected && node.partial}
-          className="checkbox-item"
-          checked={node.checked}
-          onChange={e => onCheckboxChange(node._id, e.target.checked)}
-          value={node.value}
-          disabled={node.disabled}
-        />
-      )}
-      <span {...nodeLabelProps}>{node.label}</span>
-    </label>
-  )
-}
+  render() {
+    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected } = this.props
+    const nodeLabelProps = { className: 'node-label' }
 
-NodeLabel.propTypes = {
-  node: PropTypes.any,
-  simpleSelect: PropTypes.bool,
-  showPartiallySelected: PropTypes.bool,
-  onCheckboxChange: PropTypes.func
+    if (simpleSelect) {
+      nodeLabelProps.onClick = this.handleCheckboxChange
+    }
+
+    return (
+      <label title={title || label} htmlFor={id}>
+        <Checkbox
+          name={id}
+          id={id}
+          indeterminate={showPartiallySelected && partial}
+          className={cx('checkbox-item', { 'simple-select': simpleSelect })}
+          checked={checked}
+          onChange={this.handleCheckboxChange}
+          value={value}
+          disabled={disabled}
+        />
+        <span {...nodeLabelProps}>{label}</span>
+      </label>
+    )
+  }
 }
 
 export default NodeLabel

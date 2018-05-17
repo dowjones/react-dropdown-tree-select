@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset } from '../dataset-utils'
+import { getDataset } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -18,48 +18,53 @@ const getTags = (tags = [], onDelete) =>
     )
   })
 
-const Input = props => {
-  const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = props
-
-  const delayedCallback = debounce(
-    e => {
-      props.onInputChange(e.target.value)
-    },
-    50,
-    { leading: true }
-  )
-
-  const onInputChange = e => {
-    e.persist()
-    delayedCallback(e)
+class Input extends PureComponent {
+  static propTypes = {
+    tags: PropTypes.array,
+    placeholderText: PropTypes.string,
+    onInputChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onTagRemove: PropTypes.func,
+    inputRef: PropTypes.func
   }
 
-  return (
-    <ul className={cx('tag-list')}>
-      {getTags(tags, onTagRemove)}
-      <li className={cx('tag-item')}>
-        <input
-          type="text"
-          ref={inputRef}
-          className={cx('search')}
-          placeholder={placeholderText}
-          onChange={onInputChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-      </li>
-    </ul>
-  )
-}
+  constructor(props) {
+    super(props)
+    this.delayedCallback = debounce(
+      e => {
+        this.props.onInputChange(e.target.value)
+      },
+      50,
+      { leading: true }
+    )
+  }
 
-Input.propTypes = {
-  tags: PropTypes.array,
-  placeholderText: PropTypes.string,
-  onInputChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onBlur: PropTypes.func,
-  onTagRemove: PropTypes.func,
-  inputRef: PropTypes.func
+  handleInputChange = e => {
+    e.persist()
+    this.delayedCallback(e)
+  }
+
+  render() {
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = this.props
+
+    return (
+      <ul className={cx('tag-list')}>
+        {getTags(tags, onTagRemove)}
+        <li className={cx('tag-item')}>
+          <input
+            type="text"
+            ref={inputRef}
+            className={cx('search')}
+            placeholder={placeholderText}
+            onChange={this.handleInputChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        </li>
+      </ul>
+    )
+  }
 }
 
 export default Input

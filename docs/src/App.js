@@ -5,6 +5,7 @@ import CodeSandbox from './CodeSandbox'
 import HOCReadme from './stories/HOCReadme'
 import Readme from './stories/Readme'
 import Simple from './stories/Simple'
+import BigData from './stories/BigData'
 import Options from './stories/Options'
 import DefaultValues from './stories/DefaultValues'
 
@@ -16,6 +17,7 @@ const stories = [
 
   { name: 'Basic (no extra styles)', component: Simple },
   { name: 'Options', component: Options },
+  { name: 'Large Tree', component: BigData },
   { name: 'Default Values', component: DefaultValues },
   { name: 'With Bootstrap Styles', component: CodeSandbox('382pjronm') },
   { name: 'With Material Design Styles', component: CodeSandbox('2o1pv6925p') },

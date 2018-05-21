@@ -78,7 +78,7 @@
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
-    "marked": "^0.3.17",
+    "marked": "^0.4.0",
     "mini-css-extract-plugin": "^0.4.0",
     "nyc": "^11.2.1",
     "postcss": "^6.0.16",

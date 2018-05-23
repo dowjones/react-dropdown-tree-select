@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
 import { getDataset } from '../utils'
@@ -18,6 +17,11 @@ const getTags = (tags = [], onDelete) =>
     )
   })
 
+const debounce = (callback, interval) => (...args) => {
+  clearTimeout(interval)
+  interval = setTimeout(() => callback(...args), 50)
+}
+
 class Input extends PureComponent {
   static propTypes = {
     tags: PropTypes.array,
@@ -31,13 +35,7 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce(
-      e => {
-        this.props.onInputChange(e.target.value)
-      },
-      50,
-      { leading: true }
-    )
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value))
   }
 
   handleInputChange = e => {

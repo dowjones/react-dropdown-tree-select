@@ -148,7 +148,7 @@ class DropdownTreeSelect extends Component {
     }
 
     this.setState(nextState)
-    this.notifyChange(this.treeManager.getNodeById(id), tags)
+    this.notifyChange(this.treeManager.getNodeById(id), tags, this.treeManager.tree)
   }
 
   onAction = (actionId, nodeId) => {

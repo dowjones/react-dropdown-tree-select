@@ -17,9 +17,22 @@ const getTags = (tags = [], onDelete) =>
     )
   })
 
-const debounce = (callback, interval) => (...args) => {
-  clearTimeout(interval)
-  interval = setTimeout(() => callback(...args), 50)
+const debounce = (func, wait, immediate) => {
+  let timeout
+
+  return (...args) => {
+    const later = () => {
+      timeout = null
+      if (!immediate) func(...args)
+    }
+
+    const callNow = immediate && !timeout
+
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+
+    if (callNow) func(...args)
+  }
 }
 
 class Input extends PureComponent {
@@ -35,7 +48,7 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value))
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 250, true)
   }
 
   handleInputChange = e => {

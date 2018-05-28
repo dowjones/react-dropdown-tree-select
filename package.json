@@ -23,8 +23,8 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail --mode=production",
-    "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail --mode=production",
+    "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
+    "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",

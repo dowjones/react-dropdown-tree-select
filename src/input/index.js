@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset } from '../utils'
+import { getDataset, debounce } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -16,24 +16,6 @@ const getTags = (tags = [], onDelete) =>
       </li>
     )
   })
-
-const debounce = (func, wait, immediate) => {
-  let timeout
-
-  return (...args) => {
-    const later = () => {
-      timeout = null
-      if (!immediate) func(...args)
-    }
-
-    const callNow = immediate && !timeout
-
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-
-    if (callNow) func(...args)
-  }
-}
 
 class Input extends PureComponent {
   static propTypes = {
@@ -48,7 +30,7 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 250, true)
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 300)
   }
 
   handleInputChange = e => {

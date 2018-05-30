@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import debounce from 'lodash.debounce'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset } from '../utils'
+import { getDataset, debounce } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -31,13 +30,7 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce(
-      e => {
-        this.props.onInputChange(e.target.value)
-      },
-      50,
-      { leading: true }
-    )
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 300)
   }
 
   handleInputChange = e => {

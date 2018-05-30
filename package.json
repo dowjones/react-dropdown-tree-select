@@ -23,8 +23,8 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/**/* && webpack --config webpack.config.js --bail --mode=production",
-    "build:docs": "yarn build && webpack --config docs/webpack.config.js --bail --mode=production",
+    "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
+    "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
@@ -42,7 +42,6 @@
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
-    "lodash.debounce": "^4.0.8",
     "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {
@@ -102,20 +101,31 @@
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-cli": "^2.0.9",
-    "why-did-you-update": "^0.1.1",
-    "webpack-serve": "^0.3.1"
+    "webpack-serve": "^0.3.1",
+    "why-did-you-update": "^0.1.1"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": ["src/**/*.test.js"],
-    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "jsdom-global/register",
+      "./setupEnzyme"
+    ],
     "babel": {
       "testOptions": {
         "babelrc": false,
-        "plugins": ["@babel/plugin-syntax-jsx"],
-        "presets": ["@babel/preset-stage-3"]
+        "plugins": [
+          "@babel/plugin-syntax-jsx"
+        ],
+        "presets": [
+          "@babel/preset-stage-3"
+        ]
       }
     },
     "snapshotDir": "__snapshots__"

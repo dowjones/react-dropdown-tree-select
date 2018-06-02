@@ -22,7 +22,7 @@ test('should set initial disabled state based on parent disabled state when node
 
 // should set initial disabled state based on parent disabled state
 // when node disabled state is not defined and parent checked is defined
-test('when node disabled state is not defined and parent checked is defined', t => {
+test('should set initial disabled state when node disabled state is not defined and parent checked is defined', t => {
   const tree = {
     id: 'i1',
     label: 'l1',
@@ -42,7 +42,7 @@ test('when node disabled state is not defined and parent checked is defined', t 
 
 // should set initial disabled state based on parent disabled state
 // when node disabled state is not defined and parent checked is defined
-test('when node disabled state is not defined and parent checked is defined', t => {
+test('should set initial disabled state for grandchild when node disabled state is not defined and parent checked is defined', t => {
   const tree = {
     id: 'i1',
     label: 'l1',

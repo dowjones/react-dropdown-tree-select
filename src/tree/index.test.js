@@ -5,7 +5,7 @@ import toJson from 'enzyme-to-json'
 import TreeManager from '../tree-manager'
 import Tree from './index'
 
-test('renders tree nodes when search mode is on', t => {
+test.skip('renders tree nodes when search mode is on', t => {
   const tree = [
     {
       label: 'item1',
@@ -45,7 +45,7 @@ test('renders tree nodes when search mode is on', t => {
   t.snapshot(toJson(wrapper))
 })
 
-test('renders only expanded tree nodes when search mode is off', t => {
+test.skip('renders only expanded tree nodes when search mode is off', t => {
   const tree = [
     {
       label: 'item1',

@@ -2,40 +2,55 @@
   list-style: none;
   white-space: nowrap;
   padding: 4px;
+
+  &.leaf {
+    &.collapsed {
+      display: none;
+    }
+  }
+
+  &.disabled > * {
+    color: gray;
+    cursor: not-allowed;
+  }
+
+  &.match-in-children {
+    &.hide {
+      .node-label {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .toggle {
   white-space: pre;
   margin-right: 4px;
+
+  &::after {
+    content: ' ';
+  }
+
+  &.collapsed::after {
+    cursor: pointer;
+    content: '+';
+  }
+
+  &.expanded::after {
+    cursor: pointer;
+    content: '-';
+  }
 }
 
 .searchModeOn .toggle {
   display: none;
 }
 
-.toggle::after {
-  content: ' ';
-}
-
-.toggle.collapsed::after {
-  cursor: pointer;
-  content: '+';
-}
-
-.toggle.expanded::after {
-  cursor: pointer;
-  content: '-';
-}
-
-.node.leaf.collapsed {
-  display: none;
-}
-
 .checkbox-item {
   vertical-align: middle;
   margin: 0 4px 0 0;
-}
 
-.match-in-children.hide .node-label {
-  opacity: 0.5;
+  &.simple-select {
+    display: none;
+  }
 }

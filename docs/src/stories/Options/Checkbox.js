@@ -2,6 +2,13 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 class Checkbox extends PureComponent {
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    checked: PropTypes.bool
+  }
+
   state = { isChecked: this.props.checked || false }
 
   toggleCheckboxChange = () => {
@@ -25,13 +32,6 @@ class Checkbox extends PureComponent {
       </div>
     )
   }
-}
-
-Checkbox.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  checked: PropTypes.bool
 }
 
 export default Checkbox

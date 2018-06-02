@@ -5,8 +5,6 @@ import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
 
-let tree
-
 const node0 = {
   _id: '0',
   _children: ['0-0', '0-1'],
@@ -16,8 +14,8 @@ const node0 = {
   children: undefined
 }
 
-test.beforeEach(() => {
-  tree = [
+test.beforeEach(t => {
+  t.context.tree = [
     {
       label: 'item1',
       value: 'value1',
@@ -54,11 +52,13 @@ test.beforeEach(() => {
 })
 
 test('renders default state', t => {
+  const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   t.snapshot(toJson(wrapper))
 })
 
 test('shows dropdown', t => {
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} showDropdown />)
   t.snapshot(toJson(wrapper))
 })
@@ -72,6 +72,7 @@ test('notifies on change', t => {
     label: 'item1',
     value: 'value1'
   }
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} onChange={handler} />)
   wrapper.instance().notifyChange(dummyNode, [dummyNode])
   t.true(handler.calledWithExactly(dummyNode, [dummyNode]))
@@ -79,6 +80,7 @@ test('notifies on change', t => {
 
 test('notifies on action', t => {
   const handler = spy()
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} onAction={handler} />)
   wrapper.instance().onAction('0', node0._id)
   t.true(handler.calledWithExactly('0', node0))
@@ -86,6 +88,7 @@ test('notifies on action', t => {
 
 test('notifies on node toggle', t => {
   const handler = spy()
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} onNodeToggle={handler} />)
   wrapper.instance().onNodeToggle(node0._id)
   t.true(handler.calledWithExactly({ ...node0, expanded: true }))
@@ -93,6 +96,7 @@ test('notifies on node toggle', t => {
 
 test('notifies on checkbox change', t => {
   const handler = spy()
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} onChange={handler} />)
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.true(handler.calledWithExactly({ ...node0, checked: true }, [{ ...node0, checked: true }]))
@@ -100,18 +104,21 @@ test('notifies on checkbox change', t => {
 
 test('notifies on tag removal', t => {
   const handler = spy()
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} onChange={handler} />)
   wrapper.instance().onTagRemove(node0._id)
   t.true(handler.calledWithExactly({ ...node0, checked: false }, []))
 })
 
 test('sets search mode on input change', t => {
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} />)
   wrapper.instance().onInputChange('it')
   t.true(wrapper.state().searchModeOn)
 })
 
 test('hides dropdown onChange for simpleSelect', t => {
+  const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} simpleSelect />)
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.false(wrapper.state().searchModeOn)
@@ -120,6 +127,7 @@ test('hides dropdown onChange for simpleSelect', t => {
 })
 
 test('clears input onChange for clearSearchOnChange', t => {
+  const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} clearSearchOnChange />)
   wrapper.instance().onInputChange('it')
   wrapper.instance().onCheckboxChange(node0._id, true)
@@ -128,6 +136,7 @@ test('clears input onChange for clearSearchOnChange', t => {
 })
 
 test('toggles dropdown', t => {
+  const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   wrapper.instance().handleClick()
   t.true(wrapper.state().showDropdown)
@@ -136,12 +145,14 @@ test('toggles dropdown', t => {
 })
 
 test('keeps dropdown active on focus', t => {
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} />)
   wrapper.instance().onInputFocus()
   t.true(wrapper.instance().keepDropdownActive)
 })
 
 test('deactivates dropdown active on blur', t => {
+  const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} />)
   wrapper.instance().onInputBlur()
   t.false(wrapper.instance().keepDropdownActive)

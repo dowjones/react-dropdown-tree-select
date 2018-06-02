@@ -1,6 +1,6 @@
 import getPartialState from './getPartialState'
 
-import isEmpty from '../isEmpty'
+import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {

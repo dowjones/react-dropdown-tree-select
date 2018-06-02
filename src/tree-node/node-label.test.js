@@ -6,12 +6,12 @@ import toJson from 'enzyme-to-json'
 
 import NodeLabel from './node-label'
 
-test('renders  node label', t => {
+test('renders node label', t => {
   const node = {
-    _id: '0-0-0',
+    id: '0-0-0',
     _parent: '0-0',
-    label: 'item1-1-1',
-    value: 'value1-1-1',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
     className: 'cn0-0-0',
     actions: [
       {
@@ -22,60 +22,56 @@ test('renders  node label', t => {
     ]
   }
 
-  const wrapper = shallow(<NodeLabel node={node} />)
+  const wrapper = shallow(<NodeLabel {...node} />)
 
   t.snapshot(toJson(wrapper))
 })
 
 test('notifies checkbox changes', t => {
   const node = {
-    _id: '0-0-0',
+    id: '0-0-0',
     _parent: '0-0',
-    label: 'item1-1-1',
-    value: 'value1-1-1',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
     className: 'cn0-0-0',
     checked: false
   }
 
   const onChange = spy()
 
-  const wrapper = shallow(<NodeLabel node={node} onCheckboxChange={onChange} />)
+  const wrapper = shallow(<NodeLabel {...node} onCheckboxChange={onChange} />)
   wrapper.find('.checkbox-item').simulate('change', { target: { checked: true } })
   t.true(onChange.calledWith('0-0-0', true))
 })
 
 test('disable checkbox if the node has disabled status', t => {
   const node = {
-    _id: '0-0-0',
+    id: '0-0-0',
     _parent: '0-0',
     disabled: true,
-    label: 'item1-1-1',
-    value: 'value1-1-1',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
     className: 'cn0-0-0'
   }
 
-  const wrapper = shallow(<NodeLabel node={node} searchModeOn />)
+  const wrapper = shallow(<NodeLabel {...node} searchModeOn />)
 
   t.snapshot(toJson(wrapper))
 })
 
 test('notifies clicks in simple mode', t => {
   const node = {
-    _id: '0-0-0',
+    id: '0-0-0',
     _parent: '0-0',
-    label: 'item1-1-1',
-    value: 'value1-1-1',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
     className: 'cn0-0-0',
     checked: false
   }
 
   const onChange = spy()
-  const stopPropagation = spy()
-  const stopImmediatePropagation = spy()
 
-  const wrapper = shallow(<NodeLabel node={node} onCheckboxChange={onChange} simpleSelect />)
-  wrapper.find('.node-label').simulate('click', { stopPropagation, nativeEvent: { stopImmediatePropagation } })
+  const wrapper = shallow(<NodeLabel {...node} onCheckboxChange={onChange} simpleSelect />)
+  wrapper.find('.node-label').simulate('click')
   t.true(onChange.calledWith('0-0-0', true))
-  t.true(stopPropagation.calledOnce)
-  t.true(stopImmediatePropagation.calledOnce)
 })

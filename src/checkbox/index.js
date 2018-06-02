@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 export const refUpdater = ({ checked, indeterminate }) => input => {
@@ -8,16 +8,18 @@ export const refUpdater = ({ checked, indeterminate }) => input => {
   }
 }
 
-const Checkbox = props => {
-  const { checked, indeterminate = false, onChange, ...rest } = props
+class Checkbox extends PureComponent {
+  static propTypes = {
+    checked: PropTypes.bool,
+    indeterminate: PropTypes.bool,
+    onChange: PropTypes.func
+  }
 
-  return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={onChange} {...rest} />
-}
+  render() {
+    const { checked, indeterminate = false, onChange, ...rest } = this.props
 
-Checkbox.propTypes = {
-  checked: PropTypes.bool,
-  indeterminate: PropTypes.bool,
-  onChange: PropTypes.func
+    return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={onChange} {...rest} />
+  }
 }
 
 export default Checkbox

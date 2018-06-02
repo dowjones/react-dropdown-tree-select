@@ -1,4 +1,4 @@
-const mapToObj = map => {
+const mapToObject = map => {
   const obj = Object.create(null)
   // eslint-disable-next-line no-restricted-syntax
   for (const [k, v] of map) {
@@ -9,4 +9,4 @@ const mapToObj = map => {
   return obj
 }
 
-export { mapToObj }
+export default mapToObject

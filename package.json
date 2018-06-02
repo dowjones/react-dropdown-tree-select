@@ -100,7 +100,7 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.9.2",
-    "webpack-cli": "^2.0.9",
+    "webpack-cli": "^3.0.1",
     "webpack-serve": "^0.3.1",
     "why-did-you-update": "^0.1.1"
   },

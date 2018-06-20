@@ -39,7 +39,17 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react', 'stage-0'],
+            plugins: [
+              'istanbul',
+              'transform-class-properties',
+              'transform-react-remove-prop-types'
+            ]
+          }
+        },
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/
       },

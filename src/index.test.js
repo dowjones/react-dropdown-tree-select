@@ -63,21 +63,6 @@ test('shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
-test('notifies on change', t => {
-  const handler = spy()
-  const dummyNode = {
-    _id: '0',
-    _parent: null,
-    _children: ['0-0', '0-1'],
-    label: 'item1',
-    value: 'value1'
-  }
-  const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} onChange={handler} />)
-  wrapper.instance().notifyChange(dummyNode, [dummyNode])
-  t.true(handler.calledWithExactly(dummyNode, [dummyNode]))
-})
-
 test('notifies on action', t => {
   const handler = spy()
   const { tree } = t.context

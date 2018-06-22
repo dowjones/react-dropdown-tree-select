@@ -162,12 +162,10 @@ class DropdownTreeSelect extends Component {
 
   onInputFocus = () => {
     this.keepDropdownActive = true
-    this.props.onFocus()
   }
 
   onInputBlur = () => {
     this.keepDropdownActive = false
-    this.props.onBlur()
   }
 
   render() {

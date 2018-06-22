@@ -208,6 +208,18 @@ function onNodeToggle(currentNode) {
 return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
 ```
 
+### onFocus
+
+Type: `function`
+
+Fires when input box receives focus or the dropdown arrow is clicked. This is helpful for setting `dirty` or `touched` flags with forms.
+
+### onBlur
+
+Type: `function`
+
+Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
+
 ### data
 
 Type: `Object` or `Array`

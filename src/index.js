@@ -30,9 +30,17 @@ class DropdownTreeSelect extends Component {
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool
+  }
+
+  static defaultProps = {
+    onFocus: () => {},
+    onBlur: () => {},
+    onChange: () => {}
   }
 
   constructor(props) {
@@ -41,10 +49,6 @@ class DropdownTreeSelect extends Component {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false
     }
-  }
-
-  notifyChange = (...args) => {
-    typeof this.props.onChange === 'function' && this.props.onChange(...args)
   }
 
   createList = (tree, simple, showPartial) => {
@@ -88,6 +92,9 @@ class DropdownTreeSelect extends Component {
         }
       }
 
+      if (showDropdown) this.props.onFocus()
+      else this.props.onBlur()
+
       return !showDropdown ? { showDropdown, ...this.resetSearchState() } : { showDropdown }
     })
   }
@@ -110,8 +117,6 @@ class DropdownTreeSelect extends Component {
       allNodesHidden
     })
   }
-
-  // isOutSideClick = e =>
 
   onTagRemove = id => {
     this.onCheckboxChange(id, false)
@@ -148,7 +153,7 @@ class DropdownTreeSelect extends Component {
     }
 
     this.setState(nextState)
-    this.notifyChange(this.treeManager.getNodeById(id), tags)
+    this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
 
   onAction = (actionId, nodeId) => {

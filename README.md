@@ -12,7 +12,7 @@
 [travis-url]: https://travis-ci.org/dowjones/react-dropdown-tree-select
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master
-[download-image]: https://img.shields.io/npm/dm/react-dropdown-tree-select.svg?style=flat-square
+[download-image]: https://img.shields.io/npm/dt/react-dropdown-tree-select.svg?style=flat-square
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
 [commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
@@ -28,40 +28,40 @@ A lightweight and fast control to render a select component that can display hie
 
 ## Table of Contents
 
-* [Screenshot](#screenshot)
-* [Demo](#example)
-  * [Vanilla (no framework)](#vanilla-no-framework)
-  * [With Bootstrap](#with-bootstrap)
-  * [With Material Design](#with-material-design)
-  * [As Single Select](#as-single-select)
-* [Install](#install)
-  * [As NPM package](#as-npm-package)
-  * [Using a CDN](#using-a-cdn)
-  * [Peer Dependencies](#peer-dependencies)
-* [Usage](#usage)
-* [Props](#props)
-  * [className](#classname)
-  * [clearSearchOnChange](#clearsearchonchange)
-  * [onChange](#onchange)
-  * [onNodeToggle](#onnodetoggle)
-  * [data](#data)
-  * [placeholderText](#placeholdertext)
-  * [noMatchesText](#nomatchestext)
-  * [keepTreeOnSearch](#keeptreeonsearch)
-  * [simpleSelect](#simpleselect)
-  * [showPartiallySelected](#showpartiallyselected)
-* [Styling and Customization](#styling-and-customization)
-  * [Using default styles](#default-styles)
-  * [Customizing with Bootstrap, Material Design styles](#customizing-styles)
-* [Performance](#performance)
-  * [Search optimizations](#search-optimizations)
-  * [Search debouncing](#search-debouncing)
-  * [Virtualized rendering](#virtualized-rendering)
-  * [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
-* [FAQ](#faq)
-* [Doing more with HOCs](/docs/HOC.md)
-* [Development](#development)
-* [License](#license)
+- [Screenshot](#screenshot)
+- [Demo](#example)
+  - [Vanilla (no framework)](#vanilla-no-framework)
+  - [With Bootstrap](#with-bootstrap)
+  - [With Material Design](#with-material-design)
+  - [As Single Select](#as-single-select)
+- [Install](#install)
+  - [As NPM package](#as-npm-package)
+  - [Using a CDN](#using-a-cdn)
+  - [Peer Dependencies](#peer-dependencies)
+- [Usage](#usage)
+- [Props](#props)
+  - [className](#classname)
+  - [clearSearchOnChange](#clearsearchonchange)
+  - [onChange](#onchange)
+  - [onNodeToggle](#onnodetoggle)
+  - [data](#data)
+  - [placeholderText](#placeholdertext)
+  - [noMatchesText](#nomatchestext)
+  - [keepTreeOnSearch](#keeptreeonsearch)
+  - [simpleSelect](#simpleselect)
+  - [showPartiallySelected](#showpartiallyselected)
+- [Styling and Customization](#styling-and-customization)
+  - [Using default styles](#default-styles)
+  - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
+- [Performance](#performance)
+  - [Search optimizations](#search-optimizations)
+  - [Search debouncing](#search-debouncing)
+  - [Virtualized rendering](#virtualized-rendering)
+  - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
+- [FAQ](#faq)
+- [Doing more with HOCs](/docs/HOC.md)
+- [Development](#development)
+- [License](#license)
 
 ## Screenshot
 
@@ -178,8 +178,8 @@ Type: `function`
 
 Fires when a node change event occurs. Currently the following actions trigger a node change:
 
-* Checkbox click which checks/unchecks the item
-* Closing of pill (which unchecks the corresponding checkbox item)
+- Checkbox click which checks/unchecks the item
+- Closing of pill (which unchecks the corresponding checkbox item)
 
 Calls the handler with the current node object and all selected nodes (if any). Example:
 
@@ -207,6 +207,18 @@ function onNodeToggle(currentNode) {
 
 return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
 ```
+
+### onFocus
+
+Type: `function`
+
+Fires when input box receives focus or the dropdown arrow is clicked. This is helpful for setting `dirty` or `touched` flags with forms.
+
+### onBlur
+
+Type: `function`
+
+Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
 
 ### data
 
@@ -323,16 +335,16 @@ You can reference the files from `node_modules/react-dropdown-tree-select/dist/s
 
 Once you import default styles, it is easy to add/override the provided styles to match popular frameworks. Checkout `/docs` folder for some examples.
 
-* [With Bootstrap](/docs/examples/bootstrap)
-* [With Material Design ](/docs/examples/material)
+- [With Bootstrap](/docs/examples/bootstrap)
+- [With Material Design ](/docs/examples/material)
 
 ## Performance
 
 ### Search optimizations
 
-* The tree creates a flat list of nodes from hierarchical tree data to perform searches that are linear in time irrespective of the tree depth or size.
-* It also memoizes each search term, so subsequent searches are instantaneous (almost).
-* Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogether and the user wants to filter nodes that contain the text: "2002". As the user enters each key press the search goes like this:
+- The tree creates a flat list of nodes from hierarchical tree data to perform searches that are linear in time irrespective of the tree depth or size.
+- It also memoizes each search term, so subsequent searches are instantaneous (almost).
+- Last but not the least, the search employs progressive filtering technique where subsequent searches are performed on the previous search set. E.g., say the tree has 4000 nodes altogether and the user wants to filter nodes that contain the text: "2002". As the user enters each key press the search goes like this:
 
 ```
 key press  : 2-----20-----200-----2002

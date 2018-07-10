@@ -11,7 +11,8 @@ module.exports = {
     filename: '[name].js',
     libraryTarget: 'umd',
     library: 'ReactDropdownTreeSelect',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: 'this'
   },
   externals: {
     react: {

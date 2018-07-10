@@ -1,5 +1,5 @@
 {
-    "parserOptions": {
+  "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     }
@@ -39,7 +39,7 @@
     ],
     "no-nested-ternary": 0,
     "no-underscore-dangle": 0,
-    "no-console": 0,
+    "no-console": 2,
     "no-bitwise": [
       2,
       {

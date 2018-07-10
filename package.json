@@ -23,7 +23,7 @@
   "author": "pandah <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
+    "build": "yarn lint:nofix && rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
     "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -31,14 +31,13 @@
     "demo": "webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
+    "lint:nofix": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\"",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "semantic-release": "semantic-release",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
@@ -108,24 +107,13 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": [
-      "src/**/*.test.js"
-    ],
-    "require": [
-      "babel-register",
-      "ignore-styles",
-      "jsdom-global/register",
-      "./setupEnzyme"
-    ],
+    "files": ["src/**/*.test.js"],
+    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
     "babel": {
       "testOptions": {
         "babelrc": false,
-        "plugins": [
-          "@babel/plugin-syntax-jsx"
-        ],
-        "presets": [
-          "@babel/preset-stage-3"
-        ]
+        "plugins": ["@babel/plugin-syntax-jsx"],
+        "presets": ["@babel/preset-stage-3"]
       }
     },
     "snapshotDir": "__snapshots__"
@@ -134,35 +122,18 @@
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": [
-      "html",
-      "text-summary"
-    ],
+    "reporter": ["html", "text-summary"],
     "all": true,
-    "include": [
-      "src/**/*.js"
-    ],
-    "exclude": [
-      "**/*.test.js",
-      "**/node_modules/**",
-      "dist",
-      "demo",
-      "src/**/tests/**"
-    ]
+    "include": ["src/**/*.js"],
+    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo", "src/**/tests/**"]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
+    "extends": ["@commitlint/config-conventional"],
     "rules": {
-      "subject-case": [
-        2,
-        "always",
-        "sentence-case"
-      ]
+      "subject-case": [2, "always", "sentence-case"]
     }
   },
   "config": {

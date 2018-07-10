@@ -15,6 +15,15 @@ const onNodeToggle = curNode => {
   console.log('onNodeToggle::', curNode)
 }
 
+const onFocus = () => {
+  console.log('onFocus')
+}
+
+const onBlur = () => {
+  console.log('onBlur')
+}
+
+
 const Simple = () => (
   <div>
     <h1>Basic component</h1>
@@ -30,7 +39,7 @@ const Simple = () => (
       As a side effect, it also helps rule out issues arising out of using custom frameworks (if something doesn&apos;t look right in your app but
       looks OK here, you know what is messing things up).
     </p>
-    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} className="demo" />
+    <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} onFocus={onFocus} onBlur={onBlur} className="demo" />
   </div>
 )
 

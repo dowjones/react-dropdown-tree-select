@@ -104,12 +104,9 @@ class TreeManager {
     if (prevChecked && prevChecked !== id) this.getNodeById(prevChecked).checked = false
 
     this.currentChecked = id
-
-    console.table({ id, prevChecked, currentChecked: this.currentChecked })
   }
 
   setNodeCheckedState(id, checked) {
-    console.table({ id, checked })
     const node = this.getNodeById(id)
     node.checked = checked
 

@@ -31,7 +31,7 @@
     "demo": "webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
-    "lint:nofix": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\"",
+    "lint:nofix": "eslint src docs webpack.config.js && stylelint \"./src/**/*.css\"",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "semantic-release": "semantic-release",
     "test": "cross-env NODE_ENV=test ava",

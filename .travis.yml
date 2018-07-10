@@ -17,6 +17,7 @@ jobs:
       before_script: greenkeeper-lockfile-update
       after_script: greenkeeper-lockfile-upload
       script:
+        - yarn lint:nofix
         - yarn coveralls
       branches:
         except:

@@ -100,7 +100,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e)) {
+    if (!isOutsideClick(e, this.props.className)) {
       return
     }
 

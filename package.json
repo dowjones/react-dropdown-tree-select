@@ -92,7 +92,7 @@
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
     "rimraf": "^2.6.1",
-    "sinon": "^5.0.0",
+    "sinon": "^6.0.0",
     "style-loader": "^0.20.1",
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.0.0",

@@ -34,7 +34,10 @@ class DropdownTreeSelect extends Component {
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
-    showPartiallySelected: PropTypes.bool
+    showPartiallySelected: PropTypes.bool,
+    numberOfChipsToDisplay: PropTypes.number,
+    showMore: PropTypes.any,
+    showLess: PropTypes.any
   }
 
   static defaultProps = {
@@ -81,7 +84,7 @@ class DropdownTreeSelect extends Component {
   handleClick = () => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
-      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
+      const showDropdown = this.keepDropdownActive
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {
@@ -151,7 +154,6 @@ class DropdownTreeSelect extends Component {
     if (this.props.simpleSelect) {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
-
     this.setState(nextState)
     this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
@@ -195,6 +197,9 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
+              numberOfChipsToDisplay={this.props.numberOfChipsToDisplay}
+              showMore={this.props.showMore}
+              showLess={this.props.showLess}
             />
           </a>
           {this.state.showDropdown && (

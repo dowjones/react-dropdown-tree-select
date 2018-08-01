@@ -11,6 +11,17 @@ test('renders label when passed in', t => {
   t.snapshot(wrapper)
 })
 
+test('call stopPropagation when pill is closed', t => {
+  const onDelete = spy()
+  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} />)
+  const event = {
+    type: 'click',
+    stopPropagation: spy()
+  }
+  wrapper.find('.tag-remove').prop('onClick')(event)
+  t.true(event.stopPropagation.called)
+})
+
 test('call onDelete handler when pill is closed', t => {
   const onDelete = spy()
   const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} />)

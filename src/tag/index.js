@@ -13,9 +13,9 @@ class Tag extends PureComponent {
     onDelete: PropTypes.func
   }
 
-  handleClick = () => {
+  handleClick = e => {
     const { id, onDelete } = this.props
-
+    e.stopPropagation()
     onDelete(id)
   }
 
@@ -25,7 +25,7 @@ class Tag extends PureComponent {
     return (
       <span className={cx('tag')}>
         {label}
-        <button onClick={this.handleClick} className={cx('tag-remove')} type="button">
+        <button onClick={e => this.handleClick(e)} className={cx('tag-remove')} type="button">
           x
         </button>
       </span>

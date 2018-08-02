@@ -50,9 +50,9 @@ A lightweight and fast control to render a select component that can display hie
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [simpleSelect](#simpleselect)
   - [showPartiallySelected](#showpartiallyselected)
-  - [numberOfChipsToDisplay](#numberOfChipsToDisplay)
-  - [showMore](#showMore)
-  - [showLess](#showLess)
+  - [numberOfChipsToDisplay](#numberofchipstodisplay)
+  - [showMore](#showmore)
+  - [showLess](#showless)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -300,13 +300,13 @@ When set to a number, hides the extra selected chips and shows only the number o
 
 Type: `any`
 
-A text or component to be display when the selected options are more than specified in [numberOfChipsToDisplay](#numberOfChipsToDisplay). Clicking on it will show all the options. Defaults to `More...`
+A text or component to be display when the selected options are more than specified in [numberOfChipsToDisplay](#numberofchipstodisplay). Clicking on it will show all the options. Defaults to `More...`
 
 ### showLess
 
-Type: `any` (default: `Less...`)
+Type: `any`
 
-A text or component to be display when the all the options are shown. Clicking on that will show only the chips specified in [numberOfChipsToDisplay](#numberOfChipsToDisplay). Defaults to `Less...`.
+A text or component to be display when the all the options are shown. Clicking on that will show only the chips specified in [numberOfChipsToDisplay](#numberofchipstodisplay). Defaults to `Less...`.
 
 ## Styling and Customization
 

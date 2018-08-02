@@ -50,6 +50,9 @@ A lightweight and fast control to render a select component that can display hie
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [simpleSelect](#simpleselect)
   - [showPartiallySelected](#showpartiallyselected)
+  - [numberOfChipsToDisplay](#numberofchipstodisplay)
+  - [showMore](#showmore)
+  - [showLess](#showless)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -286,6 +289,24 @@ Turns the dropdown into a simple, single select dropdown. If you pass tree data,
 Type: `bool` (default: `false`)
 
 If set to true, shows checkboxes in a partial state when one, but not all of their children are selected. Allows styling of partially selected nodes as well, by using [:indeterminate](https://developer.mozilla.org/en-US/docs/Web/CSS/:indeterminate) pseudo class. Simply add desired styles to `.node.partial .checkbox-item:indeterminate { ... }` in your CSS.
+
+### numberOfChipsToDisplay
+
+Type: `number`
+
+When set to a number, hides the extra selected chips and shows only the number of specified chips.
+
+### showMore
+
+Type: `any`
+
+A text or component to be display when the selected options are more than specified in [numberOfChipsToDisplay](#numberofchipstodisplay). Clicking on it will show all the options. Defaults to `More...`
+
+### showLess
+
+Type: `any`
+
+A text or component to be display when the all the options are shown. Clicking on that will show only the chips specified in [numberOfChipsToDisplay](#numberofchipstodisplay). Defaults to `Less...`.
 
 ## Styling and Customization
 

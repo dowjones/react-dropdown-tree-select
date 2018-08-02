@@ -84,7 +84,7 @@ class DropdownTreeSelect extends Component {
   handleClick = () => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
-      const showDropdown = this.keepDropdownActive
+      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {

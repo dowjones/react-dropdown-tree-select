@@ -347,3 +347,56 @@ test('sets default values', t => {
   t.deepEqual(defaultValues, expectedDefaultValues)
   t.deepEqual(mapToObject(list), expectedTree)
 })
+
+test('does not check parent with empty children when showing partial state', t => {
+  const tree = [
+    {
+      name: 'item1',
+      value: 'value1',
+      children: []
+    },
+    {
+      name: 'item2',
+      value: 'value2',
+      children: []
+    },
+    {
+      name: 'item3',
+      value: 'value3',
+      children: []
+    }
+  ]
+
+  const expectedTree = {
+    0: {
+      _id: '0',
+      _children: [],
+      _depth: 0,
+      children: undefined,
+      name: 'item1',
+      value: 'value1',
+      partial: false
+    },
+    1: {
+      _id: '1',
+      _children: [],
+      _depth: 0,
+      children: undefined,
+      name: 'item2',
+      value: 'value2',
+      partial: false
+    },
+    2: {
+      _id: '2',
+      _children: [],
+      _depth: 0,
+      children: undefined,
+      name: 'item3',
+      value: 'value3',
+      partial: false
+    },
+  }
+
+  const { list } = flattenTree(tree, false, true)
+  t.deepEqual(mapToObject(list), expectedTree)
+})

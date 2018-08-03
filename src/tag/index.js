@@ -13,9 +13,10 @@ class Tag extends PureComponent {
     onDelete: PropTypes.func
   }
 
-  handleClick = () => {
+  handleClick = e => {
     const { id, onDelete } = this.props
-
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
     onDelete(id)
   }
 

@@ -1,5 +1,7 @@
 import getPartialState from './getPartialState'
 
+import { isEmpty } from '../utils'
+
 /**
  * Converts a nested node into an associative array with pointers to child and parent nodes
  * Given:
@@ -159,7 +161,7 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         node.partial = getPartialState(node)
 
         // re-check if all children are checked. if so, check thyself
-        if (node.children.every(c => c.checked)) {
+        if (!isEmpty(node.children) && node.children.every(c => c.checked)) {
           node.checked = true
         }
       }

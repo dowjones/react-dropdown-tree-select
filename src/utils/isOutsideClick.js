@@ -1,5 +1,5 @@
 const getPath = e => {
-  let easyPath = e.path || (e.composedPath && e.composedPath());
+  const easyPath = e.path || (e.composedPath && e.composedPath())
   if (easyPath) return easyPath
 
   let elem = e.target

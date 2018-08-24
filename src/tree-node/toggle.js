@@ -10,7 +10,8 @@ class Toggle extends PureComponent {
     expanded: PropTypes.bool,
     isLeaf: PropTypes.bool,
     onNodeToggle: PropTypes.func,
-    id: PropTypes.string
+    id: PropTypes.string,
+    iconRenderer: PropTypes.func
   }
 
   onToggle = () => {
@@ -18,9 +19,11 @@ class Toggle extends PureComponent {
   }
 
   render() {
-    const { expanded, isLeaf } = this.props
+    const { expanded, isLeaf, iconRenderer } = this.props
     const toggleCx = cx('toggle', { expanded: !isLeaf && expanded, collapsed: !isLeaf && !expanded })
-    return <i className={toggleCx} onClick={this.onToggle} />
+    return iconRenderer
+      ? iconRenderer(toggleCx, this.onToggle)
+      : <i className={toggleCx} onClick={this.onToggle} />
   }
 }
 

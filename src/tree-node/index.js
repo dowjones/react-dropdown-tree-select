@@ -52,7 +52,8 @@ class TreeNode extends PureComponent {
     onCheckboxChange: PropTypes.func,
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
-    nodeRenderer: PropTypes.func
+    nodeRenderer: PropTypes.func,
+    iconRenderer: PropTypes.func
   }
 
   render() {
@@ -76,14 +77,15 @@ class TreeNode extends PureComponent {
       onNodeToggle,
       onCheckboxChange,
       showPartiallySelected,
-      nodeRenderer
+      nodeRenderer,
+      iconRenderer
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
     return (
       <li className={liCx} style={style} {...getDataset(dataset)}>
-        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} iconRenderer={iconRenderer} />
         <NodeLabel
           title={title}
           label={label}

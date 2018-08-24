@@ -34,7 +34,9 @@ class DropdownTreeSelect extends Component {
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
-    showPartiallySelected: PropTypes.bool
+    showPartiallySelected: PropTypes.bool,
+    nodeRenderer: PropTypes.func,
+    iconRenderer: PropTypes.func
   }
 
   static defaultProps = {
@@ -211,6 +213,8 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
+                  nodeRenderer={this.props.nodeRenderer}
+                  iconRenderer={this.props.iconRenderer}
                 />
               )}
             </div>

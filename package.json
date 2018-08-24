@@ -1,6 +1,6 @@
 {
   "name": "react-tree-dropdown-",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
   "keywords": [
     "react",
@@ -37,7 +37,9 @@
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
@@ -107,13 +109,24 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": ["src/**/*.test.js"],
-    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "jsdom-global/register",
+      "./setupEnzyme"
+    ],
     "babel": {
       "testOptions": {
         "babelrc": false,
-        "plugins": ["@babel/plugin-syntax-jsx"],
-        "presets": ["@babel/preset-stage-3"]
+        "plugins": [
+          "@babel/plugin-syntax-jsx"
+        ],
+        "presets": [
+          "@babel/preset-stage-3"
+        ]
       }
     },
     "snapshotDir": "__snapshots__"
@@ -122,18 +135,35 @@
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": ["html", "text-summary"],
+    "reporter": [
+      "html",
+      "text-summary"
+    ],
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo", "src/**/tests/**"]
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js",
+      "**/node_modules/**",
+      "dist",
+      "demo",
+      "src/**/tests/**"
+    ]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "rules": {
-      "subject-case": [2, "always", "sentence-case"]
+      "subject-case": [
+        2,
+        "always",
+        "sentence-case"
+      ]
     }
   },
   "config": {

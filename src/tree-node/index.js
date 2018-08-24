@@ -51,7 +51,8 @@ class TreeNode extends PureComponent {
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
     simpleSelect: PropTypes.bool,
-    showPartiallySelected: PropTypes.bool
+    showPartiallySelected: PropTypes.bool,
+    nodeRenderer: PropTypes.func
   }
 
   render() {
@@ -74,7 +75,8 @@ class TreeNode extends PureComponent {
       searchModeOn,
       onNodeToggle,
       onCheckboxChange,
-      showPartiallySelected
+      showPartiallySelected,
+      nodeRenderer
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
@@ -93,6 +95,7 @@ class TreeNode extends PureComponent {
           simpleSelect={simpleSelect}
           onCheckboxChange={onCheckboxChange}
           showPartiallySelected={showPartiallySelected}
+          nodeRenderer={nodeRenderer}
         />
         <Actions actions={actions} onAction={onAction} id={_id} />
       </li>

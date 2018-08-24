@@ -21,7 +21,8 @@ class NodeLabel extends PureComponent {
     dataset: PropTypes.object,
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
-    onCheckboxChange: PropTypes.func
+    onCheckboxChange: PropTypes.func,
+    nodeRenderer: PropTypes.func
   }
 
   handleCheckboxChange = e => {
@@ -36,15 +37,24 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected } = this.props
+    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected, nodeRenderer } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     if (simpleSelect) {
       nodeLabelProps.onClick = this.handleCheckboxChange
     }
 
-    return (
-      <label title={title || label} htmlFor={id}>
+    return nodeRenderer
+      ? nodeRenderer({
+        id,
+        value,
+        disabled,
+        checked,
+        title: title || label,
+        onChange: this.handleCheckboxChange,
+        indeterminate: showPartiallySelected && partial
+      })
+      : <label title={title || label} htmlFor={id}>
         <Checkbox
           name={id}
           id={id}
@@ -57,7 +67,6 @@ class NodeLabel extends PureComponent {
         />
         <span {...nodeLabelProps}>{label}</span>
       </label>
-    )
   }
 }
 

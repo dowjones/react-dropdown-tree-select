@@ -197,6 +197,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
+              tagRenderer={this.tagRenderer}
             />
           </a>
           {this.state.showDropdown && (

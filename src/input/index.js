@@ -7,12 +7,12 @@ import { getDataset, debounce } from '../utils'
 
 const cx = cn.bind(styles)
 
-const getTags = (tags = [], onDelete) =>
+const getTags = (tags = [], onDelete, tagRenderer) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
       <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
-        <Tag label={label} id={_id} onDelete={onDelete} />
+        <Tag label={label} id={_id} onDelete={onDelete} tagRenderer={tagRenderer} />
       </li>
     )
   })
@@ -25,7 +25,8 @@ class Input extends PureComponent {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onTagRemove: PropTypes.func,
-    inputRef: PropTypes.func
+    inputRef: PropTypes.func,
+    tagRenderer: PropTypes.func
   }
 
   constructor(props) {
@@ -39,11 +40,11 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur } = this.props
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, tagRenderer } = this.props
 
     return (
       <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove)}
+        {getTags(tags, onTagRemove, tagRenderer)}
         <li className={cx('tag-item')}>
           <input
             type="text"

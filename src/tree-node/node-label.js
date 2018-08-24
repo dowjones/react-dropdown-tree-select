@@ -1,7 +1,7 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import Checkbox from '../checkbox'
+import Checkbox, { refUpdater } from '../checkbox'
 
 import styles from './index.css'
 
@@ -50,6 +50,7 @@ class NodeLabel extends PureComponent {
         value,
         disabled,
         checked,
+        refUpdater,
         title: title || label,
         onChange: this.handleCheckboxChange,
         indeterminate: showPartiallySelected && partial

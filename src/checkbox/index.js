@@ -17,7 +17,6 @@ class Checkbox extends PureComponent {
 
   render() {
     const { checked, indeterminate = false, onChange, ...rest } = this.props
-
     return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={onChange} {...rest} />
   }
 }

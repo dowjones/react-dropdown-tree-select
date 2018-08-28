@@ -36,7 +36,8 @@ class DropdownTreeSelect extends Component {
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     nodeRenderer: PropTypes.func,
-    iconRenderer: PropTypes.func
+    iconRenderer: PropTypes.func,
+    tagRenderer: PropTypes.func
   }
 
   static defaultProps = {
@@ -197,7 +198,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
-              tagRenderer={this.tagRenderer}
+              tagRenderer={this.props.tagRenderer}
             />
           </a>
           {this.state.showDropdown && (

@@ -63,7 +63,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",
     "cz-conventional-changelog-emoji": "^0.1.0",
-    "enzyme": "^3.3.0",
+    "enzyme": "^3.5.0",
     "enzyme-adapter-react-16": "^1.0.4",
     "enzyme-to-json": "^3.3.3",
     "eslint": "^4.19.0",

@@ -83,7 +83,7 @@
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",
-    "postcss-nested": "^3.0.0",
+    "postcss-nested": "^4.0.0",
     "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.6.0",

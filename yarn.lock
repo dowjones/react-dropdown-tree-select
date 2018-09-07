@@ -7924,11 +7924,11 @@ postcss-modules-values@^1.1.0:
     icss-replace-symbols "^1.0.2"
     postcss "^5.0.14"
 
-postcss-nested@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-3.0.0.tgz#cde40bd07a078565f3df72e2dc2665871c724852"
+postcss-nested@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-nested/-/postcss-nested-4.0.0.tgz#c5d0f8d04b661d5b4cb041e7f8a668accafdfb4a"
   dependencies:
-    postcss "^6.0.14"
+    postcss "^7.0.2"
     postcss-selector-parser "^3.1.1"
 
 postcss-nesting@^4.0.1:
@@ -8137,6 +8137,14 @@ postcss@^6.0.19:
     chalk "^2.3.1"
     source-map "^0.6.1"
     supports-color "^5.2.0"
+
+postcss@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.2.tgz#7b5a109de356804e27f95a960bef0e4d5bc9bb18"
+  dependencies:
+    chalk "^2.4.1"
+    source-map "^0.6.1"
+    supports-color "^5.4.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

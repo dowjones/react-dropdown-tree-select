@@ -1,4 +1,4 @@
-.node {
+.react-dropdown-tree-select .node {
   list-style: none;
   white-space: nowrap;
   padding: 4px;
@@ -23,7 +23,7 @@
   }
 }
 
-.toggle {
+.react-dropdown-tree-select .toggle {
   white-space: pre;
   margin-right: 4px;
 
@@ -42,11 +42,11 @@
   }
 }
 
-.searchModeOn .toggle {
+.react-dropdown-tree-select .searchModeOn .toggle {
   display: none;
 }
 
-.checkbox-item {
+.react-dropdown-tree-select .checkbox-item {
   vertical-align: middle;
   margin: 0 4px 0 0;
 

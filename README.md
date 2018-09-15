@@ -4,7 +4,7 @@
 
 [![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
-[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url]
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -15,8 +15,6 @@
 [download-image]: https://img.shields.io/npm/dt/react-dropdown-tree-select.svg?style=flat-square
 [commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 [commitizen-url]: http://commitizen.github.io/cz-cli/
-[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg?style=flat-square
-[greenkeeper-url]: https://greenkeeper.io/
 [gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip&style=flat-square
 [gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
 

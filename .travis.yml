@@ -10,12 +10,8 @@ jobs:
     - stage: test
       node_js:
         - '8'
-      before_install:
-        - npm install -g greenkeeper-lockfile@1
       install:
         - yarn install --ignore-engines
-      before_script: greenkeeper-lockfile-update
-      after_script: greenkeeper-lockfile-upload
       script:
         - yarn lint:nofix
         - yarn coveralls

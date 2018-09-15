@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown-tree-select",
-  "version": "0.0.0-semantic-release",
+  "version": "1.12.4",
   "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
   "keywords": [
     "react",
@@ -34,7 +34,8 @@
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
-    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
+    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov ",
+    "release": "release-it"
   },
   "files": [
     "dist"
@@ -60,6 +61,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "commitizen": "^2.9.6",
+    "conventional-changelog-cli": "^2.0.5",
     "coveralls": "^3.0.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",
@@ -92,6 +94,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
+    "release-it": "^7.6.1",
     "rimraf": "^2.6.1",
     "sinon": "^5.0.0",
     "style-loader": "^0.20.1",

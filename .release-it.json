@@ -1,0 +1,17 @@
+{
+  "increment": "conventional:angular",
+  "beforeChangelogCommand": "npx conventional-changelog -p angular -i CHANGELOG.md -s",
+  "changelogCommand": "npx conventional-changelog -p angular | tail -n +3",
+  "safeBump": false,
+  "src": {
+    "tagName": "v%s",
+    "tagAnnotation": "Release v%s",
+    "commitMessage": "Release v%s",
+    "buildCommand": "yarn build:docs",
+    "afterReleaseCommand": "echo Successfully released ${version} to ${dist.repo}."
+  },
+  "github": {
+    "release": true,
+    "releaseName": "Release v%s"
+  }
+}

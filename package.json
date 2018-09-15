@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown-tree-select",
-  "version": "0.0.0-semantic-release",
+  "version": "1.12.4",
   "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
   "keywords": [
     "react",
@@ -33,11 +33,13 @@
     "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
-    "semantic-release": "semantic-release",
     "test": "cross-env NODE_ENV=test ava",
-    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov "
+    "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov ",
+    "release": "release-it"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "array.partial": "^1.0.4",
     "classnames": "^2.2.5",
@@ -59,6 +61,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "commitizen": "^2.9.6",
+    "conventional-changelog-cli": "^2.0.5",
     "coveralls": "^3.0.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",
@@ -91,6 +94,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
+    "release-it": "^7.6.1",
     "rimraf": "^2.6.1",
     "sinon": "^5.0.0",
     "style-loader": "^0.20.1",
@@ -107,13 +111,24 @@
     "react": "^15.0.0 || ^16.0.0"
   },
   "ava": {
-    "files": ["src/**/*.test.js"],
-    "require": ["babel-register", "ignore-styles", "jsdom-global/register", "./setupEnzyme"],
+    "files": [
+      "src/**/*.test.js"
+    ],
+    "require": [
+      "babel-register",
+      "ignore-styles",
+      "jsdom-global/register",
+      "./setupEnzyme"
+    ],
     "babel": {
       "testOptions": {
         "babelrc": false,
-        "plugins": ["@babel/plugin-syntax-jsx"],
-        "presets": ["@babel/preset-stage-3"]
+        "plugins": [
+          "@babel/plugin-syntax-jsx"
+        ],
+        "presets": [
+          "@babel/preset-stage-3"
+        ]
       }
     },
     "snapshotDir": "__snapshots__"
@@ -122,18 +137,35 @@
     "sourceMap": false,
     "instrument": false,
     "cache": true,
-    "reporter": ["html", "text-summary"],
+    "reporter": [
+      "html",
+      "text-summary"
+    ],
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["**/*.test.js", "**/node_modules/**", "dist", "demo", "src/**/tests/**"]
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.test.js",
+      "**/node_modules/**",
+      "dist",
+      "demo",
+      "src/**/tests/**"
+    ]
   },
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"],
+    "extends": [
+      "@commitlint/config-conventional"
+    ],
     "rules": {
-      "subject-case": [2, "always", "sentence-case"]
+      "subject-case": [
+        2,
+        "always",
+        "sentence-case"
+      ]
     }
   },
   "config": {

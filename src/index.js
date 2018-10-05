@@ -72,6 +72,10 @@ class DropdownTreeSelect extends Component {
     this.setState({ tree, tags })
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick, false)
+  }
+
   componentWillReceiveProps(nextProps) {
     const tree = this.createList(nextProps.data, nextProps.simpleSelect, nextProps.showPartiallySelected)
     const tags = this.treeManager.getTags()

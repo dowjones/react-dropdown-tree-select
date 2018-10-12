@@ -1,8 +1,4 @@
 /* component styles */
-.hide:not(.match-in-children) {
-  display: none;
-}
-
 .react-dropdown-tree-select {
   .dropdown {
     position: relative;

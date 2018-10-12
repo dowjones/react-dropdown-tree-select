@@ -54,30 +54,31 @@ class TreeManager {
     return matches
   }
 
-  setChildMatchStatus(id) {
+  addParentsToTree(id, tree) {
     if (id !== undefined) {
       const node = this.getNodeById(id)
+      this.addParentsToTree(node._parent, tree)
       node.matchInChildren = true
-      this.setChildMatchStatus(node._parent)
+      tree.set(id, node)
     }
   }
 
-  filterTree(searchTerm) {
+  filterTree(searchTerm, keepTreeOnSearch) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
-    this.tree.forEach(node => {
-      node.hide = true
-      node.matchInChildren = false
-    })
+    const matchTree = new Map()
 
     matches.forEach(m => {
       const node = this.getNodeById(m)
-      node.hide = false
-      this.setChildMatchStatus(node._parent)
+      if (keepTreeOnSearch) {
+        // add parent nodes first or else the tree won't be rendered in correct hierarchy
+        this.addParentsToTree(node._parent, matchTree)
+      }
+      matchTree.set(m, node)
     })
 
     const allNodesHidden = matches.length === 0
-    return { allNodesHidden, tree: this.tree }
+    return { allNodesHidden, tree: matchTree }
   }
 
   restoreNodes() {

@@ -15,10 +15,8 @@
   }
 
   &.match-in-children {
-    &.hide {
-      .node-label {
-        opacity: 0.5;
-      }
+    .node-label {
+      opacity: 0.5;
     }
   }
 }

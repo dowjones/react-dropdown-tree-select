@@ -5,6 +5,8 @@ import React, { Component } from 'react'
 import TreeNode from '../tree-node'
 
 const shouldRenderNode = (node, searchModeOn, data) => {
+  if (node.hide) return false
+
   if (searchModeOn || node.expanded) return true
 
   const parent = node._parent && data.get(node._parent)

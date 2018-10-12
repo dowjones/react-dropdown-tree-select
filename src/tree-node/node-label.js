@@ -15,6 +15,7 @@ class NodeLabel extends PureComponent {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
+    path: PropTypes.array,
     partial: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -37,7 +38,7 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected, nodeRenderer } = this.props
+    const { simpleSelect, title, label, id, path, partial, checked, value, disabled, showPartiallySelected, nodeRenderer } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     if (simpleSelect) {
@@ -50,6 +51,7 @@ class NodeLabel extends PureComponent {
         value,
         disabled,
         checked,
+        path,
         refUpdater,
         title: title || label,
         onChange: this.handleCheckboxChange,

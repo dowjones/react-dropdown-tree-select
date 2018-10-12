@@ -40,6 +40,7 @@ class TreeNode extends PureComponent {
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
+    path: PropTypes.array,
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -70,6 +71,7 @@ class TreeNode extends PureComponent {
       partial,
       checked,
       value,
+      path,
       disabled,
       actions,
       onAction,
@@ -90,6 +92,7 @@ class TreeNode extends PureComponent {
           title={title}
           label={label}
           id={_id}
+          path={path}
           partial={partial}
           checked={checked}
           value={value}

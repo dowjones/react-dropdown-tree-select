@@ -46,11 +46,11 @@
     "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-jsx": "^7.0.0-beta.46",
-    "@babel/preset-stage-3": "^7.0.0-beta.46",
+    "@babel/plugin-syntax-jsx": "^7.0.0",
+    "@babel/preset-stage-3": "^7.0.0",
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.0",
-    "ava": "^1.0.0-beta.4",
+    "ava": "^1.0.0-beta.8",
     "babel-core": "^6.24.1",
     "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.2",

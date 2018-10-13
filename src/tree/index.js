@@ -4,6 +4,15 @@ import React, { Component } from 'react'
 
 import TreeNode from '../tree-node'
 
+const shouldRenderNode = (node, searchModeOn, data) => {
+  if (searchModeOn || node.expanded) return true
+
+  const parent = node._parent && data.get(node._parent)
+  // if it has a parent, then check parent's state.
+  // otherwise root nodes are always rendered
+  return !parent || parent.expanded
+}
+
 class Tree extends Component {
   static propTypes = {
     data: PropTypes.object,
@@ -52,18 +61,20 @@ class Tree extends Component {
     const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
     const items = []
     data.forEach(node => {
-      items.push(<TreeNode
-        keepTreeOnSearch={keepTreeOnSearch}
-        key={node._id}
-        {...node}
-        searchModeOn={searchModeOn}
-        onChange={onChange}
-        onCheckboxChange={onCheckboxChange}
-        onNodeToggle={onNodeToggle}
-        onAction={onAction}
-        simpleSelect={simpleSelect}
-        showPartiallySelected={showPartiallySelected}
-      />)
+      if (shouldRenderNode(node, searchModeOn, data)) {
+        items.push(<TreeNode
+          keepTreeOnSearch={keepTreeOnSearch}
+          key={node._id}
+          {...node}
+          searchModeOn={searchModeOn}
+          onChange={onChange}
+          onCheckboxChange={onCheckboxChange}
+          onNodeToggle={onNodeToggle}
+          onAction={onAction}
+          simpleSelect={simpleSelect}
+          showPartiallySelected={showPartiallySelected}
+        />)
+      }
     })
     return items
   }

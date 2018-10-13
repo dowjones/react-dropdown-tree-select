@@ -58,6 +58,7 @@ class TreeManager {
     if (id !== undefined) {
       const node = this.getNodeById(id)
       this.addParentsToTree(node._parent, tree)
+      node.hide = true
       node.matchInChildren = true
       tree.set(id, node)
     }
@@ -70,6 +71,7 @@ class TreeManager {
 
     matches.forEach(m => {
       const node = this.getNodeById(m)
+      node.hide = false
       if (keepTreeOnSearch) {
         // add parent nodes first or else the tree won't be rendered in correct hierarchy
         this.addParentsToTree(node._parent, matchTree)

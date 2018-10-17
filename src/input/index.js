@@ -25,7 +25,8 @@ class Input extends PureComponent {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onTagRemove: PropTypes.func,
-    inputRef: PropTypes.func
+    inputRef: PropTypes.func,
+    disabled: PropTypes.bool
   }
 
   constructor(props) {
@@ -47,6 +48,7 @@ class Input extends PureComponent {
         <li className={cx('tag-item')}>
           <input
             type="text"
+            disabled={this.props.disabled}
             ref={inputRef}
             className={cx('search')}
             placeholder={placeholderText}

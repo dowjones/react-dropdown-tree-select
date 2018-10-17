@@ -34,7 +34,8 @@ class DropdownTreeSelect extends Component {
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
-    showPartiallySelected: PropTypes.bool
+    showPartiallySelected: PropTypes.bool,
+    disabled: PropTypes.bool
   }
 
   static defaultProps = {
@@ -84,6 +85,9 @@ class DropdownTreeSelect extends Component {
 
   handleClick = () => {
     this.setState(prevState => {
+      if (this.props.disabled) {
+        return { showDropdown: false }
+      }
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
 
@@ -175,7 +179,7 @@ class DropdownTreeSelect extends Component {
   render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
-      arrow: true,
+      arrow: !this.props.disabled,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -199,6 +203,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
+              disabled={this.props.disabled}
             />
           </a>
           {this.state.showDropdown && (

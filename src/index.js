@@ -85,9 +85,6 @@ class DropdownTreeSelect extends Component {
 
   handleClick = () => {
     this.setState(prevState => {
-      if (this.props.disabled) {
-        return { showDropdown: false }
-      }
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
 
@@ -179,7 +176,8 @@ class DropdownTreeSelect extends Component {
   render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
-      arrow: !this.props.disabled,
+      arrow: true,
+      disabled: this.props.disabled,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -192,7 +190,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={this.handleClick}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
             <Input
               inputRef={el => {
                 this.searchInput = el

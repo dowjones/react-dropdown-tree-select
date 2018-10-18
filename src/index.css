@@ -35,7 +35,7 @@
 
         &.disabled {
           cursor: not-allowed;
-          
+
           &.bottom::after {
             color: rgb(185, 185, 185);
           }

@@ -112,7 +112,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch)
     const searchModeOn = value.length > 0
 
     this.setState({

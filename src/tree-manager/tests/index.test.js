@@ -333,10 +333,11 @@ test('should get matching nodes when searched', t => {
     ]
   }
   const manager = new TreeManager(tree)
-  const { allNodesHidden } = manager.filterTree('search')
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('search')
   t.false(allNodesHidden)
   const nodes = ['i1', 'c1']
-  nodes.forEach(n => t.false(manager.getNodeById(n).hide))
+  nodes.forEach(n => t.not(matchTree.get(n), undefined))
+  t.is(matchTree.get('c2'), undefined)
 })
 
 test('should hide all nodes when search term is not found', t => {
@@ -362,8 +363,6 @@ test('should hide all nodes when search term is not found', t => {
   const manager = new TreeManager(tree)
   const { allNodesHidden } = manager.filterTree('bla-bla')
   t.true(allNodesHidden)
-  const nodes = ['i1', 'c1']
-  nodes.forEach(n => t.true(manager.getNodeById(n).hide))
 })
 
 test('should use cached results for subsequent searches', t => {
@@ -457,10 +456,11 @@ test('should get matching nodes with mixed case when searched', t => {
     ]
   }
   const manager = new TreeManager(tree)
-  const { allNodesHidden } = manager.filterTree('SearCH')
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('SearCH')
   t.false(allNodesHidden)
   const nodes = ['i1', 'c1']
-  nodes.forEach(n => t.false(manager.getNodeById(n).hide))
+  nodes.forEach(n => t.not(matchTree.get(n), undefined))
+  t.is(matchTree.get('c2'), undefined)
 })
 
 test('should uncheck previous node in simple select mode', t => {

@@ -54,7 +54,7 @@ class TreeManager {
     return matches
   }
 
-  setChildMatchStatus(id, tree) {
+  addParentsToTree(id, tree) {
     if (id !== undefined) {
       const node = this.getNodeById(id)
       this.addParentsToTree(node._parent, tree)

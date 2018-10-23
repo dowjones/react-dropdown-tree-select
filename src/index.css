@@ -32,6 +32,14 @@
           color: #3c3c3c;
           margin-right: 2px;
         }
+
+        &.disabled {
+          cursor: not-allowed;
+
+          &.bottom::after {
+            color: rgb(185, 185, 185);
+          }
+        }
       }
     }
 

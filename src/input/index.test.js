@@ -47,3 +47,8 @@ test('should render data attributes', t => {
 
   t.snapshot(wrapper)
 })
+
+test('should render disabled input', t => {
+  const wrapper = toJson(shallow(<Input disabled />))
+  t.snapshot(wrapper)
+})

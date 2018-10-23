@@ -129,6 +129,12 @@ test('toggles dropdown', t => {
   t.false(wrapper.state().showDropdown)
 })
 
+test('doesn\'t toggle dropdown if it\'s disabled', t => {
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect data={tree} disabled />)
+  t.snapshot(toJson(wrapper))
+})
+
 test('keeps dropdown active on focus', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} />)

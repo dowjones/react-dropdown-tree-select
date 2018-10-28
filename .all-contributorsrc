@@ -6,8 +6,8 @@
   "files": [
     "README.md"
   ],
+  "commit": false,
   "imageSize": 100,
-  "commit": true,
   "contributors": [
     {
       "login": "mrchief",
@@ -32,6 +32,63 @@
       "profile": "http://www.yanoucrea.fr",
       "contributions": [
         "bug",
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "Gregcop1",
+      "name": "Grégory Copin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1257968?v=4",
+      "profile": "http://www.les-tilleuls.coop",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "priyanshu92",
+      "name": "PRIYANSHU AGRAWAL",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7589718?v=4",
+      "profile": "https://github.com/priyanshu92",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "jvgreenaway",
+      "name": "James Greenaway",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/425261?v=4",
+      "profile": "http://james.greenaway.io",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "itrombitas",
+      "name": "itrombitas",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/36223986?v=4",
+      "profile": "https://github.com/itrombitas",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "davehenton",
+      "name": "Dave Henton",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/18341459?v=4",
+      "profile": "https://github.com/davehenton",
+      "contributions": [
+        "infra"
+      ]
+    },
+    {
+      "login": "nagaskolli",
+      "name": "Swetha Kolli",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4869717?v=4",
+      "profile": "https://github.com/nagaskolli",
+      "contributions": [
         "code"
       ]
     }

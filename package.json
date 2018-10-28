@@ -36,7 +36,7 @@
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov ",
     "semantic-release": "semantic-release",
-    "contributors": "all-contributors generate"
+    "contributors": "all-contributors add && all-contributors generate"
   },
   "files": [
     "dist"

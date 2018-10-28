@@ -4,7 +4,7 @@
 
 [![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
-[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![semantic-release][semantic-release]][semantic-release-url]
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![semantic-release][semantic-release]][semantic-release-url] [![All Contributors][all-contributors]](#contributors)
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -19,6 +19,7 @@
 [gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
+[all-contributors]: https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square
 
 ## React Dropdown Tree Select
 
@@ -459,3 +460,15 @@ npm run test:cov  // test coverage
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 Released 2017 by [Hrusikesh Panda](https://github.com/mrchief) @ [Dow Jones](https://github.com/dowjones)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars3.githubusercontent.com/u/781818?v=4" width="100px;"/><br /><sub><b>Hrusikesh Panda</b></sub>](http://about.me/hkpanda)<br />[💬](#question-mrchief "Answering Questions") [💻](https://github.com/Hrusikesh Panda <hrusikesh.panda@dowjones.com>/react-dropdown-tree-select/commits?author=mrchief "Code") [📖](https://github.com/Hrusikesh Panda <hrusikesh.panda@dowjones.com>/react-dropdown-tree-select/commits?author=mrchief "Documentation") [💡](#example-mrchief "Examples") [🤔](#ideas-mrchief "Ideas, Planning, & Feedback") [🚇](#infra-mrchief "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-mrchief "Packaging/porting to new platform") [👀](#review-mrchief "Reviewed Pull Requests") | [<img src="https://avatars0.githubusercontent.com/u/966550?v=4" width="100px;"/><br /><sub><b>toofff</b></sub>](http://www.yanoucrea.fr)<br />[🐛](https://github.com/Hrusikesh Panda <hrusikesh.panda@dowjones.com>/react-dropdown-tree-select/issues?q=author%3Atoofff "Bug reports") [💻](https://github.com/Hrusikesh Panda <hrusikesh.panda@dowjones.com>/react-dropdown-tree-select/commits?author=toofff "Code") |
+| :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

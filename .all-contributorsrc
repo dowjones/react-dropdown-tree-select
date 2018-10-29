@@ -18,7 +18,8 @@
       "contributions": [
         "bug",
         "code",
-        "doc"
+        "doc",
+        "ideas"
       ]
     },
     {
@@ -27,6 +28,7 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/1257968?v=4",
       "profile": "http://www.les-tilleuls.coop",
       "contributions": [
+        "bug",
         "code"
       ]
     },
@@ -37,7 +39,7 @@
       "profile": "https://github.com/priyanshu92",
       "contributions": [
         "bug",
-        "code"
+        "ideas"
       ]
     },
     {
@@ -47,7 +49,8 @@
       "profile": "http://james.greenaway.io",
       "contributions": [
         "bug",
-        "code"
+        "code",
+        "ideas"
       ]
     },
     {
@@ -75,6 +78,123 @@
       "profile": "https://github.com/nagaskolli",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "BaarishRain",
+      "name": "BaarishRain",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13344028?v=4",
+      "profile": "https://github.com/BaarishRain",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "akovacspentalog",
+      "name": "Kovacs Alexandru Robert",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/32507174?v=4",
+      "profile": "http://kovacsalexandrurobert.ro",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "amondragon",
+      "name": "Alexis Mondragon",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/11201133?v=4",
+      "profile": "https://github.com/amondragon",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "Charlie91",
+      "name": "Charlie91",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/13438795?v=4",
+      "profile": "https://github.com/Charlie91",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "dhirendrarathod2000",
+      "name": "Dhirendrasinh",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1930681?v=4",
+      "profile": "https://github.com/dhirendrarathod2000",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "JKapostins",
+      "name": "JKapostins",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7006862?v=4",
+      "profile": "https://github.com/JKapostins",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "josvegit",
+      "name": "josvegit",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/24354568?v=4",
+      "profile": "https://github.com/josvegit",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "loconluis",
+      "name": "Luis Locon",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/12422912?v=4",
+      "profile": "https://twitter.com/LoconLuis",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "mikdatdogru",
+      "name": "Mikdat DOĞRU",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10121255?v=4",
+      "profile": "https://github.com/mikdatdogru",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "will-izard",
+      "name": "Will Izard",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/7553535?v=4",
+      "profile": "https://github.com/will-izard",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "nikolap",
+      "name": "Nikola Peric",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/4504265?v=4",
+      "profile": "https://gitlab.com/nikperic",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "ramonrf",
+      "name": "Ramón Alejandro Reyes Fajardo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6119839?v=4",
+      "profile": "https://github.com/ramonrf",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "sarada-Cheukupalli",
+      "name": "Sarada Cherukupalli",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10716099?v=4",
+      "profile": "https://github.com/sarada-Cheukupalli",
+      "contributions": [
+        "ideas"
       ]
     }
   ]

@@ -20,7 +20,7 @@
   ],
   "main": "dist/react-dropdown-tree-select.js",
   "repository": "https://github.com/dowjones/react-dropdown-tree-select.git",
-  "author": "pandah <hrusikesh.panda@dowjones.com>",
+  "author": "Hrusikesh Panda <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
@@ -35,7 +35,8 @@
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov ",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "contributors": "all-contributors add && all-contributors generate"
   },
   "files": [
     "dist"
@@ -50,6 +51,7 @@
     "@babel/preset-stage-3": "7.0.0-beta.46",
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.0",
+    "all-contributors-cli": "^5.4.1",
     "ava": "1.0.0-beta.4",
     "babel-core": "6.24.1",
     "babel-eslint": "8.0.0",

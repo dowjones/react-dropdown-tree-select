@@ -127,7 +127,10 @@ class DropdownTreeSelect extends Component {
 
   onNodeToggle = id => {
     this.treeManager.toggleNodeExpandState(id)
-    this.setState({ tree: this.treeManager.tree })
+    const tree = this.state.searchModeOn
+      ? this.treeManager.matchTree
+      : this.treeManager.tree
+    this.setState({ tree })
     typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
@@ -141,8 +144,11 @@ class DropdownTreeSelect extends Component {
       tags = this.treeManager.getTags()
     }
 
+    const tree = this.state.searchModeOn
+      ? this.treeManager.matchTree
+      : this.treeManager.tree
     const nextState = {
-      tree: this.treeManager.tree,
+      tree,
       tags,
       showDropdown
     }

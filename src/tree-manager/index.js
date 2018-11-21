@@ -84,6 +84,7 @@ class TreeManager {
     })
 
     const allNodesHidden = matches.length === 0
+    this.matchTree = matchTree
     return { allNodesHidden, tree: matchTree }
   }
 

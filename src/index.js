@@ -34,7 +34,8 @@ class DropdownTreeSelect extends Component {
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
-    showPartiallySelected: PropTypes.bool
+    showPartiallySelected: PropTypes.bool,
+    disabled: PropTypes.bool
   }
 
   static defaultProps = {
@@ -70,6 +71,10 @@ class DropdownTreeSelect extends Component {
     const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick, false)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -108,7 +113,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch)
     const searchModeOn = value.length > 0
 
     this.setState({
@@ -172,6 +177,7 @@ class DropdownTreeSelect extends Component {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,
+      disabled: this.props.disabled,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -184,7 +190,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={this.handleClick}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
             <Input
               inputRef={el => {
                 this.searchInput = el
@@ -195,6 +201,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
+              disabled={this.props.disabled}
             />
           </a>
           {this.state.showDropdown && (

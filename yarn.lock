@@ -2732,6 +2732,10 @@ classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
 
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://artifactory.dowjones.io:443/artifactory/api/npm/npm-virtual/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-stack@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clean-stack/-/clean-stack-1.1.1.tgz#a1b3711122df162df7c7cb9b3c0470f28cb58adb"

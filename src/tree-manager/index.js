@@ -80,6 +80,11 @@ class TreeManager {
     })
 
     const allNodesHidden = matches.length === 0
+
+    // we store a local reference so that components can use it in subsequent renders
+    // this is the least intrusive way of fixing #190
+    this.matchTree = matchTree
+
     return { allNodesHidden, tree: matchTree }
   }
 

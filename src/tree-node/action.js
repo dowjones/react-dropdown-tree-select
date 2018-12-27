@@ -7,7 +7,8 @@ class Action extends PureComponent {
     text: PropTypes.string,
     className: PropTypes.string,
     actionData: PropTypes.object,
-    onAction: PropTypes.func
+    onAction: PropTypes.func,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -19,10 +20,10 @@ class Action extends PureComponent {
   }
 
   render() {
-    const { title, className, text } = this.props
+    const { title, className, text, readOnly } = this.props
 
     return (
-      <i title={title} className={className} onClick={this.handleClick}>
+      <i title={title} className={className} onClick={!readOnly && this.handleClick}>
         {text}
       </i>
     )

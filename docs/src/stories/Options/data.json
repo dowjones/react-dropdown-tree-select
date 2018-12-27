@@ -2,6 +2,7 @@
   {
     "label": "VP Accounting",
     "tagClassName": "special",
+    "checked": true,
     "children": [
       {
         "label": "iWay",

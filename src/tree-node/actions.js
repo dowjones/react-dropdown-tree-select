@@ -8,7 +8,8 @@ class Actions extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     actions: PropTypes.array,
-    onAction: PropTypes.func
+    onAction: PropTypes.func,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -16,13 +17,13 @@ class Actions extends PureComponent {
   }
 
   render() {
-    const { actions, onAction, id } = this.props
+    const { actions, onAction, id, readOnly } = this.props
 
     if (isEmpty(actions)) return null
 
     // we _do_ want to rely on array index here
     // eslint-disable-next-line react/no-array-index-key
-    return actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, id }} onAction={onAction} />)
+    return actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, id }} onAction={onAction} readOnly={readOnly}/>)
   }
 }
 

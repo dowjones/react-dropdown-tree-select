@@ -12,7 +12,9 @@ class Checkbox extends PureComponent {
   static propTypes = {
     checked: PropTypes.bool,
     indeterminate: PropTypes.bool,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   // this (stopPropagation) is needed since FireFox wrongly detects inside clicks
@@ -27,7 +29,7 @@ class Checkbox extends PureComponent {
   render() {
     const { checked, indeterminate = false, onChange, disabled, readOnly, ...rest } = this.props
 
-    const isDisabled = (disabled || readOnly)
+    const isDisabled = disabled || readOnly
 
     return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={this.handleChange} disabled={isDisabled} {...rest} />
   }

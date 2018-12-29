@@ -4,14 +4,15 @@ import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor(tree, simple, showPartialState) {
-    this._src = tree
-    const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(tree)), simple, showPartialState)
+  constructor({ data, simpleSelect, showPartiallySelected, hierarchical }) {
+    this._src = data
+    const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(data)), simpleSelect, showPartiallySelected, hierarchical)
     this.tree = list
     this.defaultValues = defaultValues
-    this.simpleSelect = simple
-    this.showPartialState = showPartialState
+    this.simpleSelect = simpleSelect
+    this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
+    this.hierarchical = hierarchical
   }
 
   getNodeById(id) {
@@ -118,6 +119,7 @@ class TreeManager {
     const node = this.getNodeById(id)
     node.checked = checked
 
+    // TODO: this can probably be combined with the same check in the else block. investigate in a separate release.
     if (this.showPartialState) {
       node.partial = false
     }
@@ -125,13 +127,13 @@ class TreeManager {
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
     } else {
-      this.toggleChildren(id, checked)
+      if (!this.hierarchical) this.toggleChildren(id, checked)
 
       if (this.showPartialState) {
         this.partialCheckParents(node)
       }
 
-      if (!checked) {
+      if (!this.hierarchical && !checked) {
         this.unCheckParents(node)
       }
     }
@@ -206,9 +208,12 @@ class TreeManager {
       if (visited[key]) return
 
       if (node.checked) {
-        // Parent node, so no need to walk children
         tags.push(node)
-        markSubTreeVisited(node)
+
+        if (!this.hierarchical) {
+          // Parent node, so no need to walk children
+          markSubTreeVisited(node)
+        }
       } else {
         visited[key] = true
       }

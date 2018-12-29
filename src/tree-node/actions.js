@@ -7,23 +7,18 @@ import { isEmpty } from '../utils'
 class Actions extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    actions: PropTypes.array,
-    onAction: PropTypes.func,
-    readOnly: PropTypes.bool
-  }
-
-  static defaultProps = {
-    onAction: () => {}
+    actions: PropTypes.array
   }
 
   render() {
-    const { actions, onAction, id, readOnly } = this.props
+    const { actions, id, ...rest } = this.props
 
     if (isEmpty(actions)) return null
 
-    // we _do_ want to rely on array index here
-    // eslint-disable-next-line react/no-array-index-key
-    return actions.map((a, idx) => <Action key={`action-${idx}`} {...a} actionData={{ action: a.id, id }} onAction={onAction} readOnly={readOnly} />)
+    return actions.map((a, idx) => {
+      const actionId = a.id || `action-${idx}`
+      return <Action key={actionId} {...rest} {...a} actionData={{ action: actionId, id }} />
+    })
   }
 }
 

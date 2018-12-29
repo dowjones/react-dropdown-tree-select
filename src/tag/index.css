@@ -14,4 +14,8 @@
   background-color: transparent;
   border: none;
   outline: none;
+
+  &.readOnly {
+    cursor: not-allowed;
+  }
 }

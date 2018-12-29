@@ -35,7 +35,8 @@ class DropdownTreeSelect extends Component {
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -180,6 +181,7 @@ class DropdownTreeSelect extends Component {
       'dropdown-trigger': true,
       arrow: true,
       disabled: this.props.disabled,
+      readOnly: this.props.readOnly,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -204,6 +206,7 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               disabled={this.props.disabled}
+              readOnly={this.props.readOnly}
             />
           </a>
           {this.state.showDropdown && (
@@ -220,6 +223,7 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
+                  readOnly={this.props.readOnly}
                 />
               )}
             </div>

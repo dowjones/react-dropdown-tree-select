@@ -7,12 +7,12 @@ import { getDataset, debounce } from '../utils'
 
 const cx = cn.bind(styles)
 
-const getTags = (tags = [], onDelete) =>
+const getTags = (tags = [], onDelete, readOnly) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
       <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
-        <Tag label={label} id={_id} onDelete={onDelete} />
+        <Tag label={label} id={_id} onDelete={onDelete} readOnly={readOnly} />
       </li>
     )
   })
@@ -26,7 +26,8 @@ class Input extends PureComponent {
     onBlur: PropTypes.func,
     onTagRemove: PropTypes.func,
     inputRef: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   constructor(props) {
@@ -40,11 +41,11 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled } = this.props
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly } = this.props
 
     return (
       <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove)}
+        {getTags(tags, onTagRemove, readOnly)}
         <li className={cx('tag-item')}>
           <input
             type="text"
@@ -55,6 +56,7 @@ class Input extends PureComponent {
             onChange={this.handleInputChange}
             onFocus={onFocus}
             onBlur={onBlur}
+            readOnly={readOnly}
           />
         </li>
       </ul>

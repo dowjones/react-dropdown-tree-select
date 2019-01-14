@@ -14,7 +14,19 @@ const cx = cn.bind(styles)
 const isLeaf = children => isEmpty(children)
 
 const getNodeCx = props => {
-  const { keepTreeOnSearch, keepChildrenOnSearch, _children, matchInChildren, matchInParent, disabled, partial, hide, className, showPartiallySelected, readOnly } = props
+  const {
+    keepTreeOnSearch,
+    keepChildrenOnSearch,
+    _children,
+    matchInChildren,
+    matchInParent,
+    disabled,
+    partial,
+    hide,
+    className,
+    showPartiallySelected,
+    readOnly
+  } = props
 
   return cx(
     'node',

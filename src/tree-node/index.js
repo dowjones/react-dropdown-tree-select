@@ -62,7 +62,6 @@ class TreeNode extends PureComponent {
     const {
       simpleSelect,
       keepTreeOnSearch,
-      keepChildrenOnSearch,
       _id,
       _children,
       dataset,

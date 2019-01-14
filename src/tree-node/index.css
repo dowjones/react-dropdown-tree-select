@@ -15,7 +15,7 @@
   }
 
   &.match-in-children {
-    &.hide {
+    &.rdts-hide {
       .node-label {
         opacity: 0.5;
       }

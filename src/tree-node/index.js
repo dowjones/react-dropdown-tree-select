@@ -22,7 +22,7 @@ const getNodeCx = props => {
       leaf: isLeaf(_children),
       tree: !isLeaf(_children),
       disabled,
-      hide,
+      'rdts-hide': hide,
       'match-in-children': keepTreeOnSearch && matchInChildren,
       partial: showPartiallySelected && partial,
       readOnly

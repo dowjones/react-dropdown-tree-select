@@ -1,5 +1,5 @@
 /* component styles */
-.hide:not(.match-in-children) {
+.rdts-hide:not(.match-in-children) {
   display: none;
 }
 

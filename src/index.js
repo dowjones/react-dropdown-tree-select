@@ -35,7 +35,8 @@ class DropdownTreeSelect extends Component {
     simpleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -129,7 +130,8 @@ class DropdownTreeSelect extends Component {
 
   onNodeToggle = id => {
     this.treeManager.toggleNodeExpandState(id)
-    this.setState({ tree: this.treeManager.tree })
+    const tree = this.state.searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
+    this.setState({ tree })
     typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
@@ -143,8 +145,9 @@ class DropdownTreeSelect extends Component {
       tags = this.treeManager.getTags()
     }
 
+    const tree = this.state.searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
     const nextState = {
-      tree: this.treeManager.tree,
+      tree,
       tags,
       showDropdown
     }
@@ -178,6 +181,7 @@ class DropdownTreeSelect extends Component {
       'dropdown-trigger': true,
       arrow: true,
       disabled: this.props.disabled,
+      readOnly: this.props.readOnly,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -202,6 +206,7 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               disabled={this.props.disabled}
+              readOnly={this.props.readOnly}
             />
           </a>
           {this.state.showDropdown && (
@@ -218,6 +223,7 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
+                  readOnly={this.props.readOnly}
                 />
               )}
             </div>

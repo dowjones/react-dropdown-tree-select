@@ -4,7 +4,7 @@
 
 [![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
-[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![semantic-release][semantic-release]][semantic-release-url] [![Commitizen friendly][commitizen]][commitizen-url] [![Greenkeeper badge][greenkeeper]][greenkeeper-url]
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![semantic-release][semantic-release]][semantic-release-url] [![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors)
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -13,14 +13,12 @@
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master
 [download-image]: https://img.shields.io/npm/dt/react-dropdown-tree-select.svg?style=flat-square
-[semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
-[semantic-release-url]: https://github.com/semantic-release/semantic-release
 [commitizen]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square
 [commitizen-url]: http://commitizen.github.io/cz-cli/
-[greenkeeper]: https://badges.greenkeeper.io/dowjones/react-dropdown-tree-select.svg?style=flat-square
-[greenkeeper-url]: https://greenkeeper.io/
 [gzip-image]: http://img.badgesize.io/https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js?compression=gzip&style=flat-square
 [gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
+[semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
+[semantic-release-url]: https://github.com/semantic-release/semantic-release
 
 ## React Dropdown Tree Select
 
@@ -51,6 +49,7 @@ A lightweight and fast control to render a select component that can display hie
   - [simpleSelect](#simpleselect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
+  - [form states (disabled|readOnly)](#formstates)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -103,7 +102,7 @@ You can import the standalone UMD build from a CDN such as:
 
 ```html
 <script src="https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js"></script>
-<link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet">
+<link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet" />
 ```
 
 **Note:** Above example will always fetch the latest version. To fetch a specific version, use `https://unpkg.com/react-dropdown-tree-select@<version>/dist/...`
@@ -294,6 +293,13 @@ Type: `bool` (default: `false`)
 
 If set to true, shows the dropdown when rendered. This can be used to render the component with the dropdown open as its initial state.
 
+### form states (disabled|readOnly)
+
+Type: `bool` (default: `false`)
+
+`disabled=true` disables the dropdown completely. This is useful during form submit events.
+`readOnly=true` makes the dropdown read only, which means that the user can still interact with it but cannot change any of its values. This can be useful for display only forms.
+
 ## Styling and Customization
 
 ### Default styles
@@ -329,7 +335,7 @@ module: {
 You can import and place a style link directly by referencing it from a CDN.
 
 ```html
-<link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet">
+<link href="https://unpkg.com/react-dropdown-tree-select/dist/styles.css" rel="stylesheet" />
 ```
 
 Note: Above example will always fetch the latest version. To fetch a specific version, use `https://unpkg.com/react-dropdown-tree-select@<version>/dist/styles.css`. Visit [unpkg.com](https://unpkg.com/#/) to see other options.
@@ -461,3 +467,18 @@ npm run test:cov  // test coverage
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 Released 2017 by [Hrusikesh Panda](https://github.com/mrchief) @ [Dow Jones](https://github.com/dowjones)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars0.githubusercontent.com/u/966550?v=4" width="100px;"/><br /><sub><b>toofff</b></sub>](http://www.yanoucrea.fr)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Atoofff "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=toofff "Code") [📖](https://github.com/dowjones/react-dropdown-tree-select/commits?author=toofff "Documentation") [🤔](#ideas-toofff "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1257968?v=4" width="100px;"/><br /><sub><b>Grégory Copin</b></sub>](http://www.les-tilleuls.coop)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3AGregcop1 "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=Gregcop1 "Code") | [<img src="https://avatars1.githubusercontent.com/u/7589718?v=4" width="100px;"/><br /><sub><b>PRIYANSHU AGRAWAL</b></sub>](https://github.com/priyanshu92)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Apriyanshu92 "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=priyanshu92 "Code") [🤔](#ideas-priyanshu92 "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/425261?v=4" width="100px;"/><br /><sub><b>James Greenaway</b></sub>](http://james.greenaway.io)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Ajvgreenaway "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=jvgreenaway "Code") [🤔](#ideas-jvgreenaway "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/36223986?v=4" width="100px;"/><br /><sub><b>itrombitas</b></sub>](https://github.com/itrombitas)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=itrombitas "Code") | [<img src="https://avatars2.githubusercontent.com/u/18341459?v=4" width="100px;"/><br /><sub><b>Dave Henton</b></sub>](https://github.com/davehenton)<br />[🚇](#infra-davehenton "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars3.githubusercontent.com/u/4869717?v=4" width="100px;"/><br /><sub><b>Swetha Kolli</b></sub>](https://github.com/nagaskolli)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=nagaskolli "Code") |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/13344028?v=4" width="100px;"/><br /><sub><b>BaarishRain</b></sub>](https://github.com/BaarishRain)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3ABaarishRain "Bug reports") | [<img src="https://avatars0.githubusercontent.com/u/32507174?v=4" width="100px;"/><br /><sub><b>Kovacs Alexandru Robert</b></sub>](http://kovacsalexandrurobert.ro)<br />[🤔](#ideas-akovacspentalog "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/11201133?v=4" width="100px;"/><br /><sub><b>Alexis Mondragon</b></sub>](https://github.com/amondragon)<br />[🤔](#ideas-amondragon "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/13438795?v=4" width="100px;"/><br /><sub><b>Charlie91</b></sub>](https://github.com/Charlie91)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3ACharlie91 "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/1930681?v=4" width="100px;"/><br /><sub><b>Dhirendrasinh</b></sub>](https://github.com/dhirendrarathod2000)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Adhirendrarathod2000 "Bug reports") | [<img src="https://avatars1.githubusercontent.com/u/7006862?v=4" width="100px;"/><br /><sub><b>JKapostins</b></sub>](https://github.com/JKapostins)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3AJKapostins "Bug reports") | [<img src="https://avatars0.githubusercontent.com/u/24354568?v=4" width="100px;"/><br /><sub><b>josvegit</b></sub>](https://github.com/josvegit)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Ajosvegit "Bug reports") |
+| [<img src="https://avatars1.githubusercontent.com/u/12422912?v=4" width="100px;"/><br /><sub><b>Luis Locon</b></sub>](https://twitter.com/LoconLuis)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Aloconluis "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/10121255?v=4" width="100px;"/><br /><sub><b>Mikdat DOĞRU</b></sub>](https://github.com/mikdatdogru)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Amikdatdogru "Bug reports") | [<img src="https://avatars1.githubusercontent.com/u/7553535?v=4" width="100px;"/><br /><sub><b>Will Izard</b></sub>](https://github.com/will-izard)<br />[🤔](#ideas-will-izard "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4504265?v=4" width="100px;"/><br /><sub><b>Nikola Peric</b></sub>](https://gitlab.com/nikperic)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Anikolap "Bug reports") | [<img src="https://avatars2.githubusercontent.com/u/6119839?v=4" width="100px;"/><br /><sub><b>Ramón Alejandro Reyes Fajardo</b></sub>](https://github.com/ramonrf)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Aramonrf "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/10716099?v=4" width="100px;"/><br /><sub><b>Sarada Cherukupalli</b></sub>](https://github.com/sarada-Cheukupalli)<br />[🤔](#ideas-sarada-Cheukupalli "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/45608461?v=4" width="100px;"/><br /><sub><b>Dilip Gavara</b></sub>](https://github.com/dilip025)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=dilip025 "Code") |
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

@@ -37,7 +37,9 @@ class DropdownTreeSelect extends Component {
     showPartiallySelected: PropTypes.bool,
     nodeRenderer: PropTypes.func,
     iconRenderer: PropTypes.func,
-    tagRenderer: PropTypes.func
+    tagRenderer: PropTypes.func,
+    disabled: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -73,6 +75,10 @@ class DropdownTreeSelect extends Component {
     const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleOutsideClick, false)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -181,6 +187,8 @@ class DropdownTreeSelect extends Component {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,
+      disabled: this.props.disabled,
+      readOnly: this.props.readOnly,
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
@@ -193,7 +201,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={this.handleClick}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
             <Input
               inputRef={el => {
                 this.searchInput = el
@@ -205,6 +213,8 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               tagRenderer={this.props.tagRenderer}
+              disabled={this.props.disabled}
+              readOnly={this.props.readOnly}
             />
           </a>
           {this.state.showDropdown && (
@@ -223,6 +233,7 @@ class DropdownTreeSelect extends Component {
                   showPartiallySelected={this.props.showPartiallySelected}
                   nodeRenderer={this.props.nodeRenderer}
                   iconRenderer={this.props.iconRenderer}
+                  readOnly={this.props.readOnly}
                 />
               )}
             </div>

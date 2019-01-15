@@ -26,7 +26,8 @@ class Tree extends Component {
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     nodeRenderer: PropTypes.func,
-    iconRenderer: PropTypes.func
+    iconRenderer: PropTypes.func,
+    readOnly: PropTypes.bool
   }
 
   static defaultProps = {
@@ -59,8 +60,20 @@ class Tree extends Component {
   }
 
   getNodes = props => {
-    const { data, keepTreeOnSearch, searchModeOn, simpleSelect, showPartiallySelected, nodeRenderer, iconRenderer } = props
-    const { onAction, onChange, onCheckboxChange, onNodeToggle } = props
+    const {
+      data,
+      keepTreeOnSearch,
+      searchModeOn,
+      simpleSelect,
+      showPartiallySelected,
+      readOnly,
+      nodeRenderer,
+      iconRenderer,
+      onAction,
+      onChange,
+      onCheckboxChange,
+      onNodeToggle
+    } = props
     const items = []
     data.forEach(node => {
       if (shouldRenderNode(node, searchModeOn, data)) {
@@ -77,6 +90,7 @@ class Tree extends Component {
           showPartiallySelected={showPartiallySelected}
           nodeRenderer={nodeRenderer}
           iconRenderer={iconRenderer}
+          readOnly={readOnly}
         />)
       }
     })

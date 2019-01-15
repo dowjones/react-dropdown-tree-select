@@ -26,18 +26,17 @@
 .react-dropdown-tree-select .toggle {
   white-space: pre;
   margin-right: 4px;
+  cursor: pointer;
 
   &::after {
     content: ' ';
   }
 
   &.collapsed::after {
-    cursor: pointer;
     content: '+';
   }
 
   &.expanded::after {
-    cursor: pointer;
     content: '-';
   }
 }

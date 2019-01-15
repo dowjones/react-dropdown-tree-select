@@ -14,7 +14,9 @@ class WithOptions extends PureComponent {
       clearSearchOnChange: false,
       keepTreeOnSearch: false,
       simpleSelect: false,
-      showPartiallySelected: false
+      showPartiallySelected: false,
+      disabled: false,
+      readOnly: false
     }
   }
 
@@ -33,7 +35,7 @@ class WithOptions extends PureComponent {
   }
 
   render() {
-    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected } = this.state
+    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected, disabled, readOnly } = this.state
 
     return (
       <div>
@@ -51,6 +53,8 @@ class WithOptions extends PureComponent {
           <Checkbox label="Keep tree on search" value="keepTreeOnSearch" checked={keepTreeOnSearch} onChange={this.onOptionsChange} />
           <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
           <Checkbox label="Show Partially Selected" value="showPartiallySelected" checked={showPartiallySelected} onChange={this.onOptionsChange} />
+          <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
+          <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
         </div>
         <div>
           <DropdownTreeSelect
@@ -62,6 +66,8 @@ class WithOptions extends PureComponent {
             keepTreeOnSearch={keepTreeOnSearch}
             simpleSelect={simpleSelect}
             showPartiallySelected={showPartiallySelected}
+            disabled={disabled}
+            readOnly={readOnly}
           />
         </div>
       </div>

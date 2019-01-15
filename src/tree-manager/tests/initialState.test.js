@@ -16,7 +16,7 @@ test('should set initial disabled state based on parent disabled state when node
     ],
     disabled: true
   }
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').disabled)
 })
 
@@ -36,7 +36,7 @@ test('should set initial disabled state when node disabled state is not defined 
     ],
     disabled: true
   }
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').disabled)
 })
 
@@ -64,7 +64,7 @@ test('should set initial disabled state for grandchild when node disabled state 
     ],
     disabled: true
   }
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').disabled)
   t.true(manager.getNodeById('gc1').disabled)
 })
@@ -93,7 +93,7 @@ test('when node disabled state is not defined and grand parent checked is define
     ],
     checked: true
   }
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').disabled)
   t.true(manager.getNodeById('gc1').disabled)
   t.true(manager.getNodeById('c1').checked)
@@ -125,7 +125,7 @@ test('when node disabled is not defined, parent checked/disabled is defined and 
     checked: true,
     disabled: true
   }
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   t.false(manager.getNodeById('c1').disabled)
   t.false(manager.getNodeById('c1').checked)
   t.falsy(manager.getNodeById('gc1').checked)
@@ -147,7 +147,7 @@ test('should set partial state if at least one child is partial', t => {
     ]
   }
 
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   t.true(manager.getNodeById('1').partial)
   t.true(manager.getNodeById('1-1').partial)
 

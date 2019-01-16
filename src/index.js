@@ -40,7 +40,8 @@ class DropdownTreeSelect extends Component {
     tagRenderer: PropTypes.func,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool
+    hierarchical: PropTypes.bool,
+    noItemsPlaceholder: PropTypes.any
   }
 
   static defaultProps = {
@@ -237,6 +238,7 @@ class DropdownTreeSelect extends Component {
                   nodeRenderer={this.props.nodeRenderer}
                   iconRenderer={this.props.iconRenderer}
                   readOnly={this.props.readOnly}
+                  noItemsPlaceholder={this.props.noItemsPlaceholder}
                 />
               )}
             </div>

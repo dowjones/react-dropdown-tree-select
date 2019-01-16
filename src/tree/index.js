@@ -27,11 +27,13 @@ class Tree extends Component {
     pageSize: PropTypes.number,
     nodeRenderer: PropTypes.func,
     iconRenderer: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    noItemsPlaceholder: PropTypes.any
   }
 
   static defaultProps = {
-    pageSize: 100
+    pageSize: 100,
+    noItemsPlaceholder: <p>The data contains no valid elements for display</p>
   }
 
   constructor(props) {
@@ -50,7 +52,11 @@ class Tree extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({ scrollableTarget: this.node.parentNode })
+    this.setState({
+      scrollableTarget: this.node && this.node.parentNode
+        ? this.node.parentNode
+        : null
+    })
   }
 
   computeInstanceProps = props => {
@@ -75,25 +81,27 @@ class Tree extends Component {
       onNodeToggle
     } = props
     const items = []
-    data.forEach(node => {
-      if (shouldRenderNode(node, searchModeOn, data)) {
-        items.push(<TreeNode
-          keepTreeOnSearch={keepTreeOnSearch}
-          key={node._id}
-          {...node}
-          searchModeOn={searchModeOn}
-          onChange={onChange}
-          onCheckboxChange={onCheckboxChange}
-          onNodeToggle={onNodeToggle}
-          onAction={onAction}
-          simpleSelect={simpleSelect}
-          showPartiallySelected={showPartiallySelected}
-          nodeRenderer={nodeRenderer}
-          iconRenderer={iconRenderer}
-          readOnly={readOnly}
-        />)
-      }
-    })
+    if (data.length > 0 || (data.children && data.children.length > 0)) {
+      data.forEach(node => {
+        if (shouldRenderNode(node, searchModeOn, data)) {
+          items.push(<TreeNode
+            keepTreeOnSearch={keepTreeOnSearch}
+            key={node._id}
+            {...node}
+            searchModeOn={searchModeOn}
+            onChange={onChange}
+            onCheckboxChange={onCheckboxChange}
+            onNodeToggle={onNodeToggle}
+            onAction={onAction}
+            simpleSelect={simpleSelect}
+            showPartiallySelected={showPartiallySelected}
+            nodeRenderer={nodeRenderer}
+            iconRenderer={iconRenderer}
+            readOnly={readOnly}
+          />)
+        }
+      })
+    }
     return items
   }
 
@@ -110,10 +118,15 @@ class Tree extends Component {
   }
 
   render() {
-    const { searchModeOn } = this.props
+    const {
+      searchModeOn,
+      noItemsPlaceholder
+    } = this.props
+    const { items } = this.state
+    const hasItems = items.length > 0
 
-    return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef}>
+    return hasItems
+      ? <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef}>
         {this.state.scrollableTarget && (
           <InfiniteScroll
             dataLength={this.state.items.length}
@@ -126,7 +139,7 @@ class Tree extends Component {
           </InfiniteScroll>
         )}
       </ul>
-    )
+      : noItemsPlaceholder
   }
 }
 

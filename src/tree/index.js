@@ -65,6 +65,12 @@ class Tree extends Component {
     this.currentPage = 1
   }
 
+  hasValidData = data => {
+    return data.constructor === Map
+      ? data.size > 0
+      : false
+  }
+
   getNodes = props => {
     const {
       data,
@@ -81,7 +87,7 @@ class Tree extends Component {
       onNodeToggle
     } = props
     const items = []
-    if (data.length > 0 || (data.children && data.children.length > 0)) {
+    if (this.hasValidData(data)) {
       data.forEach(node => {
         if (shouldRenderNode(node, searchModeOn, data)) {
           items.push(<TreeNode

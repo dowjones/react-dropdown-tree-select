@@ -543,3 +543,34 @@ test('should restore default values', t => {
   t.true(manager.getNodeById('c1').checked)
   t.true(manager.getNodeById('i2').checked)
 })
+
+test('should return children when search with `keepChildrenOnSearch`', t => {
+  const tree = [
+    {
+      id: 'i1',
+      label: 'search me',
+      value: 'v1',
+      children: [
+        {
+          id: 'c1',
+          label: 'SeaRch me too',
+          value: 'l1v1',
+          children: [
+            {
+              id: 'c2',
+              label: 'You can see me',
+              value: 'l2v1'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  const manager = new TreeManager(tree)
+  const keepTreeOnSearch = true
+  const keepChildrenOnSearch = true
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('search me', keepTreeOnSearch, keepChildrenOnSearch)
+  t.false(allNodesHidden)
+  const nodes = ['i1', 'c1', 'c2']
+  nodes.forEach(n => t.not(matchTree.get(n), undefined))
+})

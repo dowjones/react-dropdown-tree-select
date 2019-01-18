@@ -60,16 +60,8 @@ class Tree extends Component {
 
   getNodes = props => {
     const {
-      data,
-      keepTreeOnSearch,
-      keepChildrenOnSearch,
-      searchModeOn,
-      simpleSelect,
-      showPartiallySelected,
-      readOnly,
-      onAction,
-      onChange,
-      onCheckboxChange,
+      data, keepTreeOnSearch, keepChildrenOnSearch, searchModeOn, simpleSelect,
+      showPartiallySelected, readOnly, onAction, onChange, onCheckboxChange,
       onNodeToggle
     } = props
     const items = []

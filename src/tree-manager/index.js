@@ -64,7 +64,7 @@ class TreeManager {
     }
   }
 
-  addChildrensToTree(ids, tree, matches) {
+  addChildrenToTree(ids, tree, matches) {
     if (ids !== undefined) {
       ids.forEach(id => {
         if (matches && matches.includes(id)) {
@@ -74,7 +74,7 @@ class TreeManager {
         const node = this.getNodeById(id)
         node.matchInParent = true
         tree.set(id, node)
-        this.addChildrensToTree(node._children, tree)
+        this.addChildrenToTree(node._children, tree)
       })
     }
   }
@@ -94,7 +94,7 @@ class TreeManager {
       matchTree.set(m, node)
       if (keepTreeOnSearch && keepChildrenOnSearch) {
         // add children nodes after a found match
-        this.addChildrensToTree(node._children, matchTree, matches)
+        this.addChildrenToTree(node._children, matchTree, matches)
       }
     })
 

@@ -25,7 +25,7 @@ const getNodeCx = props => {
       leaf: isLeaf(_children),
       tree: !isLeaf(_children),
       disabled,
-      'rdts-hide': hide,
+      hide,
       'match-in-children': keepTreeOnSearch && matchInChildren,
       'match-in-parent': keepTreeOnSearch && keepChildrenOnSearch && matchInParent,
       partial: showPartiallySelected && partial,

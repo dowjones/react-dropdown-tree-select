@@ -566,7 +566,7 @@ test('should return children when search with `keepChildrenOnSearch`', t => {
       ]
     }
   ]
-  const manager = new TreeManager(tree)
+  const manager = new TreeManager({ data: tree })
   const keepTreeOnSearch = true
   const keepChildrenOnSearch = true
   const { allNodesHidden, tree: matchTree } = manager.filterTree('search me', keepTreeOnSearch, keepChildrenOnSearch)

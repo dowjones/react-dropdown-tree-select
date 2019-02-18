@@ -394,7 +394,7 @@ test('does not check parent with empty children when showing partial state', t =
       name: 'item3',
       value: 'value3',
       partial: false
-    },
+    }
   }
 
   const { list } = flattenTree(tree, false, true)

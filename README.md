@@ -46,6 +46,7 @@ A lightweight and fast control to render a select component that can display hie
   - [placeholderText](#placeholdertext)
   - [noMatchesText](#nomatchestext)
   - [keepTreeOnSearch](#keeptreeonsearch)
+  - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [simpleSelect](#simpleselect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
@@ -274,6 +275,14 @@ The text to display when the search does not find results in the content list. D
 Type: `bool`
 
 Displays search results as a tree instead of flattened results
+
+### keepChildrenOnSearch
+
+Type: `bool`
+
+Displays children of found nodes to allow searching for a parent node on then selecting any child node of the found node. Defaults to `false`
+
+*NOTE* this works only in combination with `keepTreeOnSearch`
 
 ### simpleSelect
 

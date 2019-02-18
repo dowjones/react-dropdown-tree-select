@@ -24,6 +24,7 @@ class DropdownTreeSelect extends Component {
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
+    keepChildrenOnSearch: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -117,7 +118,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
     const searchModeOn = value.length > 0
 
     this.setState({
@@ -220,6 +221,7 @@ class DropdownTreeSelect extends Component {
                 <Tree
                   data={this.state.tree}
                   keepTreeOnSearch={this.props.keepTreeOnSearch}
+                  keepChildrenOnSearch={this.props.keepChildrenOnSearch}
                   searchModeOn={this.state.searchModeOn}
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}

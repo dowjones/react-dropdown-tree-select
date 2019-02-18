@@ -14,7 +14,10 @@ const cx = cn.bind(styles)
 const isLeaf = children => isEmpty(children)
 
 const getNodeCx = props => {
-  const { keepTreeOnSearch, _children, matchInChildren, disabled, partial, hide, className, showPartiallySelected, readOnly } = props
+  const {
+    keepTreeOnSearch, keepChildrenOnSearch, _children, matchInChildren, matchInParent,
+    disabled, partial, hide, className, showPartiallySelected, readOnly
+  } = props
 
   return cx(
     'node',
@@ -24,6 +27,7 @@ const getNodeCx = props => {
       disabled,
       hide,
       'match-in-children': keepTreeOnSearch && matchInChildren,
+      'match-in-parent': keepTreeOnSearch && keepChildrenOnSearch && matchInParent,
       partial: showPartiallySelected && partial,
       readOnly
     },
@@ -47,6 +51,7 @@ class TreeNode extends PureComponent {
     partial: PropTypes.bool,
     dataset: PropTypes.object,
     keepTreeOnSearch: PropTypes.bool,
+    keepChildrenOnSearch: PropTypes.bool,
     searchModeOn: PropTypes.bool,
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,

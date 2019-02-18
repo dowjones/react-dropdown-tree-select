@@ -17,6 +17,7 @@ class Tree extends Component {
   static propTypes = {
     data: PropTypes.object,
     keepTreeOnSearch: PropTypes.bool,
+    keepChildrenOnSearch: PropTypes.bool,
     searchModeOn: PropTypes.bool,
     onChange: PropTypes.func,
     onNodeToggle: PropTypes.func,
@@ -59,15 +60,8 @@ class Tree extends Component {
 
   getNodes = props => {
     const {
-      data,
-      keepTreeOnSearch,
-      searchModeOn,
-      simpleSelect,
-      showPartiallySelected,
-      readOnly,
-      onAction,
-      onChange,
-      onCheckboxChange,
+      data, keepTreeOnSearch, keepChildrenOnSearch, searchModeOn, simpleSelect,
+      showPartiallySelected, readOnly, onAction, onChange, onCheckboxChange,
       onNodeToggle
     } = props
     const items = []
@@ -75,6 +69,7 @@ class Tree extends Component {
       if (shouldRenderNode(node, searchModeOn, data)) {
         items.push(<TreeNode
           keepTreeOnSearch={keepTreeOnSearch}
+          keepChildrenOnSearch={keepChildrenOnSearch}
           key={node._id}
           {...node}
           searchModeOn={searchModeOn}

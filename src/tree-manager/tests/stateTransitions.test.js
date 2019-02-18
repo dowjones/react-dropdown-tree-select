@@ -22,7 +22,7 @@ const tree = {
 // p2: parent2
 
 test('select gp -> everything checked', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   manager.setNodeCheckedState(grandParent, true)
 
   const expected = {
@@ -33,7 +33,7 @@ test('select gp -> everything checked', t => {
 })
 
 test('select gp, unselect child -> gp partial', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 
@@ -49,7 +49,7 @@ test('select gp, unselect child -> gp partial', t => {
 })
 
 test('select gp, unselect child, reselect child -> all checked', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 
@@ -67,7 +67,7 @@ test('select gp, unselect child, reselect child -> all checked', t => {
 })
 
 test('select gp, unselect grandchild -> gp, p1 partial', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 
@@ -84,7 +84,7 @@ test('select gp, unselect grandchild -> gp, p1 partial', t => {
 })
 
 test('select gp, unselect grandchild, reselect grandchild -> all checked', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 
@@ -102,7 +102,7 @@ test('select gp, unselect grandchild, reselect grandchild -> all checked', t => 
 })
 
 test('select gp, unselect grandchild, reselect p1 -> all checked', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 
@@ -120,7 +120,7 @@ test('select gp, unselect grandchild, reselect p1 -> all checked', t => {
 })
 
 test('select gp, unselect grandchild, reselect gp -> all checked', t => {
-  const manager = new TreeManager(tree, false, true)
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   // select gp
   manager.setNodeCheckedState(grandParent, true)
 

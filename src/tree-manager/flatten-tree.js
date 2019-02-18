@@ -96,14 +96,15 @@ const tree = [
  * @param  {[bool]} showPartialState  Whether to show partially checked state
  * @return {object}                   The flattened list
  */
-function flattenTree(tree, simple, showPartialState) {
+function flattenTree(tree, simple, showPartialState, hierarchical) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
   const { list, defaultValues } = walkNodes({
     nodes: forest,
     simple,
-    showPartialState
+    showPartialState,
+    hierarchical
   })
   return { list, defaultValues }
 }
@@ -126,7 +127,7 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [] }) {
+function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [], hierarchical }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -143,7 +144,7 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       node.checked = true
     }
 
-    setInitialStateProps(node, parent)
+    if (!hierarchical) setInitialStateProps(node, parent)
 
     list.set(node._id, node)
     if (!simple && node.children) {
@@ -154,7 +155,8 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         parent: node,
         depth: depth + 1,
         showPartialState,
-        defaultValues
+        defaultValues,
+        hierarchical
       })
 
       if (showPartialState && !node.checked) {

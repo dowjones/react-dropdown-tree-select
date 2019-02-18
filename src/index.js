@@ -36,7 +36,8 @@ class DropdownTreeSelect extends Component {
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    hierarchical: PropTypes.bool
   }
 
   static defaultProps = {
@@ -53,8 +54,8 @@ class DropdownTreeSelect extends Component {
     }
   }
 
-  createList = (tree, simple, showPartial) => {
-    this.treeManager = new TreeManager(tree, simple, showPartial)
+  createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
+    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical })
     return this.treeManager.tree
   }
 
@@ -69,7 +70,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    const tree = this.createList(this.props.data, this.props.simpleSelect, this.props.showPartiallySelected)
+    const { data, simpleSelect, showPartiallySelected, hierarchical } = this.props
+    const tree = this.createList({ data, simpleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -79,7 +81,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const tree = this.createList(nextProps.data, nextProps.simpleSelect, nextProps.showPartiallySelected)
+    const { data, simpleSelect, showPartiallySelected, hierarchical } = nextProps
+    const tree = this.createList({ data, simpleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }

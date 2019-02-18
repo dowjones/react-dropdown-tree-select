@@ -206,6 +206,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mobilutz",
+      "name": "Lutz Lengemann",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/491877?v=4",
+      "profile": "http://www.dealzeit.de",
+      "contributions": [
+        "code"
+      ]
     }
-  ]
+  ],
+  "contributorsPerLine": 7
 }

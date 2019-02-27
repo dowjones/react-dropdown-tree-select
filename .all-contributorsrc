@@ -216,7 +216,6 @@
         "code"
       ]
     },
-    {
       "login": "Eainde",
       "name": "Akshay Dipta",
       "avatar_url": "https://avatars0.githubusercontent.com/u/26381655?v=4",
@@ -224,6 +223,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "statico",
+      "name": "Ian Langworth ☠",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/137158?v=4",
+      "profile": "https://langworth.com/",
+      "contributions": [
+        "ideas"
+        ]
     }
   ],
   "contributorsPerLine": 7

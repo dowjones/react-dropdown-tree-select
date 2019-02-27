@@ -215,6 +215,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "statico",
+      "name": "Ian Langworth ☠",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/137158?v=4",
+      "profile": "https://langworth.com/",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7

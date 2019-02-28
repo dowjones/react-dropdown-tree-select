@@ -12,6 +12,12 @@ test('renders actions', t => {
       className: 'cn0-0-0',
       text: 'hello',
       junk: '1'
+    },
+    {
+      title: 'action-2',
+      className: 'cn0-0-0',
+      text: 'hello-2',
+      junk: '2'
     }
   ]
 

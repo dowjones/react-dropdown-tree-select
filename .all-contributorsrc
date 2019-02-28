@@ -232,7 +232,17 @@
       "profile": "https://langworth.com/",
       "contributions": [
         "ideas"
-        ]
+      ]
+    },
+    {
+      "login": "stoberov",
+      "name": "Stoyan Berov",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5932031?v=4",
+      "profile": "https://github.com/stoberov",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7

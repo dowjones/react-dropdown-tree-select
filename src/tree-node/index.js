@@ -56,7 +56,8 @@ class TreeNode extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     nodeRenderer: PropTypes.func,
     iconRenderer: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    approved: PropTypes.bool
   }
 
   render() {
@@ -83,7 +84,8 @@ class TreeNode extends PureComponent {
       showPartiallySelected,
       nodeRenderer,
       iconRenderer,
-      readOnly
+      readOnly,
+      approved
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
@@ -105,6 +107,7 @@ class TreeNode extends PureComponent {
           showPartiallySelected={showPartiallySelected}
           nodeRenderer={nodeRenderer}
           readOnly={readOnly}
+          approved={approved}
         />
         <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
       </li>

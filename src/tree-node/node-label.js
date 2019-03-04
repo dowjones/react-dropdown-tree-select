@@ -24,7 +24,8 @@ class NodeLabel extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
     nodeRenderer: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    approved: PropTypes.bool
   }
 
   handleCheckboxChange = e => {
@@ -51,6 +52,7 @@ class NodeLabel extends PureComponent {
       disabled,
       showPartiallySelected,
       readOnly,
+      approved,
       nodeRenderer
     } = this.props
     const nodeLabelProps = { className: 'node-label' }
@@ -71,6 +73,7 @@ class NodeLabel extends PureComponent {
         checked,
         path,
         refUpdater,
+        approved,
         title: title || label,
         onChange: this.handleCheckboxChange,
         indeterminate: showPartiallySelected && partial

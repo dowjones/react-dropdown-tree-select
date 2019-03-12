@@ -34,6 +34,7 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
+    singleSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -55,8 +56,8 @@ class DropdownTreeSelect extends Component {
     }
   }
 
-  createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical })
+  createList = ({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) => {
+    this.treeManager = new TreeManager({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
     return this.treeManager.tree
   }
 
@@ -71,8 +72,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    const { data, simpleSelect, showPartiallySelected, hierarchical } = this.props
-    const tree = this.createList({ data, simpleSelect, showPartiallySelected, hierarchical })
+    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = this.props
+    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -82,8 +83,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, simpleSelect, showPartiallySelected, hierarchical } = nextProps
-    const tree = this.createList({ data, simpleSelect, showPartiallySelected, hierarchical })
+    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = nextProps
+    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -142,7 +143,7 @@ class DropdownTreeSelect extends Component {
   onCheckboxChange = (id, checked) => {
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.getTags()
-    const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
+    const showDropdown = (this.props.simpleSelect || this.props.singleSelect) ? false : this.state.showDropdown
 
     if (!tags.length) {
       this.treeManager.restoreDefaultValues()
@@ -156,11 +157,13 @@ class DropdownTreeSelect extends Component {
       showDropdown
     }
 
-    if (this.props.simpleSelect || this.props.clearSearchOnChange) {
+    const isSimpleSelect = this.props.simpleSelect || this.props.singleSelect
+
+    if (isSimpleSelect || this.props.clearSearchOnChange) {
       Object.assign(nextState, this.resetSearchState())
     }
 
-    if (this.props.simpleSelect) {
+    if (isSimpleSelect) {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 
@@ -189,6 +192,8 @@ class DropdownTreeSelect extends Component {
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
+  
+    const isSimpleSelect = this.props.simpleSelect || this.props.singleSelect
 
     return (
       <div
@@ -214,7 +219,7 @@ class DropdownTreeSelect extends Component {
             />
           </a>
           {this.state.showDropdown && (
-            <div className={cx('dropdown-content')}>
+            <div className={cx('dropdown-content', { 'simple-select': isSimpleSelect })}>
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (
@@ -226,7 +231,7 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
-                  simpleSelect={this.props.simpleSelect}
+                  simpleSelect={isSimpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={this.props.readOnly}
                 />

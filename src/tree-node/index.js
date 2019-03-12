@@ -16,7 +16,7 @@ const isLeaf = children => isEmpty(children)
 const getNodeCx = props => {
   const {
     keepTreeOnSearch, keepChildrenOnSearch, _children, matchInChildren, matchInParent,
-    disabled, partial, hide, className, showPartiallySelected, readOnly
+    disabled, partial, hide, className, showPartiallySelected, readOnly, checked
   } = props
 
   return cx(
@@ -29,7 +29,8 @@ const getNodeCx = props => {
       'match-in-children': keepTreeOnSearch && matchInChildren,
       'match-in-parent': keepTreeOnSearch && keepChildrenOnSearch && matchInParent,
       partial: showPartiallySelected && partial,
-      readOnly
+      readOnly,
+      checked
     },
     className
   )

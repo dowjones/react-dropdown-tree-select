@@ -92,7 +92,7 @@ const tree = [
 }
 ```
  * @param  {[type]} tree              The incoming tree object
- * @param  {[bool]} simple            Whether its in Single slect mode (simple dropdown)
+ * @param  {[bool]} simple            Whether its in Single select mode (simple dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
  * @return {object}                   The flattened list
  */

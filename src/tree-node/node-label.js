@@ -41,8 +41,8 @@ class NodeLabel extends PureComponent {
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label
-    // but not if the control is in readOnly state
-    const shouldRegisterClickHandler = simpleSelect && !readOnly
+    // but not if the control is in readOnly or disabled state
+    const shouldRegisterClickHandler = simpleSelect && !readOnly && !disabled
 
     if (shouldRegisterClickHandler) {
       nodeLabelProps.onClick = this.handleCheckboxChange

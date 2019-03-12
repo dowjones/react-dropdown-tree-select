@@ -4,12 +4,13 @@ import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor({ data, simpleSelect, showPartiallySelected, hierarchical }) {
+  constructor({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) {
     this._src = data
     const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(data)), simpleSelect, showPartiallySelected, hierarchical)
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect
+    this.singleSelect = singleSelect
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
@@ -145,6 +146,15 @@ class TreeManager {
 
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
+    } else if (this.singleSelect) {
+      this.togglePreviousChecked(id)
+      if (!checked) {
+        this.toggleChildren(id, checked)
+        this.unCheckParents(node)
+      }
+      if (this.showPartialState) {
+        this.partialCheckParents(node)
+      }
     } else {
       if (!this.hierarchical) this.toggleChildren(id, checked)
 

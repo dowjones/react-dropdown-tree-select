@@ -192,7 +192,7 @@ class DropdownTreeSelect extends Component {
       top: this.state.showDropdown,
       bottom: !this.state.showDropdown
     })
-  
+
     const isSimpleSelect = this.props.simpleSelect || this.props.singleSelect
 
     return (

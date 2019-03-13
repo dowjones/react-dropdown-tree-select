@@ -61,6 +61,13 @@ class DropdownTreeSelect extends Component {
     return this.treeManager.tree
   }
 
+  initNewProps = ({ newProps }) => {
+    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = newProps
+    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
+    const tags = this.treeManager.getTags()
+    this.setState({ tree, tags })
+  }
+
   resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
     this.searchInput.value = ''
@@ -72,10 +79,7 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = this.props
-    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
-    const tags = this.treeManager.getTags()
-    this.setState({ tree, tags })
+    this.initNewProps({ newProps: this.props })
   }
 
   componentWillUnmount() {
@@ -83,10 +87,7 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = nextProps
-    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
-    const tags = this.treeManager.getTags()
-    this.setState({ tree, tags })
+    this.initNewProps({ newProps: nextProps })
   }
 
   handleClick = () => {

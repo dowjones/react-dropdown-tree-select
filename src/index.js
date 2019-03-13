@@ -61,8 +61,7 @@ class DropdownTreeSelect extends Component {
     return this.treeManager.tree
   }
 
-  initNewProps = ({ newProps }) => {
-    const { data, simpleSelect, singleSelect, showPartiallySelected, hierarchical } = newProps
+  initNewProps = ({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) => {
     const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
@@ -79,7 +78,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    this.initNewProps({ newProps: this.props })
+    const { data, hierarchical } = this.props
+    this.initNewProps({ data, hierarchical, ...this.props })
   }
 
   componentWillUnmount() {
@@ -87,7 +87,7 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.initNewProps({ newProps: nextProps })
+    this.initNewProps({ ...nextProps })
   }
 
   handleClick = () => {

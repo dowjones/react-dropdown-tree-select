@@ -45,7 +45,7 @@ class Input extends PureComponent {
 
     return (
       <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove, readOnly)}
+        {getTags(tags, onTagRemove, readOnly || disabled)}
         <li className={cx('tag-item')}>
           <input
             type="text"

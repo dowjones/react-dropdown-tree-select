@@ -38,6 +38,18 @@ class WithOptions extends PureComponent {
   render() {
     const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected, disabled, readOnly, hierarchical } = this.state
 
+    const tree1 = [
+      { label: 'A', value: '1', children: [] },
+      { label: 'B', value: '2', children: [] },
+      { label: 'C', value: '3', children: [] }
+    ]
+
+    const tree2 = [
+      { label: 'D', value: '4', children: [], className: '33' },
+      { label: 'E', value: '5', children: [] },
+      { label: 'F', value: '6', children: [] }
+    ]
+
     return (
       <div>
         <h1>Options playground</h1>
@@ -72,6 +84,11 @@ class WithOptions extends PureComponent {
             readOnly={readOnly}
             hierarchical={hierarchical}
           />
+        </div>
+
+        <div style={{ display: 'flex' }}>
+          <DropdownTreeSelect data={tree1} showDropdown />
+          <DropdownTreeSelect data={tree2} showDropdown />
         </div>
       </div>
     )

@@ -49,7 +49,7 @@ class NodeLabel extends PureComponent {
     }
 
     return (
-      <label title={title || label}>
+      <label title={title || label} htmlFor={id}>
         <Checkbox
           name={id}
           id={id}

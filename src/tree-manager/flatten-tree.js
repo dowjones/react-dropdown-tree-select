@@ -94,9 +94,10 @@ const tree = [
  * @param  {[type]} tree              The incoming tree object
  * @param  {[bool]} simple            Whether its in Single slect mode (simple dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
+ * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
  * @return {object}                   The flattened list
  */
-function flattenTree(tree, simple, showPartialState, hierarchical) {
+function flattenTree(tree, simple, showPartialState, hierarchical, rootPrefixId) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
@@ -104,7 +105,8 @@ function flattenTree(tree, simple, showPartialState, hierarchical) {
     nodes: forest,
     simple,
     showPartialState,
-    hierarchical
+    hierarchical,
+    rootPrefixId
   })
   return { list, defaultValues }
 }
@@ -127,7 +129,7 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [], hierarchical }) {
+function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [], hierarchical, rootPrefixId }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -137,6 +139,9 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       parent._children.push(node._id)
     } else {
       node._id = node.id || `${i}`
+    }
+    if (depth === 0 && rootPrefixId && rootPrefixId.length > 0) {
+      node._id = `${rootPrefixId}-${node._id}`
     }
 
     if (node.isDefaultValue) {

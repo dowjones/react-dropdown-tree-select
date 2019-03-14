@@ -52,13 +52,13 @@ class DropdownTreeSelect extends Component {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false,
-      id: props.id || rddtsGenerator.generate(this)
+      searchModeOn: false
     }
+    this.clientId = props.id || rddtsGenerator.generate(this)
   }
 
   createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical })
+    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
     return this.treeManager.tree
   }
 
@@ -112,7 +112,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.props.className, this.state.id)) {
+    if (!isOutsideClick(e, this.node)) {
       return
     }
 
@@ -194,7 +194,7 @@ class DropdownTreeSelect extends Component {
 
     return (
       <div
-        id={this.state.id}
+        id={this.clientId}
         className={cx(this.props.className, 'react-dropdown-tree-select')}
         ref={node => {
           this.node = node

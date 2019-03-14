@@ -160,3 +160,59 @@ test('deactivates dropdown active on blur', t => {
   wrapper.instance().onInputBlur()
   t.false(wrapper.instance().keepDropdownActive)
 })
+
+test('detects click outside', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  const handleOutsideClick = spy(wrapper.instance(), 'handleOutsideClick')
+
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+
+  const event = new MouseEvent('click', { bubbles: true, cancelable: true })
+  global.document.dispatchEvent(event)
+
+  t.true(handleOutsideClick.calledOnce)
+  t.false(wrapper.state().showDropdown)
+})
+
+test('detects click inside', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+
+  const checkboxItem = wrapper.getDOMNode().getElementsByClassName('checkbox-item')[0]
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+    target: checkboxItem
+  })
+  Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
+  wrapper.instance().handleOutsideClick(event)
+
+  t.true(wrapper.state().showDropdown)
+})
+
+test('detects click outside when other dropdown instance', t => {
+  const { tree } = t.context
+  const wrapper1 = mount(<DropdownTreeSelect data={tree} />)
+  const wrapper2 = mount(<DropdownTreeSelect data={tree} />)
+
+  wrapper1.instance().handleClick()
+  t.true(wrapper1.state().showDropdown)
+
+  const checkboxItem = wrapper2.getDOMNode().getElementsByClassName('search')[0]
+  const event = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+    target: checkboxItem
+  })
+  Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
+  wrapper1.instance().handleOutsideClick(event)
+
+  t.false(wrapper1.state().showDropdown)
+})

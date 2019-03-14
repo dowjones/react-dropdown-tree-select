@@ -204,14 +204,14 @@ test('detects click outside when other dropdown instance', t => {
   wrapper1.instance().handleClick()
   t.true(wrapper1.state().showDropdown)
 
-  const checkboxItem = wrapper2.getDOMNode().getElementsByClassName('search')[0]
+  const searchInput = wrapper2.getDOMNode().getElementsByClassName('search')[0]
   const event = new MouseEvent('click', {
     view: window,
     bubbles: true,
     cancelable: true,
-    target: checkboxItem
+    target: searchInput
   })
-  Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
+  Object.defineProperty(event, 'target', { value: searchInput, enumerable: true })
   wrapper1.instance().handleOutsideClick(event)
 
   t.false(wrapper1.state().showDropdown)

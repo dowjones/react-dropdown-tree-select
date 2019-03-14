@@ -87,7 +87,7 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.initNewProps({ ...nextProps })
+    this.initNewProps(nextProps)
   }
 
   handleClick = () => {

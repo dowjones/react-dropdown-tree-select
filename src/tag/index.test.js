@@ -40,6 +40,13 @@ test('should not call onDelete when readOnly', t => {
   t.true(onDelete.notCalled)
 })
 
+test('should not call onDelete when disabled', t => {
+  const onDelete = spy()
+  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} disabled />)
+  wrapper.find('.tag-remove').simulate('click', mockEvent)
+  t.true(onDelete.notCalled)
+})
+
 test('should not cause form submit', t => {
   const onSubmit = spy()
   const onDelete = spy()

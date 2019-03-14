@@ -97,7 +97,7 @@ const tree = [
  * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
  * @return {object}                   The flattened list
  */
-function flattenTree(tree, simple, showPartialState, hierarchical, rootPrefixId) {
+function flattenTree({ tree, simple, showPartialState, hierarchical, rootPrefixId }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define

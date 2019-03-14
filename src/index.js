@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick } from './utils'
+import { isOutsideClick, rddtsGenerator } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -38,7 +38,8 @@ class DropdownTreeSelect extends Component {
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool
+    hierarchical: PropTypes.bool,
+    id: PropTypes.string
   }
 
   static defaultProps = {
@@ -51,7 +52,8 @@ class DropdownTreeSelect extends Component {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false
+      searchModeOn: false,
+      id: props.id || rddtsGenerator.generate(this)
     }
   }
 
@@ -110,7 +112,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.props.className)) {
+    if (!isOutsideClick(e, this.props.className, this.state.id)) {
       return
     }
 
@@ -192,6 +194,7 @@ class DropdownTreeSelect extends Component {
 
     return (
       <div
+        id={this.state.id}
         className={cx(this.props.className, 'react-dropdown-tree-select')}
         ref={node => {
           this.node = node

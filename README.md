@@ -51,6 +51,7 @@ A lightweight and fast control to render a select component that can display hie
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
+  - [id](#id)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -308,6 +309,14 @@ Type: `bool` (default: `false`)
 
 `disabled=true` disables the dropdown completely. This is useful during form submit events.
 `readOnly=true` makes the dropdown read only, which means that the user can still interact with it but cannot change any of its values. This can be useful for display only forms.
+
+### id
+
+Type: `string`
+
+Specific id for container. The container renders with a default id of `rddts-N` where N is count of the current component rendered.
+
+Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
 
 ## Styling and Customization
 

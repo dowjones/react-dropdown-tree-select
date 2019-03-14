@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
+import { rddtsGenerator } from './utils'
 
 const node0 = {
   _id: '0',
@@ -53,13 +54,13 @@ test.beforeEach(t => {
 
 test('renders default state', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  const wrapper = mount(<DropdownTreeSelect id="snapshot" data={tree} />)
   t.snapshot(toJson(wrapper))
 })
 
 test('shows dropdown', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} showDropdown />)
+  const wrapper = shallow(<DropdownTreeSelect id="snapshot" data={tree} showDropdown />)
   t.snapshot(toJson(wrapper))
 })
 
@@ -129,9 +130,20 @@ test('toggles dropdown', t => {
   t.false(wrapper.state().showDropdown)
 })
 
+test('sets unique ids on dropdowns', t => {
+  const { tree } = t.context
+  rddtsGenerator.reset()
+  const wrapper1 = mount(<DropdownTreeSelect data={tree} />)
+  const wrapper2 = mount(<DropdownTreeSelect data={tree} />)
+
+  t.regex(wrapper1.getDOMNode().id, /^rddts-\d+$/)
+  t.regex(wrapper2.getDOMNode().id, /^rddts-\d+$/)
+  t.notDeepEqual(wrapper1.getDOMNode().id, wrapper2.getDOMNode().id)
+})
+
 test('doesn\'t toggle dropdown if it\'s disabled', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} disabled />)
+  const wrapper = shallow(<DropdownTreeSelect id="snapshot" data={tree} disabled />)
   t.snapshot(toJson(wrapper))
 })
 

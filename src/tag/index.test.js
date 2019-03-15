@@ -33,6 +33,20 @@ test('call onDelete handler when pill is closed', t => {
   t.true(onDelete.calledWith('abc'))
 })
 
+test('should not call onDelete when readOnly', t => {
+  const onDelete = spy()
+  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} readOnly />)
+  wrapper.find('.tag-remove').simulate('click', mockEvent)
+  t.true(onDelete.notCalled)
+})
+
+test('should not call onDelete when disabled', t => {
+  const onDelete = spy()
+  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} disabled />)
+  wrapper.find('.tag-remove').simulate('click', mockEvent)
+  t.true(onDelete.notCalled)
+})
+
 test('should not cause form submit', t => {
   const onSubmit = spy()
   const onDelete = spy()

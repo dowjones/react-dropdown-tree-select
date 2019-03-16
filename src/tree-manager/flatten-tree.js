@@ -108,6 +108,10 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical }) {
     showPartialState,
     hierarchical
   })
+  if (simple || radio) {
+    // eslint-disable-next-line no-use-before-define
+    ensureSingleSelect(defaultNodes, checkedNodes)
+  }
   const defaultValues = defaultNodes.map(i => i._id)
   const checkedValues = checkedNodes.map(i => i._id)
   return { list, defaultValues, checkedValues }
@@ -184,28 +188,30 @@ function walkNodes({
     }
   })
 
-  if (depth === 0 && returnValues.checkedNodes.length > 1 && (simple || radio)) {
-    const chkNodes = returnValues.checkedNodes
-    const defNodes = returnValues.defaultNodes
+  return returnValues
+}
+
+function ensureSingleSelect(defaultNodes, checkedNodes) {
+  defaultNodes = defaultNodes || []
+  checkedNodes = checkedNodes || []
+  if (checkedNodes.length > 1) {
     /* get first checked node only in single select dropdown,
       if data has .checked = true that has precedence */
     let first
-    if (defNodes.length === chkNodes.length) {
-      [first] = chkNodes
+    if (defaultNodes.length === checkedNodes.length) {
+      [first] = checkedNodes
     } else {
-      [first] = chkNodes.filter(n => defNodes.indexOf(n) < 0)
+      [first] = checkedNodes.filter(n => defaultNodes.indexOf(n) < 0)
         .sort((a, b) => a._id.localeCompare(b._id))
     }
     // uncheck all else and only select first default value provided
-    chkNodes.filter(n => n !== first).forEach(n => { n.checked = false })
-    returnValues.checkedNodes = [first]
-    if (defNodes.length) {
-      const [firstDefault] = defNodes
-      returnValues.defaultNodes = [firstDefault]
+    checkedNodes.filter(n => n !== first).forEach(n => { n.checked = false })
+    checkedNodes = [first]
+    if (defaultNodes.length) {
+      const [firstDefault] = defaultNodes
+      defaultNodes = [firstDefault]
     }
   }
-
-  return returnValues
 }
 
 export default flattenTree

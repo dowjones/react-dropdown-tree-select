@@ -19,4 +19,4 @@ export const generateUID = prefix => {
   return { generate, reset }
 }
 
-export const rddtsGenerator = generateUID('rddts')
+export const rddtsUID= generateUID('rddts')

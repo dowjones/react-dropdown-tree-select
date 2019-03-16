@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
-import { rddtsGenerator } from './utils'
+import { rddtsUID } from './utils'
 
 const dropdownId ='rddts'
 
@@ -134,7 +134,7 @@ test('toggles dropdown', t => {
 
 test('sets unique ids on dropdowns', t => {
   const { tree } = t.context
-  rddtsGenerator.reset()
+  rddtsUID.reset()
   const wrapper1 = mount(<DropdownTreeSelect data={tree} />)
   const wrapper2 = mount(<DropdownTreeSelect data={tree} />)
 

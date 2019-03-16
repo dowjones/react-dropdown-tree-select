@@ -7,7 +7,12 @@ class TreeManager {
   constructor({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
     this._src = data
     const { list, defaultValues } = flattenTree({
-      tree: JSON.parse(JSON.stringify(data)), simpleSelect, showPartialState: showPartiallySelected, hierarchical, rootPrefixId })
+      tree: JSON.parse(JSON.stringify(data)),
+      simple: simpleSelect,
+      showPartialState: showPartiallySelected,
+      hierarchical,
+      rootPrefixId
+    })
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect

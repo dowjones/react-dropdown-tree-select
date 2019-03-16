@@ -194,23 +194,23 @@ function walkNodes({
 function ensureSingleSelect(defaultNodes, checkedNodes) {
   defaultNodes = defaultNodes || []
   checkedNodes = checkedNodes || []
-  if (checkedNodes.length > 1) {
-    /* get first checked node only in single select dropdown,
-      if data has .checked = true that has precedence */
-    let first
-    if (defaultNodes.length === checkedNodes.length) {
-      [first] = checkedNodes
-    } else {
-      [first] = checkedNodes.filter(n => defaultNodes.indexOf(n) < 0)
-        .sort((a, b) => a._id.localeCompare(b._id))
-    }
-    // uncheck all else and only select first default value provided
-    checkedNodes.filter(n => n !== first).forEach(n => { n.checked = false })
-    checkedNodes = [first]
-    if (defaultNodes.length) {
-      const [firstDefault] = defaultNodes
-      defaultNodes = [firstDefault]
-    }
+  if (checkedNodes.length <= 1) return
+
+  /* get first checked node only in single select dropdown,
+    if data has .checked = true that has precedence */
+  let first
+  if (defaultNodes.length === checkedNodes.length) {
+    [first] = checkedNodes
+  } else {
+    [first] = checkedNodes.filter(n => defaultNodes.indexOf(n) < 0)
+      .sort((a, b) => a._id.localeCompare(b._id))
+  }
+  // uncheck all else and only select first default value provided
+  checkedNodes.filter(n => n !== first).forEach(n => { n.checked = false })
+  checkedNodes = [first]
+  if (defaultNodes.length) {
+    const [firstDefault] = defaultNodes
+    defaultNodes = [firstDefault]
   }
 }
 

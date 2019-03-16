@@ -4,16 +4,27 @@ import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) {
+  constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) {
     this._src = data
-    const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(data)), simpleSelect, showPartiallySelected, hierarchical)
+    const { list, defaultValues, checkedValues } = flattenTree({
+      tree: JSON.parse(JSON.stringify(data)),
+      simple: simpleSelect,
+      radio: radioSelect,
+      showPartialState: showPartiallySelected,
+      hierarchical
+    })
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect
-    this.singleSelect = singleSelect
+    this.radioSelect = radioSelect
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
+    if ((simpleSelect || radioSelect) && checkedValues && checkedValues.length) {
+      // Remembers initial check on single select dropdowns
+      const [selectedId] = checkedValues
+      this.currentChecked = selectedId
+    }
   }
 
   getNodeById(id) {
@@ -146,14 +157,13 @@ class TreeManager {
 
     if (this.simpleSelect) {
       this.togglePreviousChecked(id)
-    } else if (this.singleSelect) {
+    } else if (this.radioSelect) {
       this.togglePreviousChecked(id)
-      if (!checked) {
-        this.toggleChildren(id, checked)
-        this.unCheckParents(node)
-      }
       if (this.showPartialState) {
         this.partialCheckParents(node)
+      }
+      if (!checked) {
+        this.unCheckParents(node)
       }
     } else {
       if (!this.hierarchical) this.toggleChildren(id, checked)
@@ -239,7 +249,7 @@ class TreeManager {
       if (node.checked) {
         tags.push(node)
 
-        if (!this.hierarchical) {
+        if (!this.hierarchical || !this.radioSelect) {
           // Parent node, so no need to walk children
           markSubTreeVisited(node)
         }

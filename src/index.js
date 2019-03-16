@@ -34,12 +34,13 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
-    singleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool
+    hierarchical: PropTypes.bool,
+    id: PropTypes.string
   }
 
   static defaultProps = {
@@ -54,15 +55,13 @@ class DropdownTreeSelect extends Component {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false
     }
+    // This needs id generator from https://github.com/dowjones/react-dropdown-tree-select/pull/220
+    this.clientId = this.props.id
   }
 
-  createList = ({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
-    return this.treeManager.tree
-  }
-
-  initNewProps = ({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical }) => {
-    const tree = this.createList({ data, simpleSelect, singleSelect, showPartiallySelected, hierarchical })
+  initNewProps = ({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) => {
+    this.treeManager = new TreeManager({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical })
+    const { tree } = this.treeManager
     const tags = this.treeManager.getTags()
     this.setState({ tree, tags })
   }
@@ -142,11 +141,13 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked) => {
+    const { simpleSelect, radioSelect } = this.props
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.getTags()
-    const showDropdown = (this.props.simpleSelect || this.props.singleSelect) ? false : this.state.showDropdown
+    const isSingleSelect = simpleSelect || radioSelect
+    const showDropdown = isSingleSelect ? false : this.state.showDropdown
 
-    if (!tags.length) {
+    if (!tags.length && !isSingleSelect) {
       this.treeManager.restoreDefaultValues()
       tags = this.treeManager.getTags()
     }
@@ -158,13 +159,12 @@ class DropdownTreeSelect extends Component {
       showDropdown
     }
 
-    const isSimpleSelect = this.props.simpleSelect || this.props.singleSelect
 
-    if (isSimpleSelect || this.props.clearSearchOnChange) {
+    if (isSingleSelect || this.props.clearSearchOnChange) {
       Object.assign(nextState, this.resetSearchState())
     }
 
-    if (isSimpleSelect) {
+    if (isSingleSelect) {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 
@@ -185,16 +185,16 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
+    const { disabled, readOnly, simpleSelect, radioSelect } = this.props
+    const { showDropdown } = this.state
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
       arrow: true,
-      disabled: this.props.disabled,
-      readOnly: this.props.readOnly,
-      top: this.state.showDropdown,
-      bottom: !this.state.showDropdown
+      disabled,
+      readOnly,
+      top: showDropdown,
+      bottom: !showDropdown
     })
-
-    const isSimpleSelect = this.props.simpleSelect || this.props.singleSelect
 
     return (
       <div
@@ -204,7 +204,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
+          <a className={dropdownTriggerClassname} onClick={!disabled && this.handleClick}>
             <Input
               inputRef={el => {
                 this.searchInput = el
@@ -215,12 +215,12 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
-              disabled={this.props.disabled}
-              readOnly={this.props.readOnly}
+              disabled={disabled}
+              readOnly={readOnly}
             />
           </a>
-          {this.state.showDropdown && (
-            <div className={cx('dropdown-content', { 'simple-select': isSimpleSelect })}>
+          {showDropdown && (
+            <div className={cx('dropdown-content', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (
@@ -232,9 +232,11 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
-                  simpleSelect={isSimpleSelect}
+                  simpleSelect={simpleSelect}
+                  radioSelect={radioSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
-                  readOnly={this.props.readOnly}
+                  readOnly={readOnly}
+                  clientId={this.clientId}
                 />
               )}
             </div>

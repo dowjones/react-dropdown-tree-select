@@ -5,6 +5,8 @@ import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
 
+const dropdownId ='rddts'
+
 const node0 = {
   _id: '0',
   _children: ['0-0', '0-1'],
@@ -54,6 +56,12 @@ test.beforeEach(t => {
 test('renders default state', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('renders default radio select state', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} radioSelect />)
   t.snapshot(toJson(wrapper))
 })
 

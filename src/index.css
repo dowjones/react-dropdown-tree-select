@@ -42,7 +42,7 @@
         }
       }
     }
-
+ 
     .dropdown-content {
       position: absolute;
       padding: 4px;
@@ -51,8 +51,17 @@
       border-top: rgba(0, 0, 0, 0.05) 1px solid;
       box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
 
-      &.simple-select .checked .node-label {
-        font-weight: 600;
+      &.simple-select,
+      &.radio-select {
+        .checked, .partial {
+          .node-label {
+            font-weight: 600;
+          }
+        }
+      }
+
+      &.simple-select .checkbox-item {
+        display: none;
       }
 
       ul {

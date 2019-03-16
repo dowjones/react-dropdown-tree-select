@@ -1,11 +1,6 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Checkbox from '../checkbox'
-
-import styles from './index.css'
-
-const cx = cn.bind(styles)
 
 class NodeLabel extends PureComponent {
   static propTypes = {
@@ -20,9 +15,11 @@ class NodeLabel extends PureComponent {
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
     simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    clientId: PropTypes.string
   }
 
   handleCheckboxChange = e => {
@@ -37,7 +34,8 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { simpleSelect, title, label, id, partial, checked, value, disabled, showPartiallySelected, readOnly } = this.props
+    const { simpleSelect, radioSelect, title, label, id, partial, checked,
+      value, disabled, showPartiallySelected, readOnly, clientId } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label
@@ -51,10 +49,11 @@ class NodeLabel extends PureComponent {
     return (
       <label title={title || label} htmlFor={id}>
         <Checkbox
-          name={id}
+          name={radioSelect ? clientId : id}
+          radio={radioSelect}
           id={id}
           indeterminate={showPartiallySelected && partial}
-          className={cx('checkbox-item', { 'simple-select': simpleSelect })}
+          className="checkbox-item"
           checked={checked}
           onChange={this.handleCheckboxChange}
           value={value}

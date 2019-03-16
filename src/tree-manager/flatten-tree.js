@@ -93,30 +93,35 @@ const tree = [
 ```
  * @param  {[type]} tree              The incoming tree object
  * @param  {[bool]} simple            Whether its in Single select mode (simple dropdown)
+ * @param  {[bool]} radio             Whether its in Radio select mode (radio dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
  * @return {object}                   The flattened list
  */
-function flattenTree(tree, simple, showPartialState, hierarchical) {
+function flattenTree({ tree, simple, radio, showPartialState, hierarchical }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
-  const { list, defaultValues } = walkNodes({
+  const { list, defaultNodes, checkedNodes } = walkNodes({
     nodes: forest,
     simple,
+    radio,
     showPartialState,
     hierarchical
   })
-  return { list, defaultValues }
+  const defaultValues = defaultNodes.map(i => i._id)
+  const checkedValues = checkedNodes.map(i => i._id)
+  return { list, defaultValues, checkedValues }
 }
 
 /**
  * If the node didn't specify anything on its own
  * figure out the initial state based on parent
- * @param {object} node [current node]
- * @param {object} parent [node's immediate parent]
+ * @param {object} node           [current node]
+ * @param {object} parent         [node's immediate parent]
+ * @param {bool}   inheritChecked [if checked should be inherited]
  */
-function setInitialStateProps(node, parent = {}) {
-  const stateProps = ['checked', 'disabled']
+function setInitialStateProps(node, parent = {}, inheritChecked = true) {
+  const stateProps = inheritChecked ? ['checked', 'disabled'] : ['disabled']
   for (let index = 0; index < stateProps.length; index++) {
     const prop = stateProps[index]
 
@@ -127,7 +132,8 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [], hierarchical }) {
+function walkNodes({
+  nodes, list = new Map(), parent, depth = 0, simple, radio, showPartialState, defaultNodes = [], checkedNodes = [], hierarchical }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -139,12 +145,17 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       node._id = node.id || `${i}`
     }
 
+    if (node.checked) {
+      checkedNodes.push(node)
+    }
+
     if (node.isDefaultValue) {
-      defaultValues.push(node._id)
+      defaultNodes.push(node)
+      checkedNodes.push(node)
       node.checked = true
     }
 
-    if (!hierarchical) setInitialStateProps(node, parent)
+    if (!hierarchical || radio) setInitialStateProps(node, parent, !radio)
 
     list.set(node._id, node)
     if (!simple && node.children) {
@@ -154,8 +165,10 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         list,
         parent: node,
         depth: depth + 1,
+        radio,
         showPartialState,
-        defaultValues,
+        defaultNodes,
+        checkedNodes,
         hierarchical
       })
 
@@ -165,13 +178,34 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         // re-check if all children are checked. if so, check thyself
         if (!isEmpty(node.children) && node.children.every(c => c.checked)) {
           node.checked = true
+          checkedNodes.push(node._id)
         }
       }
 
       node.children = undefined
     }
   })
-  return { list, defaultValues }
+
+  if (depth === 0 && checkedNodes.length > 1 && (simple || radio)) {
+    /* get first checked node only in single select dropdown,
+      if data has .checked = true that has precedence */
+    let first
+    if (defaultNodes.length === checkedNodes.length) {
+      [first] = checkedNodes
+    } else {
+      [first] = checkedNodes.filter(n => defaultNodes.indexOf(n) < 0)
+        .sort((a, b) => a._id.localeCompare(b._id))
+    }
+    // uncheck all else and only select first default value provided
+    checkedNodes.filter(n => n !== first).forEach(n => { n.checked = false })
+    checkedNodes = [first]
+    if (defaultNodes.length) {
+      const [firstDefault] = defaultNodes
+      defaultNodes = [firstDefault]
+    }
+  }
+
+  return { list, defaultNodes, checkedNodes }
 }
 
 export default flattenTree

@@ -291,11 +291,15 @@ Type: `bool` (default: `false`)
 
 Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
 
+*NOTE* if multiple nodes in data are `checked` or `isDefaultValue` only the first visited node is selected
+
 ### radioSelect
 
 Type: `bool` (default: `false`)
 
 Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+
+*NOTE* if multiple nodes in data are `checked` or `isDefaultValue` only the first visited node is selected
 
 ### showPartiallySelected
 

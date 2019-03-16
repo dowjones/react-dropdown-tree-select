@@ -62,7 +62,7 @@ class WithOptions extends PureComponent {
         </div>
         <div>
           <DropdownTreeSelect
-            //id="rddts"
+            id="rddts"
             data={data}
             onChange={this.onChange}
             onAction={this.onAction}

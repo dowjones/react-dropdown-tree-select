@@ -42,7 +42,7 @@
         }
       }
     }
- 
+
     .dropdown-content {
       position: absolute;
       padding: 4px;
@@ -55,7 +55,7 @@
       &.radio-select {
         .checked .node-label,
         .partial .node-label {
-            font-weight: 600;
+          font-weight: 600;
         }
       }
 

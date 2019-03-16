@@ -249,7 +249,7 @@ class TreeManager {
       if (node.checked) {
         tags.push(node)
 
-        if (!this.hierarchical || !this.radioSelect) {
+        if (!this.hierarchical || this.radioSelect) {
           // Parent node, so no need to walk children
           markSubTreeVisited(node)
         }

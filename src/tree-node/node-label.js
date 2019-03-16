@@ -34,7 +34,8 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { simpleSelect, radioSelect, title, label, id, partial, checked,
+    const {
+      simpleSelect, radioSelect, title, label, id, partial, checked,
       value, disabled, showPartiallySelected, readOnly, clientId } = this.props
     const nodeLabelProps = { className: 'node-label' }
 

@@ -133,7 +133,7 @@ function setInitialStateProps(node, parent = {}, inheritChecked = true) {
 }
 
 function walkNodes({
-  nodes, list = new Map(), parent, depth = 0, simple, radio, showPartialState, defaultNodes = [], checkedNodes = [], hierarchical }) {
+  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, returnValues = { list: new Map(), defaultNodes: [], checkedNodes: [] } }) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -146,30 +146,28 @@ function walkNodes({
     }
 
     if (node.checked) {
-      checkedNodes.push(node)
+      returnValues.checkedNodes.push(node)
     }
 
     if (node.isDefaultValue) {
-      defaultNodes.push(node)
-      checkedNodes.push(node)
+      returnValues.defaultNodes.push(node)
+      returnValues.checkedNodes.push(node)
       node.checked = true
     }
 
     if (!hierarchical || radio) setInitialStateProps(node, parent, !radio)
 
-    list.set(node._id, node)
+    returnValues.list.set(node._id, node)
     if (!simple && node.children) {
       node._children = []
       walkNodes({
         nodes: node.children,
-        list,
         parent: node,
         depth: depth + 1,
         radio,
         showPartialState,
-        defaultNodes,
-        checkedNodes,
-        hierarchical
+        hierarchical,
+        returnValues
       })
 
       if (showPartialState && !node.checked) {
@@ -178,7 +176,7 @@ function walkNodes({
         // re-check if all children are checked. if so, check thyself
         if (!isEmpty(node.children) && node.children.every(c => c.checked)) {
           node.checked = true
-          checkedNodes.push(node._id)
+          returnValues.checkedNodes.push(node._id)
         }
       }
 
@@ -186,26 +184,28 @@ function walkNodes({
     }
   })
 
-  if (depth === 0 && checkedNodes.length > 1 && (simple || radio)) {
+  if (depth === 0 && returnValues.checkedNodes.length > 1 && (simple || radio)) {
+    const chkNodes = returnValues.checkedNodes
+    const defNodes = returnValues.defaultNodes
     /* get first checked node only in single select dropdown,
       if data has .checked = true that has precedence */
     let first
-    if (defaultNodes.length === checkedNodes.length) {
-      [first] = checkedNodes
+    if (defNodes.length === chkNodes.length) {
+      [first] = chkNodes
     } else {
-      [first] = checkedNodes.filter(n => defaultNodes.indexOf(n) < 0)
+      [first] = chkNodes.filter(n => defNodes.indexOf(n) < 0)
         .sort((a, b) => a._id.localeCompare(b._id))
     }
     // uncheck all else and only select first default value provided
-    checkedNodes.filter(n => n !== first).forEach(n => { n.checked = false })
-    checkedNodes = [first]
-    if (defaultNodes.length) {
-      const [firstDefault] = defaultNodes
-      defaultNodes = [firstDefault]
+    chkNodes.filter(n => n !== first).forEach(n => { n.checked = false })
+    returnValues.checkedNodes = [first]
+    if (defNodes.length) {
+      const [firstDefault] = defNodes
+      returnValues.defaultNodes = [firstDefault]
     }
   }
 
-  return { list, defaultNodes, checkedNodes }
+  return returnValues
 }
 
 export default flattenTree

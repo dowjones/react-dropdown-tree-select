@@ -53,7 +53,8 @@
 
       &.simple-select,
       &.radio-select {
-        .checked, .partial {
+        .checked,
+        .partial {
           .node-label {
             font-weight: 600;
           }

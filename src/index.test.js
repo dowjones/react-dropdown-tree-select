@@ -4,9 +4,9 @@ import { shallow, mount } from 'enzyme'
 import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
-import { rddtsUID } from './utils'
+import { rdtsUID } from './utils'
 
-const dropdownId ='rddts'
+const dropdownId ='rdts'
 
 const node0 = {
   _id: `${dropdownId}-0`,
@@ -134,12 +134,12 @@ test('toggles dropdown', t => {
 
 test('sets unique ids on dropdowns', t => {
   const { tree } = t.context
-  rddtsUID.reset()
+  rdtsUID.reset()
   const wrapper1 = mount(<DropdownTreeSelect data={tree} />)
   const wrapper2 = mount(<DropdownTreeSelect data={tree} />)
 
-  t.regex(wrapper1.getDOMNode().id, /^rddts-\d+$/)
-  t.regex(wrapper2.getDOMNode().id, /^rddts-\d+$/)
+  t.regex(wrapper1.getDOMNode().id, /^rdts\d+$/)
+  t.regex(wrapper2.getDOMNode().id, /^rdts\d+$/)
   t.notDeepEqual(wrapper1.getDOMNode().id, wrapper2.getDOMNode().id)
 })
 

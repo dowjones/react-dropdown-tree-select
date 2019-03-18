@@ -5,7 +5,7 @@ import { spy } from 'sinon'
 import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
 
-const dropdownId ='rddts'
+const dropdownId = 'rdts'
 
 const node0 = {
   _id: '0',

@@ -14,25 +14,15 @@ class Checkbox extends PureComponent {
     indeterminate: PropTypes.bool,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    radio: PropTypes.bool
-  }
-
-  // this (stopPropagation) is needed since FireFox wrongly detects inside clicks
-  // See https://github.com/dowjones/react-dropdown-tree-select/pull/154
-  // and https://github.com/dowjones/react-dropdown-tree-select/issues/148
-  handleChange = e => {
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
-    this.props.onChange(e)
+    readOnly: PropTypes.bool
   }
 
   render() {
-    const { checked, indeterminate = false, onChange, disabled, readOnly, radio, ...rest } = this.props
+    const { checked, indeterminate = false, onChange, disabled, readOnly, ...rest } = this.props
 
     const isDisabled = disabled || readOnly
 
-    return <input type={radio ? 'radio' : 'checkbox'} ref={refUpdater({ checked, indeterminate })} onChange={this.handleChange} disabled={isDisabled} {...rest} />
+    return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={onChange} disabled={isDisabled} {...rest} />
   }
 }
 

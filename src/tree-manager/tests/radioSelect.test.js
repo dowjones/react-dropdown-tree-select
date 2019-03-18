@@ -7,7 +7,7 @@ import DropdownTreeSelect from '../../'
 test('should render radio inputs with shared name', t => {
   const tree = ['A', 'B', 'C'].map(nv => ({ id: nv, label: nv, value: nv }))
 
-  const dropdownId = 'rddts'
+  const dropdownId = 'rdts'
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} radioSelect showDropdown />)
 
   const inputs = wrapper.find('.dropdown-content').find(`input[type="radio"][name="${dropdownId}"]`)

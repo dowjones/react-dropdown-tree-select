@@ -237,6 +237,15 @@ class TreeManager {
 
   getTags() {
     const tags = []
+
+    if (this.radioSelect || this.simpleSelect) {
+      if (this.currentChecked) {
+        const node = this.getNodeById(this.currentChecked)
+        tags.push(node)
+      }
+      return tags
+    }
+
     const visited = {}
     const markSubTreeVisited = node => {
       visited[node._id] = true
@@ -249,7 +258,7 @@ class TreeManager {
       if (node.checked) {
         tags.push(node)
 
-        if (!this.hierarchical || this.radioSelect) {
+        if (!this.hierarchical) {
           // Parent node, so no need to walk children
           markSubTreeVisited(node)
         }
@@ -258,6 +267,10 @@ class TreeManager {
       }
     })
     return tags
+  }
+
+  getTreeAndTags() {
+    return { tree: this.tree, tags: this.getTags() }
   }
 }
 

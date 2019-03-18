@@ -61,9 +61,7 @@ class DropdownTreeSelect extends Component {
 
   initNewProps = ({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) => {
     this.treeManager = new TreeManager({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical })
-    const { tree } = this.treeManager
-    const tags = this.treeManager.getTags()
-    this.setState({ tree, tags })
+    this.setState(this.treeManager.getTreeAndTags())
   }
 
   resetSearchState = () => {

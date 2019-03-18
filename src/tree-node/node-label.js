@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Checkbox from '../checkbox'
+import RadioButton from '../radio'
 
 class NodeLabel extends PureComponent {
   static propTypes = {
@@ -46,20 +47,24 @@ class NodeLabel extends PureComponent {
       nodeLabelProps.onClick = this.handleCheckboxChange
     }
 
+    const sharedProps = { id, value, checked, disabled, readOnly }
+
     return (
       <label title={title || label} htmlFor={id}>
-        <Checkbox
-          name={radioSelect ? clientId : id}
-          radio={radioSelect}
-          id={id}
-          indeterminate={showPartiallySelected && partial}
-          className="checkbox-item"
-          checked={checked}
-          onChange={this.handleCheckboxChange}
-          value={value}
-          disabled={disabled}
-          readOnly={readOnly}
-        />
+        {radioSelect ?
+          <RadioButton
+            name={clientId}
+            className="radio-item"
+            onChange={this.handleCheckboxChange}
+            {...sharedProps}
+          /> :
+          <Checkbox
+            name={id}
+            indeterminate={showPartiallySelected && partial}
+            className="checkbox-item"
+            onChange={this.handleCheckboxChange}
+            {...sharedProps}
+          />}
         <span {...nodeLabelProps}>{label}</span>
       </label>
     )

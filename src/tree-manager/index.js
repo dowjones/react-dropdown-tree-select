@@ -236,17 +236,11 @@ class TreeManager {
   }
 
   getTags() {
+    if (this.radioSelect || this.simpleSelect) {
+      return this._getTagsForSingleSelect()
+    }
+
     const tags = []
-
-    const single = this.radioSelect || this.simpleSelect
-    if (single && this.currentChecked) {
-      const node = this.getNodeById(this.currentChecked)
-      tags.push(node)
-    }
-    if (single) {
-      return tags
-    }
-
     const visited = {}
     const markSubTreeVisited = node => {
       visited[node._id] = true
@@ -271,6 +265,14 @@ class TreeManager {
 
   getTreeAndTags() {
     return { tree: this.tree, tags: this.getTags() }
+  }
+
+  _getTagsForSingleSelect() {
+    const single = this.radioSelect || this.simpleSelect
+    if (this.radioSelect || this.simpleSelect && this.currentChecked) {
+      return [ this.getNodeById(this.currentChecked) ]
+    }
+    return []
   }
 }
 

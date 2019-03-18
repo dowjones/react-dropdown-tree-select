@@ -257,13 +257,12 @@ class TreeManager {
 
       if (node.checked) {
         tags.push(node)
-
-        if (!this.hierarchical) {
-          // Parent node, so no need to walk children
-          markSubTreeVisited(node)
-        }
       } else {
         visited[key] = true
+      }
+      if (node.checked && !this.hierarchical) {
+        // Parent node, so no need to walk children
+        markSubTreeVisited(node)
       }
     })
     return tags

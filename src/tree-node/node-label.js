@@ -52,19 +52,8 @@ class NodeLabel extends PureComponent {
     return (
       <label title={title || label} htmlFor={id}>
         {radioSelect ?
-          <RadioButton
-            name={clientId}
-            className="radio-item"
-            onChange={this.handleCheckboxChange}
-            {...sharedProps}
-          /> :
-          <Checkbox
-            name={id}
-            indeterminate={showPartiallySelected && partial}
-            className="checkbox-item"
-            onChange={this.handleCheckboxChange}
-            {...sharedProps}
-          />}
+          <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} /> :
+          <Checkbox name={id} className="checkbox-item" indeterminate={showPartiallySelected && partial} onChange={this.handleCheckboxChange} {...sharedProps} />}
         <span {...nodeLabelProps}>{label}</span>
       </label>
     )

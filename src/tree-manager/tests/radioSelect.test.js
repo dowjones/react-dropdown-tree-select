@@ -56,6 +56,6 @@ test('should select single first default node if no checked', t => {
   const manager = new TreeManager({ data: tree, radioSelect: true })
 
   t.true(manager.getNodeById('nodeA').checked)
-  t.false(manager.getNodeById('nodeB').checked)
-  t.false(manager.getNodeById('nodeC').checked)
+  t.falsy(manager.getNodeById('nodeB').checked)
+  t.falsy(manager.getNodeById('nodeC').checked)
 })

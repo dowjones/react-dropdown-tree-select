@@ -65,7 +65,22 @@ class TreeManager {
     }
   }
 
-  filterTree(searchTerm, keepTreeOnSearch) {
+  addChildrenToTree(ids, tree, matches) {
+    if (ids !== undefined) {
+      ids.forEach(id => {
+        if (matches && matches.includes(id)) {
+          // if a child is found by search anyways, don't display it as a child here
+          return
+        }
+        const node = this.getNodeById(id)
+        node.matchInParent = true
+        tree.set(id, node)
+        this.addChildrenToTree(node._children, tree)
+      })
+    }
+  }
+
+  filterTree(searchTerm, keepTreeOnSearch, keepChildrenOnSearch) {
     const matches = this.getMatches(searchTerm.toLowerCase())
 
     const matchTree = new Map()
@@ -82,6 +97,10 @@ class TreeManager {
         this.addParentsToTree(node._parent, matchTree)
       }
       matchTree.set(m, node)
+      if (keepTreeOnSearch && keepChildrenOnSearch) {
+        // add children nodes after a found match
+        this.addChildrenToTree(node._children, matchTree, matches)
+      }
     })
 
     const allNodesHidden = matches.length === 0

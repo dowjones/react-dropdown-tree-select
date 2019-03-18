@@ -41,7 +41,8 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
-    noItemsPlaceholder: PropTypes.any
+    noItemsPlaceholder: PropTypes.any,
+    keepChildrenOnSearch: PropTypes.bool
   }
 
   static defaultProps = {
@@ -121,7 +122,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
     const searchModeOn = value.length > 0
 
     this.setState({
@@ -239,6 +240,7 @@ class DropdownTreeSelect extends Component {
                   iconRenderer={this.props.iconRenderer}
                   readOnly={this.props.readOnly}
                   noItemsPlaceholder={this.props.noItemsPlaceholder}
+                  keepChildrenOnSearch={this.props.keepChildrenOnSearch}
                 />
               )}
             </div>

@@ -268,9 +268,8 @@ class TreeManager {
   }
 
   _getTagsForSingleSelect() {
-    const single = this.radioSelect || this.simpleSelect
-    if (this.radioSelect || this.simpleSelect && this.currentChecked) {
-      return [ this.getNodeById(this.currentChecked) ]
+    if (this.currentChecked) {
+      return [this.getNodeById(this.currentChecked)]
     }
     return []
   }

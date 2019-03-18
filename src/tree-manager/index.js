@@ -238,11 +238,12 @@ class TreeManager {
   getTags() {
     const tags = []
 
-    if (this.radioSelect || this.simpleSelect) {
-      if (this.currentChecked) {
-        const node = this.getNodeById(this.currentChecked)
-        tags.push(node)
-      }
+    const single = this.radioSelect || this.simpleSelect
+    if (single && this.currentChecked) {
+      const node = this.getNodeById(this.currentChecked)
+      tags.push(node)
+    }
+    if (single) {
       return tags
     }
 

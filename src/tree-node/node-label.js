@@ -24,14 +24,16 @@ class NodeLabel extends PureComponent {
   }
 
   handleCheckboxChange = e => {
-    const { simpleSelect, id, onCheckboxChange } = this.props
+    const { simpleSelect, radioSelect, id, onCheckboxChange } = this.props
 
-    if (simpleSelect) {
+    if (simpleSelect || radioSelect) {
       onCheckboxChange(id, true)
     } else {
       const { target: { checked } } = e
       onCheckboxChange(id, checked)
     }
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
   }
 
   render() {

@@ -136,14 +136,14 @@ class TreeManager {
     return this.tree
   }
 
-  togglePreviousChecked(id) {
+  togglePreviousChecked(id, checked) {
     const prevChecked = this.currentChecked
 
     // if id is same as previously selected node, then do nothing (since it's state is already set correctly by setNodeCheckedState)
     // but if they ar not same, then toggle the previous one
     if (prevChecked && prevChecked !== id) this.getNodeById(prevChecked).checked = false
 
-    this.currentChecked = id
+    this.currentChecked = checked ? id : null
   }
 
   setNodeCheckedState(id, checked) {
@@ -156,9 +156,9 @@ class TreeManager {
     }
 
     if (this.simpleSelect) {
-      this.togglePreviousChecked(id)
+      this.togglePreviousChecked(id, checked)
     } else if (this.radioSelect) {
-      this.togglePreviousChecked(id)
+      this.togglePreviousChecked(id, checked)
       if (this.showPartialState) {
         this.partialCheckParents(node)
       }

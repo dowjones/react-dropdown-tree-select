@@ -145,7 +145,7 @@ class DropdownTreeSelect extends Component {
     const isSingleSelect = simpleSelect || radioSelect
     const showDropdown = isSingleSelect ? false : this.state.showDropdown
 
-    if (!tags.length && !isSingleSelect) {
+    if (!tags.length) {
       this.treeManager.restoreDefaultValues()
       tags = this.treeManager.getTags()
     }

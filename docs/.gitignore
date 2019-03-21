@@ -1,0 +1,16 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+
+# build outputs
+dist
+*.tgz
+
+# ignore files not needed for gh-pages
+docs/webpack.config.js
+docs/.eslintrc.json
+docs/demo.gif

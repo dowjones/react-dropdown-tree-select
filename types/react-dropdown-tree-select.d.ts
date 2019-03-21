@@ -1,7 +1,7 @@
 declare module 'react-dropdown-tree-select' {
     import * as React from 'react';
     
-    export type TreeData = Object | TreeNode[];
+    export type TreeData = Object | TreeNodeProps[];
     
     export interface DropdownTreeSelectProps {
         data: TreeData;
@@ -25,7 +25,7 @@ declare module 'react-dropdown-tree-select' {
          * 
          * Calls the handler with the current node object and all selected nodes (if any) */
         onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void;
-        /**  Fired on click of the action. The event handler receives `action` value as well as the `node` object */
+        /**  Fired on click of the action */
         onAction?: (event: ActionEvent) => void;
         /** Fires when a node is expanded or collapsed.
          * Calls the handler with the current node object */
@@ -39,6 +39,7 @@ declare module 'react-dropdown-tree-select' {
         /** Turns the dropdown into a simple, single select dropdown.
          * If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to false */
         simpleSelect?: boolean;
+        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
         noMatchesText?: string;
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
          * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
@@ -59,15 +60,18 @@ declare module 'react-dropdown-tree-select' {
         tags: TreeNode[];
     }
 
-    export default class DropdownTreeSelect extends React.Component<DropdownTreeSelectProps, DropdownTreeSelectState> { }
+    export default class DropdownTreeSelect extends React.Component<DropdownTreeSelectProps, DropdownTreeSelectState> {
+        node: HTMLDivElement;
+        searchInput: HTMLInputElement;
+        keepDropdownActive: boolean;
+        handleClick(): void;
+    }
 
     export interface TreeNode {
         /** Checkbox label */
         label: string;
         /** Checkbox value */
         value: string;
-        /** Array of child objects */
-        children?: Node[];
         /** Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered. */
         checked?: boolean;
         /** Selectable state of checkbox. if true, the checkbox is disabled and the node is not selectable. */
@@ -87,6 +91,11 @@ declare module 'react-dropdown-tree-select' {
         isDefaultValue?: boolean;
         /** Any extra properties that you'd like to receive during `onChange` event */
         [property: string]: any;
+    }
+
+    export interface TreeNodeProps extends TreeNode {
+        /** Array of child objects */
+        children?: Node[];
     }
 
     export interface NodeAction {

@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 module.exports = {
@@ -34,7 +35,10 @@ module.exports = {
       analyzerMode: 'static',
       openAnalyzer: false,
       generateStatsFile: true
-    })
+    }),
+    new CopyPlugin([
+      { from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }
+    ])
   ],
   module: {
     rules: [

@@ -19,6 +19,7 @@
     "search"
   ],
   "main": "dist/react-dropdown-tree-select.js",
+  "types": "dist/react-dropdown-tree-select.d.ts",
   "repository": "https://github.com/dowjones/react-dropdown-tree-select.git",
   "author": "Hrusikesh Panda <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
@@ -64,6 +65,7 @@
     "babel-preset-stage-0": "6.24.1",
     "commitizen": "^2.9.6",
     "conventional-changelog-cli": "^2.0.5",
+    "copy-webpack-plugin": "^5.0.1",
     "coveralls": "^3.0.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",

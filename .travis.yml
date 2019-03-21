@@ -39,5 +39,7 @@ jobs:
         github-token: $GH_PAGES_TOKEN  # Set in the settings page of the repository, as a secure variable
         keep-history: true
         local-dir: docs
+        script:
+          - yarn build:docs
         on:
           branch: develop

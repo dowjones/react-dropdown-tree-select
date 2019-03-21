@@ -13,4 +13,3 @@ dist
 # ignore files not needed for gh-pages
 docs/webpack.config.js
 docs/.eslintrc.json
-docs/demo.gif

@@ -13,4 +13,6 @@ dist
 # ignore files not needed for gh-pages
 webpack.config.js
 .eslintrc.json
+index.js
+HOC.md
 src

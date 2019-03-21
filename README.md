@@ -263,7 +263,6 @@ The `action` object requires the following structure:
 ```js
 {
   className, // required: CSS class for the node. e.g. `fa fa-info`
-  onAction,  // required: Fired on click of the action. The event handler receives `action` object as well as the `node` object.
   title,     // optional: HTML tooltip text
   text,      // optional: Any text to be displayed. This is helpful to pass ligatures if you're using ligature fonts
   ...        // optional: Any extra properties that you'd like to receive during `onChange` event

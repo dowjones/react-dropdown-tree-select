@@ -39,6 +39,8 @@ jspm_packages
 # build outputs
 demo/bundle.js
 demo/bundle.css
+docs/bundle.js
+docs/bundle.css
 dist
 *.tgz
 

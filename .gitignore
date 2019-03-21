@@ -37,8 +37,7 @@ jspm_packages
 .node_repl_history
 
 # build outputs
-demo/bundle.js
-demo/bundle.css
+docs/bundle.js
 dist
 *.tgz
 

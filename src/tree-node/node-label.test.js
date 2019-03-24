@@ -27,7 +27,7 @@ test('renders node label', t => {
     ]
   }
 
-  const wrapper = shallow(<NodeLabel {...node} />)
+  const wrapper = shallow(<NodeLabel clientId="snapshot" {...node} />)
 
   t.snapshot(toJson(wrapper))
 })
@@ -51,7 +51,7 @@ test('disable checkbox if the node has disabled status', t => {
     disabled: true
   }
 
-  const wrapper = shallow(<NodeLabel {...node} searchModeOn />)
+  const wrapper = shallow(<NodeLabel clientId="snapshot" {...node} searchModeOn />)
 
   t.snapshot(toJson(wrapper))
 })

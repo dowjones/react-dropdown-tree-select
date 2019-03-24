@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick, rdtsUID } from './utils'
+import { isOutsideClick, clientIdGenerator } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -54,7 +54,7 @@ class DropdownTreeSelect extends Component {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false
     }
-    this.clientId = props.id || rdtsUID.get(this)
+    this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
@@ -232,6 +232,7 @@ class DropdownTreeSelect extends Component {
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={this.props.readOnly}
+                  clientId={this.clientId}
                 />
               )}
             </div>

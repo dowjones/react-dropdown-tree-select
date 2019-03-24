@@ -138,10 +138,7 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
       node._parent = parent._id
       parent._children.push(node._id)
     } else {
-      node._id = node.id || `${i}`
-    }
-    if (depth === 0 && rootPrefixId && rootPrefixId.length > 0) {
-      node._id = `${rootPrefixId}-${node._id}`
+      node._id = node.id || `${rootPrefixId ? `${rootPrefixId}-${i}` : i}`
     }
 
     if (node.isDefaultValue) {

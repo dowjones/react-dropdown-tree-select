@@ -1,4 +1,4 @@
-export const generateUID = (prefix, separator) => {
+const generateUID = prefix => {
   let counter = 1
 
   let map = new WeakMap()
@@ -6,9 +6,8 @@ export const generateUID = (prefix, separator) => {
   const get = item => {
     if (!map.has(item)) {
       map.set(item, counter++)
-      return get(item)
     }
-    return `${prefix || 'uid'}${separator}${map.get(item)}`
+    return `${prefix}${map.get(item)}`
   }
 
   const reset = () => {
@@ -19,4 +18,4 @@ export const generateUID = (prefix, separator) => {
   return { get, reset }
 }
 
-export const rdtsUID= generateUID('rdts', '')
+export const clientIdGenerator = generateUID('rdts')

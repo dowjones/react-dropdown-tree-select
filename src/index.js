@@ -201,7 +201,7 @@ class DropdownTreeSelect extends Component {
           this.node = node
         }}
       >
-        <div className="dropdown">
+        <div className={cx('dropdown', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
           <a className={dropdownTriggerClassname} onClick={!disabled && this.handleClick}>
             <Input
               inputRef={el => {
@@ -218,7 +218,7 @@ class DropdownTreeSelect extends Component {
             />
           </a>
           {showDropdown && (
-            <div className={cx('dropdown-content', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
+            <div className="dropdown-content">
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (

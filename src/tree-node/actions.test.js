@@ -15,7 +15,7 @@ test('renders actions', t => {
     }
   ]
 
-  const wrapper = toJson(shallow(<Actions actions={actions} />))
+  const wrapper = toJson(shallow(<Actions actions={actions} id="snapshot" />))
 
   t.snapshot(wrapper)
 })

@@ -17,7 +17,8 @@ class WithOptions extends PureComponent {
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
-      hierarchical: false
+      hierarchical: false,
+      enableKeyboardNavigation: true
     }
   }
 
@@ -36,7 +37,7 @@ class WithOptions extends PureComponent {
   }
 
   render() {
-    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected, disabled, readOnly, hierarchical } = this.state
+    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected, disabled, readOnly, hierarchical, enableKeyboardNavigation } = this.state
 
     return (
       <div>
@@ -57,6 +58,7 @@ class WithOptions extends PureComponent {
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
           <Checkbox label="Hierarchical" value="hierarchical" checked={hierarchical} onChange={this.onOptionsChange} />
+          <Checkbox label="Enable keyboard navigation" value="enableKeyboardNavigation" checked={enableKeyboardNavigation} onChange={this.onOptionsChange} />
         </div>
         <div>
           <DropdownTreeSelect
@@ -71,6 +73,7 @@ class WithOptions extends PureComponent {
             disabled={disabled}
             readOnly={readOnly}
             hierarchical={hierarchical}
+            enableKeyboardNavigation={enableKeyboardNavigation}
           />
         </div>
       </div>

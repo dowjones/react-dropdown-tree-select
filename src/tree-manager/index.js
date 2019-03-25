@@ -3,6 +3,16 @@ import getPartialState from './getPartialState'
 import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
+export const focusEvents = {
+  Up: 'up',
+  Down: 'down',
+  Left: 'left',
+  Right: 'right',
+  Toggle: 'toggle',
+  First: 'first',
+  Last: 'last'
+}
+
 class TreeManager {
   constructor({ data, simpleSelect, showPartiallySelected, hierarchical }) {
     this._src = data
@@ -238,6 +248,74 @@ class TreeManager {
       }
     })
     return tags
+  }
+
+  handleFocus(focusEvent) {
+    const prevFocusId = this.currentFocus
+    const prevFocus = prevFocusId && this.getNodeById(prevFocusId)
+    let newFocus = null
+
+    const tree = (this.matchTree && this.matchTree.size ? this.matchTree : this.tree) || []
+
+    console.log(`${focusEvent} ${prevFocusId} ${tree.size}`)
+debugger;
+
+    switch (focusEvent) {
+      case focusEvents.Up:
+        if (!prevFocus) {
+          newFocus = tree.size && tree[tree.size - 1]
+        } else {
+          newFocus = tree.size && tree[-1]
+        }
+        break
+      case focusEvents.Down:
+        if (!prevFocus) {
+          newFocus = tree.size && tree[0]
+        } else {
+          newFocus = tree.size && tree[1]
+        }
+        break
+      case focusEvents.Left:
+        if (!prevFocus) break
+        if (prevFocus.expanded) {
+          this.toggleNodeExpandState(prevFocus._id)
+        } else if (prevFocus._parent) {
+          newFocus = prevFocus._parent
+        }
+        break
+      case focusEvents.Right:
+        if (!prevFocus || !prevFocus._children || prevFocus._children.length) break
+        if (!prevFocus.expanded) {
+          this.toggleNodeExpandState(prevFocus._id)
+        } else if (prevFocus._parent) {
+          [newFocus] = prevFocus._children
+        }
+        break
+      case focusEvents.Toggle:
+        if (prevFocus) {
+          this.setNodeCheckedState(prevFocus._id, prevFocus.checked !== true)
+        }
+        break
+      case focusEvents.First:
+        newFocus = tree.size && tree[0]
+        break
+      case focusEvents.Last:
+        newFocus = tree.size && tree[tree.size - 1]
+        break
+      default:
+        return
+    }
+
+    if (newFocus) {
+      newFocus._focused = true
+      this.currentFocus = newFocus._id
+    }
+
+    if (prevFocusId && prevFocusId !== this.currentFocus) {
+      this.getNodeById(prevFocusId)._focused = false
+    }
+
+    console.log(`${focusEvent} ${this.currentFocus}`)
   }
 }
 

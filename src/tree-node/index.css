@@ -21,6 +21,10 @@
       }
     }
   }
+
+  &.focused > * {
+    color: blue;
+  }
 }
 
 .toggle {

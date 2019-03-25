@@ -25,6 +25,7 @@ class Input extends PureComponent {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onTagRemove: PropTypes.func,
+    onKeyDown: PropTypes.func,
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool
@@ -41,7 +42,7 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly } = this.props
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown } = this.props
 
     return (
       <ul className={cx('tag-list')}>
@@ -53,6 +54,7 @@ class Input extends PureComponent {
             ref={inputRef}
             className={cx('search')}
             placeholder={placeholderText}
+            onKeyDown={onKeyDown}
             onChange={this.handleInputChange}
             onFocus={onFocus}
             onBlur={onBlur}

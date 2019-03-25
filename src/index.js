@@ -13,7 +13,7 @@ import React, { Component } from 'react'
 import { isOutsideClick } from './utils'
 import Input from './input'
 import Tree from './tree'
-import TreeManager from './tree-manager'
+import TreeManager, { focusEvents } from './tree-manager'
 
 import styles from './index.css'
 
@@ -38,7 +38,8 @@ class DropdownTreeSelect extends Component {
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool
+    hierarchical: PropTypes.bool,
+    enableKeyboardNavigation: PropTypes.bool
   }
 
   static defaultProps = {
@@ -88,7 +89,7 @@ class DropdownTreeSelect extends Component {
     this.setState({ tree, tags })
   }
 
-  handleClick = () => {
+  handleClick = (e, callback) => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
@@ -106,7 +107,7 @@ class DropdownTreeSelect extends Component {
       else this.props.onBlur()
 
       return !showDropdown ? { showDropdown, ...this.resetSearchState() } : { showDropdown }
-    })
+    }, callback)
   }
 
   handleOutsideClick = e => {
@@ -180,6 +181,42 @@ class DropdownTreeSelect extends Component {
     this.keepDropdownActive = false
   }
 
+  onInputKeyDown = e => {
+    const { showDropdown } = this.state
+    const tm = this.treeManager
+    const validOpenTriggers = ['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown']
+    if (!showDropdown && validOpenTriggers.indexOf(e.key) > -1) {
+      e.persist()
+      this.handleClick(() => this.onInputKeyDown(e))
+    } else if (showDropdown) {
+      switch (e.key) {
+        case 'ArrowUp': tm.handleFocus(focusEvents.Up); break
+        case 'ArrowDown': tm.handleFocus(focusEvents.Down); break
+        case 'ArrowLeft': tm.handleFocus(focusEvents.Left); break
+        case 'ArrowRight': tm.handleFocus(focusEvents.Right); break
+        case 'Enter': tm.handleFocus(focusEvents.Toggle); break
+        case 'Home':
+        case 'PageUp':
+          tm.handleFocus(focusEvents.First)
+          break
+        case 'End':
+        case 'PageDown':
+          tm.handleFocus(focusEvents.Last)
+          break
+        case 'Escape':
+          if (showDropdown) {
+            this.keepDropdownActive = false
+            this.handleClick()
+          }
+          break
+        default:
+          return
+      }
+    }
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
+  }
+
   render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
@@ -209,6 +246,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
+              onKeyDown={this.props.enableKeyboardNavigation && this.onInputKeyDown}
               disabled={this.props.disabled}
               readOnly={this.props.readOnly}
             />

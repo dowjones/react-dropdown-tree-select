@@ -148,11 +148,6 @@ function walkNodes({
     }
 
     if (node.checked) {
-      if (single && _rv.defaultNodes.length === 1 && _rv.checkedNodes.length === 1
-        && _rv.defaultNodes[0].id === _rv.checkedNodes[0].id) {
-        // Removes checked node from default value
-        _rv.checkedNodes.pop().checked = false
-      }
       if (single && _rv.checkedNodes.length > 0) {
         node.checked = false
       } else {
@@ -162,6 +157,10 @@ function walkNodes({
 
     if (node.isDefaultValue && (!single || _rv.defaultNodes.length === 0)) {
       _rv.defaultNodes.push(node)
+      if (single && _rv.checkedNodes.length > 0) {
+        // Default value has precedence, uncheck previous value
+        _rv.checkedNodes.pop().checked = false
+      }
       if (!single || _rv.checkedNodes.length === 0) {
         _rv.checkedNodes.push(node)
         node.checked = true

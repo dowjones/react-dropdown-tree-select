@@ -14,7 +14,6 @@ test('should render radio inputs with shared name', t => {
   t.deepEqual(inputs.length, 3)
 })
 
-
 test('should deselect previous node', t => {
   const tree = [{ id: 'nodeA' }, { id: 'nodeB' }, { id: 'nodeC' }]
 
@@ -40,17 +39,7 @@ test('should only select single first checked node on init', t => {
   t.false(manager.getNodeById('nodeC').checked)
 })
 
-test('should select single first checked node and ignore any defaultValues', t => {
-  const tree = [{ id: 'nodeA', isDefaultValue: true }, { id: 'nodeB', checked: true }, { id: 'nodeC', checked: true }]
-
-  const manager = new TreeManager({ data: tree, radioSelect: true })
-
-  t.false(manager.getNodeById('nodeA').checked)
-  t.true(manager.getNodeById('nodeB').checked)
-  t.false(manager.getNodeById('nodeC').checked)
-})
-
-test('should select single first default node if no checked', t => {
+test('should only select single first default value node on init', t => {
   const tree = [{ id: 'nodeA', isDefaultValue: true }, { id: 'nodeB', isDefaultValue: true }, { id: 'nodeC', isDefaultValue: true }]
 
   const manager = new TreeManager({ data: tree, radioSelect: true })
@@ -58,4 +47,14 @@ test('should select single first default node if no checked', t => {
   t.true(manager.getNodeById('nodeA').checked)
   t.falsy(manager.getNodeById('nodeB').checked)
   t.falsy(manager.getNodeById('nodeC').checked)
+})
+
+test('should select single first default node and ignore any checked', t => {
+  const tree = [{ id: 'nodeA', checked: true }, { id: 'nodeB', isDefaultValue: true }, { id: 'nodeC', checked: true }]
+
+  const manager = new TreeManager({ data: tree, radioSelect: true })
+
+  t.false(manager.getNodeById('nodeA').checked)
+  t.true(manager.getNodeById('nodeB').checked)
+  t.false(manager.getNodeById('nodeC').checked)
 })

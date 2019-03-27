@@ -18,4 +18,5 @@ const generateUID = prefix => {
   return { get, reset }
 }
 
-export const clientIdGenerator = generateUID('rdts')
+const clientIdGenerator = generateUID('rdts')
+export default clientIdGenerator

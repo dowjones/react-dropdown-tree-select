@@ -60,7 +60,7 @@ class NodeLabel extends PureComponent {
       <label title={title || label} htmlFor={id}>
         {radioSelect ?
           <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} /> :
-          <Checkbox name={`${clientId}[]`} className={cx('checkbox-item', { 'simple-select': simpleSelect })} indeterminate={showPartiallySelected && partial} onChange={this.handleCheckboxChange} {...sharedProps} />}
+          <Checkbox name={id} className={cx('checkbox-item', { 'simple-select': simpleSelect })} indeterminate={showPartiallySelected && partial} onChange={this.handleCheckboxChange} {...sharedProps} />}
         <span {...nodeLabelProps}>{label}</span>
       </label>
     )

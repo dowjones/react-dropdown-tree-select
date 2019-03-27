@@ -156,13 +156,3 @@ test('deactivates dropdown active on blur', t => {
   wrapper.instance().onInputBlur()
   t.false(wrapper.instance().keepDropdownActive)
 })
-
-test('should render checkbox inputs with shared array name', t => {
-  const tree = ['A', 'B', 'C'].map(nv => ({ id: nv, label: nv, value: nv }))
-
-  const dropdownId = 'rdts'
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown />)
-
-  const inputs = wrapper.find('.dropdown-content').find(`input[type="checkbox"][name="${dropdownId}[]"]`)
-  t.deepEqual(inputs.length, 3)
-})

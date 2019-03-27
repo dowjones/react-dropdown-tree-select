@@ -12,15 +12,15 @@ module.exports = {
     libraryTarget: 'umd',
     library: 'ReactDropdownTreeSelect',
     umdNamedDefine: true,
-    globalObject: 'this'
+    globalObject: 'this',
   },
   externals: {
     react: {
       root: 'React',
       commonjs2: 'react',
       commonjs: 'react',
-      amd: 'react'
-    }
+      amd: 'react',
+    },
   },
   plugins: [
     new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
@@ -28,13 +28,13 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: 'styles.css',
-      chunkFilename: '[id].css'
+      chunkFilename: '[id].css',
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
-      generateStatsFile: true
-    })
+      generateStatsFile: true,
+    }),
   ],
   module: {
     rules: [
@@ -42,7 +42,7 @@ module.exports = {
         test: /\.js$/,
         loaders: ['babel-loader'],
         include: path.join(__dirname, 'src'),
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -55,12 +55,12 @@ module.exports = {
             options: {
               localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
               importLoaders: 1,
-              minimize: true
-            }
+              minimize: true,
+            },
           },
-          { loader: 'postcss-loader' }
-        ]
-      }
-    ]
-  }
+          { loader: 'postcss-loader' },
+        ],
+      },
+    ],
+  },
 }

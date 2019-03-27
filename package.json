@@ -31,7 +31,7 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint --fix src docs webpack.config.js && stylelint --fix \"src/**/*.css\"",
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",
-    "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
+    "format": "prettier-eslint --write \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
     "test:cov": "rimraf .nyc_output && nyc npm test && nyc report --reporter=lcov ",
     "semantic-release": "semantic-release",

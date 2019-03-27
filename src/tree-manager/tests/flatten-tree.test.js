@@ -11,10 +11,10 @@ test('flattens tree with no root', t => {
         {
           name: 'item1-1',
           value: 'value1-1',
-          children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }]
+          children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }],
         },
-        { name: 'item1-2', value: 'value1-2' }
-      ]
+        { name: 'item1-2', value: 'value1-2' },
+      ],
     },
     {
       name: 'item2',
@@ -29,13 +29,13 @@ test('flattens tree with no root', t => {
             {
               name: 'item2-1-3',
               value: 'value2-1-3',
-              children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }]
-            }
-          ]
+              children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }],
+            },
+          ],
         },
-        { name: 'item2-2', value: 'value2-2' }
-      ]
-    }
+        { name: 'item2-2', value: 'value2-2' },
+      ],
+    },
   ]
 
   const expected = {
@@ -45,7 +45,7 @@ test('flattens tree with no root', t => {
       _depth: 0,
       children: undefined,
       name: 'item1',
-      value: 'value1'
+      value: 'value1',
     },
     1: {
       _id: '1',
@@ -53,7 +53,7 @@ test('flattens tree with no root', t => {
       _depth: 0,
       children: undefined,
       name: 'item2',
-      value: 'value2'
+      value: 'value2',
     },
     '0-0': {
       _id: '0-0',
@@ -62,28 +62,28 @@ test('flattens tree with no root', t => {
       _depth: 1,
       children: undefined,
       name: 'item1-1',
-      value: 'value1-1'
+      value: 'value1-1',
     },
     '0-1': {
       _id: '0-1',
       _parent: '0',
       _depth: 1,
       name: 'item1-2',
-      value: 'value1-2'
+      value: 'value1-2',
     },
     '0-0-0': {
       _id: '0-0-0',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-1',
-      value: 'value1-1-1'
+      value: 'value1-1-1',
     },
     '0-0-1': {
       _id: '0-0-1',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-2',
-      value: 'value1-1-2'
+      value: 'value1-1-2',
     },
     '1-0': {
       _id: '1-0',
@@ -92,28 +92,28 @@ test('flattens tree with no root', t => {
       _depth: 1,
       children: undefined,
       name: 'item2-1',
-      value: 'value2-1'
+      value: 'value2-1',
     },
     '1-1': {
       _id: '1-1',
       _parent: '1',
       _depth: 1,
       name: 'item2-2',
-      value: 'value2-2'
+      value: 'value2-2',
     },
     '1-0-0': {
       _id: '1-0-0',
       _parent: '1-0',
       _depth: 2,
       name: 'item2-1-1',
-      value: 'value2-1-1'
+      value: 'value2-1-1',
     },
     '1-0-1': {
       _id: '1-0-1',
       _parent: '1-0',
       _depth: 2,
       name: 'item2-1-2',
-      value: 'value2-1-2'
+      value: 'value2-1-2',
     },
     '1-0-2': {
       _id: '1-0-2',
@@ -122,15 +122,15 @@ test('flattens tree with no root', t => {
       _depth: 2,
       children: undefined,
       name: 'item2-1-3',
-      value: 'value2-1-3'
+      value: 'value2-1-3',
     },
     '1-0-2-0': {
       _id: '1-0-2-0',
       _parent: '1-0-2',
       _depth: 3,
       name: 'item2-1-3-1',
-      value: 'value2-1-3-1'
-    }
+      value: 'value2-1-3-1',
+    },
   }
 
   const { list } = flattenTree(tree)
@@ -145,10 +145,10 @@ test('flattens tree with root', t => {
       {
         name: 'item1-1',
         value: 'value1-1',
-        children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }]
+        children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }],
       },
-      { name: 'item1-2', value: 'value1-2' }
-    ]
+      { name: 'item1-2', value: 'value1-2' },
+    ],
   }
 
   const expected = {
@@ -158,7 +158,7 @@ test('flattens tree with root', t => {
       _depth: 0,
       children: undefined,
       name: 'item1',
-      value: 'value1'
+      value: 'value1',
     },
     '0-0': {
       _id: '0-0',
@@ -167,29 +167,29 @@ test('flattens tree with root', t => {
       _depth: 1,
       children: undefined,
       name: 'item1-1',
-      value: 'value1-1'
+      value: 'value1-1',
     },
     '0-1': {
       _id: '0-1',
       _parent: '0',
       _depth: 1,
       name: 'item1-2',
-      value: 'value1-2'
+      value: 'value1-2',
     },
     '0-0-0': {
       _id: '0-0-0',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-1',
-      value: 'value1-1-1'
+      value: 'value1-1-1',
     },
     '0-0-1': {
       _id: '0-0-1',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-2',
-      value: 'value1-1-2'
-    }
+      value: 'value1-1-2',
+    },
   }
 
   const { list } = flattenTree(tree)
@@ -205,14 +205,14 @@ test('sets default values', t => {
         {
           name: 'item1-1',
           value: 'value1-1',
-          children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }]
+          children: [{ name: 'item1-1-1', value: 'value1-1-1' }, { name: 'item1-1-2', value: 'value1-1-2' }],
         },
         {
           name: 'item1-2',
           value: 'value1-2',
-          isDefaultValue: true
-        }
-      ]
+          isDefaultValue: true,
+        },
+      ],
     },
     {
       name: 'item2',
@@ -228,13 +228,13 @@ test('sets default values', t => {
             {
               name: 'item2-1-3',
               value: 'value2-1-3',
-              children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }]
-            }
-          ]
+              children: [{ name: 'item2-1-3-1', value: 'value2-1-3-1' }],
+            },
+          ],
         },
-        { name: 'item2-2', value: 'value2-2' }
-      ]
-    }
+        { name: 'item2-2', value: 'value2-2' },
+      ],
+    },
   ]
 
   const expectedDefaultValues = ['0-1', '1']
@@ -245,7 +245,7 @@ test('sets default values', t => {
       _depth: 0,
       children: undefined,
       name: 'item1',
-      value: 'value1'
+      value: 'value1',
     },
     1: {
       _id: '1',
@@ -255,7 +255,7 @@ test('sets default values', t => {
       name: 'item2',
       value: 'value2',
       checked: true,
-      isDefaultValue: true
+      isDefaultValue: true,
     },
     '0-0': {
       _id: '0-0',
@@ -264,7 +264,7 @@ test('sets default values', t => {
       _depth: 1,
       children: undefined,
       name: 'item1-1',
-      value: 'value1-1'
+      value: 'value1-1',
     },
     '0-1': {
       _id: '0-1',
@@ -273,21 +273,21 @@ test('sets default values', t => {
       name: 'item1-2',
       value: 'value1-2',
       checked: true,
-      isDefaultValue: true
+      isDefaultValue: true,
     },
     '0-0-0': {
       _id: '0-0-0',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-1',
-      value: 'value1-1-1'
+      value: 'value1-1-1',
     },
     '0-0-1': {
       _id: '0-0-1',
       _parent: '0-0',
       _depth: 2,
       name: 'item1-1-2',
-      value: 'value1-1-2'
+      value: 'value1-1-2',
     },
     '1-0': {
       _id: '1-0',
@@ -297,7 +297,7 @@ test('sets default values', t => {
       children: undefined,
       name: 'item2-1',
       value: 'value2-1',
-      checked: true
+      checked: true,
     },
     '1-1': {
       _id: '1-1',
@@ -305,7 +305,7 @@ test('sets default values', t => {
       _depth: 1,
       name: 'item2-2',
       value: 'value2-2',
-      checked: true
+      checked: true,
     },
     '1-0-0': {
       _id: '1-0-0',
@@ -313,7 +313,7 @@ test('sets default values', t => {
       _depth: 2,
       name: 'item2-1-1',
       value: 'value2-1-1',
-      checked: true
+      checked: true,
     },
     '1-0-1': {
       _id: '1-0-1',
@@ -321,7 +321,7 @@ test('sets default values', t => {
       _depth: 2,
       name: 'item2-1-2',
       value: 'value2-1-2',
-      checked: true
+      checked: true,
     },
     '1-0-2': {
       _id: '1-0-2',
@@ -331,7 +331,7 @@ test('sets default values', t => {
       children: undefined,
       name: 'item2-1-3',
       value: 'value2-1-3',
-      checked: true
+      checked: true,
     },
     '1-0-2-0': {
       _id: '1-0-2-0',
@@ -339,8 +339,8 @@ test('sets default values', t => {
       _depth: 3,
       name: 'item2-1-3-1',
       value: 'value2-1-3-1',
-      checked: true
-    }
+      checked: true,
+    },
   }
 
   const { defaultValues, list } = flattenTree(tree)
@@ -353,18 +353,18 @@ test('does not check parent with empty children when showing partial state', t =
     {
       name: 'item1',
       value: 'value1',
-      children: []
+      children: [],
     },
     {
       name: 'item2',
       value: 'value2',
-      children: []
+      children: [],
     },
     {
       name: 'item3',
       value: 'value3',
-      children: []
-    }
+      children: [],
+    },
   ]
 
   const expectedTree = {
@@ -375,7 +375,7 @@ test('does not check parent with empty children when showing partial state', t =
       children: undefined,
       name: 'item1',
       value: 'value1',
-      partial: false
+      partial: false,
     },
     1: {
       _id: '1',
@@ -384,7 +384,7 @@ test('does not check parent with empty children when showing partial state', t =
       children: undefined,
       name: 'item2',
       value: 'value2',
-      partial: false
+      partial: false,
     },
     2: {
       _id: '2',
@@ -393,8 +393,8 @@ test('does not check parent with empty children when showing partial state', t =
       children: undefined,
       name: 'item3',
       value: 'value3',
-      partial: false
-    }
+      partial: false,
+    },
   }
 
   const { list } = flattenTree(tree, false, true)

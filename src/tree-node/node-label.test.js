@@ -17,9 +17,9 @@ test('renders node label', t => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban'
-      }
-    ]
+        className: 'fa fa-ban',
+      },
+    ],
   }
 
   const wrapper = shallow(<NodeLabel {...node} />)
@@ -34,7 +34,7 @@ test('notifies checkbox changes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: false
+    checked: false,
   }
 
   const onChange = spy()
@@ -51,7 +51,7 @@ test('disable checkbox if the node has disabled status', t => {
     disabled: true,
     label: 'item0-0-0',
     value: 'value0-0-0',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const wrapper = shallow(<NodeLabel {...node} searchModeOn />)
@@ -66,7 +66,7 @@ test('notifies clicks in simple mode', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: false
+    checked: false,
   }
 
   const onChange = spy()

@@ -82,7 +82,7 @@ class TreeNode extends PureComponent {
       onNodeToggle,
       onCheckboxChange,
       showPartiallySelected,
-      readOnly,
+      readOnly
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}

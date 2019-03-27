@@ -26,11 +26,10 @@
     "build": "rimraf dist/**/* && cross-env NODE_ENV=production webpack --config webpack.config.js --bail --mode=production",
     "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "demo": "rimraf ./docs/bundle.js && webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
-    "lint": "eslint src docs webpack.config.js && stylelint \"src/**/*.css\" --fix",
+    "lint": "eslint --fix src docs webpack.config.js && stylelint --fix \"src/**/*.css\"",
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",
     "format": "prettier-eslint \"src/**/*.js\" \"docs/**/*.js\" webpack.config.js",
     "test": "cross-env NODE_ENV=test ava",
@@ -54,7 +53,7 @@
     "all-contributors-cli": "^5.4.1",
     "ava": "1.0.0-beta.4",
     "babel-core": "6.24.1",
-    "babel-eslint": "8.0.0",
+    "babel-eslint": "10.0.1",
     "babel-loader": "7.1.2",
     "babel-plugin-istanbul": "4.1.3",
     "babel-plugin-transform-class-properties": "6.24.1",
@@ -71,16 +70,21 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.0.4",
     "enzyme-to-json": "^3.3.3",
-    "eslint": "^4.19.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint": "5.6.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "4.1.0",
+    "eslint-config-react-app": "3.0.8",
+    "eslint-plugin-flowtype": "2.50.3",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "3.0.1",
+    "eslint-plugin-react": "7.12.4",
     "github-markdown-css": "^2.10.0",
-    "husky": "^0.14.3",
+    "husky": "1.3.1",
     "ignore-styles": "^5.0.1",
     "jsdom": "^11.2.0",
     "jsdom-global": "^3.0.2",
+    "lint-staged": "8.1.5",
     "marked": "^0.3.17",
     "mini-css-extract-plugin": "^0.4.0",
     "nyc": "^12.0.1",
@@ -89,6 +93,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",
     "postcss-nested": "^3.0.0",
+    "prettier": "1.16.4",
     "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.6.0",
@@ -172,6 +177,18 @@
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog-emoji"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add -f"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }

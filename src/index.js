@@ -38,20 +38,20 @@ class DropdownTreeSelect extends Component {
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool
+    hierarchical: PropTypes.bool,
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {}
+    onChange: () => {},
   }
 
   constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false
+      searchModeOn: false,
     }
   }
 
@@ -66,7 +66,7 @@ class DropdownTreeSelect extends Component {
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,
-      allNodesHidden: false
+      allNodesHidden: false,
     }
   }
 
@@ -118,13 +118,17 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(
+      value,
+      this.props.keepTreeOnSearch,
+      this.props.keepChildrenOnSearch
+    )
     const searchModeOn = value.length > 0
 
     this.setState({
       tree,
       searchModeOn,
-      allNodesHidden
+      allNodesHidden,
     })
   }
 
@@ -153,7 +157,7 @@ class DropdownTreeSelect extends Component {
     const nextState = {
       tree,
       tags,
-      showDropdown
+      showDropdown,
     }
 
     if (this.props.simpleSelect || this.props.clearSearchOnChange) {
@@ -187,7 +191,7 @@ class DropdownTreeSelect extends Component {
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       top: this.state.showDropdown,
-      bottom: !this.state.showDropdown
+      bottom: !this.state.showDropdown,
     })
 
     return (

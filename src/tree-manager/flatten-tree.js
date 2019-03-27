@@ -104,7 +104,7 @@ function flattenTree(tree, simple, showPartialState, hierarchical) {
     nodes: forest,
     simple,
     showPartialState,
-    hierarchical
+    hierarchical,
   })
   return { list, defaultValues }
 }
@@ -127,7 +127,16 @@ function setInitialStateProps(node, parent = {}) {
   }
 }
 
-function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPartialState, defaultValues = [], hierarchical }) {
+function walkNodes({
+  nodes,
+  list = new Map(),
+  parent,
+  depth = 0,
+  simple,
+  showPartialState,
+  defaultValues = [],
+  hierarchical,
+}) {
   nodes.forEach((node, i) => {
     node._depth = depth
 
@@ -156,7 +165,7 @@ function walkNodes({ nodes, list = new Map(), parent, depth = 0, simple, showPar
         depth: depth + 1,
         showPartialState,
         defaultValues,
-        hierarchical
+        hierarchical,
       })
 
       if (showPartialState && !node.checked) {

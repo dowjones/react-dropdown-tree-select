@@ -1,19 +1,7 @@
 {
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "parser": "babel-eslint",
-  "extends": "airbnb",
-  "plugins": ["react", "jsx-a11y", "import"],
-  "env": {
-    "browser": true,
-    "node": true,
-    "jest": true,
-    "es6": true
-  },
+  "extends": ["react-app", "plugin:prettier/recommended"],
   "rules": {
+    "prettier/prettier": ["error"],
     "arrow-parens": [2, "as-needed"],
     "comma-dangle": ["warn", "never"],
     "global-require": 0,

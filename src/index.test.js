@@ -11,7 +11,7 @@ const node0 = {
   _depth: 0,
   label: 'item1',
   value: 'value1',
-  children: undefined
+  children: undefined,
 }
 
 test.beforeEach(t => {
@@ -23,10 +23,10 @@ test.beforeEach(t => {
         {
           label: 'item1-1',
           value: 'value1-1',
-          children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }]
+          children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }],
         },
-        { label: 'item1-2', value: 'value1-2' }
-      ]
+        { label: 'item1-2', value: 'value1-2' },
+      ],
     },
     {
       label: 'item2',
@@ -41,13 +41,13 @@ test.beforeEach(t => {
             {
               label: 'item2-1-3',
               value: 'value2-1-3',
-              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }]
-            }
-          ]
+              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }],
+            },
+          ],
         },
-        { label: 'item2-2', value: 'value2-2' }
-      ]
-    }
+        { label: 'item2-2', value: 'value2-2' },
+      ],
+    },
   ]
 })
 
@@ -129,7 +129,7 @@ test('toggles dropdown', t => {
   t.false(wrapper.state().showDropdown)
 })
 
-test('doesn\'t toggle dropdown if it\'s disabled', t => {
+test("doesn't toggle dropdown if it's disabled", t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect data={tree} disabled />)
   t.snapshot(toJson(wrapper))

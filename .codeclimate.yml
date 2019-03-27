@@ -1,4 +1,4 @@
-version: "2"         # required to adjust maintainability checks
+version: '2' # required to adjust maintainability checks
 checks:
   argument-count:
     config:
@@ -33,10 +33,10 @@ checks:
 plugins:
   eslint:
     enabled: true
-    channel: "eslint-4"
+    channel: 'eslint-5'
 exclude_patterns:
-- "docs/"
-- "snapshots/"
-- "**/tests/*"
-- "**/node_modules/"
-- "**/*.test.js"
+  - 'docs/'
+  - 'snapshots/'
+  - '**/tests/*'
+  - '**/node_modules/'
+  - '**/*.test.js'

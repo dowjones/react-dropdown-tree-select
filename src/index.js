@@ -10,10 +10,10 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick } from './utils'
+import { isOutsideClick, keyboardNavigation } from './utils'
 import Input from './input'
 import Tree from './tree'
-import TreeManager, { focusEvents } from './tree-manager'
+import TreeManager from './tree-manager'
 
 import styles from './index.css'
 
@@ -181,40 +181,33 @@ class DropdownTreeSelect extends Component {
     this.keepDropdownActive = false
   }
 
-  onInputKeyDown = e => {
-    const { showDropdown } = this.state
+  onKeyboardKeyDown = e => {
+    if (!this.props.enableKeyboardNavigation) { return }
+
+    const { showDropdown, tags } = this.state
     const tm = this.treeManager
-    const validOpenTriggers = ['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown']
-    if (!showDropdown && validOpenTriggers.indexOf(e.key) > -1) {
-      e.persist()
-      this.handleClick(() => this.onInputKeyDown(e))
-    } else if (showDropdown) {
-      switch (e.key) {
-        case 'ArrowUp': tm.handleFocus(focusEvents.Up); break
-        case 'ArrowDown': tm.handleFocus(focusEvents.Down); break
-        case 'ArrowLeft': tm.handleFocus(focusEvents.Left); break
-        case 'ArrowRight': tm.handleFocus(focusEvents.Right); break
-        case 'Enter': tm.handleFocus(focusEvents.Toggle); break
-        case 'Home':
-        case 'PageUp':
-          tm.handleFocus(focusEvents.First)
-          break
-        case 'End':
-        case 'PageDown':
-          tm.handleFocus(focusEvents.Last)
-          break
-        case 'Escape':
-          if (showDropdown) {
-            this.keepDropdownActive = false
-            this.handleClick()
-          }
-          break
-        default:
-          return
+
+    if (!showDropdown && keyboardNavigation.isValidKey(e.key, false)) {
+      // Triggers open of dropdown and retriggers event
+      this.handleClick(() => this.onKeyboardKeyDown(e.persist()))
+    } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
+      const tree = this.state.searchModeOn ? tm.matchTree : tm.tree
+      if (tm.handleNavigationKey(tree, e.key)) {
+        this.setState({ tags: tm.getTags() })
       }
+    } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
+      // Triggers close
+      this.keepDropdownActive = false
+      this.handleClick()
+      return
+    } else if (e.key === 'Backspace' && tags && tags.length) {
+      const lastTag = tags.pop()
+      tm.setNodeCheckedState(lastTag._id, false)
+      this.setState({ tags })
+    } else {
+      return
     }
-    e.stopPropagation()
-    e.nativeEvent.stopImmediatePropagation()
+    e.preventDefault()
   }
 
   render() {
@@ -227,28 +220,25 @@ class DropdownTreeSelect extends Component {
       bottom: !this.state.showDropdown
     })
 
+    const currentFocus = this.props.enableKeyboardNavigation && this.treeManager.currentFocus
+    const activeDescendant = currentFocus ? `${currentFocus}_li`: null
+
     return (
-      <div
-        className={cx(this.props.className, 'react-dropdown-tree-select')}
-        ref={node => {
-          this.node = node
-        }}
-      >
+      <div className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
         <div className="dropdown">
           <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
             <Input
-              inputRef={el => {
-                this.searchInput = el
-              }}
+              inputRef={el => { this.searchInput = el }}
               tags={this.state.tags}
               placeholderText={this.props.placeholderText}
               onInputChange={this.onInputChange}
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
-              onKeyDown={this.props.enableKeyboardNavigation && this.onInputKeyDown}
+              onKeyDown={this.props.enableKeyboardNavigation ? this.onKeyboardKeyDown: undefined}
               disabled={this.props.disabled}
               readOnly={this.props.readOnly}
+              activeDescendant={activeDescendant}
             />
           </a>
           {this.state.showDropdown && (
@@ -267,6 +257,8 @@ class DropdownTreeSelect extends Component {
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={this.props.readOnly}
+                  enableKeyboardNavigation={this.props.enableKeyboardNavigation}
+                  activeDescendant={activeDescendant}
                 />
               )}
             </div>

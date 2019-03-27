@@ -18,7 +18,7 @@ class WithOptions extends PureComponent {
       disabled: false,
       readOnly: false,
       hierarchical: false,
-      enableKeyboardNavigation: true
+      enableKeyboardNavigation: false
     }
   }
 
@@ -37,7 +37,8 @@ class WithOptions extends PureComponent {
   }
 
   render() {
-    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected, disabled, readOnly, hierarchical, enableKeyboardNavigation } = this.state
+    const { clearSearchOnChange, keepTreeOnSearch, simpleSelect, showPartiallySelected,
+      disabled, readOnly, hierarchical, enableKeyboardNavigation } = this.state
 
     return (
       <div>

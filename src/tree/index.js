@@ -26,7 +26,9 @@ class Tree extends Component {
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    enableKeyboardNavigation: PropTypes.bool,
+    activeDescendant: PropTypes.string
   }
 
   static defaultProps = {
@@ -62,7 +64,7 @@ class Tree extends Component {
     const {
       data, keepTreeOnSearch, keepChildrenOnSearch, searchModeOn, simpleSelect,
       showPartiallySelected, readOnly, onAction, onChange, onCheckboxChange,
-      onNodeToggle
+      onNodeToggle, enableKeyboardNavigation, activeDescendant
     } = props
     const items = []
     data.forEach(node => {
@@ -80,6 +82,8 @@ class Tree extends Component {
           simpleSelect={simpleSelect}
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}
+          enableKeyboardNavigation={enableKeyboardNavigation}
+          activeDescendant={activeDescendant}
         />)
       }
     })

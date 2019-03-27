@@ -59,7 +59,18 @@ class TreeNode extends PureComponent {
     onCheckboxChange: PropTypes.func,
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    enableKeyboardNavigation: PropTypes.bool,
+    activeDescendant: PropTypes.string
+  }
+
+  componentDidUpdate(prevProps) {
+    const { _id, activeDescendant } = this.props
+
+    if (this.node && this.node.scrollIntoView
+      && activeDescendant !== prevProps.activeDescendant && activeDescendant === `${_id}_li`) {
+      this.node.scrollIntoView(false)
+    }
   }
 
   render() {
@@ -83,14 +94,17 @@ class TreeNode extends PureComponent {
       onNodeToggle,
       onCheckboxChange,
       showPartiallySelected,
-      readOnly
+      readOnly,
+      enableKeyboardNavigation
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
+    const liId = `${_id}_li`
+
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)}>
-        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+      <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={ref => { this.node = ref }}>
+        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} aria-expanded={_children ? expanded: undefined} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}
           label={label}
@@ -103,6 +117,7 @@ class TreeNode extends PureComponent {
           onCheckboxChange={onCheckboxChange}
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}
+          enableKeyboardNavigation={enableKeyboardNavigation}
         />
         <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
       </li>

@@ -1,17 +1,7 @@
 import getPartialState from './getPartialState'
 
-import { isEmpty } from '../utils'
+import { isEmpty, keyboardNavigation, NavActions } from '../utils'
 import flattenTree from './flatten-tree'
-
-export const focusEvents = {
-  Up: 'up',
-  Down: 'down',
-  Left: 'left',
-  Right: 'right',
-  Toggle: 'toggle',
-  First: 'first',
-  Last: 'last'
-}
 
 class TreeManager {
   constructor({ data, simpleSelect, showPartiallySelected, hierarchical }) {
@@ -226,96 +216,117 @@ class TreeManager {
   }
 
   getTags() {
-    const tags = []
-    const visited = {}
-    const markSubTreeVisited = node => {
-      visited[node._id] = true
-      if (!isEmpty(node._children)) node._children.forEach(c => markSubTreeVisited(this.getNodeById(c)))
-    }
-
-    this.tree.forEach((node, key) => {
-      if (visited[key]) return
-
-      if (node.checked) {
-        tags.push(node)
-
-        if (!this.hierarchical) {
-          // Parent node, so no need to walk children
-          markSubTreeVisited(node)
-        }
-      } else {
-        visited[key] = true
+    return this.getNodes((node, key, visited) => {
+      if (node.checked && !this.hierarchical) {
+        // Parent node, so no need to walk children
+        this.markSubTreeVisited(node, visited)
       }
+      return node.checked
     })
-    return tags
   }
 
-  handleFocus(focusEvent) {
-    const prevFocusId = this.currentFocus
-    const prevFocus = prevFocusId && this.getNodeById(prevFocusId)
-    let newFocus = null
+  getNodes(nodePredicate, tree = null) {
+    const nodes = []
+    const visited = {}
+    tree = tree || this.tree
 
-    const tree = (this.matchTree && this.matchTree.size ? this.matchTree : this.tree) || []
+    tree.forEach((node, key) => {
+      if (visited[key]) return
 
-    console.log(`${focusEvent} ${prevFocusId} ${tree.size}`)
-debugger;
+      if (nodePredicate(node, key, visited)) {
+        nodes.push(node)
+      }
 
-    switch (focusEvent) {
-      case focusEvents.Up:
-        if (!prevFocus) {
-          newFocus = tree.size && tree[tree.size - 1]
-        } else {
-          newFocus = tree.size && tree[-1]
+      visited[key] = true
+    })
+
+    return nodes
+  }
+
+  markSubTreeVisited(node, visited) {
+    visited[node._id] = true
+    if (!isEmpty(node._children)) {
+      node._children.forEach(c =>
+        this.markSubTreeVisited(this.getNodeById(c), visited))
+    }
+  }
+
+  getNextFocus(tree, prevFocus, action) {
+    const getVisibleNodes = () => this.getNodes((node, key, visited) => {
+      if (node._children && node._children.length && node.expanded !== true) {
+        this.markSubTreeVisited(node, visited)
+      }
+      return !node.hide && !node.disabled && !node.readOnly
+    }, tree)
+
+    const getFirst = () => { const match = getVisibleNodes(); return match.length ? match[0] : prevFocus }
+    const getLast = () => { const match = getVisibleNodes().reverse(); return match.length ? match[0] : prevFocus }
+
+    switch (action) {
+      case NavActions.FocusFirst:
+        return getFirst()
+      case NavActions.FocusLast:
+        return getLast()
+      case NavActions.FocusPrevious: {
+        const match = getVisibleNodes()
+        const currentIndex = match.indexOf(prevFocus)
+        if (currentIndex >= 0) {
+          return currentIndex === 0 ? match[match.length - 1] : match[currentIndex - 1]
         }
-        break
-      case focusEvents.Down:
-        if (!prevFocus) {
-          newFocus = tree.size && tree[0]
-        } else {
-          newFocus = tree.size && tree[1]
+        return getLast()
+      }
+      case NavActions.FocusNext: {
+        const match = getVisibleNodes()
+        const currentIndex = match.indexOf(prevFocus)
+        if (currentIndex >= 0) {
+          return currentIndex === match.length - 1 ? match[0] : match[currentIndex + 1]
         }
-        break
-      case focusEvents.Left:
-        if (!prevFocus) break
-        if (prevFocus.expanded) {
-          this.toggleNodeExpandState(prevFocus._id)
-        } else if (prevFocus._parent) {
-          newFocus = prevFocus._parent
+        return getFirst()
+      }
+      case NavActions.FocusParent:
+        return prevFocus._parent ? this.getNodeById(prevFocus._parent) : prevFocus
+      default:
+        return prevFocus
+    }
+  }
+
+  handleNavigationKey(tree, key) {
+    const prevFocus = this.currentFocus && this.getNodeById(this.currentFocus)
+    const action = keyboardNavigation.getAction(prevFocus, key)
+
+    switch (action) {
+      case NavActions.FocusFirst:
+      case NavActions.FocusLast:
+      case NavActions.FocusPrevious:
+      case NavActions.FocusNext:
+      case NavActions.FocusParent: {
+        const newFocus = this.getNextFocus(tree, prevFocus, action)
+        if (newFocus) {
+          newFocus._focused = true
+          this.currentFocus = newFocus._id
         }
-        break
-      case focusEvents.Right:
-        if (!prevFocus || !prevFocus._children || prevFocus._children.length) break
-        if (!prevFocus.expanded) {
-          this.toggleNodeExpandState(prevFocus._id)
-        } else if (prevFocus._parent) {
-          [newFocus] = prevFocus._children
+        if (prevFocus && prevFocus._id !== this.currentFocus) {
+          prevFocus._focused = false
         }
-        break
-      case focusEvents.Toggle:
+        return true
+      }
+      case NavActions.ToggleChecked: {
         if (prevFocus) {
           this.setNodeCheckedState(prevFocus._id, prevFocus.checked !== true)
+          return true
         }
         break
-      case focusEvents.First:
-        newFocus = tree.size && tree[0]
+      }
+      case NavActions.ToggleExpanded: {
+        if (prevFocus) {
+          this.toggleNodeExpandState(prevFocus._id)
+          return true
+        }
         break
-      case focusEvents.Last:
-        newFocus = tree.size && tree[tree.size - 1]
-        break
-      default:
-        return
+      }
+      default: break
     }
-
-    if (newFocus) {
-      newFocus._focused = true
-      this.currentFocus = newFocus._id
-    }
-
-    if (prevFocusId && prevFocusId !== this.currentFocus) {
-      this.getNodeById(prevFocusId)._focused = false
-    }
-
-    console.log(`${focusEvent} ${this.currentFocus}`)
+    return false
   }
 }
 

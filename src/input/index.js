@@ -28,7 +28,8 @@ class Input extends PureComponent {
     onKeyDown: PropTypes.func,
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
+    activeDescendant: PropTypes.string
   }
 
   constructor(props) {
@@ -42,7 +43,7 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown } = this.props
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant } = this.props
 
     return (
       <ul className={cx('tag-list')}>
@@ -59,6 +60,8 @@ class Input extends PureComponent {
             onFocus={onFocus}
             onBlur={onBlur}
             readOnly={readOnly}
+            aria-activedescendant={activeDescendant}
+            aria-autocomplete={onKeyDown ? 'list' : undefined}
           />
         </li>
       </ul>

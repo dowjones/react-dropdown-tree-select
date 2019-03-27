@@ -200,7 +200,8 @@ class DropdownTreeSelect extends Component {
       this.keepDropdownActive = false
       this.handleClick()
       return
-    } else if (e.key === 'Backspace' && tags && tags.length) {
+    } else if (e.key === 'Backspace' && tags && tags.length
+      && this.searchInput && this.searchInput.value.length === 0) {
       const lastTag = tags.pop()
       tm.setNodeCheckedState(lastTag._id, false)
       this.setState({ tags })

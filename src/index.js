@@ -232,7 +232,6 @@ class DropdownTreeSelect extends Component {
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={this.props.readOnly}
-                  clientId={this.clientId}
                 />
               )}
             </div>

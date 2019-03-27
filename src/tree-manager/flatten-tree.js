@@ -101,16 +101,14 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
-  const { list, defaultNodes, checkedNodes } = walkNodes({
+  const { list, defaultValues, singleSelectedNode } = walkNodes({
     nodes: forest,
     simple,
     radio,
     showPartialState,
     hierarchical
   })
-  const defaultValues = defaultNodes.map(i => i._id)
-  const checkedValues = checkedNodes.map(i => i._id)
-  return { list, defaultValues, checkedValues }
+  return { list, defaultValues, singleSelectedNode }
 }
 
 /**
@@ -133,11 +131,10 @@ function setInitialStateProps(node, parent = {}, inheritChecked = true) {
 }
 
 function walkNodes({
-  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, _rv = { list: new Map(), defaultNodes: [], checkedNodes: [] } }) {
+  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
+  const single = simple || radio
   nodes.forEach((node, i) => {
     node._depth = depth
-
-    const single = simple || radio
 
     if (parent) {
       node._id = node.id || `${parent._id}-${i}`
@@ -147,23 +144,26 @@ function walkNodes({
       node._id = node.id || `${i}`
     }
 
-    if (node.checked) {
-      if (single && _rv.checkedNodes.length > 0) {
+    if (single && node.checked) {
+      if (_rv.singleSelectedNode) {
         node.checked = false
       } else {
-        _rv.checkedNodes.push(node)
+        _rv.singleSelectedNode = node
       }
     }
 
-    if (node.isDefaultValue && (!single || _rv.defaultNodes.length === 0)) {
-      _rv.defaultNodes.push(node)
-      if (single && _rv.checkedNodes.length > 0) {
-        // Default value has precedence, uncheck previous value
-        _rv.checkedNodes.pop().checked = false
-      }
-      if (!single || _rv.checkedNodes.length === 0) {
-        _rv.checkedNodes.push(node)
-        node.checked = true
+    if (single && node.isDefaultValue && _rv.singleSelectedNode
+      && !_rv.singleSelectedNode.isDefaultValue) {
+      // Default value has precedence, uncheck previous value
+      _rv.singleSelectedNode.checked = false
+      _rv.singleSelectedNode = null
+    }
+
+    if (node.isDefaultValue && (!single || _rv.defaultValues.length === 0)) {
+      _rv.defaultValues.push(node._id)
+      node.checked = true
+      if (single) {
+        _rv.singleSelectedNode = node
       }
     }
 
@@ -188,7 +188,6 @@ function walkNodes({
         // re-check if all children are checked. if so, check thyself
         if (!single && !isEmpty(node.children) && node.children.every(c => c.checked)) {
           node.checked = true
-          _rv.checkedNodes.push(node._id)
         }
       }
 

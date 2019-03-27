@@ -6,7 +6,7 @@ import flattenTree from './flatten-tree'
 class TreeManager {
   constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) {
     this._src = data
-    const { list, defaultValues, checkedValues } = flattenTree({
+    const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: simpleSelect,
       radio: radioSelect,
@@ -20,10 +20,9 @@ class TreeManager {
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
-    if ((simpleSelect || radioSelect) && checkedValues && checkedValues.length) {
+    if ((simpleSelect || radioSelect) && singleSelectedNode) {
       // Remembers initial check on single select dropdowns
-      const [selectedId] = checkedValues
-      this.currentChecked = selectedId
+      this.currentChecked = singleSelectedNode._id
     }
   }
 

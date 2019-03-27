@@ -40,3 +40,4 @@ exclude_patterns:
   - '**/tests/*'
   - '**/node_modules/'
   - '**/*.test.js'
+  - 'postcss.config.js'

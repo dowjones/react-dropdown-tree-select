@@ -53,7 +53,7 @@ class NodeLabel extends PureComponent {
     return (
       <label title={title || label} htmlFor={id}>
         <Checkbox
-          name={`${clientId}[]`}
+          name={id}
           id={id}
           indeterminate={showPartiallySelected && partial}
           className={cx('checkbox-item', { 'simple-select': simpleSelect })}

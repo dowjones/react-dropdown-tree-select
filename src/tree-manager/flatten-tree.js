@@ -95,9 +95,10 @@ const tree = [
  * @param  {[bool]} simple            Whether its in Single select mode (simple dropdown)
  * @param  {[bool]} radio             Whether its in Radio select mode (radio dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
+ * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
  * @return {object}                   The flattened list
  */
-function flattenTree({ tree, simple, radio, showPartialState, hierarchical }) {
+function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
@@ -106,7 +107,8 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical }) {
     simple,
     radio,
     showPartialState,
-    hierarchical
+    hierarchical,
+    rootPrefixId
   })
   return { list, defaultValues, singleSelectedNode }
 }
@@ -131,7 +133,7 @@ function setInitialStateProps(node, parent = {}, inheritChecked = true) {
 }
 
 function walkNodes({
-  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
+  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, rootPrefixId, _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
   const single = simple || radio
   nodes.forEach((node, i) => {
     node._depth = depth
@@ -141,7 +143,7 @@ function walkNodes({
       node._parent = parent._id
       parent._children.push(node._id)
     } else {
-      node._id = node.id || `${i}`
+      node._id = node.id || `${rootPrefixId ? `${rootPrefixId}-${i}` : i}`
     }
 
     if (single && node.checked) {

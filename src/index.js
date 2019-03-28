@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick } from './utils'
+import { isOutsideClick, clientIdGenerator } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -55,12 +55,11 @@ class DropdownTreeSelect extends Component {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false
     }
-    // This needs id generator from https://github.com/dowjones/react-dropdown-tree-select/pull/220
-    this.clientId = this.props.id
+    this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   initNewProps = ({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical })
+    this.treeManager = new TreeManager({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
     this.setState(this.treeManager.getTreeAndTags())
   }
 
@@ -109,7 +108,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.props.className)) {
+    if (!isOutsideClick(e, this.node)) {
       return
     }
 
@@ -196,6 +195,7 @@ class DropdownTreeSelect extends Component {
 
     return (
       <div
+        id={this.clientId}
         className={cx(this.props.className, 'react-dropdown-tree-select')}
         ref={node => {
           this.node = node

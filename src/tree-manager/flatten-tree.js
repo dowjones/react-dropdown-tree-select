@@ -102,7 +102,7 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
-  const { list, defaultValues, singleSelectedNode } = walkNodes({
+  return walkNodes({
     nodes: forest,
     simple,
     radio,
@@ -110,7 +110,6 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
     hierarchical,
     rootPrefixId
   })
-  return { list, defaultValues, singleSelectedNode }
 }
 
 /**
@@ -133,7 +132,8 @@ function setInitialStateProps(node, parent = {}, inheritChecked = true) {
 }
 
 function walkNodes({
-  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, rootPrefixId, _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
+  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, rootPrefixId,
+  _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
   const single = simple || radio
   nodes.forEach((node, i) => {
     node._depth = depth

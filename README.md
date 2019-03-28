@@ -52,6 +52,7 @@ A lightweight and fast control to render a select component that can display hie
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
+  - [enableKeyboardNavigation](#enableKeyboardNavigation)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -317,6 +318,12 @@ Type: `string`
 Specific id for container. The container renders with a default id of `rdtsN` where N is count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
+
+### enableKeyboardNavigation
+
+Type: `bool` (default: `false`)
+
+Adds navigation with arrow keys, page down/up and toggle of selection with enter. Arrow/page up/down also toggles open of dropdown if closed.
 
 ## Styling and Customization
 

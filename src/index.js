@@ -184,17 +184,21 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    if (!this.props.enableKeyboardNavigation) { return }
+    
+    const { enableKeyboardNavigation, keepTreeOnSearch } = this.props
+    if (!enableKeyboardNavigation) { return }
 
-    const { showDropdown, tags } = this.state
+    const { showDropdown, tags, searchModeOn } = this.state
     const tm = this.treeManager
 
-    if (!showDropdown && keyboardNavigation.isValidKey(e.key, false)) {
+    if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /\w/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
-      this.handleClick(() => this.onKeyboardKeyDown(e.persist()))
+      e.persist()
+      this.handleClick(null, () => this.onKeyboardKeyDown(e))
+      if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
-      const tree = this.state.searchModeOn ? tm.matchTree : tm.tree
-      if (tm.handleNavigationKey(tree, e.key)) {
+      const tree = searchModeOn ? tm.matchTree : tm.tree
+      if (tm.handleNavigationKey(tree, e.key, searchModeOn && !keepTreeOnSearch)) {
         this.setState({ tags: tm.getTags() })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {

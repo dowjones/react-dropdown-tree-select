@@ -45,6 +45,12 @@ const isFocusFirstEvent = (key, currentFocus) =>
 const isFocusLastEvent = (key, currentFocus) =>
   [Keys.End, Keys.PageDown].indexOf(key) > -1 || (!currentFocus && key === Keys.Up)
 
+const isReverseTraverseAction = action =>
+  [NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1
+
+const isEdgeTraverseAction = action =>
+  [NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1
+
 const getLeftNavAction = (currentFocus, key) => {
   if (!currentFocus || key !== Keys.Left) return NavActions.None
 
@@ -99,30 +105,34 @@ const getParentFocus = (prevFocus, getNodeById) =>
 
 
 const getRelativeFocus = (sortedNodes, prevFocus, action) => {
-  if ([NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1) {
+  if (sortedNodes.length === 0) return prevFocus
+
+  if (isEdgeTraverseAction(action)) {
     return sortedNodes[0]
   }
   if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
-    const currentIndex = sortedNodes.indexOf(prevFocus)
-    if (currentIndex < 0 || (currentIndex + 1 === sortedNodes.length)) {
+    const nextIndex = sortedNodes.indexOf(prevFocus) + 1
+    if (nextIndex % sortedNodes.length === 0) {
       return sortedNodes[0]
     }
-    return sortedNodes[currentIndex + 1]
+    return sortedNodes[nextIndex]
   }
 
   return prevFocus
 }
 
-const getNextFocus = (tree, prevFocus, action, getNodeById) => {
+const getNextFocus = (tree, prevFocus, action, getNodeById, flattenedTree) => {
   if (action === NavActions.FocusParent) {
     return getParentFocus(prevFocus, getNodeById)
-  } else if (!FocusActionNames.has(action)) {
+  }
+  if (!FocusActionNames.has(action)) {
     return prevFocus
   }
 
-  const isReverseOrder = [NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1
-  const nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, isReverseOrder)
-  if (nodes.length === 0) return prevFocus
+  let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, flattenedTree)
+  if (isReverseTraverseAction(action)) {
+    nodes = nodes.reverse()
+  }
 
   return getRelativeFocus(nodes, prevFocus, action)
 }

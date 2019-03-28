@@ -231,12 +231,13 @@ class TreeManager {
     })
   }
 
-  handleNavigationKey(tree, key) {
+  handleNavigationKey(tree, key, flattenedTree) {
     const prevFocus = this.currentFocus && this.getNodeById(this.currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
-      const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, id => this.getNodeById(id))
+      const newFocus = keyboardNavigation.getNextFocus(
+        tree, prevFocus, action, id => this.getNodeById(id), flattenedTree)
       if (newFocus) {
         newFocus._focused = true
         this.currentFocus = newFocus._id

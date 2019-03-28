@@ -38,8 +38,8 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { simpleSelect, title, label, id, partial, checked, value,
-      disabled, showPartiallySelected, readOnly, enableKeyboardNavigation } = this.props
+    const { simpleSelect, title, label, id, partial, checked } = this.props
+    const { value, disabled, showPartiallySelected, readOnly, enableKeyboardNavigation } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label

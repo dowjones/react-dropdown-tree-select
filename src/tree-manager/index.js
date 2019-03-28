@@ -4,9 +4,15 @@ import { isEmpty, keyboardNavigation, NavActions, FocusActionNames, nodeVisitor 
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor({ data, simpleSelect, showPartiallySelected, hierarchical }) {
+  constructor({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
     this._src = data
-    const { list, defaultValues } = flattenTree(JSON.parse(JSON.stringify(data)), simpleSelect, showPartiallySelected, hierarchical)
+    const { list, defaultValues } = flattenTree({
+      tree: JSON.parse(JSON.stringify(data)),
+      simple: simpleSelect,
+      showPartialState: showPartiallySelected,
+      hierarchical,
+      rootPrefixId
+    })
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect

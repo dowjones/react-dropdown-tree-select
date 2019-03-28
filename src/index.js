@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick, keyboardNavigation } from './utils'
+import { isOutsideClick, clientIdGenerator, keyboardNavigation } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -39,6 +39,7 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
+    id: PropTypes.string,
     enableKeyboardNavigation: PropTypes.bool
   }
 
@@ -54,10 +55,11 @@ class DropdownTreeSelect extends Component {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false
     }
+    this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical })
+    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
     return this.treeManager.tree
   }
 
@@ -111,7 +113,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.props.className)) {
+    if (!isOutsideClick(e, this.node)) {
       return
     }
 
@@ -225,7 +227,7 @@ class DropdownTreeSelect extends Component {
     const activeDescendant = currentFocus ? `${currentFocus}_li`: undefined
 
     return (
-      <div className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
+      <div id={this.clientId} className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
         <div className="dropdown">
           <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
             <Input

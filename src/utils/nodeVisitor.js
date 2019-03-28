@@ -33,21 +33,9 @@ const getVisibleNodes = (tree, getItemById) =>
     return !node.hide && !node.disabled && !node.readOnly
   })
 
-const getFirstVisibleNode = (tree, getItemById) => {
-  const match = getVisibleNodes(tree, getItemById)
-  return match.length ? match[0] : null
-}
-
-const getLastVisibleNode = (tree, getItemById) => {
-  const match = getVisibleNodes(tree, getItemById).reverse()
-  return match.length ? match[0] : null
-}
-
 const nodeVisitor = {
   getNodesMatching,
   getVisibleNodes,
-  getFirstVisibleNode,
-  getLastVisibleNode,
   markSubTreeVisited
 }
 export default nodeVisitor

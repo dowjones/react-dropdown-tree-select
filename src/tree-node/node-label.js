@@ -62,7 +62,7 @@ class NodeLabel extends PureComponent {
           value={value}
           disabled={disabled}
           readOnly={readOnly}
-          tabIndex={enableKeyboardNavigation ? -1 : null}
+          tabIndex={enableKeyboardNavigation ? -1 : undefined}
         />
         <span {...nodeLabelProps}>{label}</span>
       </label>

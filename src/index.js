@@ -222,7 +222,7 @@ class DropdownTreeSelect extends Component {
     })
 
     const currentFocus = this.props.enableKeyboardNavigation && this.treeManager.currentFocus
-    const activeDescendant = currentFocus ? `${currentFocus}_li`: null
+    const activeDescendant = currentFocus ? `${currentFocus}_li`: undefined
 
     return (
       <div className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>

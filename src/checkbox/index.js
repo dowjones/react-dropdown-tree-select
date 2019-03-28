@@ -31,7 +31,7 @@ class Checkbox extends PureComponent {
 
     const isDisabled = disabled || readOnly
 
-    return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={this.handleChange} disabled={isDisabled} tabIndex={-1} {...rest} />
+    return <input type="checkbox" ref={refUpdater({ checked, indeterminate })} onChange={this.handleChange} disabled={isDisabled} {...rest} />
   }
 }
 

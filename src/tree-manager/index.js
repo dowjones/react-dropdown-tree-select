@@ -1,6 +1,6 @@
 import getPartialState from './getPartialState'
 
-import { isEmpty, keyboardNavigation, NavActions, nodeVisitor } from '../utils'
+import { isEmpty, keyboardNavigation, NavActions, FocusActionNames, nodeVisitor } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
@@ -225,71 +225,28 @@ class TreeManager {
     })
   }
 
-  getNextFocus(tree, prevFocus, action) {
-    const getNodeById = id => this.getNodeById(id)
-    switch (action) {
-      case NavActions.FocusFirst:
-        return nodeVisitor.getFirstVisibleNode(tree, getNodeById) || prevFocus
-      case NavActions.FocusLast:
-        return nodeVisitor.getLastVisibleNode(tree, getNodeById) || prevFocus
-      case NavActions.FocusPrevious:
-      case NavActions.FocusNext: {
-        let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById)
-        if (action === NavActions.FocusPrevious) {
-          nodes = nodes.reverse()
-        }
-        const currentIndex = nodes.indexOf(prevFocus)
-        if (currentIndex < 0 || (currentIndex + 1 === nodes.length)) {
-          return nodes[0]
-        }
-        return nodes[currentIndex + 1]
-      }
-      case NavActions.FocusParent:
-        if (prevFocus._parent) {
-          return this.getNodeById(prevFocus._parent)
-        }
-        break
-      default:
-        return prevFocus
-    }
-    return prevFocus
-  }
-
   handleNavigationKey(tree, key) {
     const prevFocus = this.currentFocus && this.getNodeById(this.currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
-    switch (action) {
-      case NavActions.FocusFirst:
-      case NavActions.FocusLast:
-      case NavActions.FocusPrevious:
-      case NavActions.FocusNext:
-      case NavActions.FocusParent: {
-        const newFocus = this.getNextFocus(tree, prevFocus, action)
-        if (newFocus) {
-          newFocus._focused = true
-          this.currentFocus = newFocus._id
-        }
-        if (prevFocus && prevFocus._id !== this.currentFocus) {
-          prevFocus._focused = false
-        }
-        return true
+    if (FocusActionNames.has(action)) {
+      const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, id => this.getNodeById(id))
+      if (newFocus) {
+        newFocus._focused = true
+        this.currentFocus = newFocus._id
       }
-      case NavActions.ToggleChecked: {
-        if (prevFocus) {
-          this.setNodeCheckedState(prevFocus._id, prevFocus.checked !== true)
-          return true
-        }
-        break
+      if (prevFocus && prevFocus._id !== this.currentFocus) {
+        prevFocus._focused = false
       }
-      case NavActions.ToggleExpanded: {
-        if (prevFocus) {
-          this.toggleNodeExpandState(prevFocus._id)
-          return true
-        }
-        break
-      }
-      default: break
+      return true
+    }
+    if (action === NavActions.ToggleChecked && prevFocus) {
+      this.setNodeCheckedState(prevFocus._id, prevFocus.checked !== true)
+      return true
+    }
+    if (action === NavActions.ToggleExpanded && prevFocus) {
+      this.toggleNodeExpandState(prevFocus._id)
+      return true
     }
     return false
   }

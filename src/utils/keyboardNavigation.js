@@ -1,3 +1,5 @@
+import nodeVisitor from './nodeVisitor'
+
 const Keys = {
   Up: 'ArrowUp',
   Down: 'ArrowDown',
@@ -20,6 +22,14 @@ export const NavActions = {
   ToggleExpanded: 'ToggleExpanded',
   ToggleChecked: 'ToggleChecked'
 }
+
+export const FocusActionNames = new Set([
+  NavActions.FocusPrevious,
+  NavActions.FocusNext,
+  NavActions.FocusParent,
+  NavActions.FocusFirst,
+  NavActions.FocusLast
+])
 
 const validTriggerOpenKeys = [Keys.Up, Keys.Down, Keys.Home, Keys.PageUp, Keys.End, Keys.PageDown]
 const validKeys = validTriggerOpenKeys.concat([Keys.Left, Keys.Right, Keys.Enter])
@@ -55,8 +65,33 @@ const getAction = (currentFocus, key) => {
   }
 }
 
+const getNextFocus = (tree, prevFocus, action, getNodeById) => {
+  if (action === NavActions.FocusParent) {
+    return prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus
+  }
+  let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById)
+  if (nodes.length === 0 || !FocusActionNames.has(action)) return prevFocus
+
+  if ([NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1) {
+    nodes = nodes.reverse()
+  }
+
+  if ([NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1) {
+    return nodes[0]
+  } else if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
+    const currentIndex = nodes.indexOf(prevFocus)
+    if (currentIndex < 0 || (currentIndex + 1 === nodes.length)) {
+      return nodes[0]
+    }
+    return nodes[currentIndex + 1]
+  }
+
+  return prevFocus
+}
+
 const keyboardNavigation = {
   isValidKey,
-  getAction
+  getAction,
+  getNextFocus
 }
 export default keyboardNavigation

@@ -39,43 +39,66 @@ const isValidKey = (key, isOpen) => {
   return keysToCheck.indexOf(key) > -1
 }
 
-const getToggleExpandAction = (currentFocus, key) => {
-  if (currentFocus && key === Keys.Left) {
-    return currentFocus.expanded ? NavActions.ToggleExpanded :
-      currentFocus._parent ? NavActions.FocusParent :
-        NavActions.None
-  } else if (currentFocus && key === Keys.Right && currentFocus._children) {
-    return currentFocus.expanded === true ? NavActions.FocusNext : NavActions.ToggleExpanded
+const isFocusFirstEvent = (key, currentFocus) =>
+  [Keys.Home, Keys.PageUp].indexOf(key) > -1 || (!currentFocus && key === Keys.Down)
+
+const isFocusLastEvent = (key, currentFocus) =>
+  [Keys.End, Keys.PageDown].indexOf(key) > -1 || (!currentFocus && key === Keys.Up)
+
+const getLeftNavAction = (currentFocus, key) => {
+  if (!currentFocus || key !== Keys.Left) return NavActions.None
+
+  if (currentFocus.expanded === true) {
+    return NavActions.ToggleExpanded
   }
+  if (currentFocus._parent) {
+    return NavActions.FocusParent
+  }
+
   return NavActions.None
 }
 
-const getAction = (currentFocus, key) => {
-  let action
-  // eslint-disable-next-line default-case
-  switch (key) {
-    case Keys.Left: case Keys.Right: action = getToggleExpandAction(currentFocus, key); break
-    case Keys.Home: case Keys.PageUp: action = NavActions.FocusFirst; break
-    case Keys.End: case Keys.PageDown: action = NavActions.FocusLast; break
+const getRightNavAction = (currentFocus, key) => {
+  if (!currentFocus || !currentFocus._children || key !== Keys.Right) {
+    return NavActions.None
   }
-  if (!action && currentFocus) {
-    // eslint-disable-next-line default-case
-    switch (key) {
-      case Keys.Up: action = NavActions.FocusPrevious; break
-      case Keys.Down: action = NavActions.FocusNext; break
-      case Keys.Enter: action = NavActions.ToggleChecked; break
-    }
-  } else if (!action) {
-    // eslint-disable-next-line default-case
-    switch (key) {
-      case Keys.Up: action = NavActions.FocusLast; break
-      case Keys.Down: action = NavActions.FocusFirst; break
-    }
-  }
-  return action || NavActions.None
+
+  return currentFocus.expanded !== true ?
+    NavActions.ToggleExpanded :
+    NavActions.FocusNext
 }
 
-const getNewNextFocus = (sortedNodes, prevFocus, action) => {
+const getRelativeAction = (currentFocus, key) => {
+  if (!currentFocus) return NavActions.None
+  switch (key) {
+    case Keys.Up: return NavActions.FocusPrevious
+    case Keys.Down: return NavActions.FocusNext
+    case Keys.Enter: return NavActions.ToggleChecked
+    default: return NavActions.None
+  }
+}
+
+const getAction = (currentFocus, key) => {
+  if (key === Keys.Left) {
+    return getLeftNavAction(currentFocus, key)
+  }
+  if (key === Keys.Right) {
+    return getRightNavAction(currentFocus, key)
+  }
+  if (isFocusFirstEvent(key, currentFocus)) {
+    return NavActions.FocusFirst
+  }
+  if (isFocusLastEvent(key, currentFocus)) {
+    return NavActions.FocusLast
+  }
+  return getRelativeAction(currentFocus, key)
+}
+
+const getParentFocus = (prevFocus, getNodeById) =>
+  (prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus)
+
+
+const getRelativeFocus = (sortedNodes, prevFocus, action) => {
   if ([NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1) {
     return sortedNodes[0]
   }
@@ -92,14 +115,16 @@ const getNewNextFocus = (sortedNodes, prevFocus, action) => {
 
 const getNextFocus = (tree, prevFocus, action, getNodeById) => {
   if (action === NavActions.FocusParent) {
-    return prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus
+    return getParentFocus(prevFocus, getNodeById)
+  } else if (!FocusActionNames.has(action)) {
+    return prevFocus
   }
 
   const isReverseOrder = [NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1
   const nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, isReverseOrder)
-  if (nodes.length === 0 || !FocusActionNames.has(action)) return prevFocus
+  if (nodes.length === 0) return prevFocus
 
-  return getNewNextFocus(nodes, prevFocus, action)
+  return getRelativeFocus(nodes, prevFocus, action)
 }
 
 const keyboardNavigation = {

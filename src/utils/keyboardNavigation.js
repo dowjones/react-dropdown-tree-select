@@ -40,11 +40,11 @@ const isValidKey = (key, isOpen) => {
 }
 
 const getToggleExpandAction = (currentFocus, key) => {
-  if (!currentFocus && key === Keys.Left) {
+  if (currentFocus && key === Keys.Left) {
     return currentFocus.expanded ? NavActions.ToggleExpanded :
       currentFocus._parent ? NavActions.FocusParent :
         NavActions.None
-  } else if (!currentFocus && key === Keys.Right && currentFocus._children) {
+  } else if (currentFocus && key === Keys.Right && currentFocus._children) {
     return currentFocus.expanded === true ? NavActions.FocusNext : NavActions.ToggleExpanded
   }
   return NavActions.None

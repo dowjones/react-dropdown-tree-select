@@ -12,8 +12,7 @@ const getPath = e => {
   return path
 }
 
-export default (e, className) => {
+export default (e, node) => {
   if (!(e instanceof Event)) return false
-  const completeClassName = className ? `${className} react-dropdown-tree-select` : 'react-dropdown-tree-select'
-  return !getPath(e).some(node => node.className && node.className.indexOf(completeClassName) >= 0)
+  return !getPath(e).some(eventNode => eventNode === node)
 }

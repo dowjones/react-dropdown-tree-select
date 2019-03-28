@@ -39,54 +39,71 @@ const isValidKey = (key, isOpen) => {
   return keysToCheck.indexOf(key) > -1
 }
 
-const getAction = (currentFocus, key) => {
+const getToggleExpandAction = (currentFocus, key) => {
+  if (!currentFocus) return NavActions.None
+  let action = NavActions.None
+  // eslint-disable-next-line default-case
   switch (key) {
-    case Keys.Up:
-      return currentFocus ? NavActions.FocusPrevious : NavActions.FocusLast
-    case Keys.Down:
-      return currentFocus ? NavActions.FocusNext : NavActions.FocusFirst
     case Keys.Left:
-      if (!currentFocus) return NavActions.None
-      if (currentFocus.expanded) return NavActions.ToggleExpanded
-      return currentFocus._parent ? NavActions.FocusParent : NavActions.None
+      if (currentFocus.expanded) action = NavActions.ToggleExpanded
+      else if (currentFocus._parent) action = NavActions.FocusParent
+      break
     case Keys.Right:
-      if (!currentFocus || !currentFocus._children) return NavActions.None
-      return currentFocus.expanded === true ? NavActions.FocusNext : NavActions.ToggleExpanded
-    case Keys.Enter:
-      return currentFocus ? NavActions.ToggleChecked : NavActions.None
-    case Keys.Home:
-    case Keys.PageUp:
-      return NavActions.FocusFirst
-    case Keys.End:
-    case Keys.PageDown:
-      return NavActions.FocusLast
-    default:
-      return NavActions.None
+      if (currentFocus._children) {
+        action = currentFocus.expanded === true ? NavActions.FocusNext : NavActions.ToggleExpanded
+      }
+      break
   }
+  return action
+}
+
+const getAction = (currentFocus, key) => {
+  let action
+  // eslint-disable-next-line default-case
+  switch (key) {
+    case Keys.Left: case Keys.Right: action = getToggleExpandAction(currentFocus, key); break
+    case Keys.Home: case Keys.PageUp: action = NavActions.FocusFirst; break
+    case Keys.End: case Keys.PageDown: action = NavActions.FocusLast; break
+  }
+  if (!action && currentFocus) {
+    // eslint-disable-next-line default-case
+    switch (key) {
+      case Keys.Up: action = NavActions.FocusPrevious; break
+      case Keys.Down: action = NavActions.FocusNext; break
+      case Keys.Enter: action = NavActions.ToggleChecked; break
+    }
+  } else if (!action) {
+    // eslint-disable-next-line default-case
+    switch (key) {
+      case Keys.Up: action = NavActions.FocusLast; break
+      case Keys.Down: action = NavActions.FocusFirst; break
+    }
+  }
+  return action || NavActions.None
 }
 
 const getNextFocus = (tree, prevFocus, action, getNodeById) => {
   if (action === NavActions.FocusParent) {
     return prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus
   }
-  let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById)
+
+  const isReverseOrder = [NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1
+  const nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, isReverseOrder)
   if (nodes.length === 0 || !FocusActionNames.has(action)) return prevFocus
 
-  if ([NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1) {
-    nodes = nodes.reverse()
-  }
-
+  let newFocus
   if ([NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1) {
-    return nodes[0]
+    [newFocus] = nodes
   } else if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
     const currentIndex = nodes.indexOf(prevFocus)
     if (currentIndex < 0 || (currentIndex + 1 === nodes.length)) {
-      return nodes[0]
+      [newFocus] = nodes
+    } else {
+      newFocus = nodes[currentIndex + 1]
     }
-    return nodes[currentIndex + 1]
   }
 
-  return prevFocus
+  return newFocus || prevFocus
 }
 
 const keyboardNavigation = {

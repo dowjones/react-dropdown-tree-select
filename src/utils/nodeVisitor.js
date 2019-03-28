@@ -25,13 +25,15 @@ const getNodesMatching = (tree, nodePredicate) => {
   return nodes
 }
 
-const getVisibleNodes = (tree, getItemById) =>
-  getNodesMatching(tree, (node, key, visited) => {
+const getVisibleNodes = (tree, getItemById, reverse = false) => {
+  const nodes = getNodesMatching(tree, (node, key, visited) => {
     if (node._children && node._children.length && node.expanded !== true) {
       markSubTreeVisited(node, visited, getItemById)
     }
     return !node.hide && !node.disabled && !node.readOnly
   })
+  return reverse ? nodes.reverse() : nodes
+}
 
 const nodeVisitor = {
   getNodesMatching,

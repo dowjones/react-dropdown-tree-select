@@ -1,6 +1,6 @@
 import getPartialState from './getPartialState'
 
-import { isEmpty, keyboardNavigation, NavActions } from '../utils'
+import { isEmpty, keyboardNavigation, NavActions, nodeVisitor } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
@@ -216,78 +216,43 @@ class TreeManager {
   }
 
   getTags() {
-    return this.getNodes((node, key, visited) => {
+    return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
       if (node.checked && !this.hierarchical) {
         // Parent node, so no need to walk children
-        this.markSubTreeVisited(node, visited)
+        nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
       }
       return node.checked
     })
   }
 
-  getNodes(nodePredicate, tree = null) {
-    const nodes = []
-    const visited = {}
-    tree = tree || this.tree
-
-    tree.forEach((node, key) => {
-      if (visited[key]) return
-
-      if (nodePredicate(node, key, visited)) {
-        nodes.push(node)
-      }
-
-      visited[key] = true
-    })
-
-    return nodes
-  }
-
-  markSubTreeVisited(node, visited) {
-    visited[node._id] = true
-    if (!isEmpty(node._children)) {
-      node._children.forEach(c =>
-        this.markSubTreeVisited(this.getNodeById(c), visited))
-    }
-  }
-
   getNextFocus(tree, prevFocus, action) {
-    const getVisibleNodes = () => this.getNodes((node, key, visited) => {
-      if (node._children && node._children.length && node.expanded !== true) {
-        this.markSubTreeVisited(node, visited)
-      }
-      return !node.hide && !node.disabled && !node.readOnly
-    }, tree)
-
-    const getFirst = () => { const match = getVisibleNodes(); return match.length ? match[0] : prevFocus }
-    const getLast = () => { const match = getVisibleNodes().reverse(); return match.length ? match[0] : prevFocus }
-
+    const getNodeById = id => this.getNodeById(id)
     switch (action) {
       case NavActions.FocusFirst:
-        return getFirst()
+        return nodeVisitor.getFirstVisibleNode(tree, getNodeById) || prevFocus
       case NavActions.FocusLast:
-        return getLast()
-      case NavActions.FocusPrevious: {
-        const match = getVisibleNodes()
-        const currentIndex = match.indexOf(prevFocus)
-        if (currentIndex >= 0) {
-          return currentIndex === 0 ? match[match.length - 1] : match[currentIndex - 1]
-        }
-        return getLast()
-      }
+        return nodeVisitor.getLastVisibleNode(tree, getNodeById) || prevFocus
+      case NavActions.FocusPrevious:
       case NavActions.FocusNext: {
-        const match = getVisibleNodes()
-        const currentIndex = match.indexOf(prevFocus)
-        if (currentIndex >= 0) {
-          return currentIndex === match.length - 1 ? match[0] : match[currentIndex + 1]
+        let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById)
+        if (action === NavActions.FocusPrevious) {
+          nodes = nodes.reverse()
         }
-        return getFirst()
+        const currentIndex = nodes.indexOf(prevFocus)
+        if (currentIndex < 0 || (currentIndex + 1 === nodes.length)) {
+          return nodes[0]
+        }
+        return nodes[currentIndex + 1]
       }
       case NavActions.FocusParent:
-        return prevFocus._parent ? this.getNodeById(prevFocus._parent) : prevFocus
+        if (prevFocus._parent) {
+          return this.getNodeById(prevFocus._parent)
+        }
+        break
       default:
         return prevFocus
     }
+    return prevFocus
   }
 
   handleNavigationKey(tree, key) {

@@ -51,6 +51,9 @@ declare module 'react-dropdown-tree-select' {
          * This can be useful for display only forms */
         readOnly?: boolean;
         hierarchical?: boolean;
+        /** Specific id for container. The container renders with a default id of `rdtsN` where N is count of the current component rendered
+         * Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR) */
+        id?: string;
     }
 
     export interface DropdownTreeSelectState {

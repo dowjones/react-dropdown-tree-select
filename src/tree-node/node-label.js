@@ -22,7 +22,7 @@ class NodeLabel extends PureComponent {
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
   }
 
   handleCheckboxChange = e => {
@@ -31,7 +31,9 @@ class NodeLabel extends PureComponent {
     if (simpleSelect) {
       onCheckboxChange(id, true)
     } else {
-      const { target: { checked } } = e
+      const {
+        target: { checked },
+      } = e
       onCheckboxChange(id, checked)
     }
   }

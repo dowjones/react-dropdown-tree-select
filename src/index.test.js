@@ -6,7 +6,7 @@ import toJson from 'enzyme-to-json'
 import DropdownTreeSelect from './index'
 import { clientIdGenerator } from './utils'
 
-const dropdownId ='rdts'
+const dropdownId = 'rdts'
 
 const node0 = {
   _id: `${dropdownId}-0`,
@@ -143,7 +143,7 @@ test('sets unique ids on dropdowns', t => {
   t.notDeepEqual(wrapper1.getDOMNode().id, wrapper2.getDOMNode().id)
 })
 
-test('doesn\'t toggle dropdown if it\'s disabled', t => {
+test("doesn't toggle dropdown if it's disabled", t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} disabled />)
   t.snapshot(toJson(wrapper))
@@ -190,7 +190,7 @@ test('detects click inside', t => {
     view: window,
     bubbles: true,
     cancelable: true,
-    target: checkboxItem
+    target: checkboxItem,
   })
   Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
   wrapper.instance().handleOutsideClick(event)
@@ -211,7 +211,7 @@ test('detects click outside when other dropdown instance', t => {
     view: window,
     bubbles: true,
     cancelable: true,
-    target: searchInput
+    target: searchInput,
   })
   Object.defineProperty(event, 'target', { value: searchInput, enumerable: true })
   wrapper1.instance().handleOutsideClick(event)

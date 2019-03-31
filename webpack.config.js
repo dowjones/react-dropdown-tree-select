@@ -34,11 +34,9 @@ module.exports = {
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
       openAnalyzer: false,
-      generateStatsFile: true
+      generateStatsFile: true,
     }),
-    new CopyPlugin([
-      { from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }
-    ])
+    new CopyPlugin([{ from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }]),
   ],
   module: {
     rules: [

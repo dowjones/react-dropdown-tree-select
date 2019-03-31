@@ -51,6 +51,10 @@ declare module "react-dropdown-tree-select" {
          * Defaults to false
          */
         simpleSelect?: boolean;
+        /** Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+         * *NOTE* if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+         */
+        radioSelect?: boolean;
         /** The text to display when the search does not find results in the content list. Defaults to No matches found */
         noMatchesText?: string;
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.

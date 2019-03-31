@@ -150,8 +150,8 @@ const data = {
 const onChange = (currentNode, selectedNodes) => {
   console.log('onChange::', currentNode, selectedNodes)
 }
-const onAction = ({ action, node }) => {
-  console.log(`onAction:: [${action}]`, node)
+const onAction = ({ action, id }) => {
+  console.log(`onAction:: [${action}]`, id)
 }
 const onNodeToggle = currentNode => {
   console.log('onNodeToggle::', currentNode)
@@ -210,6 +210,20 @@ function onNodeToggle(currentNode) {
 return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
 ```
 
+### onAction
+
+Type: `function`
+
+Fires when a action is triggered. Example:
+
+```jsx
+function onAction({action, id}) {
+  console.log(`onAction:: [${action}]`, id)
+}
+
+return <DropdownTreeSelect data={data} onAction={onAction} />
+```
+
 ### onFocus
 
 Type: `function`
@@ -250,7 +264,6 @@ The `action` object requires the following structure:
 ```js
 {
   className, // required: CSS class for the node. e.g. `fa fa-info`
-  onAction,  // required: Fired on click of the action. The event handler receives `action` object as well as the `node` object.
   title,     // optional: HTML tooltip text
   text,      // optional: Any text to be displayed. This is helpful to pass ligatures if you're using ligature fonts
   ...        // optional: Any extra properties that you'd like to receive during `onChange` event
@@ -314,7 +327,7 @@ Type: `bool` (default: `false`)
 
 Type: `string`
 
-Specific id for container. The container renders with a default id of `rdtsN` where N is count of the current component rendered.
+Specific id for container. The container renders with a default id of `rdtsN` where N is the count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
 

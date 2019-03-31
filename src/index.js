@@ -170,8 +170,8 @@ class DropdownTreeSelect extends Component {
     this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
 
-  onAction = (actionId, nodeId) => {
-    typeof this.props.onAction === 'function' && this.props.onAction(actionId, this.treeManager.getNodeById(nodeId))
+  onAction = (action, nodeId) => {
+    this.props.onAction(action, this.treeManager.getNodeById(nodeId))
   }
 
   onInputFocus = () => {

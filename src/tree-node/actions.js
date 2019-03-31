@@ -17,7 +17,7 @@ class Actions extends PureComponent {
 
     return actions.map((a, idx) => {
       const actionId = a.id || `action-${idx}`
-      return <Action key={actionId} {...rest} {...a} actionData={{ action: actionId, id }} />
+      return <Action key={actionId} {...rest} {...a} actionData={{ action: { ...a, id: actionId }, nodeId: id }} />
     })
   }
 }

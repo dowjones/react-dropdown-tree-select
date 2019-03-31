@@ -1,0 +1,820 @@
+[
+  {
+    "label": "VP Accounting",
+    "tagClassName": "special",
+    "isDefaultValue": true,
+    "children": [
+      {
+        "label": "iWay",
+        "children": [
+          { "label": "Universidad de Especialidades del Espíritu Santo", "value": "universidad-de-especialidades-del-espíritu-santo" },
+          { "label": "Marmara University", "value": "marmara-university" },
+          { "label": "Baghdad College of Pharmacy", "value": "baghdad-college-of-pharmacy" }
+        ],
+        "value": "iway"
+      },
+      {
+        "label": "KDB",
+        "children": [
+          { "label": "Latvian University of Agriculture", "value": "latvian-university-of-agriculture" },
+          { "label": "Dublin Institute of Technology", "value": "dublin-institute-of-technology" }
+        ],
+        "value": "kdb"
+      },
+      {
+        "label": "Justice",
+        "children": [
+          { "label": "Baylor University", "value": "baylor-university" },
+          { "label": "Massachusetts College of Art", "value": "massachusetts-college-of-art" },
+          { "label": "Universidad Técnica Latinoamericana", "value": "universidad-técnica-latinoamericana" },
+          { "label": "Saint Louis College", "value": "saint-louis-college" },
+          { "label": "Scott Christian University", "value": "scott-christian-university" }
+        ],
+        "value": "justice"
+      },
+      {
+        "label": "Utilization Review",
+        "children": [
+          { "label": "University of Minnesota - Twin Cities Campus", "value": "university-of-minnesota---twin-cities-campus" },
+          { "label": "Moldova State Agricultural University", "value": "moldova-state-agricultural-university" },
+          { "label": "Andrews University", "value": "andrews-university" },
+          { "label": "Usmanu Danfodiyo University Sokoto", "value": "usmanu-danfodiyo-university-sokoto" }
+        ],
+        "value": "utilization-review"
+      },
+      {
+        "label": "Norton Utilities",
+        "children": [
+          { "label": "Universidad Autónoma del Caribe", "value": "universidad-autónoma-del-caribe" },
+          { "label": "National University of Uzbekistan", "value": "national-university-of-uzbekistan" },
+          { "label": "Ladoke Akintola University of Technology", "value": "ladoke-akintola-university-of-technology" },
+          { "label": "Kohat University of Science and Technology  (KUST)", "value": "kohat-university-of-science-and-technology--(kust)" },
+          { "label": "Hvanneyri Agricultural University", "value": "hvanneyri-agricultural-university" }
+        ],
+        "value": "norton-utilities"
+      }
+    ],
+    "value": "vp-accounting"
+  },
+  {
+    "label": "Database Administrator III",
+    "disabled": true,
+    "children": [
+      {
+        "label": "TFS",
+        "children": [
+          { "label": "University of Jazeera", "value": "university-of-jazeera" },
+          { "label": "Technical University of Crete", "value": "technical-university-of-crete" },
+          {
+            "label": "Ecole Nationale Supérieure d'Agronomie et des Industries Alimentaires",
+            "value": "ecole-nationale-supérieure-d'agronomie-et-des-industries-alimentaires"
+          },
+          { "label": "Ho Chi Minh City University of Natural Sciences", "value": "ho-chi-minh-city-university-of-natural-sciences" }
+        ],
+        "value": "tfs"
+      },
+      {
+        "label": "Overhaul",
+        "children": [
+          { "label": "Technological University (Taunggyi)", "value": "technological-university-(taunggyi)" },
+          { "label": "Universidad de Las Palmas de Gran Canaria", "value": "universidad-de-las-palmas-de-gran-canaria" },
+          { "label": "Olympia College", "value": "olympia-college" },
+          { "label": "Franklin and Marshall College", "value": "franklin-and-marshall-college" },
+          {
+            "label": "State University of New York College of Environmental Science and Forestry",
+            "value": "state-university-of-new-york-college-of-environmental-science-and-forestry"
+          }
+        ],
+        "value": "overhaul"
+      },
+      {
+        "label": "GTK",
+        "children": [
+          { "label": "Salisbury State University", "value": "salisbury-state-university" },
+          {
+            "label": "Evangelische Fachhochschule für Religionspädagogik, und Gemeindediakonie Moritzburg",
+            "value": "evangelische-fachhochschule-für-religionspädagogik,-und-gemeindediakonie-moritzburg"
+          },
+          { "label": "Kilimanjaro Christian Medical College", "value": "kilimanjaro-christian-medical-college" }
+        ],
+        "value": "gtk"
+      },
+      {
+        "label": "SRP",
+        "children": [
+          { "label": "Toyo Gakuen University", "value": "toyo-gakuen-university" },
+          { "label": "Riyadh College of Dentistry and Pharmacy", "value": "riyadh-college-of-dentistry-and-pharmacy" },
+          { "label": "Aichi Gakusen University", "value": "aichi-gakusen-university" }
+        ],
+        "value": "srp"
+      }
+    ],
+    "value": "database-administrator-iii"
+  },
+  {
+    "label": "Assistant Manager",
+    "children": [
+      {
+        "label": "Risk Analysis",
+        "children": [
+          { "label": "Seijo University", "value": "seijo-university" },
+          { "label": "University of Economics Varna", "value": "university-of-economics-varna" },
+          { "label": "College of Technology at Riyadh", "value": "college-of-technology-at-riyadh" }
+        ],
+        "value": "risk-analysis"
+      },
+      {
+        "label": "UV Mapping",
+        "children": [
+          { "label": "Universidad de La Sabana", "value": "universidad-de-la-sabana" },
+          { "label": "Pamukkale University", "value": "pamukkale-university" }
+        ],
+        "value": "uv-mapping"
+      }
+    ],
+    "value": "assistant-manager"
+  },
+  {
+    "label": "Quality Engineer",
+    "children": [
+      {
+        "label": "Enzyme Kinetics",
+        "children": [
+          { "label": "Universidad del Valle de Guatemala", "isDefaultValue": true, "value": "universidad-del-valle-de-guatemala" },
+          {
+            "label": "Ecole Nationale Supérieure d'Electronique, d'Electrotechnique, d'Informatique et d'Hydraulique de Toulouse",
+            "value": "ecole-nationale-supérieure-d'electronique,-d'electrotechnique,-d'informatique-et-d'hydraulique-de-toulouse"
+          },
+          { "label": "Kota Bharu Polytechnic", "value": "kota-bharu-polytechnic" },
+          { "label": "College of Technology at Kharj", "value": "college-of-technology-at-kharj" }
+        ],
+        "value": "enzyme-kinetics"
+      },
+      {
+        "label": "Gastroenterology",
+        "children": [
+          {
+            "label": "Balochistan University of Engineering and Technology Khuzdar",
+            "value": "balochistan-university-of-engineering-and-technology-khuzdar"
+          },
+          { "label": "Université de Cergy-Pontoise", "value": "université-de-cergy-pontoise" },
+          { "label": "Frederick University", "value": "frederick-university" }
+        ],
+        "value": "gastroenterology"
+      },
+      {
+        "label": "ADP Payroll",
+        "children": [
+          { "label": "National University", "value": "national-university" },
+          { "label": "Ecole de l'Air", "value": "ecole-de-l'air" },
+          { "label": "Vietnam National University of Agriculture", "value": "vietnam-national-university-of-agriculture" },
+          {
+            "label": "St. Petersburg State University of Aerospace Instrumentation",
+            "value": "st.-petersburg-state-university-of-aerospace-instrumentation"
+          }
+        ],
+        "value": "adp-payroll"
+      }
+    ],
+    "value": "quality-engineer"
+  },
+  {
+    "label": "Senior Sales Associate",
+    "children": [
+      {
+        "label": "RSVP",
+        "children": [
+          { "label": "Islamic Azad University, Ahar", "value": "islamic-azad-university,-ahar" },
+          { "label": "Okinawa International University", "value": "okinawa-international-university" },
+          { "label": "Karlshochschule International University", "value": "karlshochschule-international-university" }
+        ],
+        "value": "rsvp"
+      },
+      {
+        "label": "IxChariot",
+        "children": [
+          { "label": "Cambodia University of Specialties", "value": "cambodia-university-of-specialties" },
+          {
+            "label": "Ecole Supérieure des Techniques Industrielles et des Textiles",
+            "value": "ecole-supérieure-des-techniques-industrielles-et-des-textiles"
+          }
+        ],
+        "value": "ixchariot"
+      }
+    ],
+    "value": "senior-sales-associate"
+  },
+  {
+    "label": "Automation Specialist I",
+    "children": [
+      {
+        "label": "Ffmpeg",
+        "children": [
+          { "label": "Christian Heritage College", "value": "christian-heritage-college" },
+          { "label": "Inha University", "value": "inha-university" },
+          { "label": "Khalifa University", "value": "khalifa-university" }
+        ],
+        "value": "ffmpeg"
+      },
+      {
+        "label": "Mac OS",
+        "children": [
+          { "label": "Prague College", "value": "prague-college" },
+          { "label": "Wakayama Medical College", "value": "wakayama-medical-college" },
+          { "label": "South University of Science and Technology of China ", "value": "south-university-of-science-and-technology-of-china-" },
+          { "label": "Campbell University", "value": "campbell-university" }
+        ],
+        "value": "mac-os"
+      },
+      {
+        "label": "Visual Communication",
+        "children": [
+          { "label": "University of the Cordilleras", "value": "university-of-the-cordilleras" },
+          { "label": "University of Mohaghegh", "value": "university-of-mohaghegh" }
+        ],
+        "value": "visual-communication"
+      },
+      {
+        "label": "PCRF",
+        "children": [
+          { "label": "FPT University", "value": "fpt-university" },
+          { "label": "Rakuno Gakuen University", "value": "rakuno-gakuen-university" },
+          { "label": "Xiangtan Normal University", "value": "xiangtan-normal-university" },
+          { "label": "Rice University", "value": "rice-university" },
+          { "label": "Sapporo Gakuin University", "value": "sapporo-gakuin-university" }
+        ],
+        "value": "pcrf"
+      }
+    ],
+    "value": "automation-specialist-i"
+  },
+  {
+    "label": "Technical Writer",
+    "children": [
+      {
+        "label": "NC-Verilog",
+        "children": [
+          { "label": "Etisalat University College", "value": "etisalat-university-college" },
+          { "label": "Newcastle University, Medicine Malaysia ", "value": "newcastle-university,-medicine-malaysia-" },
+          { "label": "University of Asia Pacific, Dhanmondi", "value": "university-of-asia-pacific,-dhanmondi" },
+          { "label": "Leading University", "value": "leading-university" }
+        ],
+        "value": "nc-verilog"
+      },
+      {
+        "label": "Water Treatment",
+        "children": [
+          {
+            "label": "Gorgan University of Agricultural Sciences and Natural Resources",
+            "value": "gorgan-university-of-agricultural-sciences-and-natural-resources"
+          },
+          { "label": "Tianjin Polytechnic University", "value": "tianjin-polytechnic-university" },
+          { "label": "Universitas Bojonegoro", "value": "universitas-bojonegoro" }
+        ],
+        "value": "water-treatment"
+      },
+      {
+        "label": "FTO",
+        "children": [
+          { "label": "Université de Skikda", "value": "université-de-skikda" },
+          { "label": "University College of Technology & Innovation (UCTI)", "value": "university-college-of-technology-&-innovation-(ucti)" },
+          { "label": "Ahmedabad University", "value": "ahmedabad-university" },
+          { "label": "Universidad Intercontinental", "value": "universidad-intercontinental" },
+          { "label": "Atlantic Union College", "value": "atlantic-union-college" }
+        ],
+        "value": "fto"
+      },
+      {
+        "label": "Vocational Rehabilitation",
+        "children": [
+          { "label": "Cambodia University of Specialties", "value": "cambodia-university-of-specialties" },
+          { "label": "Universiteit Antwerpen Management School", "value": "universiteit-antwerpen-management-school" }
+        ],
+        "value": "vocational-rehabilitation"
+      },
+      {
+        "label": "DH+",
+        "children": [
+          { "label": "Universidad de Córdoba", "value": "universidad-de-córdoba" },
+          { "label": "Université Lumière de Bujumbura", "value": "université-lumière-de-bujumbura" },
+          { "label": "Madonna University", "value": "madonna-university" },
+          { "label": "University of Washington", "value": "university-of-washington" }
+        ],
+        "value": "dh+"
+      }
+    ],
+    "value": "technical-writer"
+  },
+  {
+    "label": "Software Test Engineer IV",
+    "children": [
+      {
+        "label": "Zero Waste",
+        "children": [
+          { "label": "University of Italian Studies for Foreigners of Siena", "value": "university-of-italian-studies-for-foreigners-of-siena" },
+          { "label": "Klaipeda University", "value": "klaipeda-university" },
+          { "label": "Tallinn University", "value": "tallinn-university" }
+        ],
+        "value": "zero-waste"
+      },
+      {
+        "label": "Fixed Assets",
+        "children": [
+          { "label": "North Carolina Central University", "value": "north-carolina-central-university" },
+          { "label": "Universidad Nacional de San Luis", "value": "universidad-nacional-de-san-luis" },
+          { "label": "Baha'i Institute for Higher Education", "value": "baha'i-institute-for-higher-education" }
+        ],
+        "value": "fixed-assets"
+      }
+    ],
+    "value": "software-test-engineer-iv"
+  },
+  {
+    "label": "Nuclear Power Engineer",
+    "children": [
+      {
+        "label": "Woodworking",
+        "children": [
+          { "label": "National Chiayi University", "value": "national-chiayi-university" },
+          { "label": "Tokyo Kasei University", "value": "tokyo-kasei-university" },
+          { "label": "Auchi Polytechnic", "value": "auchi-polytechnic" },
+          { "label": "Hashemite University", "value": "hashemite-university" },
+          { "label": "Thomas Jefferson University", "value": "thomas-jefferson-university" }
+        ],
+        "value": "woodworking"
+      },
+      {
+        "label": "Psychotherapy",
+        "children": [
+          { "label": "Trident University", "value": "trident-university" },
+          { "label": "Université de N'Djamena", "value": "université-de-n'djamena" },
+          { "label": "Parsons School of Design", "value": "parsons-school-of-design" },
+          { "label": "University of San Diego", "value": "university-of-san-diego" }
+        ],
+        "value": "psychotherapy"
+      },
+      {
+        "label": "Credit Unions",
+        "children": [
+          { "label": "Tilburg University", "value": "tilburg-university" },
+          { "label": "Miyazaki University", "value": "miyazaki-university" },
+          { "label": "Ohio State University - Newark", "value": "ohio-state-university---newark" }
+        ],
+        "value": "credit-unions"
+      }
+    ],
+    "value": "nuclear-power-engineer"
+  },
+  {
+    "label": "Media Manager III",
+    "children": [
+      {
+        "label": "BPL",
+        "children": [
+          { "label": "International Burch University", "value": "international-burch-university" },
+          { "label": "Trinity International University", "value": "trinity-international-university" },
+          { "label": "Universidad Autónoma de Centro América", "value": "universidad-autónoma-de-centro-américa" },
+          { "label": "Evangelische Fachhochschule Nürnberg", "value": "evangelische-fachhochschule-nürnberg" },
+          { "label": "Academy of Music, Dance and Fine Arts", "value": "academy-of-music,-dance-and-fine-arts" }
+        ],
+        "value": "bpl"
+      },
+      {
+        "label": "NVU",
+        "children": [
+          { "label": "University Institute of Modern Languages", "value": "university-institute-of-modern-languages" },
+          { "label": "Kyungil University", "value": "kyungil-university" },
+          { "label": "Jimma University", "value": "jimma-university" }
+        ],
+        "value": "nvu"
+      },
+      {
+        "label": "Zooarchaeology",
+        "children": [
+          { "label": "Hebei Medical University", "value": "hebei-medical-university" },
+          { "label": "Bharath Institue Of Higher Education & Research", "value": "bharath-institue-of-higher-education-&-research" },
+          { "label": "Universität Hannover", "value": "universität-hannover" }
+        ],
+        "value": "zooarchaeology"
+      }
+    ],
+    "value": "media-manager-iii"
+  },
+  {
+    "label": "Safety Technician IV",
+    "children": [
+      {
+        "label": "IOT",
+        "children": [
+          { "label": "Belarussian National Technical University", "value": "belarussian-national-technical-university" },
+          { "label": "Tokyo University of Pharmacy and Life Science", "value": "tokyo-university-of-pharmacy-and-life-science" },
+          { "label": "Brickfields Asia College", "value": "brickfields-asia-college" },
+          { "label": "Samar State University", "value": "samar-state-university" },
+          { "label": "West Bengal University of Technology", "value": "west-bengal-university-of-technology" }
+        ],
+        "value": "iot"
+      },
+      {
+        "label": "Lymphatic Drainage",
+        "children": [
+          { "label": "Free University Amsterdam", "value": "free-university-amsterdam" },
+          { "label": "Friedrich-Alexander Universität Erlangen-Nürnberg", "value": "friedrich-alexander-universität-erlangen-nürnberg" },
+          { "label": "Sinnar University", "value": "sinnar-university" },
+          { "label": "Okayama University of Science", "value": "okayama-university-of-science" }
+        ],
+        "value": "lymphatic-drainage"
+      },
+      {
+        "label": "OLAP Cube Studio",
+        "children": [
+          { "label": "Liaoning Technical University", "value": "liaoning-technical-university" },
+          { "label": "Instituto Superior D. Afonso III - INUAF", "value": "instituto-superior-d.-afonso-iii---inuaf" },
+          { "label": "Kossuth Lajos University", "value": "kossuth-lajos-university" }
+        ],
+        "value": "olap-cube-studio"
+      },
+      {
+        "label": "DSM-IV",
+        "children": [
+          { "label": "Daniel Webster College", "value": "daniel-webster-college" },
+          { "label": "University of Athens", "value": "university-of-athens" }
+        ],
+        "value": "dsm-iv"
+      }
+    ],
+    "value": "safety-technician-iv"
+  },
+  {
+    "label": "Nuclear Power Engineer",
+    "children": [
+      {
+        "label": "Guest Lecturing",
+        "children": [
+          { "label": "National Pingtung Teachers College", "value": "national-pingtung-teachers-college" },
+          { "label": "Advance Tertiary College", "value": "advance-tertiary-college" },
+          {
+            "label": "Louisiana State University Health Sciences Center New Orleans",
+            "value": "louisiana-state-university-health-sciences-center-new-orleans"
+          },
+          { "label": "University of Shiga Prefecture", "value": "university-of-shiga-prefecture" }
+        ],
+        "value": "guest-lecturing"
+      },
+      {
+        "label": "Ayurveda",
+        "children": [
+          { "label": "Paichai University", "value": "paichai-university" },
+          { "label": "Universidad Sergio Arboleda", "value": "universidad-sergio-arboleda" },
+          { "label": "Lansbridge University", "value": "lansbridge-university" }
+        ],
+        "value": "ayurveda"
+      },
+      {
+        "label": "Aeronautics",
+        "children": [
+          {
+            "label": "Ecole Nationale Supérieure d'Ingénieurs en Mécanique et Energétique de Valenciennes",
+            "value": "ecole-nationale-supérieure-d'ingénieurs-en-mécanique-et-energétique-de-valenciennes"
+          },
+          { "label": "Ajou University", "value": "ajou-university" },
+          {
+            "label": "Islamic Azad University, Tehran Science & Research Branch",
+            "value": "islamic-azad-university,-tehran-science-&-research-branch"
+          },
+          { "label": "University of Michigan - Flint", "value": "university-of-michigan---flint" },
+          { "label": "University of Ferrara", "value": "university-of-ferrara" }
+        ],
+        "value": "aeronautics"
+      }
+    ],
+    "value": "nuclear-power-engineer"
+  },
+  {
+    "label": "Civil Engineer",
+    "children": [
+      {
+        "label": "Architectural Illustration",
+        "children": [
+          { "label": "Detroit College of Law", "value": "detroit-college-of-law" },
+          { "label": "European Carolus Magnus University", "value": "european-carolus-magnus-university" }
+        ],
+        "value": "architectural-illustration"
+      },
+      {
+        "label": "Teaching Writing",
+        "children": [
+          { "label": "Virginia Intermont College", "value": "virginia-intermont-college" },
+          { "label": "Polytechnic of Namibia", "value": "polytechnic-of-namibia" },
+          { "label": "Kigali Independent University", "value": "kigali-independent-university" },
+          { "label": "Nepal Sanskrit University", "value": "nepal-sanskrit-university" }
+        ],
+        "value": "teaching-writing"
+      },
+      {
+        "label": "MS Excel Pivot Tables",
+        "children": [
+          { "label": "Newcastle University, Medicine Malaysia ", "value": "newcastle-university,-medicine-malaysia-" },
+          { "label": "National Fisheries University", "value": "national-fisheries-university" },
+          { "label": "Université d'Antsiranana", "value": "université-d'antsiranana" },
+          { "label": "Shenyang Polytechnic University", "value": "shenyang-polytechnic-university" }
+        ],
+        "value": "ms-excel-pivot-tables"
+      }
+    ],
+    "value": "civil-engineer"
+  },
+  {
+    "label": "Senior Editor",
+    "children": [
+      {
+        "label": "Semantic HTML",
+        "children": [
+          { "label": "Southwest University of Finance and Economics", "value": "southwest-university-of-finance-and-economics" },
+          { "label": "Civil Aviation University of China", "value": "civil-aviation-university-of-china" },
+          { "label": "Belarussian State Technological University", "value": "belarussian-state-technological-university" }
+        ],
+        "value": "semantic-html"
+      },
+      {
+        "label": "ASP",
+        "children": [
+          { "label": "Kyoto Tachibana Women's University", "value": "kyoto-tachibana-women's-university" },
+          { "label": "Ursuline College", "value": "ursuline-college" },
+          { "label": "York University", "value": "york-university" },
+          { "label": "Jewish University in Moscow", "value": "jewish-university-in-moscow" }
+        ],
+        "value": "asp"
+      },
+      {
+        "label": "OCLC Connexion",
+        "children": [
+          { "label": "New York University", "value": "new-york-university" },
+          { "label": "Pittsburg State University", "value": "pittsburg-state-university" }
+        ],
+        "value": "oclc-connexion"
+      },
+      {
+        "label": "Rural Marketing",
+        "children": [
+          { "label": "Universidad de Cartagena", "value": "universidad-de-cartagena" },
+          { "label": "Czech University of Agriculture Prague", "value": "czech-university-of-agriculture-prague" },
+          { "label": "Tohoku Women's College", "value": "tohoku-women's-college" },
+          { "label": "Gunma University", "value": "gunma-university" },
+          { "label": "Minsk State Linguistic University", "value": "minsk-state-linguistic-university" }
+        ],
+        "value": "rural-marketing"
+      },
+      {
+        "label": "DDI",
+        "children": [
+          { "label": "Voronezh State Technical University", "value": "voronezh-state-technical-university" },
+          { "label": "University Center \"César Ritz\"", "value": "university-center-\"césar-ritz\"" }
+        ],
+        "value": "ddi"
+      }
+    ],
+    "value": "senior-editor"
+  },
+  {
+    "label": "Media Manager IV",
+    "children": [
+      {
+        "label": "Yamaha PM5D",
+        "children": [
+          { "label": "Mooreland University", "value": "mooreland-university" },
+          { "label": "Universidad de San Pablo CEU", "value": "universidad-de-san-pablo-ceu" },
+          { "label": "Universidad Galileo", "value": "universidad-galileo" },
+          { "label": "College of Technology at Abha", "value": "college-of-technology-at-abha" },
+          { "label": "Cabrini College", "value": "cabrini-college" }
+        ],
+        "value": "yamaha-pm5d"
+      },
+      {
+        "label": "HSE Management Systems",
+        "children": [
+          { "label": "Grinnell College", "value": "grinnell-college" },
+          { "label": "Chinju National University of Education", "value": "chinju-national-university-of-education" },
+          { "label": "Dokkyo University School of Medicine", "value": "dokkyo-university-school-of-medicine" },
+          { "label": "University of New England, Westbrook College Campus", "value": "university-of-new-england,-westbrook-college-campus" },
+          { "label": "Miami University of Ohio - Hamilton", "value": "miami-university-of-ohio---hamilton" }
+        ],
+        "value": "hse-management-systems"
+      }
+    ],
+    "value": "media-manager-iv"
+  },
+  {
+    "label": "Product Engineer",
+    "children": [
+      {
+        "label": "Multi-Unit",
+        "children": [
+          { "label": "Strayer University", "value": "strayer-university" },
+          { "label": "National Kaohsiung University of Applied Sciences", "value": "national-kaohsiung-university-of-applied-sciences" },
+          { "label": "Philadelphia University", "value": "philadelphia-university" },
+          { "label": "National Institute of Mental Health and Neuro Sciences", "value": "national-institute-of-mental-health-and-neuro-sciences" },
+          { "label": "Vardhaman Mahaveer Open University", "value": "vardhaman-mahaveer-open-university" }
+        ],
+        "value": "multi-unit"
+      },
+      {
+        "label": "FX Trading",
+        "children": [
+          { "label": "Universidade Estácio de Sá", "value": "universidade-estácio-de-sá" },
+          { "label": "Manipal University", "value": "manipal-university" }
+        ],
+        "value": "fx-trading"
+      }
+    ],
+    "value": "product-engineer"
+  },
+  {
+    "label": "Account Coordinator",
+    "children": [
+      {
+        "label": "Biostatistics",
+        "children": [
+          { "label": "Al-Bukhari International University", "value": "al-bukhari-international-university" },
+          { "label": "Technical University of Denmark", "value": "technical-university-of-denmark" },
+          { "label": "Postgraduate lnstitute of Medical Education and Research", "value": "postgraduate-lnstitute-of-medical-education-and-research" }
+        ],
+        "value": "biostatistics"
+      },
+      {
+        "label": "FM",
+        "children": [
+          { "label": "University of Oxford", "value": "university-of-oxford" },
+          { "label": "Lawrence University", "value": "lawrence-university" },
+          { "label": "Okayama University", "value": "okayama-university" }
+        ],
+        "value": "fm"
+      },
+      {
+        "label": "Microsoft Certified Professional",
+        "children": [
+          { "label": "Universidade Católica de Brasília", "value": "universidade-católica-de-brasília" },
+          { "label": "Georgia Institute of Technology", "value": "georgia-institute-of-technology" },
+          { "label": "University of Petrosani", "value": "university-of-petrosani" }
+        ],
+        "value": "microsoft-certified-professional"
+      }
+    ],
+    "value": "account-coordinator"
+  },
+  {
+    "label": "Payment Adjustment Coordinator",
+    "children": [
+      {
+        "label": "Federal Grants Management",
+        "children": [
+          { "label": "Christ University", "value": "christ-university" },
+          { "label": "Janos Selye University", "value": "janos-selye-university" },
+          { "label": "Zagazig University", "value": "zagazig-university" },
+          { "label": "Constantin Brancoveanu University Pitesti", "value": "constantin-brancoveanu-university-pitesti" },
+          { "label": "Southwest University of Political Science and Law", "value": "southwest-university-of-political-science-and-law" }
+        ],
+        "value": "federal-grants-management"
+      },
+      {
+        "label": "Company Set-up",
+        "children": [
+          { "label": "Ball State University", "value": "ball-state-university" },
+          { "label": "Mustafa Kemal University", "value": "mustafa-kemal-university" },
+          { "label": "Transylvania University", "value": "transylvania-university" }
+        ],
+        "value": "company-set-up"
+      },
+      {
+        "label": "CDMA",
+        "children": [
+          { "label": "College of Telecommunication & Information ", "value": "college-of-telecommunication-&-information-" },
+          { "label": "Nagasaki Prefectural University", "value": "nagasaki-prefectural-university" },
+          { "label": "Gustav-Siewerth-Akademie", "value": "gustav-siewerth-akademie" }
+        ],
+        "value": "cdma"
+      },
+      {
+        "label": "Overhead Cranes",
+        "children": [
+          { "label": "Universidad de Pamplona", "value": "universidad-de-pamplona" },
+          { "label": "Bindura University of Science Education", "value": "bindura-university-of-science-education" },
+          { "label": "Daiichi University of Economics", "value": "daiichi-university-of-economics" },
+          { "label": "Wirtschaftsuniversität Wien", "value": "wirtschaftsuniversität-wien" }
+        ],
+        "value": "overhead-cranes"
+      },
+      {
+        "label": "CDO",
+        "children": [
+          { "label": "Design Institute of San Diego", "value": "design-institute-of-san-diego" },
+          { "label": "Wellspring University", "value": "wellspring-university" },
+          { "label": "Franciscan School of Theology", "value": "franciscan-school-of-theology" }
+        ],
+        "value": "cdo"
+      }
+    ],
+    "value": "payment-adjustment-coordinator"
+  },
+  {
+    "label": "Assistant Manager",
+    "children": [
+      {
+        "label": "SQL Server Management Studio",
+        "children": [
+          { "label": "University of Sudbury", "value": "university-of-sudbury" },
+          {
+            "label": "Evangelische Fachhochschule Berlin, Fachhochschule für Sozialarbeit und Sozialpädagogik",
+            "value": "evangelische-fachhochschule-berlin,-fachhochschule-für-sozialarbeit-und-sozialpädagogik"
+          },
+          { "label": "Vitebsk State University", "value": "vitebsk-state-university" },
+          { "label": "San Jose Christian College", "value": "san-jose-christian-college" },
+          { "label": "Ivanovo State University", "value": "ivanovo-state-university" }
+        ],
+        "value": "sql-server-management-studio"
+      },
+      {
+        "label": "Abstracting",
+        "children": [
+          { "label": "Adeyemi College of Education", "value": "adeyemi-college-of-education" },
+          { "label": "Université de Sherbrooke", "value": "université-de-sherbrooke" },
+          { "label": "University College of Applied Sciences", "value": "university-college-of-applied-sciences" },
+          { "label": "Johns Hopkins University, SAIS Bologna Center", "value": "johns-hopkins-university,-sais-bologna-center" }
+        ],
+        "value": "abstracting"
+      },
+      {
+        "label": "WTL",
+        "children": [
+          { "label": "Universidad de Córdoba", "value": "universidad-de-córdoba" },
+          { "label": "Institut National Polytechnique de Grenoble", "value": "institut-national-polytechnique-de-grenoble" },
+          { "label": "Kyonggi University", "value": "kyonggi-university" }
+        ],
+        "value": "wtl"
+      }
+    ],
+    "value": "assistant-manager"
+  },
+  {
+    "label": "Professor",
+    "children": [
+      {
+        "label": "People Skills",
+        "children": [
+          { "label": "University of Calcutta", "value": "university-of-calcutta" },
+          { "label": "Universidad del Valle del Cauca", "value": "universidad-del-valle-del-cauca" },
+          {
+            "label": "FAST - National University of Computer and Emerging Sciences (NUCES)",
+            "value": "fast---national-university-of-computer-and-emerging-sciences-(nuces)"
+          }
+        ],
+        "value": "people-skills"
+      },
+      {
+        "label": "Workforce Development",
+        "children": [
+          { "label": "Shandong Medical University", "value": "shandong-medical-university" },
+          { "label": "Al Khawarizmi International College", "value": "al-khawarizmi-international-college" },
+          { "label": "Nippon Dental University", "value": "nippon-dental-university" },
+          { "label": "Komsomolsk-on-Amur State Technical University", "value": "komsomolsk-on-amur-state-technical-university" },
+          { "label": "Lingnan University", "value": "lingnan-university" }
+        ],
+        "value": "workforce-development"
+      },
+      {
+        "label": "Digital Journalism",
+        "children": [
+          { "label": "The College of St. Scholastica", "value": "the-college-of-st.-scholastica" },
+          { "label": "Universidad Autónoma de la Ciudad de México", "value": "universidad-autónoma-de-la-ciudad-de-méxico" },
+          {
+            "label": "University of Information Technology and Management in Rzeszow",
+            "value": "university-of-information-technology-and-management-in-rzeszow"
+          },
+          { "label": "Liaquat University of Medical & Health Sciences Jamshoro", "value": "liaquat-university-of-medical-&-health-sciences-jamshoro" }
+        ],
+        "value": "digital-journalism"
+      },
+      {
+        "label": "Short Films",
+        "children": [
+          { "label": "Universidad Católica de Valencia", "value": "universidad-católica-de-valencia" },
+          { "label": "Columbia International University", "value": "columbia-international-university" },
+          { "label": "Framingham State College", "value": "framingham-state-college" },
+          { "label": "Gurukul University", "value": "gurukul-university" },
+          { "label": "NTI University", "value": "nti-university" }
+        ],
+        "value": "short-films"
+      },
+      {
+        "label": "XML Programming",
+        "children": [
+          { "label": "Victoria University", "value": "victoria-university" },
+          { "label": "Andrews University", "value": "andrews-university" },
+          { "label": "Centre Universitaire d'Oum El Bouaghi", "value": "centre-universitaire-d'oum-el-bouaghi" },
+          { "label": "Dilla University", "value": "dilla-university" }
+        ],
+        "value": "xml-programming"
+      }
+    ],
+    "value": "professor"
+  }
+]

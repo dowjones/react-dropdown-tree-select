@@ -22,7 +22,7 @@ class NodeLabel extends PureComponent {
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
-    readOnly: PropTypes.bool,
+    readOnly: PropTypes.bool
   }
 
   handleCheckboxChange = e => {
@@ -31,26 +31,14 @@ class NodeLabel extends PureComponent {
     if (simpleSelect) {
       onCheckboxChange(id, true)
     } else {
-      const {
-        target: { checked },
-      } = e
+      const { target: { checked } } = e
       onCheckboxChange(id, checked)
     }
   }
 
   render() {
-    const {
-      simpleSelect,
-      title,
-      label,
-      id,
-      partial,
-      checked,
-      value,
-      disabled,
-      showPartiallySelected,
-      readOnly,
-    } = this.props
+    const { simpleSelect, title, label, id, partial, checked } = this.props
+    const { value, disabled, showPartiallySelected, readOnly } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label

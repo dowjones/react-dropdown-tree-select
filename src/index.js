@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick } from './utils'
+import { isOutsideClick, clientIdGenerator } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -39,24 +39,26 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
+    id: PropTypes.string
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {},
+    onChange: () => {}
   }
 
   constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false,
+      searchModeOn: false
     }
+    this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical })
+    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
     return this.treeManager.tree
   }
 
@@ -66,7 +68,7 @@ class DropdownTreeSelect extends Component {
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,
-      allNodesHidden: false,
+      allNodesHidden: false
     }
   }
 
@@ -110,7 +112,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.props.className)) {
+    if (!isOutsideClick(e, this.node)) {
       return
     }
 
@@ -118,17 +120,13 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(
-      value,
-      this.props.keepTreeOnSearch,
-      this.props.keepChildrenOnSearch
-    )
+    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
     const searchModeOn = value.length > 0
 
     this.setState({
       tree,
       searchModeOn,
-      allNodesHidden,
+      allNodesHidden
     })
   }
 
@@ -157,7 +155,7 @@ class DropdownTreeSelect extends Component {
     const nextState = {
       tree,
       tags,
-      showDropdown,
+      showDropdown
     }
 
     if (this.props.simpleSelect || this.props.clearSearchOnChange) {
@@ -191,11 +189,12 @@ class DropdownTreeSelect extends Component {
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       top: this.state.showDropdown,
-      bottom: !this.state.showDropdown,
+      bottom: !this.state.showDropdown
     })
 
     return (
       <div
+        id={this.clientId}
         className={cx(this.props.className, 'react-dropdown-tree-select')}
         ref={node => {
           this.node = node

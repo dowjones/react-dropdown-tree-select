@@ -327,7 +327,7 @@ Type: `bool` (default: `false`)
 
 Type: `string`
 
-Specific id for container. The container renders with a default id of `rdtsN` where N is count of the current component rendered.
+Specific id for container. The container renders with a default id of `rdtsN` where N is the count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
 

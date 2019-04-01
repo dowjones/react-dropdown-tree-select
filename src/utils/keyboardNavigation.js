@@ -39,17 +39,19 @@ const isValidKey = (key, isOpen) => {
   return keysToCheck.indexOf(key) > -1
 }
 
+const isMatchingEvent = (key, keys, currentFocus, nonFocusKey) => keys.indexOf(key) > -1 || (!currentFocus && key === nonFocusKey)
+
 const isFocusFirstEvent = (key, currentFocus) =>
-  [Keys.Home, Keys.PageUp].indexOf(key) > -1 || (!currentFocus && key === Keys.Down)
+  isMatchingEvent(key, [Keys.Home, Keys.PageUp], currentFocus, Keys.Down)
 
 const isFocusLastEvent = (key, currentFocus) =>
-  [Keys.End, Keys.PageDown].indexOf(key) > -1 || (!currentFocus && key === Keys.Up)
+  isMatchingEvent(key, [Keys.End, Keys.PageDown], currentFocus, Keys.Up)
 
 const isReverseTraverseAction = action =>
-  [NavActions.FocusPrevious, NavActions.FocusLast].indexOf(action) > -1
+  isMatchingEvent(action, [NavActions.FocusPrevious, NavActions.FocusLast], true)
 
 const isEdgeTraverseAction = action =>
-  [NavActions.FocusFirst, NavActions.FocusLast].indexOf(action) > -1
+  isMatchingEvent(action, [NavActions.FocusFirst, NavActions.FocusLast], true)
 
 const getLeftNavAction = (currentFocus, key) => {
   if (!currentFocus || key !== Keys.Left) return NavActions.None

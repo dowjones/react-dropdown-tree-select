@@ -25,6 +25,7 @@ class DropdownTreeSelect extends Component {
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
+    keepOpenOnSelect: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -34,6 +35,7 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -184,12 +186,12 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    
-    const { enableKeyboardNavigation, keepTreeOnSearch } = this.props
+    const { enableKeyboardNavigation, keepTreeOnSearch, keepOpenOnSelect, simpleSelect, radioSelect } = this.props
     if (!enableKeyboardNavigation) { return }
 
     const { showDropdown, tags, searchModeOn } = this.state
     const tm = this.treeManager
+    const singleSelect = simpleSelect || radioSelect
 
     if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /\w/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
@@ -200,6 +202,10 @@ class DropdownTreeSelect extends Component {
       const tree = searchModeOn ? tm.matchTree : tm.tree
       if (tm.handleNavigationKey(tree, e.key, searchModeOn && !keepTreeOnSearch)) {
         this.setState({ tags: tm.getTags() })
+        if (e.key === 'Enter' && singleSelect && !keepOpenOnSelect) {
+          this.keepDropdownActive = false
+          this.handleClick()
+        }
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       // Triggers close

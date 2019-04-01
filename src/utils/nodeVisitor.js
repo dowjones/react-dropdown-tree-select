@@ -25,7 +25,7 @@ const getNodesMatching = (tree, nodePredicate) => {
   return nodes
 }
 
-const getVisibleNodes = (tree, getItemById, markSubTreeOnNonExpanded) => 
+const getVisibleNodes = (tree, getItemById, markSubTreeOnNonExpanded) =>
   getNodesMatching(tree, (node, key, visited) => {
     if (markSubTreeOnNonExpanded && node._children && node._children.length && node.expanded !== true) {
       markSubTreeVisited(node, visited, getItemById)

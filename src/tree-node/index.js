@@ -101,10 +101,13 @@ class TreeNode extends PureComponent {
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
     const liId = `${_id}_li`
+    const leaf = isLeaf(_children)
+    const refSetter = ref => { this.node = ref }
+    const ariaExpanded = leaf ? expanded === true : undefined
 
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={ref => { this.node = ref }}>
-        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} aria-expanded={_children ? expanded: undefined} id={_id} onNodeToggle={onNodeToggle} />
+      <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={refSetter} aria-expanded={ariaExpanded}>
+        <Toggle isLeaf={leaf} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}
           label={label}

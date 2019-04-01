@@ -98,4 +98,3 @@ test('can navigate searchresult on keyboardNavigation', t => {
   })
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
 })
-

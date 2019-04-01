@@ -16,7 +16,6 @@ class NodeLabel extends PureComponent {
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     partial: PropTypes.bool,
-    expanded: PropTypes.bool,
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
     simpleSelect: PropTypes.bool,

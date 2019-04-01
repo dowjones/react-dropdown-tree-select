@@ -25,6 +25,7 @@ class DropdownTreeSelect extends Component {
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
+    keepOpenOnSelect: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -138,11 +139,11 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked) => {
-    const { simpleSelect, radioSelect } = this.props
+    const { simpleSelect, radioSelect, keepOpenOnSelect } = this.props
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.getTags()
     const isSingleSelect = simpleSelect || radioSelect
-    const showDropdown = isSingleSelect ? false : this.state.showDropdown
+    const showDropdown = isSingleSelect && !keepOpenOnSelect ? false : this.state.showDropdown
 
     if (!tags.length) {
       this.treeManager.restoreDefaultValues()
@@ -157,11 +158,11 @@ class DropdownTreeSelect extends Component {
     }
 
 
-    if (isSingleSelect || this.props.clearSearchOnChange) {
+    if ((isSingleSelect && !showDropdown) || this.props.clearSearchOnChange) {
       Object.assign(nextState, this.resetSearchState())
     }
 
-    if (isSingleSelect) {
+    if (isSingleSelect && !showDropdown) {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 

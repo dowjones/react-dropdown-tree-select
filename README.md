@@ -47,6 +47,7 @@ A lightweight and fast control to render a select component that can display hie
   - [noMatchesText](#nomatchestext)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
+  - [keepOpenOnSelect](#keepopenonselect)
   - [simpleSelect](#simpleselect)
   - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
@@ -298,6 +299,14 @@ Type: `bool`
 Displays children of found nodes to allow searching for a parent node on then selecting any child node of the found node. Defaults to `false`
 
 *NOTE* this works only in combination with `keepTreeOnSearch`
+
+### keepOpenOnSelect
+
+Type: `bool` (default: 'false')
+
+Keeps single selects open after selection. Defaults to `false`
+
+*NOTE* this works only in combination with `simpleSelect` or `radioSelect`
 
 ### simpleSelect
 

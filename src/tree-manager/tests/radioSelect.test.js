@@ -4,19 +4,31 @@ import { mount } from 'enzyme'
 import TreeManager from '..'
 import DropdownTreeSelect from '../../'
 
-test('should render radio inputs with shared name', t => {
-  const tree = ['A', 'B', 'C'].map(nv => ({ id: nv, label: nv, value: nv }))
+const dropdownId = 'rdts'
+const tree = ['nodeA', 'nodeB', 'nodeC'].map(nv => ({ id: nv, label: nv, value: nv }))
 
-  const dropdownId = 'rdts'
+test('should render radio inputs with shared name', t => {
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} radioSelect showDropdown />)
 
   const inputs = wrapper.find('.dropdown-content').find(`input[type="radio"][name="${dropdownId}"]`)
   t.deepEqual(inputs.length, 3)
 })
 
-test('should deselect previous node', t => {
-  const tree = [{ id: 'nodeA' }, { id: 'nodeB' }, { id: 'nodeC' }]
+test('hides dropdown onChange for radioSelect', t => {
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown radioSelect />)
+  wrapper.instance().onCheckboxChange('nodeA', true)
+  t.false(wrapper.state().searchModeOn)
+  t.false(wrapper.state().allNodesHidden)
+  t.false(wrapper.state().showDropdown)
+})
 
+test('keeps dropdown open onChange for radioSelect and keepOpenOnSelect', t => {
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown radioSelect keepOpenOnSelect />)
+  wrapper.instance().onCheckboxChange('nodeA', true)
+  t.true(wrapper.state().showDropdown)
+})
+
+test('should deselect previous node', t => {
   const manager = new TreeManager({ data: tree, radioSelect: true })
 
   // first select a node
@@ -30,9 +42,9 @@ test('should deselect previous node', t => {
 })
 
 test('should only select single first checked node on init', t => {
-  const tree = [{ id: 'nodeA', checked: true }, { id: 'nodeB', checked: true }, { id: 'nodeC', checked: true }]
+  const data = tree.map(n => ({ ...n, checked: true }))
 
-  const manager = new TreeManager({ data: tree, radioSelect: true })
+  const manager = new TreeManager({ data, radioSelect: true })
 
   t.true(manager.getNodeById('nodeA').checked)
   t.false(manager.getNodeById('nodeB').checked)
@@ -40,9 +52,9 @@ test('should only select single first checked node on init', t => {
 })
 
 test('should only select single first default value node on init', t => {
-  const tree = [{ id: 'nodeA', isDefaultValue: true }, { id: 'nodeB', isDefaultValue: true }, { id: 'nodeC', isDefaultValue: true }]
+  const data = tree.map(n => ({ ...n, isDefaultValue: true }))
 
-  const manager = new TreeManager({ data: tree, radioSelect: true })
+  const manager = new TreeManager({ data, radioSelect: true })
 
   t.true(manager.getNodeById('nodeA').checked)
   t.falsy(manager.getNodeById('nodeB').checked)
@@ -50,9 +62,9 @@ test('should only select single first default value node on init', t => {
 })
 
 test('should select single first default node and ignore any checked', t => {
-  const tree = [{ id: 'nodeA', checked: true }, { id: 'nodeB', isDefaultValue: true }, { id: 'nodeC', checked: true }]
+  const data = [{ id: 'nodeA', checked: true }, { id: 'nodeB', isDefaultValue: true }, { id: 'nodeC', checked: true }]
 
-  const manager = new TreeManager({ data: tree, radioSelect: true })
+  const manager = new TreeManager({ data, radioSelect: true })
 
   t.false(manager.getNodeById('nodeA').checked)
   t.true(manager.getNodeById('nodeB').checked)

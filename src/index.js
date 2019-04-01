@@ -187,7 +187,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    const { enableKeyboardNavigation, keepTreeOnSearch, keepOpenOnSelect, simpleSelect, radioSelect } = this.props
+    const { enableKeyboardNavigation, keepOpenOnSelect, simpleSelect, radioSelect } = this.props
     if (!enableKeyboardNavigation) { return }
 
     const { showDropdown, tags, searchModeOn } = this.state
@@ -201,7 +201,7 @@ class DropdownTreeSelect extends Component {
       if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
       const tree = searchModeOn ? tm.matchTree : tm.tree
-      if (tm.handleNavigationKey(tree, e.key, searchModeOn && !keepTreeOnSearch)) {
+      if (tm.handleNavigationKey(tree, e.key, !searchModeOn)) {
         this.setState({ tags: tm.getTags() })
         if (e.key === 'Enter' && singleSelect && !keepOpenOnSelect) {
           this.keepDropdownActive = false

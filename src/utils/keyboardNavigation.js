@@ -105,6 +105,13 @@ const getAction = (currentFocus, key) => {
 const getParentFocus = (prevFocus, getNodeById) =>
   (prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus)
 
+const getRelativeNeighborsFocus = (sortedNodes, prevFocus) => {
+  const nextIndex = sortedNodes.indexOf(prevFocus) + 1
+  if (nextIndex % sortedNodes.length === 0) {
+    return sortedNodes[0]
+  }
+  return sortedNodes[nextIndex]
+}
 
 const getRelativeFocus = (sortedNodes, prevFocus, action) => {
   if (!sortedNodes || sortedNodes.length === 0) {
@@ -115,17 +122,12 @@ const getRelativeFocus = (sortedNodes, prevFocus, action) => {
   if (isEdgeTraverseAction(action)) {
     [focus] = sortedNodes
   } else if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
-    const nextIndex = sortedNodes.indexOf(prevFocus) + 1
-    if (nextIndex % sortedNodes.length === 0) {
-      [focus] = sortedNodes
-    } else {
-      focus = sortedNodes[nextIndex]
-    }
+    focus = getRelativeNeighborsFocus(sortedNodes, prevFocus)
   }
   return focus
 }
 
-const getNextFocus = (tree, prevFocus, action, getNodeById, flattenedTree) => {
+const getNextFocus = (tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded) => {
   if (action === NavActions.FocusParent) {
     return getParentFocus(prevFocus, getNodeById)
   }
@@ -133,7 +135,7 @@ const getNextFocus = (tree, prevFocus, action, getNodeById, flattenedTree) => {
     return prevFocus
   }
 
-  let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, flattenedTree)
+  let nodes = nodeVisitor.getVisibleNodes(tree, getNodeById, markSubTreeOnNonExpanded)
   if (isReverseTraverseAction(action)) {
     nodes = nodes.reverse()
   }

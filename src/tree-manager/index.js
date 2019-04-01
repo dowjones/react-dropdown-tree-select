@@ -41,20 +41,17 @@ class TreeManager {
 
     const matches = []
 
+    const addOnMatch = node => {
+      if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
+        matches.push(node._id)
+      }
+    }
+
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
-      superMatches.forEach(key => {
-        const node = this.getNodeById(key)
-        if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
-          matches.push(node._id)
-        }
-      })
+      superMatches.forEach(key => addOnMatch(this.getNodeById(key)))
     } else {
-      this.tree.forEach(node => {
-        if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
-          matches.push(node._id)
-        }
-      })
+      this.tree.forEach(addOnMatch)
     }
 
     this.searchMaps.set(searchTerm, matches)
@@ -236,15 +233,7 @@ class TreeManager {
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
-      const newFocus = keyboardNavigation.getNextFocus(
-        tree, prevFocus, action, id => this.getNodeById(id), flattenedTree)
-      if (newFocus) {
-        newFocus._focused = true
-        this.currentFocus = newFocus._id
-      }
-      if (prevFocus && prevFocus._id !== this.currentFocus) {
-        prevFocus._focused = false
-      }
+      this.handleFocusNavigationkey(tree, action, prevFocus, flattenedTree)
       return true
     }
     if (action === NavActions.ToggleChecked && prevFocus) {
@@ -256,6 +245,18 @@ class TreeManager {
       return true
     }
     return false
+  }
+
+  handleFocusNavigationkey(tree, action, prevFocus, flattenedTree) {
+    const getNodeById = id => this.getNodeById(id)
+    const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, flattenedTree)
+    if (newFocus) {
+      newFocus._focused = true
+      this.currentFocus = newFocus._id
+    }
+    if (prevFocus && prevFocus._id !== this.currentFocus) {
+      prevFocus._focused = false
+    }
   }
 }
 

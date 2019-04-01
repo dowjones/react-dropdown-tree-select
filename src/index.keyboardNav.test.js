@@ -98,3 +98,27 @@ test('can navigate searchresult on keyboardNavigation', t => {
   })
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
 })
+
+test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} enableKeyboardNavigation keepTreeOnSearch />)
+  wrapper.instance().onInputChange('bb');
+  ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'].forEach(key => {
+    wrapper.find('.search').simulate('keyDown', { key })
+  })
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  t.true(wrapper.find('#c1').exists())
+})
+
+test('can delete tags on empty search input with backspace on keyboardNavigation', t => {
+  const data = [{ ...node('a', 'a'), checked: true }, { ...node('b', 'b'), checked: true }]
+  const wrapper = mount(<DropdownTreeSelect data={data} enableKeyboardNavigation />)
+  wrapper.instance().searchInput.value = 'x'
+  wrapper.find('.search').simulate('keyDown', { key: 'Backspace' })
+  t.deepEqual(wrapper.state().tags.length, 2)
+
+  wrapper.instance().searchInput.value = ''
+  wrapper.find('.search').simulate('keyDown', { key: 'Backspace' })
+  t.deepEqual(wrapper.state().tags.length, 1)
+  wrapper.find('.search').simulate('keyDown', { key: 'Backspace' })
+  t.deepEqual(wrapper.state().tags.length, 0)
+})

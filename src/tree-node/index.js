@@ -60,17 +60,7 @@ class TreeNode extends PureComponent {
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
-    enableKeyboardNavigation: PropTypes.bool,
-    activeDescendant: PropTypes.string
-  }
-
-  componentDidUpdate(prevProps) {
-    const { _id, activeDescendant } = this.props
-
-    if (this.node && this.node.scrollIntoView
-      && activeDescendant !== prevProps.activeDescendant && activeDescendant === `${_id}_li`) {
-      this.node.scrollIntoView(false)
-    }
+    enableKeyboardNavigation: PropTypes.bool
   }
 
   render() {
@@ -104,9 +94,10 @@ class TreeNode extends PureComponent {
     const leaf = isLeaf(_children)
     const refSetter = ref => { this.node = ref }
     const ariaExpanded = !leaf ? expanded === true : undefined
+    const ariaLevel = (_depth || 0) + 1
 
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={refSetter} aria-expanded={ariaExpanded}>
+      <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={refSetter} aria-expanded={ariaExpanded} aria-level={ariaLevel}>
         <Toggle isLeaf={leaf} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}

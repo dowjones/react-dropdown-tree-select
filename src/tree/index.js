@@ -47,7 +47,14 @@ class Tree extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.computeInstanceProps(nextProps)
-    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) })
+    this.setState(
+      { items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) },
+      () => {
+        const { activeDescendant } = nextProps
+        const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
+        if (activeLi) { activeLi.scrollIntoView(false) }
+      }
+    )
   }
 
   componentDidMount = () => {

@@ -25,7 +25,7 @@ class Toggle extends PureComponent {
   }
 
   render() {
-    const { expanded, isLeaf, id } = this.props
+    const { expanded, isLeaf } = this.props
     if (isLeaf) return null
 
     const toggleCx = cx('toggle', { expanded, collapsed: !expanded })
@@ -35,8 +35,7 @@ class Toggle extends PureComponent {
       className={toggleCx}
       onClick={this.onToggle}
       onKeyDown={this.onKeyDown}
-      aria-expanded={expanded === true}
-      aria-controls={id}
+      aria-hidden
     />
   }
 }

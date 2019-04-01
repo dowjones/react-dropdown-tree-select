@@ -54,9 +54,6 @@ test('regular tree has no a11y exceptions', async t => {
   </div>)
   const domNode = component.getDOMNode()
   const { error, violations } = await run(domNode)
-  t.is(error, null)
-  if (violations && violations.length) {
-    console.log(JSON.stringify(violations, null, 4))
-  }
-  t.is(violations.length, 0)
+  t.is(error, null, JSON.stringify(error, null, 4))
+  t.is(violations.length, 0, JSON.stringify(violations, null, 4))
 })

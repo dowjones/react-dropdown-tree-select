@@ -52,6 +52,7 @@ A lightweight and fast control to render a select component that can display hie
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
+  - [label](#label)
   - [enableKeyboardNavigation](#enableKeyboardNavigation)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
@@ -331,6 +332,12 @@ Type: `string`
 Specific id for container. The container renders with a default id of `rdtsN` where N is the count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
+
+### label
+
+Type: `string`
+
+Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
 
 ### enableKeyboardNavigation
 

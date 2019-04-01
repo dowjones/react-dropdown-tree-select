@@ -70,6 +70,8 @@ declare module "react-dropdown-tree-select" {
          * Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
          */
         id?: string;
+        /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
+        label?: string;
         /** Adds navigation with arrow keys, page down/up and toggle of selection with enter.
          * Arrow/page up/down also toggles open of dropdown if closed.
          */

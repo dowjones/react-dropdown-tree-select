@@ -103,7 +103,7 @@ class TreeNode extends PureComponent {
     const liId = `${_id}_li`
     const leaf = isLeaf(_children)
     const refSetter = ref => { this.node = ref }
-    const ariaExpanded = leaf ? expanded === true : undefined
+    const ariaExpanded = !leaf ? expanded === true : undefined
 
     return (
       <li className={liCx} style={style} {...getDataset(dataset)} id={liId} ref={refSetter} aria-expanded={ariaExpanded}>

@@ -87,19 +87,19 @@ const getRelativeAction = (currentFocus, key) => {
 }
 
 const getAction = (currentFocus, key) => {
+  let action
   if (key === Keys.Left) {
-    return getLeftNavAction(currentFocus, key)
+    action = getLeftNavAction(currentFocus, key)
+  } else if (key === Keys.Right) {
+    action = getRightNavAction(currentFocus, key)
+  } else if (isFocusFirstEvent(key, currentFocus)) {
+    action = NavActions.FocusFirst
+  } else if (isFocusLastEvent(key, currentFocus)) {
+    action = NavActions.FocusLast
+  } else {
+    action = getRelativeAction(currentFocus, key)
   }
-  if (key === Keys.Right) {
-    return getRightNavAction(currentFocus, key)
-  }
-  if (isFocusFirstEvent(key, currentFocus)) {
-    return NavActions.FocusFirst
-  }
-  if (isFocusLastEvent(key, currentFocus)) {
-    return NavActions.FocusLast
-  }
-  return getRelativeAction(currentFocus, key)
+  return action
 }
 
 const getParentFocus = (prevFocus, getNodeById) =>
@@ -107,20 +107,22 @@ const getParentFocus = (prevFocus, getNodeById) =>
 
 
 const getRelativeFocus = (sortedNodes, prevFocus, action) => {
-  if (sortedNodes.length === 0) return prevFocus
-
-  if (isEdgeTraverseAction(action)) {
-    return sortedNodes[0]
+  if (!sortedNodes || sortedNodes.length === 0) {
+    return prevFocus
   }
-  if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
+
+  let focus = prevFocus
+  if (isEdgeTraverseAction(action)) {
+    [focus] = sortedNodes
+  } else if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
     const nextIndex = sortedNodes.indexOf(prevFocus) + 1
     if (nextIndex % sortedNodes.length === 0) {
-      return sortedNodes[0]
+      [focus] = sortedNodes
+    } else {
+      focus = sortedNodes[nextIndex]
     }
-    return sortedNodes[nextIndex]
   }
-
-  return prevFocus
+  return focus
 }
 
 const getNextFocus = (tree, prevFocus, action, getNodeById, flattenedTree) => {

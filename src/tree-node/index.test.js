@@ -39,7 +39,8 @@ test('notifies node toggle changes', t => {
     _parent: '0-0',
     label: 'item0-0-0',
     value: 'value0-0-0',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
+    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }]
   }
 
   const onChange = spy()

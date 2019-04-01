@@ -29,7 +29,8 @@ class Input extends PureComponent {
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    activeDescendant: PropTypes.string
+    activeDescendant: PropTypes.string,
+    label: PropTypes.string
   }
 
   constructor(props) {
@@ -43,7 +44,8 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant } = this.props
+    const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant, label } = this.props
+    const hasIdLabel = label && label.length && label[0] === '#'
 
     return (
       <ul className={cx('tag-list')}>
@@ -62,6 +64,8 @@ class Input extends PureComponent {
             readOnly={readOnly}
             aria-activedescendant={activeDescendant}
             aria-autocomplete={onKeyDown ? 'list' : undefined}
+            aria-labelledby={hasIdLabel ? label.replace(/#/g, '') : undefined}
+            aria-label={label && !hasIdLabel ? label : undefined}
           />
         </li>
       </ul>

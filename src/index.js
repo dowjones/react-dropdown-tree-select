@@ -42,7 +42,8 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
     id: PropTypes.string,
-    enableKeyboardNavigation: PropTypes.bool
+    enableKeyboardNavigation: PropTypes.bool,
+    label: PropTypes.string
   }
 
   static defaultProps = {
@@ -252,6 +253,7 @@ class DropdownTreeSelect extends Component {
               disabled={this.props.disabled}
               readOnly={this.props.readOnly}
               activeDescendant={activeDescendant}
+              label={this.props.label}
             />
           </a>
           {this.state.showDropdown && (

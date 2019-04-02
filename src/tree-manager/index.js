@@ -228,23 +228,20 @@ class TreeManager {
     })
   }
 
-  handleNavigationKey(tree, key, markSubTreeOnNonExpanded) {
+  handleNavigationKey(tree, key, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded, onChangeFocus) {
     const prevFocus = this.currentFocus && this.getNodeById(this.currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
       this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
-      return true
+      onChangeFocus()
     }
     if (action === NavActions.ToggleChecked && prevFocus) {
-      this.setNodeCheckedState(prevFocus._id, prevFocus.checked !== true)
-      return true
+      onToggleChecked(prevFocus._id, prevFocus.checked !== true)
     }
     if (action === NavActions.ToggleExpanded && prevFocus) {
-      this.toggleNodeExpandState(prevFocus._id)
-      return true
+      onToggleExpanded(prevFocus._id)
     }
-    return false
   }
 
   handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {

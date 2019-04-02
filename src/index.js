@@ -25,7 +25,6 @@ class DropdownTreeSelect extends Component {
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
-    keepOpenOnSelect: PropTypes.bool,
     placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
@@ -35,7 +34,6 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
-    radioSelect: PropTypes.bool,
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -187,27 +185,19 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    const { enableKeyboardNavigation, keepOpenOnSelect, simpleSelect, radioSelect } = this.props
-    if (!enableKeyboardNavigation) { return }
+    if (!this.props.enableKeyboardNavigation) { return }
 
     const { showDropdown, tags, searchModeOn } = this.state
-    const tm = this.treeManager
-    const singleSelect = simpleSelect || radioSelect
 
-    if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /\w/i.test(e.key))) {
+    if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /^\w$/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
       e.persist()
       this.handleClick(null, () => this.onKeyboardKeyDown(e))
       if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
+      const tm = this.treeManager
       const tree = searchModeOn ? tm.matchTree : tm.tree
-      if (tm.handleNavigationKey(tree, e.key, !searchModeOn)) {
-        this.setState({ tags: tm.getTags() })
-        if (e.key === 'Enter' && singleSelect && !keepOpenOnSelect) {
-          this.keepDropdownActive = false
-          this.handleClick()
-        }
-      }
+      tm.handleNavigationKey(tree, e.key, !searchModeOn, this.onCheckboxChange, this.onNodeToggle, () => this.setState({}))
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       // Triggers close
       this.keepDropdownActive = false
@@ -216,8 +206,7 @@ class DropdownTreeSelect extends Component {
     } else if (e.key === 'Backspace' && tags && tags.length
       && this.searchInput && this.searchInput.value.length === 0) {
       const lastTag = tags.pop()
-      tm.setNodeCheckedState(lastTag._id, false)
-      this.setState({ tags })
+      this.onCheckboxChange(lastTag._id, false)
     } else {
       return
     }

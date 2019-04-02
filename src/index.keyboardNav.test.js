@@ -40,7 +40,7 @@ test('other key presses does not open dropdown on keyboardNavigation', t => {
   ['Enter', 'ArrowLeft', 'ArrowRight'].forEach(key => {
     const wrapper = mount(<DropdownTreeSelect data={tree} enableKeyboardNavigation />)
     wrapper.find('.search').simulate('keyDown', { key })
-    t.true(wrapper.state().showDropdown)
+    t.false(wrapper.state().showDropdown)
   })
 })
 

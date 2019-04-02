@@ -119,7 +119,7 @@ declare module "react-dropdown-tree-select" {
 
     export interface TreeNodeProps extends TreeNode {
         /** Array of child objects */
-        children?: Node[];
+        children?: TreeNode[];
     }
 
     export interface NodeAction {

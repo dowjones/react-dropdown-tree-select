@@ -64,7 +64,7 @@ test('can navigate circular on keyboardNavigation', t => {
 
 test('can navigate to edge on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} enableKeyboardNavigation />);
-  ['ArrowDown', 'ArrowRight', 'ArrowRight'].forEach(key => {
+  ['ArrowDown', 'ArrowRight', 'ArrowRight', 'ArrowRight'].forEach(key => {
     wrapper.find('.search').simulate('keyDown', { key })
   });
 
@@ -121,4 +121,12 @@ test('can delete tags on empty search input with backspace on keyboardNavigation
   t.deepEqual(wrapper.state().tags.length, 1)
   wrapper.find('.search').simulate('keyDown', { key: 'Backspace' })
   t.deepEqual(wrapper.state().tags.length, 0)
+})
+
+test('can select with enter on keyboardNavigation', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} enableKeyboardNavigation />);
+  ['ArrowDown', 'Enter'].forEach(key => {
+    wrapper.find('.search').simulate('keyDown', { key })
+  })
+  t.deepEqual(wrapper.state().tags.length, 1)
 })

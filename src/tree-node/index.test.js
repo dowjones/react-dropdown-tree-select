@@ -94,3 +94,31 @@ test('should render data attributes', t => {
   t.is(wrapper.prop('data-first'), 'john')
   t.is(wrapper.prop('data-last'), 'smith')
 })
+
+test('should set aria-selected to true for checked nodes', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    checked: true
+  }
+
+  const wrapper = mount(<TreeNode {...node} />)
+  t.is(wrapper.prop('aria-selected', true))
+})
+
+test('should set aria-selected to false for unchecked nodes', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    checked: false
+  }
+
+  const wrapper = mount(<TreeNode {...node} />)
+  t.is(wrapper.prop('aria-selected', false))
+})

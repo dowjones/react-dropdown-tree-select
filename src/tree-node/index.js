@@ -88,7 +88,7 @@ class TreeNode extends PureComponent {
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)}>
+      <li className={liCx} style={style} {...getDataset(dataset)} role="option" aria-selected={checked}>
         <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}

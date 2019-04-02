@@ -99,10 +99,10 @@ class Tree extends Component {
   }
 
   render() {
-    const { searchModeOn } = this.props
+    const { readOnly, searchModeOn } = this.props
 
     return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef}>
+      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} role="listbox" aria-readonly={readOnly} aria-multiselectable={!this.props.simpleSelect}>
         {this.state.scrollableTarget && (
           <InfiniteScroll
             dataLength={this.state.items.length}

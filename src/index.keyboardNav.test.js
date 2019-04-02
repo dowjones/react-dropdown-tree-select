@@ -125,7 +125,7 @@ test('can delete tags on empty search input with backspace on keyboardNavigation
 
 test('can select with enter on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} enableKeyboardNavigation />);
-  ['ArrowDown', 'Enter'].forEach(key => {
+  ['ArrowDown', 'ArrowDown', 'Enter'].forEach(key => {
     wrapper.find('.search').simulate('keyDown', { key })
   })
   t.deepEqual(wrapper.state().tags.length, 1)

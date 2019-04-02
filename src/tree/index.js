@@ -67,7 +67,7 @@ class Tree extends Component {
   }
 
   hasValidData = data => {
-    return data.constructor === Map
+    return data && data.constructor === Map
       ? data.size > 0
       : false
   }

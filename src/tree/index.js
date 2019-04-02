@@ -52,7 +52,9 @@ class Tree extends Component {
       () => {
         const { activeDescendant } = nextProps
         const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-        if (activeLi) { activeLi.scrollIntoView(false) }
+        if (activeLi) {
+          activeLi.scrollIntoView({ block: 'center' })
+        }
       }
     )
   }
@@ -103,7 +105,7 @@ class Tree extends Component {
     return items
   }
 
-  hasMore = () => this.currentPage <= this.totalPages
+  hasMore = () => this.currentPage < this.totalPages
 
   loadMore = () => {
     this.currentPage = this.currentPage + 1

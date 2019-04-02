@@ -343,7 +343,10 @@ Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-la
 
 Type: `bool` (default: `false`)
 
-Adds navigation with arrow keys, page down/up and toggle of selection with enter. Arrow/page up/down also toggles open of dropdown if closed.
+Adds navigation with `arrow` keys, `page down/up` / `home/end` and toggle of selection with `enter`. `Arrow/page up/down` also toggles open of dropdown if closed.
+
+To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input.
+
 
 ## Styling and Customization
 

@@ -47,7 +47,8 @@ class DropdownTreeSelect extends Component {
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {}
+    onChange: () => {},
+    enableKeyboardNavigation: true
   }
 
   constructor(props) {

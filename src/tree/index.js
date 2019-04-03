@@ -51,9 +51,10 @@ class Tree extends Component {
       { items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) },
       () => {
         const { activeDescendant } = nextProps
+        const { scrollableTarget } = this.state
         const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-        if (activeLi) {
-          activeLi.scrollIntoView({ block: 'center' })
+        if (activeLi && scrollableTarget) {
+          scrollableTarget.scrollTop = activeLi.offsetTop - ((scrollableTarget.clientHeight - activeLi.clientHeight) / 2)
         }
       }
     )

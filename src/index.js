@@ -55,7 +55,8 @@ class DropdownTreeSelect extends Component {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false
+      searchModeOn: false,
+      currentFocus: undefined
     }
     this.clientId = props.id || clientIdGenerator.get(this)
   }
@@ -90,6 +91,11 @@ class DropdownTreeSelect extends Component {
     const { data, simpleSelect, showPartiallySelected, hierarchical } = nextProps
     const tree = this.createList({ data, simpleSelect, showPartiallySelected, hierarchical })
     const tags = this.treeManager.getTags()
+    // Restore focus-state
+    const currentFocusNode = this.state.currentFocus && tree.get(this.state.currentFocus)
+    if (currentFocusNode) {
+      currentFocusNode._focused = true
+    }
     this.setState({ tree, tags })
   }
 
@@ -188,7 +194,7 @@ class DropdownTreeSelect extends Component {
   onKeyboardKeyDown = e => {
     if (!this.props.enableKeyboardNavigation) { return }
 
-    const { showDropdown, tags, searchModeOn } = this.state
+    const { showDropdown, tags, searchModeOn, currentFocus } = this.state
 
     if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /^\w$/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
@@ -198,7 +204,10 @@ class DropdownTreeSelect extends Component {
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
       const tm = this.treeManager
       const tree = searchModeOn ? tm.matchTree : tm.tree
-      tm.handleNavigationKey(tree, e.key, !searchModeOn, this.onCheckboxChange, this.onNodeToggle, () => this.setState({}))
+      const newFocus = tm.handleNavigationKey(currentFocus, tree, e.key, !searchModeOn, this.onCheckboxChange, this.onNodeToggle)
+      if (newFocus !== currentFocus) {
+        this.setState({ currentFocus: newFocus })
+      }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       // Triggers close
       this.keepDropdownActive = false
@@ -224,8 +233,7 @@ class DropdownTreeSelect extends Component {
       bottom: !this.state.showDropdown
     })
 
-    const currentFocus = this.props.enableKeyboardNavigation && this.treeManager.currentFocus
-    const activeDescendant = currentFocus ? `${currentFocus}_li`: undefined
+    const activeDescendant = this.state.currentFocus ? `${this.state.currentFocus}_li`: undefined
 
     return (
       <div id={this.clientId} className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>

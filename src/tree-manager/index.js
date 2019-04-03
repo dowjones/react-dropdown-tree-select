@@ -228,13 +228,13 @@ class TreeManager {
     })
   }
 
-  handleNavigationKey(tree, key, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded, onChangeFocus) {
-    const prevFocus = this.currentFocus && this.getNodeById(this.currentFocus)
+  handleNavigationKey(currentFocus, tree, key, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
+    const prevFocus = currentFocus && this.getNodeById(currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
-      this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
-      onChangeFocus()
+      const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
+      return newFocus
     }
     if (action === NavActions.ToggleChecked && prevFocus) {
       onToggleChecked(prevFocus._id, prevFocus.checked !== true)
@@ -242,18 +242,20 @@ class TreeManager {
     if (action === NavActions.ToggleExpanded && prevFocus) {
       onToggleExpanded(prevFocus._id)
     }
+    return currentFocus
   }
 
   handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {
     const getNodeById = id => this.getNodeById(id)
     const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded)
-    if (newFocus) {
-      newFocus._focused = true
-      this.currentFocus = newFocus._id
-    }
-    if (prevFocus && prevFocus._id !== this.currentFocus) {
+    if (prevFocus && newFocus && prevFocus._id !== newFocus._id) {
       prevFocus._focused = false
     }
+    if (newFocus) {
+      newFocus._focused = true
+      return newFocus._id
+    }
+    return prevFocus && prevFocus._id
   }
 }
 

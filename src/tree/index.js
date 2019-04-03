@@ -99,14 +99,13 @@ class Tree extends Component {
   }
 
   getAriaAttributes = () => {
-    const { disabled, readOnly, simpleSelect } = this.props;
-    var attributes = {};
+    const { readOnly, simpleSelect } = this.props
+    const attributes = {}
 
-    attributes['role'] = simpleSelect ? 'listbox' : 'tree'
+    attributes.role = simpleSelect ? 'listbox' : 'tree'
     attributes['aria-multiselectable'] = !simpleSelect
-    attributes['aria-readonly'] = readOnly || disabled
-  
-    return attributes;
+    attributes['aria-readonly'] = readOnly
+    return attributes
   }
 
   render() {

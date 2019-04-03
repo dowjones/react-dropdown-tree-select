@@ -62,18 +62,17 @@ class TreeNode extends PureComponent {
   }
 
   getAriaAttributes = () => {
-    const { _children, _depth, checked, disabled, expanded, readOnly, simpleSelect } = this.props;
-    var attributes = {};
+    const { _children, _depth, checked, disabled, expanded, readOnly, simpleSelect } = this.props
+    const attributes = {}
 
-    attributes['role'] = simpleSelect ? 'option' : 'treeitem'
-    attributes['aria-selected'] = checked;
+    attributes.role = simpleSelect ? 'option' : 'treeitem'
+    attributes['aria-selected'] = checked
     attributes['aria-level'] = _depth || 0 + 1
     attributes['aria-expanded'] = _children && expanded
-    if(simpleSelect) {
+    if (simpleSelect) {
       attributes['aria-readonly'] = readOnly || disabled
     }
-    
-    return attributes;
+    return attributes
   }
 
   render() {

@@ -183,15 +183,15 @@ class DropdownTreeSelect extends Component {
   }
 
   getAriaAttributes = () => {
-    const { showDropdown } = this.state;
-    const { simpleSelect } = this.props;
-    var attributes = {};
+    const { showDropdown } = this.state
+    const { simpleSelect } = this.props
+    const attributes = {}
 
-    attributes['role'] = 'button'
+    attributes.role = 'button'
+    attributes.tabIndex = 0
     attributes['aria-haspopup'] = simpleSelect ? 'listbox' : 'tree'
     attributes['aria-expanded'] = showDropdown
-    
-    return attributes;
+    return attributes
   }
 
   render() {
@@ -213,7 +213,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick} tabIndex="0" {...this.getAriaAttributes()}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick} {...this.getAriaAttributes()}>
             <Input
               inputRef={el => {
                 this.searchInput = el

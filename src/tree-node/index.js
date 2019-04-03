@@ -61,6 +61,21 @@ class TreeNode extends PureComponent {
     readOnly: PropTypes.bool
   }
 
+  getAriaAttributes = () => {
+    const { _children, _depth, checked, disabled, expanded, readOnly, simpleSelect } = this.props;
+    var attributes = {};
+
+    attributes['role'] = simpleSelect ? 'option' : 'treeitem'
+    attributes['aria-selected'] = checked;
+    attributes['aria-level'] = _depth + 1
+    attributes['aria-expanded'] = _children && expanded
+    if(simpleSelect) {
+      attributes['aria-readonly'] = readOnly || disabled
+    }
+    
+    return attributes;
+  }
+
   render() {
     const {
       simpleSelect,
@@ -88,7 +103,7 @@ class TreeNode extends PureComponent {
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)} role="option" aria-selected={checked}>
+      <li className={liCx} style={style} {...getDataset(dataset)} {...this.getAriaAttributes()}>
         <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}

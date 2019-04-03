@@ -98,11 +98,22 @@ class Tree extends Component {
     this.node = node
   }
 
+  getAriaAttributes = () => {
+    const { disabled, readOnly, simpleSelect } = this.props;
+    var attributes = {};
+
+    attributes['role'] = simpleSelect ? 'listbox' : 'tree'
+    attributes['aria-multiselectable'] = !simpleSelect
+    attributes['aria-readonly'] = readOnly || disabled
+  
+    return attributes;
+  }
+
   render() {
-    const { readOnly, searchModeOn } = this.props
+    const { searchModeOn } = this.props
 
     return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} role="listbox" aria-readonly={readOnly} aria-multiselectable={!this.props.simpleSelect}>
+      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} {...this.getAriaAttributes()} >
         {this.state.scrollableTarget && (
           <InfiniteScroll
             dataLength={this.state.items.length}

@@ -182,6 +182,18 @@ class DropdownTreeSelect extends Component {
     this.keepDropdownActive = false
   }
 
+  getAriaAttributes = () => {
+    const { showDropdown } = this.state;
+    const { simpleSelect } = this.props;
+    var attributes = {};
+
+    attributes['role'] = 'button'
+    attributes['aria-haspopup'] = simpleSelect ? 'listbox' : 'tree'
+    attributes['aria-expanded'] = showDropdown
+    
+    return attributes;
+  }
+
   render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
@@ -201,7 +213,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick} role="button" tabIndex="0" aria-haspopup="listbox" aria-expanded={this.state.showDropdown}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick} tabIndex="0" {...this.getAriaAttributes()}>
             <Input
               inputRef={el => {
                 this.searchInput = el

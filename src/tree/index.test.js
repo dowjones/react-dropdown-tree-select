@@ -125,9 +125,3 @@ test.skip('renders only expanded tree nodes when search mode is off', t => {
 
   t.snapshot(toJson(wrapper))
 })
-
-test('when simpleSelect is off, aria-multiselectable should be set to true', t => {
-  const treeManager = new TreeManager({ data: [] })
-  const wrapper = mount(<Tree data={treeManager.tree} simpleSelect={false} />)
-  t.is(wrapper.prop('aria-multiselectable', true))
-})

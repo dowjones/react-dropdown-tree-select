@@ -105,8 +105,8 @@ test('should set aria-selected to true for checked nodes', t => {
     checked: true
   }
 
-  const wrapper = mount(<TreeNode {...node} />)
-  t.is(wrapper.prop('aria-selected', true))
+  const wrapper = shallow(<TreeNode {...node} />)
+  t.snapshot(toJson(wrapper))
 })
 
 test('should set aria-selected to false for unchecked nodes', t => {
@@ -119,6 +119,6 @@ test('should set aria-selected to false for unchecked nodes', t => {
     checked: false
   }
 
-  const wrapper = mount(<TreeNode {...node} />)
-  t.is(wrapper.prop('aria-selected', false))
+  const wrapper = shallow(<TreeNode {...node} />)
+  t.snapshot(toJson(wrapper))
 })

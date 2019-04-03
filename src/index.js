@@ -192,7 +192,8 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    if (!this.props.enableKeyboardNavigation) { return }
+    const { enableKeyboardNavigation, readOnly } = this.props
+    if (!enableKeyboardNavigation) { return }
 
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
 
@@ -204,7 +205,7 @@ class DropdownTreeSelect extends Component {
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
       const tm = this.treeManager
       const tree = searchModeOn ? tm.matchTree : tm.tree
-      const newFocus = tm.handleNavigationKey(currentFocus, tree, e.key, !searchModeOn, this.onCheckboxChange, this.onNodeToggle)
+      const newFocus = tm.handleNavigationKey(currentFocus, tree, e.key, readOnly, !searchModeOn, this.onCheckboxChange, this.onNodeToggle)
       if (newFocus !== currentFocus) {
         this.setState({ currentFocus: newFocus })
       }

@@ -228,7 +228,7 @@ class TreeManager {
     })
   }
 
-  handleNavigationKey(currentFocus, tree, key, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
+  handleNavigationKey(currentFocus, tree, key, readOnly, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
     const prevFocus = currentFocus && this.getNodeById(currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
@@ -236,7 +236,7 @@ class TreeManager {
       const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
       return newFocus
     }
-    if (action === NavActions.ToggleChecked && prevFocus) {
+    if (action === NavActions.ToggleChecked && prevFocus && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
       onToggleChecked(prevFocus._id, prevFocus.checked !== true)
     }
     if (action === NavActions.ToggleExpanded && prevFocus) {

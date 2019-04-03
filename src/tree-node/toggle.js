@@ -13,7 +13,9 @@ class Toggle extends PureComponent {
     id: PropTypes.string
   }
 
-  onToggle = () => {
+  onToggle = e => {
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
     this.props.onNodeToggle(this.props.id)
   }
 

@@ -18,7 +18,7 @@ class WithOptions extends PureComponent {
       disabled: false,
       readOnly: false,
       hierarchical: false,
-      enableKeyboardNavigation: false
+      enableKeyboardNavigation: true
     }
   }
 

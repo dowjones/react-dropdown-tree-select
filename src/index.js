@@ -198,6 +198,9 @@ class DropdownTreeSelect extends Component {
     // Just return if triggered from keyDown and the key isn't enter, space or arrow down
     if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
       return
+    } else if (e.key && this.triggerNode && this.triggerNode !== document.activeElement) {
+      // Do not trigger if not activeElement
+      return
     } else if (!this.state.showDropdown && e.keyCode === 32) {
       // Avoid adding space to input on open
       e.preventDefault()
@@ -232,6 +235,7 @@ class DropdownTreeSelect extends Component {
       >
         <div className="dropdown">
           <a
+            ref={node => { this.triggerNode = node }}
             className={dropdownTriggerClassname}
             onClick={!this.props.disabled && this.handleTrigger}
             onKeyDown={!this.props.disabled && this.handleTrigger}

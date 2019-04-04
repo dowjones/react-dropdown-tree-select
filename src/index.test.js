@@ -232,6 +232,7 @@ keyDownTests.forEach(testArgs => {
     const { tree } = t.context
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     const trigger = wrapper.find('.dropdown-trigger')
+    trigger.instance().focus()
     trigger.simulate('keyDown', { key: 'mock', keyCode: testArgs.keyCode })
     t.is(wrapper.state().showDropdown, testArgs.expected)
   })

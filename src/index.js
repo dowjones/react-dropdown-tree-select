@@ -198,6 +198,9 @@ class DropdownTreeSelect extends Component {
     // Just return if triggered from keyDown and the key isn't enter, space or arrow down
     if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
       return
+    } else if (!this.state.showDropdown && e.keyCode === 32) {
+      // Avoid adding space to input on open
+      e.preventDefault()
     }
 
     // Else this is a key press that should trigger the dropdown
@@ -207,8 +210,6 @@ class DropdownTreeSelect extends Component {
         this.searchInput.focus()
       }
     })
-    // Avoid adding space to input
-    e.preventDefault()
   }
 
   render() {

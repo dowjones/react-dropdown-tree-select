@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset, debounce } from '../utils'
+import { getDataset, debounce, getAriaLabel } from '../utils'
 
 const cx = cn.bind(styles)
 
@@ -45,7 +45,6 @@ class Input extends PureComponent {
 
   render() {
     const { tags, onTagRemove, inputRef, placeholderText = 'Choose...', onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant, label } = this.props
-    const hasIdLabel = label && label.length && label[0] === '#'
 
     return (
       <ul className={cx('tag-list')}>
@@ -64,8 +63,7 @@ class Input extends PureComponent {
             readOnly={readOnly}
             aria-activedescendant={activeDescendant}
             aria-autocomplete={onKeyDown ? 'list' : undefined}
-            aria-labelledby={hasIdLabel ? label.replace(/#/g, '') : undefined}
-            aria-label={label && !hasIdLabel ? label : undefined}
+            {...getAriaLabel(label)}
           />
         </li>
       </ul>

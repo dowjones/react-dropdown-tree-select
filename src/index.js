@@ -10,7 +10,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick, clientIdGenerator, keyboardNavigation } from './utils'
+import { isOutsideClick, clientIdGenerator, keyboardNavigation, getAriaLabel } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -239,7 +239,11 @@ class DropdownTreeSelect extends Component {
     return (
       <div id={this.clientId} className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
+          <a
+            className={dropdownTriggerClassname}
+            onClick={!this.props.disabled && this.handleClick}
+            {...getAriaLabel(this.props.label)}
+          >
             <Input
               inputRef={el => { this.searchInput = el }}
               tags={this.state.tags}

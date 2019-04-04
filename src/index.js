@@ -90,7 +90,7 @@ class DropdownTreeSelect extends Component {
     this.setState({ tree, tags })
   }
 
-  handleClick = () => {
+  handleClick = (e, callback) => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
       const showDropdown = this.keepDropdownActive || !prevState.showDropdown
@@ -108,7 +108,7 @@ class DropdownTreeSelect extends Component {
       else this.props.onBlur()
 
       return !showDropdown ? { showDropdown, ...this.resetSearchState() } : { showDropdown }
-    })
+    }, callback)
   }
 
   handleOutsideClick = e => {
@@ -194,6 +194,25 @@ class DropdownTreeSelect extends Component {
     return attributes
   }
 
+  handleTrigger = e => {
+    // Just return if triggered from keyDown and the key isn't enter, space or arrow down
+    if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
+      return
+    }
+
+    // Else this is a key press that should trigger the dropdown
+    if (!this.props.disabled) {
+      this.handleClick(e, () => {
+        // If the dropdown is shown after key press, focus the input
+        if (this.state.showDropdown) {
+          this.searchInput.focus()
+        }
+      })
+      // Avoid adding space to input
+      e.preventDefault()
+    }
+  }
+
   render() {
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
@@ -213,7 +232,12 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick} {...this.getAriaAttributes()}>
+          <a
+            className={dropdownTriggerClassname}
+            onClick={!this.props.disabled && this.handleClick}
+            onKeyDown={this.handleTrigger}
+            {...this.getAriaAttributes()}
+          >
             <Input
               inputRef={el => {
                 this.searchInput = el

@@ -23,9 +23,8 @@
   &.readOnly {
     cursor: not-allowed;
   }
-  
+
   &:focus {
     color: #3c3c3c;
-    outline: none;
   }
 }

@@ -23,12 +23,16 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { label, readOnly, disabled } = this.props
+    const { id, label, readOnly, disabled } = this.props
+
+    const tagId = `${id}_tag`
+    const className = cx('tag-remove', { readOnly }, { disabled })
+    const onClick = !readOnly && !disabled ? this.handleClick : undefined
 
     return (
-      <span className={cx('tag')}>
+      <span className={cx('tag')} id={tagId}>
         {label}
-        <button onClick={!readOnly && !disabled ? this.handleClick : undefined} className={cx('tag-remove', { readOnly }, { disabled })} type="button">
+        <button onClick={onClick} className={className} type="button" aria-label="Delete" aria-labelledby={tagId} aria-readonly={readOnly || disabled}>
           x
         </button>
       </span>

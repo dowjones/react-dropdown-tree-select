@@ -236,10 +236,10 @@ class TreeManager {
       const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
       return newFocus
     }
-    if (action === NavActions.ToggleChecked && prevFocus && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
+    if (action === NavActions.ToggleChecked && prevFocus && !readOnly && !(prevFocus.readOnly || prevFocus.disabled) && tree.has(prevFocus._id)) {
       onToggleChecked(prevFocus._id, prevFocus.checked !== true)
     }
-    if (action === NavActions.ToggleExpanded && prevFocus) {
+    if (action === NavActions.ToggleExpanded && prevFocus && tree.has(prevFocus._id)) {
       onToggleExpanded(prevFocus._id)
     }
     return currentFocus

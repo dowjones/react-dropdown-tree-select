@@ -201,16 +201,14 @@ class DropdownTreeSelect extends Component {
     }
 
     // Else this is a key press that should trigger the dropdown
-    if (!this.props.disabled) {
-      this.handleClick(e, () => {
-        // If the dropdown is shown after key press, focus the input
-        if (this.state.showDropdown) {
-          this.searchInput.focus()
-        }
-      })
-      // Avoid adding space to input
-      e.preventDefault()
-    }
+    this.handleClick(e, () => {
+      // If the dropdown is shown after key press, focus the input
+      if (this.state.showDropdown) {
+        this.searchInput.focus()
+      }
+    })
+    // Avoid adding space to input
+    e.preventDefault()
   }
 
   render() {
@@ -234,8 +232,8 @@ class DropdownTreeSelect extends Component {
         <div className="dropdown">
           <a
             className={dropdownTriggerClassname}
-            onClick={!this.props.disabled && this.handleClick}
-            onKeyDown={this.handleTrigger}
+            onClick={!this.props.disabled && this.handleTrigger}
+            onKeyDown={!this.props.disabled && this.handleTrigger}
             {...this.getAriaAttributes()}
           >
             <Input

@@ -30,7 +30,7 @@ const getVisibleNodes = (tree, getItemById, markSubTreeOnNonExpanded) =>
     if (markSubTreeOnNonExpanded && node._children && node._children.length && node.expanded !== true) {
       markSubTreeVisited(node, visited, getItemById)
     }
-    return !node.hide && !node.disabled && !node.readOnly
+    return !node.hide
   })
 
 const nodeVisitor = {

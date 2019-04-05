@@ -237,17 +237,8 @@ class TreeManager {
       const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
       return newFocus
     }
-    if (!prevFocus || !tree.has(prevFocus._id)) {
-      // No current focus or not visible
-      return currentFocus
-    }
-    if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
-      onToggleChecked(prevFocus._id, prevFocus.checked !== true)
-    }
-    if (action === NavActions.ToggleExpanded) {
-      onToggleExpanded(prevFocus._id)
-    }
-    return currentFocus
+
+    return this.handleToggleNavigationkey(tree, action, currentFocus, readOnly, onToggleChecked, onToggleExpanded)
   }
 
   handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {
@@ -259,6 +250,20 @@ class TreeManager {
     if (newFocus) {
       newFocus._focused = true
       return newFocus._id
+    }
+    return prevFocus && prevFocus._id
+  }
+
+  handleToggleNavigationkey(tree, action, currentFocus, readOnly, onToggleChecked, onToggleExpanded) {
+    const prevFocus = currentFocus && this.getNodeById(currentFocus)
+    if (!prevFocus || !tree.has(prevFocus._id)) {
+      // No current focus or not visible
+      return currentFocus
+    }
+    if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
+      onToggleChecked(prevFocus._id, prevFocus.checked !== true)
+    } else if (action === NavActions.ToggleExpanded) {
+      onToggleExpanded(prevFocus._id)
     }
     return prevFocus && prevFocus._id
   }

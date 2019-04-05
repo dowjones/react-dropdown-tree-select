@@ -112,7 +112,7 @@ class Tree extends Component {
     const { searchModeOn } = this.props
 
     return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} {...this.getAriaAttributes()} >
+      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} {...this.getAriaAttributes()}>
         {this.state.scrollableTarget && (
           <InfiniteScroll
             dataLength={this.state.items.length}

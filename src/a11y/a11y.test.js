@@ -1,7 +1,7 @@
 import test from 'ava'
 import React from 'react'
-import DropdownTreeSelect from './index'
-import { mountToDoc, run } from './utils/a11yHelper'
+import DropdownTreeSelect from '../index'
+import { mountToDoc, run } from './a11y.utils'
 
 test.beforeEach(t => {
   t.context.tree = [

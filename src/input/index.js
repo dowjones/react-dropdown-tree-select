@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import Tag from '../tag'
 import styles from './index.css'
-import { getDataset, debounce, getAriaLabel } from '../utils'
+import { getDataset, debounce } from '../utils'
+import { getAriaLabel } from '../a11y'
 
 const cx = cn.bind(styles)
 

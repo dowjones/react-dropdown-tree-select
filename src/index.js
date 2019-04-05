@@ -237,8 +237,8 @@ class DropdownTreeSelect extends Component {
           <a
             ref={node => { this.triggerNode = node }}
             className={dropdownTriggerClassname}
-            onClick={!this.props.disabled && this.handleTrigger}
-            onKeyDown={!this.props.disabled && this.handleTrigger}
+            onClick={!this.props.disabled ? this.handleTrigger : undefined}
+            onKeyDown={!this.props.disabled ? this.handleTrigger : undefined}
             {...this.getAriaAttributes()}
           >
             <Input

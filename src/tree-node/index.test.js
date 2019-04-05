@@ -99,7 +99,35 @@ test('should render data attributes', t => {
   t.is(wrapper.prop('data-last'), 'smith')
 })
 
-test('should set aria-selected to true for checked nodes', t => {
+test('should set aria-selected to true for selected node', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    checked: true
+  }
+
+  const wrapper = shallow(<TreeNode {...node} simpleSelect />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('should set aria-selected to false for selected nods', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    checked: false
+  }
+
+  const wrapper = shallow(<TreeNode {...node} simpleSelect />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('should set aria-checked to true for checked nodes', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -113,7 +141,7 @@ test('should set aria-selected to true for checked nodes', t => {
   t.snapshot(toJson(wrapper))
 })
 
-test('should set aria-selected to false for unchecked nodes', t => {
+test('should set aria-checked to false for unchecked nodes', t => {
   const node = {
     _id: '0-0-0',
     _parent: '0-0',
@@ -121,6 +149,20 @@ test('should set aria-selected to false for unchecked nodes', t => {
     value: 'value0-0-0',
     className: 'cn0-0-0',
     checked: false
+  }
+
+  const wrapper = shallow(<TreeNode {...node} />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('should set aria-checked to mixed for partial nodes', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    partial: true
   }
 
   const wrapper = shallow(<TreeNode {...node} />)

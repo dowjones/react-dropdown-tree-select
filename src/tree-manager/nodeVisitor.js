@@ -1,4 +1,4 @@
-import isEmpty from './isEmpty'
+import { isEmpty } from '../utils'
 
 const markSubTreeVisited = (node, visited, getItemById) => {
   visited[node._id] = true

@@ -53,7 +53,6 @@ A lightweight and fast control to render a select component that can display hie
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
   - [label](#label)
-  - [enableKeyboardNavigation](#enableKeyboardNavigation)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -62,6 +61,7 @@ A lightweight and fast control to render a select component that can display hie
   - [Search debouncing](#search-debouncing)
   - [Virtualized rendering](#virtualized-rendering)
   - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
+- [Keyboard navigation](#keyboard-navigation)
 - [FAQ](#faq)
 - [Doing more with HOCs](/docs/HOC.md)
 - [Development](#development)
@@ -339,15 +339,6 @@ Type: `string`
 
 Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
 
-### enableKeyboardNavigation
-
-Type: `bool` (default: `true`)
-
-Adds navigation with `arrow` keys, `page down/up` / `home/end` and toggle of selection with `enter`. `Arrow/page up/down` also toggles open of dropdown if closed.
-
-To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input. Defaults to `true`
-
-
 ## Styling and Customization
 
 ### Default styles
@@ -398,6 +389,13 @@ Once you import default styles, it is easy to add/override the provided styles t
 
 - [With Bootstrap](/docs/examples/bootstrap)
 - [With Material Design ](/docs/examples/material)
+
+## Keyboard navigation
+
+Adds navigation with `arrow` keys, `page down/up` / `home/end` and toggle of selection with `enter`. `Arrow/page up/down` also toggles open of dropdown if closed.
+
+To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input. Defaults to `true`
+
 
 ## Performance
 

@@ -72,10 +72,6 @@ declare module "react-dropdown-tree-select" {
         id?: string;
         /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
         label?: string;
-        /** Adds navigation with arrow keys, page down/up / home/end and toggle of selection with enter. Arrow/page up/down also toggles open of dropdown if closed.
-        To close open dropdown escape or tab can be used and backspace can be used for deletion of tags on empty search input. Defaults to true
-         */
-        enableKeyboardNavigation?: boolean;
     }
 
     export interface DropdownTreeSelectState {

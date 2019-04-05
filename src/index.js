@@ -10,10 +10,11 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
-import { isOutsideClick, clientIdGenerator, keyboardNavigation, getAriaLabel } from './utils'
+import { isOutsideClick, clientIdGenerator, getAriaLabel } from './utils'
 import Input from './input'
 import Tree from './tree'
 import TreeManager from './tree-manager'
+import keyboardNavigation from './tree-manager/keyboardNavigation'
 
 import styles from './index.css'
 
@@ -40,15 +41,13 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
     id: PropTypes.string,
-    enableKeyboardNavigation: PropTypes.bool,
     label: PropTypes.string
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {},
-    enableKeyboardNavigation: true
+    onChange: () => {}
   }
 
   constructor(props) {
@@ -192,9 +191,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    const { enableKeyboardNavigation, readOnly } = this.props
-    if (!enableKeyboardNavigation) { return }
-
+    const { readOnly } = this.props
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
 
     if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /^\w$/i.test(e.key))) {
@@ -241,7 +238,7 @@ class DropdownTreeSelect extends Component {
         <div className="dropdown">
           <a
             className={dropdownTriggerClassname}
-            onClick={!this.props.disabled && this.handleClick}
+            onClick={!this.props.disabled ? this.handleClick : undefined}
             {...getAriaLabel(this.props.label)}
           >
             <Input
@@ -252,7 +249,7 @@ class DropdownTreeSelect extends Component {
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
-              onKeyDown={this.props.enableKeyboardNavigation ? this.onKeyboardKeyDown: undefined}
+              onKeyDown={this.onKeyboardKeyDown}
               disabled={this.props.disabled}
               readOnly={this.props.readOnly}
               activeDescendant={activeDescendant}
@@ -275,7 +272,6 @@ class DropdownTreeSelect extends Component {
                   simpleSelect={this.props.simpleSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={this.props.readOnly}
-                  enableKeyboardNavigation={this.props.enableKeyboardNavigation}
                   activeDescendant={activeDescendant}
                 />
               )}

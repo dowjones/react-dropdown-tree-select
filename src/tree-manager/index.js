@@ -1,7 +1,8 @@
 import getPartialState from './getPartialState'
-
-import { isEmpty, keyboardNavigation, NavActions, FocusActionNames, nodeVisitor } from '../utils'
+import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
+import nodeVisitor from './nodeVisitor'
+import keyboardNavigation, { NavActions, FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
   constructor({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
@@ -236,10 +237,14 @@ class TreeManager {
       const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
       return newFocus
     }
-    if (action === NavActions.ToggleChecked && prevFocus && !readOnly && !(prevFocus.readOnly || prevFocus.disabled) && tree.has(prevFocus._id)) {
+    if (!prevFocus || !tree.has(prevFocus._id)) {
+      // No current focus or not visible
+      return currentFocus
+    }
+    if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
       onToggleChecked(prevFocus._id, prevFocus.checked !== true)
     }
-    if (action === NavActions.ToggleExpanded && prevFocus && tree.has(prevFocus._id)) {
+    if (action === NavActions.ToggleExpanded) {
       onToggleExpanded(prevFocus._id)
     }
     return currentFocus

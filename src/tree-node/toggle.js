@@ -33,7 +33,7 @@ class Toggle extends PureComponent {
     const toggleCx = cx('toggle', { expanded, collapsed: !expanded })
     return <i
       role="button"
-      tabIndex={0}
+      tabIndex={-1}
       className={toggleCx}
       onClick={this.onToggle}
       onKeyDown={this.onKeyDown}

@@ -146,3 +146,19 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
   wrapper.find('#b_tag > .tag-remove').simulate('keyUp', { ...event, key: 'Delete' })
   t.deepEqual(wrapper.state().tags.length, 0)
 })
+
+test('remembers current focus between prop updates', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown />)
+  t.false(wrapper.find('li.focused').exists())
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'ccc 1')
+  wrapper.setProps({ data: tree })
+  wrapper.instance().handleClick()
+  t.deepEqual(wrapper.find('li.focused').text(), 'ccc 1')
+})
+
+test('should set current focus as selected on tab out for simpleSelect', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} simpleSelect />)
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'Tab'])
+  t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
+})

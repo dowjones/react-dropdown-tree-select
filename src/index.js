@@ -144,18 +144,7 @@ class DropdownTreeSelect extends Component {
     this.onCheckboxChange(id, false, tags => {
       if (!isKeyboardEvent) return
 
-      // Sets new focus to next tag or falls back on search input
-      let index = prevTags && prevTags.findIndex(t => t._id === id)
-      if (index >= 0 && tags.length) {
-        index = tags.length > index ? index : tags.length - 1
-        const newFocusId = tags[index]._id
-        const focusNode = document.getElementById(`${newFocusId}_tag`)
-        if (focusNode && focusNode.firstElementChild) {
-          focusNode.firstElementChild.focus()
-          return
-        }
-      }
-      this.searchInput.focus()
+      keyboardNavigation.setFocusAfterTagDelete(id, prevTags, tags, this.searchInput)
     })
   }
 

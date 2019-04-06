@@ -41,14 +41,15 @@ class Tag extends PureComponent {
 
     const tagId = `${id}_tag`
     const className = cx('tag-remove', { readOnly }, { disabled })
-    const onClick = !readOnly && !disabled ? this.handleClick : undefined
-    const onKeyDown = !readOnly && !disabled ? this.onKeyDown : undefined
-    const onKeyUp = !readOnly && !disabled ? this.onKeyUp : undefined
+    const isDisabled = readOnly || disabled
+    const onClick = !isDisabled ? this.handleClick : undefined
+    const onKeyDown = !isDisabled ? this.onKeyDown : undefined
+    const onKeyUp = !isDisabled ? this.onKeyUp : undefined
 
     return (
       <span className={cx('tag')} id={tagId}>
         {label}
-        <button onClick={onClick} onKeyDown={onKeyDown} onKeyUp={onKeyUp} className={className} type="button" aria-label="Delete" aria-labelledby={tagId} aria-disabled={readOnly || disabled}>
+        <button onClick={onClick} onKeyDown={onKeyDown} onKeyUp={onKeyUp} className={className} type="button" aria-label="Delete" aria-labelledby={tagId} aria-disabled={isDisabled}>
           x
         </button>
       </span>

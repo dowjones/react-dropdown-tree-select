@@ -139,8 +139,24 @@ class DropdownTreeSelect extends Component {
     })
   }
 
-  onTagRemove = id => {
-    this.onCheckboxChange(id, false)
+  onTagRemove = (id, isKeyboardEvent) => {
+    const { tags: prevTags } = this.state
+    this.onCheckboxChange(id, false, tags => {
+      if (!isKeyboardEvent) return
+
+      // Sets new focus to next tag or falls back on search input
+      let index = prevTags && prevTags.findIndex(t => t._id === id)
+      if (index >= 0 && tags.length) {
+        index = tags.length > index ? index : tags.length - 1
+        const newFocusId = tags[index]._id
+        const focusNode = document.getElementById(`${newFocusId}_tag`)
+        if (focusNode && focusNode.firstElementChild) {
+          focusNode.firstElementChild.focus()
+          return
+        }
+      }
+      this.searchInput.focus()
+    })
   }
 
   onNodeToggle = id => {
@@ -150,7 +166,7 @@ class DropdownTreeSelect extends Component {
     typeof this.props.onNodeToggle === 'function' && this.props.onNodeToggle(this.treeManager.getNodeById(id))
   }
 
-  onCheckboxChange = (id, checked) => {
+  onCheckboxChange = (id, checked, callback) => {
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.getTags()
     const showDropdown = this.props.simpleSelect ? false : this.state.showDropdown
@@ -175,7 +191,7 @@ class DropdownTreeSelect extends Component {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 
-    this.setState(nextState)
+    this.setState(nextState, () => { callback && callback(tags) })
     this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
 

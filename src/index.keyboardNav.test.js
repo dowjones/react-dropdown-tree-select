@@ -141,6 +141,6 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
   }
   wrapper.find('#a_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Backspace' })
   t.deepEqual(wrapper.state().tags.length, 1)
-  wrapper.find('#b_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Delete' })
+  wrapper.find('#b_tag > .tag-remove').simulate('keyUp', { ...event, key: 'Delete' })
   t.deepEqual(wrapper.state().tags.length, 0)
 })

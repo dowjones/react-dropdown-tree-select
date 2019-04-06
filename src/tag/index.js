@@ -19,11 +19,18 @@ class Tag extends PureComponent {
     const { id, onDelete } = this.props
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
-    onDelete(id)
+    onDelete(id, (e.key || e.keyCode) !== undefined)
   }
 
   onKeyDown = e => {
-    if (e.key === 'Delete' || e.key === 'Backspace') {
+    if (e.key === 'Backspace') {
+      this.handleClick(e)
+      e.preventDefault()
+    }
+  }
+
+  onKeyUp = e => {
+    if (e.keyCode === 32 || ['Delete', 'Enter'].indexOf(e.key) > -1) {
       this.handleClick(e)
       e.preventDefault()
     }
@@ -36,11 +43,12 @@ class Tag extends PureComponent {
     const className = cx('tag-remove', { readOnly }, { disabled })
     const onClick = !readOnly && !disabled ? this.handleClick : undefined
     const onKeyDown = !readOnly && !disabled ? this.onKeyDown : undefined
+    const onKeyUp = !readOnly && !disabled ? this.onKeyUp : undefined
 
     return (
       <span className={cx('tag')} id={tagId}>
         {label}
-        <button onClick={onClick} onKeyDown={onKeyDown} className={className} type="button" aria-label="Delete" aria-labelledby={tagId} aria-disabled={readOnly || disabled}>
+        <button onClick={onClick} onKeyDown={onKeyDown} onKeyUp={onKeyUp} className={className} type="button" aria-label="Delete" aria-labelledby={tagId} aria-disabled={readOnly || disabled}>
           x
         </button>
       </span>

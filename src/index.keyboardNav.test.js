@@ -44,10 +44,12 @@ test('some key presses opens dropdown on keyboardNavigation', t => {
   })
 })
 
-test('esc closes dropdown on keyboardNavigation', t => {
+test('esc closes dropdown on keyboardNavigation', async t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'Escape'])
-  t.false(wrapper.state().showDropdown)
+  const showDropdown = await new Promise(resolve =>
+    setTimeout(() => { resolve(wrapper.state().showDropdown) }, 1))
+  t.false(showDropdown)
 })
 
 test('other key presses does not open dropdown on keyboardNavigation', t => {

@@ -197,8 +197,10 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    const { readOnly } = this.props
+    const { readOnly, simpleSelect } = this.props
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
+    const tm = this.treeManager
+    const tree = searchModeOn ? tm.matchTree : tm.tree
 
     if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /^\w$/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
@@ -206,16 +208,20 @@ class DropdownTreeSelect extends Component {
       this.handleClick(null, () => this.onKeyboardKeyDown(e))
       if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
-      const tm = this.treeManager
-      const tree = searchModeOn ? tm.matchTree : tm.tree
       const newFocus = tm.handleNavigationKey(currentFocus, tree, e.key, readOnly, !searchModeOn, this.onCheckboxChange, this.onNodeToggle)
       if (newFocus !== currentFocus) {
         this.setState({ currentFocus: newFocus })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
-      // Triggers close
-      this.keepDropdownActive = false
-      this.handleClick()
+      if (simpleSelect && tree.has(currentFocus)) {
+        this.onCheckboxChange(currentFocus, true)
+      } else {
+        // Triggers close
+        setTimeout(() => {
+          this.keepDropdownActive = false
+          this.handleClick()
+        }, 0)
+      }
       return
     } else if (e.key === 'Backspace' && tags && tags.length
       && this.searchInput && this.searchInput.value.length === 0) {

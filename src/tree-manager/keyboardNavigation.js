@@ -143,25 +143,24 @@ const getNextFocus = (tree, prevFocus, action, getNodeById, markSubTreeOnNonExpa
   return getRelativeFocus(nodes, prevFocus, action)
 }
 
-const setFocusAfterTagDelete = (deletedId, prevTags, tags, searchInput) => {
-  // Sets new focus to next tag or falls back on search input
+const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
+  // Sets new focus to next tag or returns fallback
   let index = prevTags && prevTags.findIndex(t => t._id === deletedId)
-  if (index >= 0 && tags.length) {
-    index = tags.length > index ? index : tags.length - 1
-    const newFocusId = tags[index]._id
-    const focusNode = document.getElementById(`${newFocusId}_tag`)
-    if (focusNode && focusNode.firstElementChild) {
-      focusNode.firstElementChild.focus()
-      return
-    }
+  if (index < 0 || !tags.length) return fallback
+
+  index = tags.length > index ? index : tags.length - 1
+  const newFocusId = tags[index]._id
+  const focusNode = document.getElementById(`${newFocusId}_tag`)
+  if (focusNode) {
+    return focusNode.firstElementChild || fallback
   }
-  searchInput.focus()
+  return fallback
 }
 
 const keyboardNavigation = {
   isValidKey,
   getAction,
   getNextFocus,
-  setFocusAfterTagDelete
+  getNextFocusAfterTagDelete
 }
 export default keyboardNavigation

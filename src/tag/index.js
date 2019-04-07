@@ -38,7 +38,7 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { id, label, labelRemove = "Remove", readOnly, disabled } = this.props
+    const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
 
     const tagId = `${id}_tag`
     const className = cx('tag-remove', { readOnly }, { disabled })

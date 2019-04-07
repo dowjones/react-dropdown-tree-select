@@ -42,7 +42,8 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
     id: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    labelRemove: PropTypes.string
   }
 
   static defaultProps = {
@@ -266,6 +267,7 @@ class DropdownTreeSelect extends Component {
               readOnly={this.props.readOnly}
               activeDescendant={activeDescendant}
               label={this.props.label}
+              labelRemove={this.props.labelRemove}
             />
           </a>
           {this.state.showDropdown && (

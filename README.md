@@ -53,6 +53,7 @@ A lightweight and fast control to render a select component that can display hie
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
   - [label](#label)
+  - [labelRemove](#labelRemove)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -339,6 +340,12 @@ Type: `string`
 
 Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
 
+### labelRemove
+
+Type: `string`
+
+The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
+
 ## Styling and Customization
 
 ### Default styles
@@ -394,7 +401,7 @@ Once you import default styles, it is easy to add/override the provided styles t
 
 Adds navigation with `arrow` keys, `page down/up` / `home/end` and toggle of selection with `enter`. `Arrow/page up/down` also toggles open of dropdown if closed.
 
-To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input. Defaults to `true`
+To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input.
 
 
 ## Performance

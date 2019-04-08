@@ -72,6 +72,8 @@ declare module "react-dropdown-tree-select" {
         id?: string;
         /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
         label?: string;
+        /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
+        labelRemove?: string;
     }
 
     export interface DropdownTreeSelectState {

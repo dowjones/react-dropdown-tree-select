@@ -218,10 +218,8 @@ class DropdownTreeSelect extends Component {
         this.onCheckboxChange(currentFocus, true)
       } else {
         // Triggers close
-        setTimeout(() => {
-          this.keepDropdownActive = false
-          this.handleClick()
-        }, 0)
+        this.keepDropdownActive = false
+        this.handleClick()
       }
       return
     } else if (e.key === 'Backspace' && tags && tags.length

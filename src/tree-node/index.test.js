@@ -47,7 +47,7 @@ test('notifies node toggle changes', t => {
   const wrapper = mount(<TreeNode {...node} onNodeToggle={onChange} />)
   const event = {
     stopPropagation: spy(),
-    nativeEvent: { stopImmediatePropagation: spy() }
+    nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.find('.toggle').simulate('click', event)
   t.true(onChange.calledWith('0-0-0'))

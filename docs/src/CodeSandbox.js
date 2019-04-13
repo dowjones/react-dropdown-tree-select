@@ -12,7 +12,7 @@ export default id => () => (
       width: '100%',
       height: '100%',
       border: 0,
-      overflow: 'hidden'
+      overflow: 'hidden',
     }}
     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
     title="Code Sandbox"

@@ -25,17 +25,17 @@ const stories = [
   { name: 'Simple Select', component: CodeSandbox('5xzn337wjn') },
   {
     name: 'Custom Select/Unselect All Buttons (HOC)',
-    component: CodeSandbox('n348v2qox0')
+    component: CodeSandbox('n348v2qox0'),
   },
   {
     name: 'Internal Select All Checkbox (HOC)',
-    component: CodeSandbox('rjwqq86p1n')
+    component: CodeSandbox('rjwqq86p1n'),
   },
   {
     name: 'Prevent re-render on parent render (HOC)',
-    component: CodeSandbox('v05klkn56l')
+    component: CodeSandbox('v05klkn56l'),
   },
-  { name: 'Tree Node Paths (HOC)', component: CodeSandbox('l765q6lmrq') }
+  { name: 'Tree Node Paths (HOC)', component: CodeSandbox('l765q6lmrq') },
 ]
 
 const App = () => (
@@ -43,7 +43,7 @@ const App = () => (
     style={{
       display: 'block',
       width: '100%',
-      height: '100%'
+      height: '100%',
     }}
     pathPrefix="story/"
     Story={props => (
@@ -51,14 +51,14 @@ const App = () => (
         css={{
           padding: 0,
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
         <div
           {...props}
           style={{
             flex: '1 0 auto',
-            position: 'relative'
+            position: 'relative',
           }}
         />
       </defaultProps.StoryWrapper>

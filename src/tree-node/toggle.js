@@ -10,7 +10,7 @@ class Toggle extends PureComponent {
     expanded: PropTypes.bool,
     isLeaf: PropTypes.bool,
     onNodeToggle: PropTypes.func,
-    id: PropTypes.string
+    id: PropTypes.string,
   }
 
   onToggle = e => {

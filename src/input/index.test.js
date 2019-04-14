@@ -38,9 +38,9 @@ test('should render data attributes', t => {
       tagClassName: 'test',
       dataset: {
         first: 'john',
-        last: 'smith'
-      }
-    }
+        last: 'smith',
+      },
+    },
   ]
 
   const wrapper = toJson(shallow(<Input tags={tags} />))

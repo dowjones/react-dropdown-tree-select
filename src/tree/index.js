@@ -26,11 +26,11 @@ class Tree extends Component {
     simpleSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
   }
 
   static defaultProps = {
-    pageSize: 100
+    pageSize: 100,
   }
 
   constructor(props) {
@@ -39,7 +39,7 @@ class Tree extends Component {
     this.computeInstanceProps(props)
 
     this.state = {
-      items: this.allVisibleNodes.slice(0, this.props.pageSize)
+      items: this.allVisibleNodes.slice(0, this.props.pageSize),
     }
   }
 
@@ -60,27 +60,37 @@ class Tree extends Component {
 
   getNodes = props => {
     const {
-      data, keepTreeOnSearch, keepChildrenOnSearch, searchModeOn, simpleSelect,
-      showPartiallySelected, readOnly, onAction, onChange, onCheckboxChange,
-      onNodeToggle
+      data,
+      keepTreeOnSearch,
+      keepChildrenOnSearch,
+      searchModeOn,
+      simpleSelect,
+      showPartiallySelected,
+      readOnly,
+      onAction,
+      onChange,
+      onCheckboxChange,
+      onNodeToggle,
     } = props
     const items = []
     data.forEach(node => {
       if (shouldRenderNode(node, searchModeOn, data)) {
-        items.push(<TreeNode
-          keepTreeOnSearch={keepTreeOnSearch}
-          keepChildrenOnSearch={keepChildrenOnSearch}
-          key={node._id}
-          {...node}
-          searchModeOn={searchModeOn}
-          onChange={onChange}
-          onCheckboxChange={onCheckboxChange}
-          onNodeToggle={onNodeToggle}
-          onAction={onAction}
-          simpleSelect={simpleSelect}
-          showPartiallySelected={showPartiallySelected}
-          readOnly={readOnly}
-        />)
+        items.push(
+          <TreeNode
+            keepTreeOnSearch={keepTreeOnSearch}
+            keepChildrenOnSearch={keepChildrenOnSearch}
+            key={node._id}
+            {...node}
+            searchModeOn={searchModeOn}
+            onChange={onChange}
+            onCheckboxChange={onCheckboxChange}
+            onNodeToggle={onNodeToggle}
+            onAction={onAction}
+            simpleSelect={simpleSelect}
+            showPartiallySelected={showPartiallySelected}
+            readOnly={readOnly}
+          />
+        )
       }
     })
     return items

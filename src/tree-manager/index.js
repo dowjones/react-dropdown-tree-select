@@ -11,7 +11,7 @@ class TreeManager {
       simple: simpleSelect,
       showPartialState: showPartiallySelected,
       hierarchical,
-      rootPrefixId
+      rootPrefixId,
     })
     this.tree = list
     this.defaultValues = defaultValues

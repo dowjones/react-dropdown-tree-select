@@ -9,7 +9,7 @@ const Keys = {
   Home: 'Home',
   PageUp: 'PageUp',
   End: 'End',
-  PageDown: 'PageDown'
+  PageDown: 'PageDown',
 }
 
 export const NavActions = {
@@ -20,7 +20,7 @@ export const NavActions = {
   FocusFirst: 'FocusFirst',
   FocusLast: 'FocusLast',
   ToggleExpanded: 'ToggleExpanded',
-  ToggleChecked: 'ToggleChecked'
+  ToggleChecked: 'ToggleChecked',
 }
 
 export const FocusActionNames = new Set([
@@ -28,7 +28,7 @@ export const FocusActionNames = new Set([
   NavActions.FocusNext,
   NavActions.FocusParent,
   NavActions.FocusFirst,
-  NavActions.FocusLast
+  NavActions.FocusLast,
 ])
 
 const validTriggerOpenKeys = [Keys.Up, Keys.Down, Keys.Home, Keys.PageUp, Keys.End, Keys.PageDown]
@@ -39,19 +39,17 @@ const isValidKey = (key, isOpen) => {
   return keysToCheck.indexOf(key) > -1
 }
 
-const isMatchingEvent = (key, keys, currentFocus, nonFocusKey) => keys.indexOf(key) > -1 || (!currentFocus && key === nonFocusKey)
+const isMatchingEvent = (key, keys, currentFocus, nonFocusKey) =>
+  keys.indexOf(key) > -1 || (!currentFocus && key === nonFocusKey)
 
-const isFocusFirstEvent = (key, currentFocus) =>
-  isMatchingEvent(key, [Keys.Home, Keys.PageUp], currentFocus, Keys.Down)
+const isFocusFirstEvent = (key, currentFocus) => isMatchingEvent(key, [Keys.Home, Keys.PageUp], currentFocus, Keys.Down)
 
-const isFocusLastEvent = (key, currentFocus) =>
-  isMatchingEvent(key, [Keys.End, Keys.PageDown], currentFocus, Keys.Up)
+const isFocusLastEvent = (key, currentFocus) => isMatchingEvent(key, [Keys.End, Keys.PageDown], currentFocus, Keys.Up)
 
 const isReverseTraverseAction = action =>
   isMatchingEvent(action, [NavActions.FocusPrevious, NavActions.FocusLast], true)
 
-const isEdgeTraverseAction = action =>
-  isMatchingEvent(action, [NavActions.FocusFirst, NavActions.FocusLast], true)
+const isEdgeTraverseAction = action => isMatchingEvent(action, [NavActions.FocusFirst, NavActions.FocusLast], true)
 
 const getLeftNavAction = (currentFocus, key) => {
   if (!currentFocus || key !== Keys.Left) return NavActions.None
@@ -71,18 +69,20 @@ const getRightNavAction = (currentFocus, key) => {
     return NavActions.None
   }
 
-  return currentFocus.expanded !== true ?
-    NavActions.ToggleExpanded :
-    NavActions.FocusNext
+  return currentFocus.expanded !== true ? NavActions.ToggleExpanded : NavActions.FocusNext
 }
 
 const getRelativeAction = (currentFocus, key) => {
   if (!currentFocus) return NavActions.None
   switch (key) {
-    case Keys.Up: return NavActions.FocusPrevious
-    case Keys.Down: return NavActions.FocusNext
-    case Keys.Enter: return NavActions.ToggleChecked
-    default: return NavActions.None
+    case Keys.Up:
+      return NavActions.FocusPrevious
+    case Keys.Down:
+      return NavActions.FocusNext
+    case Keys.Enter:
+      return NavActions.ToggleChecked
+    default:
+      return NavActions.None
   }
 }
 
@@ -103,7 +103,7 @@ const getAction = (currentFocus, key) => {
 }
 
 const getParentFocus = (prevFocus, getNodeById) =>
-  (prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus)
+  prevFocus && prevFocus._parent ? getNodeById(prevFocus._parent) : prevFocus
 
 const getRelativeNeighborsFocus = (sortedNodes, prevFocus) => {
   const nextIndex = sortedNodes.indexOf(prevFocus) + 1
@@ -120,7 +120,7 @@ const getRelativeFocus = (sortedNodes, prevFocus, action) => {
 
   let focus = prevFocus
   if (isEdgeTraverseAction(action)) {
-    [focus] = sortedNodes
+    ;[focus] = sortedNodes
   } else if ([NavActions.FocusPrevious, NavActions.FocusNext].indexOf(action) > -1) {
     focus = getRelativeNeighborsFocus(sortedNodes, prevFocus)
   }
@@ -161,6 +161,6 @@ const keyboardNavigation = {
   isValidKey,
   getAction,
   getNextFocus,
-  getNextFocusAfterTagDelete
+  getNextFocusAfterTagDelete,
 }
 export default keyboardNavigation

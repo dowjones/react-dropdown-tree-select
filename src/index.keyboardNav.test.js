@@ -4,21 +4,20 @@ import { spy } from 'sinon'
 import { mount } from 'enzyme'
 import DropdownTreeSelect from './index'
 
-const node = (id, label) =>
-  ({ id, label, value: label })
+const node = (id, label) => ({ id, label, value: label })
 
 const tree = {
   ...node('c1', 'ccc 1'),
   children: [
     {
       ...node('c2', 'ccc 2'),
-      children: [node('a1', 'aaa 1'), node('a2', 'aaa 2')]
+      children: [node('a1', 'aaa 1'), node('a2', 'aaa 2')],
     },
     {
       ...node('c3', 'ccc 3'),
-      children: [node('a3', 'aaa 3'), node('b1', 'bbb 1'), node('b2', 'bbb 2')]
-    }
-  ]
+      children: [node('a3', 'aaa 3'), node('b1', 'bbb 1'), node('b2', 'bbb 2')],
+    },
+  ],
 }
 
 /** Try with no simulate:
@@ -32,12 +31,11 @@ const tree = {
  * }) */
 const triggerOnKeyboardKeyDown = (wrapper, keys) => {
   const elements = [].concat(keys || [])
-  elements.forEach(key =>
-    wrapper.find('.search').simulate('keyDown', { key }))
+  elements.forEach(key => wrapper.find('.search').simulate('keyDown', { key }))
 }
 
 test('some key presses opens dropdown on keyboardNavigation', t => {
-  ['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown', 'a', 'B'].forEach(key => {
+  ;['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown', 'a', 'B'].forEach(key => {
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     triggerOnKeyboardKeyDown(wrapper, key)
     t.true(wrapper.state().showDropdown)
@@ -48,12 +46,15 @@ test('esc closes dropdown on keyboardNavigation', async t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'Escape'])
   const showDropdown = await new Promise(resolve =>
-    setTimeout(() => { resolve(wrapper.state().showDropdown) }, 1))
+    setTimeout(() => {
+      resolve(wrapper.state().showDropdown)
+    }, 1)
+  )
   t.false(showDropdown)
 })
 
 test('other key presses does not open dropdown on keyboardNavigation', t => {
-  ['Enter', 'ArrowLeft', 'ArrowRight'].forEach(key => {
+  ;['Enter', 'ArrowLeft', 'ArrowRight'].forEach(key => {
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     triggerOnKeyboardKeyDown(wrapper, key)
     t.false(wrapper.state().showDropdown)
@@ -62,7 +63,15 @@ test('other key presses does not open dropdown on keyboardNavigation', t => {
 
 test('can navigate and focus child on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'ArrowDown', 'ArrowRight', 'ArrowRight', 'ArrowDown'])
+  triggerOnKeyboardKeyDown(wrapper, [
+    'ArrowDown',
+    'ArrowRight',
+    'ArrowRight',
+    'ArrowDown',
+    'ArrowRight',
+    'ArrowRight',
+    'ArrowDown',
+  ])
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
 })
 
@@ -76,9 +85,8 @@ test('can navigate circular on keyboardNavigation', t => {
 
 test('can navigate to edge on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'ArrowRight']);
-
-  ['PageDown', 'PageUp', 'End', 'Home'].forEach((key, index) => {
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'ArrowRight'])
+  ;['PageDown', 'PageUp', 'End', 'Home'].forEach((key, index) => {
     const expected = index % 2 === 0 ? 'ccc 3' : 'ccc 1'
     triggerOnKeyboardKeyDown(wrapper, key)
     t.deepEqual(wrapper.find('li.focused').text(), expected)
@@ -139,7 +147,7 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
   const event = {
     type: 'keydown',
     stopPropagation: spy(),
-    nativeEvent: { stopImmediatePropagation: spy() }
+    nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.find('#a_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Backspace' })
   t.deepEqual(wrapper.state().tags.length, 1)

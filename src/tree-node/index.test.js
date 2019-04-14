@@ -23,9 +23,9 @@ test('renders tree node', t => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban'
-      }
-    ]
+        className: 'fa fa-ban',
+      },
+    ],
   }
 
   const wrapper = shallow(<TreeNode {...node} />)
@@ -40,7 +40,7 @@ test('notifies node toggle changes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }]
+    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }],
   }
 
   const onChange = spy()
@@ -48,7 +48,7 @@ test('notifies node toggle changes', t => {
   const wrapper = mount(<TreeNode {...node} onNodeToggle={onChange} />)
   const event = {
     stopPropagation: spy(),
-    nativeEvent: { stopImmediatePropagation: spy() }
+    nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.find('.toggle').simulate('click', event)
   t.true(onChange.calledWith('0-0-0'))
@@ -61,10 +61,10 @@ test('can toggle with enter and space', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }]
-  };
+    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }],
+  }
 
-  [{ key: 'Enter' }, { keyCode: 32 }].forEach(event => {
+  ;[{ key: 'Enter' }, { keyCode: 32 }].forEach(event => {
     const onChange = spy()
     const wrapper = mount(<TreeNode {...node} onNodeToggle={onChange} />)
     wrapper.find('.toggle').simulate('keydown', event)
@@ -78,7 +78,7 @@ test('remove gap during search', t => {
     _parent: '0-0',
     label: 'item0-0-0',
     value: 'value0-0-0',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const wrapper = shallow(<TreeNode {...node} searchModeOn />)
@@ -93,7 +93,7 @@ test('disable checkbox if the node has disabled status', t => {
     disabled: true,
     label: 'item0-0-0',
     value: 'value0-0-0',
-    className: 'cn0-0-0'
+    className: 'cn0-0-0',
   }
 
   const wrapper = shallow(<TreeNode {...node} searchModeOn />)
@@ -109,8 +109,8 @@ test('should render data attributes', t => {
     value: 'value0-0-0',
     dataset: {
       first: 'john',
-      last: 'smith'
-    }
+      last: 'smith',
+    },
   }
 
   const wrapper = shallow(<TreeNode {...node} />)

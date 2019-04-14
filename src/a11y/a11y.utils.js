@@ -16,7 +16,7 @@ export function mountToDoc(reactElm) {
 
 export function run(domNode, rules = {}) {
   const config = {
-    rules
+    rules,
   }
 
   return new Promise(resolve => {

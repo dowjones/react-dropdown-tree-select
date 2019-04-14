@@ -3,8 +3,7 @@ import { isEmpty } from '../utils'
 const markSubTreeVisited = (node, visited, getItemById) => {
   visited[node._id] = true
   if (!isEmpty(node._children)) {
-    node._children.forEach(c =>
-      markSubTreeVisited(getItemById(c), visited, getItemById))
+    node._children.forEach(c => markSubTreeVisited(getItemById(c), visited, getItemById))
   }
 }
 
@@ -36,6 +35,6 @@ const getVisibleNodes = (tree, getItemById, markSubTreeOnNonExpanded) =>
 const nodeVisitor = {
   getNodesMatching,
   getVisibleNodes,
-  markSubTreeVisited
+  markSubTreeVisited,
 }
 export default nodeVisitor

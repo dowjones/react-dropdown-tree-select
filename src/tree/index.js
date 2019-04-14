@@ -27,11 +27,11 @@ class Tree extends Component {
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,
-    activeDescendant: PropTypes.string
+    activeDescendant: PropTypes.string,
   }
 
   static defaultProps = {
-    pageSize: 100
+    pageSize: 100,
   }
 
   constructor(props) {
@@ -40,23 +40,20 @@ class Tree extends Component {
     this.computeInstanceProps(props)
 
     this.state = {
-      items: this.allVisibleNodes.slice(0, this.props.pageSize)
+      items: this.allVisibleNodes.slice(0, this.props.pageSize),
     }
   }
 
   componentWillReceiveProps = nextProps => {
     this.computeInstanceProps(nextProps)
-    this.setState(
-      { items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) },
-      () => {
-        const { activeDescendant } = nextProps
-        const { scrollableTarget } = this.state
-        const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-        if (activeLi && scrollableTarget) {
-          scrollableTarget.scrollTop = activeLi.offsetTop - ((scrollableTarget.clientHeight - activeLi.clientHeight) / 2)
-        }
+    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
+      const { activeDescendant } = nextProps
+      const { scrollableTarget } = this.state
+      const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
+      if (activeLi && scrollableTarget) {
+        scrollableTarget.scrollTop = activeLi.offsetTop - (scrollableTarget.clientHeight - activeLi.clientHeight) / 2
       }
-    )
+    })
   }
 
   componentDidMount = () => {
@@ -77,28 +74,39 @@ class Tree extends Component {
 
   getNodes = props => {
     const {
-      data, keepTreeOnSearch, keepChildrenOnSearch, searchModeOn, simpleSelect,
-      showPartiallySelected, readOnly, onAction, onChange, onCheckboxChange,
-      onNodeToggle, activeDescendant
+      data,
+      keepTreeOnSearch,
+      keepChildrenOnSearch,
+      searchModeOn,
+      simpleSelect,
+      showPartiallySelected,
+      readOnly,
+      onAction,
+      onChange,
+      onCheckboxChange,
+      onNodeToggle,
+      activeDescendant,
     } = props
     const items = []
     data.forEach(node => {
       if (shouldRenderNode(node, searchModeOn, data)) {
-        items.push(<TreeNode
-          keepTreeOnSearch={keepTreeOnSearch}
-          keepChildrenOnSearch={keepChildrenOnSearch}
-          key={node._id}
-          {...node}
-          searchModeOn={searchModeOn}
-          onChange={onChange}
-          onCheckboxChange={onCheckboxChange}
-          onNodeToggle={onNodeToggle}
-          onAction={onAction}
-          simpleSelect={simpleSelect}
-          showPartiallySelected={showPartiallySelected}
-          readOnly={readOnly}
-          activeDescendant={activeDescendant}
-        />)
+        items.push(
+          <TreeNode
+            keepTreeOnSearch={keepTreeOnSearch}
+            keepChildrenOnSearch={keepChildrenOnSearch}
+            key={node._id}
+            {...node}
+            searchModeOn={searchModeOn}
+            onChange={onChange}
+            onCheckboxChange={onCheckboxChange}
+            onNodeToggle={onNodeToggle}
+            onAction={onAction}
+            simpleSelect={simpleSelect}
+            showPartiallySelected={showPartiallySelected}
+            readOnly={readOnly}
+            activeDescendant={activeDescendant}
+          />
+        )
       }
     })
     return items

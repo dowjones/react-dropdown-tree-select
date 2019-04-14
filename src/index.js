@@ -43,13 +43,13 @@ class DropdownTreeSelect extends Component {
     hierarchical: PropTypes.bool,
     id: PropTypes.string,
     label: PropTypes.string,
-    labelRemove: PropTypes.string
+    labelRemove: PropTypes.string,
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {}
+    onChange: () => {},
   }
 
   constructor(props) {
@@ -57,13 +57,19 @@ class DropdownTreeSelect extends Component {
     this.state = {
       showDropdown: this.props.showDropdown || false,
       searchModeOn: false,
-      currentFocus: undefined
+      currentFocus: undefined,
     }
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   createList = ({ data, simpleSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
+    this.treeManager = new TreeManager({
+      data,
+      simpleSelect,
+      showPartiallySelected,
+      hierarchical,
+      rootPrefixId: this.clientId,
+    })
     return this.treeManager.tree
   }
 
@@ -73,7 +79,7 @@ class DropdownTreeSelect extends Component {
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,
-      allNodesHidden: false
+      allNodesHidden: false,
     }
   }
 
@@ -130,13 +136,17 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(
+      value,
+      this.props.keepTreeOnSearch,
+      this.props.keepChildrenOnSearch
+    )
     const searchModeOn = value.length > 0
 
     this.setState({
       tree,
       searchModeOn,
-      allNodesHidden
+      allNodesHidden,
     })
   }
 
@@ -170,7 +180,7 @@ class DropdownTreeSelect extends Component {
     const nextState = {
       tree,
       tags,
-      showDropdown
+      showDropdown,
     }
 
     if (this.props.simpleSelect || this.props.clearSearchOnChange) {
@@ -181,7 +191,9 @@ class DropdownTreeSelect extends Component {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 
-    this.setState(nextState, () => { callback && callback(tags) })
+    this.setState(nextState, () => {
+      callback && callback(tags)
+    })
     this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
 
@@ -209,7 +221,15 @@ class DropdownTreeSelect extends Component {
       this.handleClick(null, () => this.onKeyboardKeyDown(e))
       if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
-      const newFocus = tm.handleNavigationKey(currentFocus, tree, e.key, readOnly, !searchModeOn, this.onCheckboxChange, this.onNodeToggle)
+      const newFocus = tm.handleNavigationKey(
+        currentFocus,
+        tree,
+        e.key,
+        readOnly,
+        !searchModeOn,
+        this.onCheckboxChange,
+        this.onNodeToggle
+      )
       if (newFocus !== currentFocus) {
         this.setState({ currentFocus: newFocus })
       }
@@ -222,8 +242,13 @@ class DropdownTreeSelect extends Component {
         this.handleClick()
       }
       return
-    } else if (e.key === 'Backspace' && tags && tags.length
-      && this.searchInput && this.searchInput.value.length === 0) {
+    } else if (
+      e.key === 'Backspace' &&
+      tags &&
+      tags.length &&
+      this.searchInput &&
+      this.searchInput.value.length === 0
+    ) {
       const lastTag = tags.pop()
       this.onCheckboxChange(lastTag._id, false)
     } else {
@@ -239,13 +264,19 @@ class DropdownTreeSelect extends Component {
       disabled: this.props.disabled,
       readOnly: this.props.readOnly,
       top: this.state.showDropdown,
-      bottom: !this.state.showDropdown
+      bottom: !this.state.showDropdown,
     })
 
-    const activeDescendant = this.state.currentFocus ? `${this.state.currentFocus}_li`: undefined
+    const activeDescendant = this.state.currentFocus ? `${this.state.currentFocus}_li` : undefined
 
     return (
-      <div id={this.clientId} className={cx(this.props.className, 'react-dropdown-tree-select')} ref={node => { this.node = node }}>
+      <div
+        id={this.clientId}
+        className={cx(this.props.className, 'react-dropdown-tree-select')}
+        ref={node => {
+          this.node = node
+        }}
+      >
         <div className="dropdown">
           <a
             className={dropdownTriggerClassname}
@@ -253,7 +284,9 @@ class DropdownTreeSelect extends Component {
             {...getAriaLabel(this.props.label)}
           >
             <Input
-              inputRef={el => { this.searchInput = el }}
+              inputRef={el => {
+                this.searchInput = el
+              }}
               tags={this.state.tags}
               placeholderText={this.props.placeholderText}
               onInputChange={this.onInputChange}

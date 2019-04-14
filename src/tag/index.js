@@ -13,7 +13,7 @@ class Tag extends PureComponent {
     onDelete: PropTypes.func,
     readOnly: PropTypes.bool,
     disabled: PropTypes.bool,
-    labelRemove: PropTypes.string
+    labelRemove: PropTypes.string,
   }
 
   handleClick = e => {
@@ -50,7 +50,16 @@ class Tag extends PureComponent {
     return (
       <span className={cx('tag')} id={tagId}>
         {label}
-        <button onClick={onClick} onKeyDown={onKeyDown} onKeyUp={onKeyUp} className={className} type="button" aria-label={labelRemove} aria-labelledby={tagId} aria-disabled={isDisabled}>
+        <button
+          onClick={onClick}
+          onKeyDown={onKeyDown}
+          onKeyUp={onKeyUp}
+          className={className}
+          type="button"
+          aria-label={labelRemove}
+          aria-labelledby={tagId}
+          aria-disabled={isDisabled}
+        >
           x
         </button>
       </span>

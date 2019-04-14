@@ -20,15 +20,6 @@ const tree = {
   ],
 }
 
-/** Try with no simulate:
- * const dummy = () => {}
- * const onKeyDown = wrapper.instance().onKeyboardKeyDown
- *
- * onKeyDown({
- *  key,
- *  persist: dummy,
- * preventDefault: dummy
- * }) */
 const triggerOnKeyboardKeyDown = (wrapper, keys) => {
   const elements = [].concat(keys || [])
   elements.forEach(key => wrapper.find('.search').simulate('keyDown', { key }))

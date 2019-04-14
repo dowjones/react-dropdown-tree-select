@@ -34,8 +34,7 @@ class DropdownTreeSelect extends Component {
     onNodeToggle: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    simpleSelect: PropTypes.bool,
-    radioSelect: PropTypes.bool,
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
     noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -59,11 +58,10 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) => {
+  initNewProps = ({ data, mode, showPartiallySelected, hierarchical }) => {
     this.treeManager = new TreeManager({
       data,
-      simpleSelect,
-      radioSelect,
+      mode,
       showPartiallySelected,
       hierarchical,
       rootPrefixId: this.clientId,
@@ -150,10 +148,10 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked) => {
-    const { simpleSelect, radioSelect, keepOpenOnSelect } = this.props
+    const { mode, keepOpenOnSelect } = this.props
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.getTags()
-    const isSingleSelect = simpleSelect || radioSelect
+    const isSingleSelect = ['simpleSelect', 'radioSelect'].indexOf(mode) > -1
     const showDropdown = isSingleSelect && !keepOpenOnSelect ? false : this.state.showDropdown
 
     if (!tags.length) {
@@ -193,7 +191,7 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, simpleSelect, radioSelect } = this.props
+    const { disabled, readOnly, mode } = this.props
     const { showDropdown } = this.state
     const dropdownTriggerClassname = cx({
       'dropdown-trigger': true,
@@ -212,7 +210,13 @@ class DropdownTreeSelect extends Component {
           this.node = node
         }}
       >
-        <div className={cx('dropdown', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
+        <div
+          className={cx(
+            'dropdown',
+            { 'simple-select': mode === 'simpleSelect' },
+            { 'radio-select': mode === 'radioSelect' }
+          )}
+        >
           <a className={dropdownTriggerClassname} onClick={!disabled && this.handleClick}>
             <Input
               inputRef={el => {
@@ -241,8 +245,7 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
-                  simpleSelect={simpleSelect}
-                  radioSelect={radioSelect}
+                  mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
                   readOnly={readOnly}
                   clientId={this.clientId}

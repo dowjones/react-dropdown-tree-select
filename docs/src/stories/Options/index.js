@@ -14,8 +14,7 @@ class WithOptions extends PureComponent {
       clearSearchOnChange: false,
       keepTreeOnSearch: false,
       keepOpenOnSelect: false,
-      simpleSelect: false,
-      radioSelect: false,
+      mode: 'multiSelect',
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
@@ -42,8 +41,7 @@ class WithOptions extends PureComponent {
       clearSearchOnChange,
       keepTreeOnSearch,
       keepOpenOnSelect,
-      simpleSelect,
-      radioSelect,
+      mode,
       showPartiallySelected,
       disabled,
       readOnly,
@@ -62,6 +60,14 @@ class WithOptions extends PureComponent {
             padding: 10,
           }}
         >
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor={mode}>Mode: </label>
+            <select id="mode" value={mode} onChange={e => this.setState({ mode: e.target.value })}>
+              <option value="multiSelect">Multi select</option>
+              <option value="simpleSelect">Simple select</option>
+              <option value="radioSelect">Radio select</option>
+            </select>
+          </div>
           <Checkbox
             label="Clear search on selection"
             value="clearSearchOnChange"
@@ -80,8 +86,6 @@ class WithOptions extends PureComponent {
             checked={keepOpenOnSelect}
             onChange={this.onOptionsChange}
           />
-          <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
-          <Checkbox label="Radio Select" value="radioSelect" checked={radioSelect} onChange={this.onOptionsChange} />
           <Checkbox
             label="Show Partially Selected"
             value="showPartiallySelected"
@@ -102,8 +106,7 @@ class WithOptions extends PureComponent {
             clearSearchOnChange={clearSearchOnChange}
             keepTreeOnSearch={keepTreeOnSearch}
             keepOpenOnSelect={keepOpenOnSelect}
-            simpleSelect={simpleSelect}
-            radioSelect={radioSelect}
+            mode={mode}
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}

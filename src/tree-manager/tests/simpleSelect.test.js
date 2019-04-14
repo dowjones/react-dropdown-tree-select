@@ -4,7 +4,7 @@ import TreeManager from '..'
 test('should select the same node if it is selected and then deselected right again', t => {
   const tree = [{ id: 'nodeA' }, { id: 'nodeB' }, { id: 'nodeC' }]
 
-  const manager = new TreeManager({ data: tree, simpleSelect: true })
+  const manager = new TreeManager({ data: tree, mode: 'simpleSelect' })
 
   // first select a node
   manager.setNodeCheckedState('nodeA', true)

@@ -67,8 +67,7 @@ class TreeNode extends PureComponent {
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
-    simpleSelect: PropTypes.bool,
-    radioSelect: PropTypes.bool,
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
@@ -76,8 +75,7 @@ class TreeNode extends PureComponent {
 
   render() {
     const {
-      simpleSelect,
-      radioSelect,
+      mode,
       keepTreeOnSearch,
       _id,
       _children,
@@ -113,8 +111,7 @@ class TreeNode extends PureComponent {
           checked={checked}
           value={value}
           disabled={disabled}
-          simpleSelect={simpleSelect}
-          radioSelect={radioSelect}
+          mode={mode}
           onCheckboxChange={onCheckboxChange}
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}

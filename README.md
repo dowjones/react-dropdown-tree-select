@@ -50,8 +50,7 @@ A lightweight and fast control to render a select component that can display hie
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [keepOpenOnSelect](#keepopenonselect)
-  - [simpleSelect](#simpleselect)
-  - [radioSelect](#radioSelect)
+  - [mode](#mode)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
@@ -313,21 +312,27 @@ Keeps single selects open after selection. Defaults to `false`
 
 _NOTE_ this works only in combination with `simpleSelect` or `radioSelect`
 
-### simpleSelect
+### mode
 
-Type: `bool` (default: `false`)
+Type: `string` (default: `multiSelect`)
 
-Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+Defines how the dropdown is rendered / behaves
 
-_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+> **multiSelect**
+>
+> A multi selectable dropdown which supports hierarchial data.
 
-### radioSelect
+> #### simpleSelect
+>
+> Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+>
+> _NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
 
-Type: `bool` (default: `false`)
-
-Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
-
-_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+> #### radioSelect
+>
+> Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+>
+> _NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
 
 ### showPartiallySelected
 

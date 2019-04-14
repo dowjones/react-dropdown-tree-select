@@ -6,13 +6,17 @@ import toJson from 'enzyme-to-json'
 
 import NodeLabel from './node-label'
 
-const mockEvent = { target: { checked: true }, stopPropagation: () => undefined, nativeEvent: { stopImmediatePropagation: () => undefined } }
+const mockEvent = {
+  target: { checked: true },
+  stopPropagation: () => undefined,
+  nativeEvent: { stopImmediatePropagation: () => undefined },
+}
 const baseNode = {
   id: '0-0-0',
   _parent: '0-0',
   label: 'item0-0-0',
   value: 'value0-0-0',
-  className: 'cn0-0-0'
+  className: 'cn0-0-0',
 }
 
 test('renders node label', t => {
@@ -22,9 +26,9 @@ test('renders node label', t => {
       {
         id: 'NOT',
         title: 'NOT',
-        className: 'fa fa-ban'
-      }
-    ]
+        className: 'fa fa-ban',
+      },
+    ],
   }
 
   const wrapper = shallow(<NodeLabel clientId="snapshot" {...node} />)
@@ -35,7 +39,7 @@ test('renders node label', t => {
 test('notifies checkbox changes', t => {
   const node = {
     ...baseNode,
-    checked: false
+    checked: false,
   }
 
   const onChange = spy()
@@ -48,7 +52,7 @@ test('notifies checkbox changes', t => {
 test('disable checkbox if the node has disabled status', t => {
   const node = {
     ...baseNode,
-    disabled: true
+    disabled: true,
   }
 
   const wrapper = shallow(<NodeLabel clientId="snapshot" {...node} searchModeOn />)
@@ -59,7 +63,7 @@ test('disable checkbox if the node has disabled status', t => {
 test('notifies clicks in simple mode', t => {
   const node = {
     ...baseNode,
-    checked: false
+    checked: false,
   }
 
   const onChange = spy()
@@ -72,7 +76,7 @@ test('notifies clicks in simple mode', t => {
 test('call stopPropagation and stopImmediatePropagation when label is clicked', t => {
   const node = {
     ...baseNode,
-    checked: false
+    checked: false,
   }
 
   const onChange = spy()
@@ -81,7 +85,7 @@ test('call stopPropagation and stopImmediatePropagation when label is clicked', 
   const event = {
     type: 'click',
     stopPropagation: spy(),
-    nativeEvent: { stopImmediatePropagation: spy() }
+    nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.find('input').prop('onChange')(event)
   t.true(event.stopPropagation.called)

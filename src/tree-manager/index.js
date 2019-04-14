@@ -12,7 +12,7 @@ class TreeManager {
       radio: radioSelect,
       showPartialState: showPartiallySelected,
       hierarchical,
-      rootPrefixId
+      rootPrefixId,
     })
     this.tree = list
     this.defaultValues = defaultValues

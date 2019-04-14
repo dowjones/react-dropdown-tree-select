@@ -14,7 +14,7 @@ const node0 = {
   _depth: 0,
   label: 'item1',
   value: 'value1',
-  children: undefined
+  children: undefined,
 }
 
 test.beforeEach(t => {
@@ -26,10 +26,10 @@ test.beforeEach(t => {
         {
           label: 'item1-1',
           value: 'value1-1',
-          children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }]
+          children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }],
         },
-        { label: 'item1-2', value: 'value1-2' }
-      ]
+        { label: 'item1-2', value: 'value1-2' },
+      ],
     },
     {
       label: 'item2',
@@ -44,13 +44,13 @@ test.beforeEach(t => {
             {
               label: 'item2-1-3',
               value: 'value2-1-3',
-              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }]
-            }
-          ]
+              children: [{ label: 'item2-1-3-1', value: 'value2-1-3-1' }],
+            },
+          ],
         },
-        { label: 'item2-2', value: 'value2-2' }
-      ]
-    }
+        { label: 'item2-2', value: 'value2-2' },
+      ],
+    },
   ]
 })
 
@@ -156,7 +156,7 @@ test('sets unique ids on dropdowns', t => {
   t.notDeepEqual(wrapper1.getDOMNode().id, wrapper2.getDOMNode().id)
 })
 
-test('doesn\'t toggle dropdown if it\'s disabled', t => {
+test("doesn't toggle dropdown if it's disabled", t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} disabled />)
   t.snapshot(toJson(wrapper))
@@ -203,7 +203,7 @@ test('detects click inside', t => {
     view: window,
     bubbles: true,
     cancelable: true,
-    target: checkboxItem
+    target: checkboxItem,
   })
   Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
   wrapper.instance().handleOutsideClick(event)
@@ -224,7 +224,7 @@ test('detects click outside when other dropdown instance', t => {
     view: window,
     bubbles: true,
     cancelable: true,
-    target: searchInput
+    target: searchInput,
   })
   Object.defineProperty(event, 'target', { value: searchInput, enumerable: true })
   wrapper1.instance().handleOutsideClick(event)

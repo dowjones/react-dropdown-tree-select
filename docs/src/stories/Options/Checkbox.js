@@ -6,7 +6,7 @@ class Checkbox extends PureComponent {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    checked: PropTypes.bool
+    checked: PropTypes.bool,
   }
 
   state = { isChecked: this.props.checked || false }

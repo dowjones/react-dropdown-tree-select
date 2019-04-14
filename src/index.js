@@ -41,26 +41,33 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
-    id: PropTypes.string
+    id: PropTypes.string,
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
-    onChange: () => {}
+    onChange: () => {},
   }
 
   constructor(props) {
     super(props)
     this.state = {
       showDropdown: this.props.showDropdown || false,
-      searchModeOn: false
+      searchModeOn: false,
     }
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
   initNewProps = ({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical }) => {
-    this.treeManager = new TreeManager({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId: this.clientId })
+    this.treeManager = new TreeManager({
+      data,
+      simpleSelect,
+      radioSelect,
+      showPartiallySelected,
+      hierarchical,
+      rootPrefixId: this.clientId,
+    })
     this.setState(this.treeManager.getTreeAndTags())
   }
 
@@ -70,7 +77,7 @@ class DropdownTreeSelect extends Component {
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,
-      allNodesHidden: false
+      allNodesHidden: false,
     }
   }
 
@@ -117,13 +124,17 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
+    const { allNodesHidden, tree } = this.treeManager.filterTree(
+      value,
+      this.props.keepTreeOnSearch,
+      this.props.keepChildrenOnSearch
+    )
     const searchModeOn = value.length > 0
 
     this.setState({
       tree,
       searchModeOn,
-      allNodesHidden
+      allNodesHidden,
     })
   }
 
@@ -154,9 +165,8 @@ class DropdownTreeSelect extends Component {
     const nextState = {
       tree,
       tags,
-      showDropdown
+      showDropdown,
     }
-
 
     if ((isSingleSelect && !showDropdown) || this.props.clearSearchOnChange) {
       Object.assign(nextState, this.resetSearchState())
@@ -191,7 +201,7 @@ class DropdownTreeSelect extends Component {
       disabled,
       readOnly,
       top: showDropdown,
-      bottom: !showDropdown
+      bottom: !showDropdown,
     })
 
     return (

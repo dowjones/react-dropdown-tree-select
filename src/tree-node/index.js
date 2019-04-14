@@ -15,8 +15,18 @@ const isLeaf = children => isEmpty(children)
 
 const getNodeCx = props => {
   const {
-    keepTreeOnSearch, keepChildrenOnSearch, _children, matchInChildren, matchInParent,
-    disabled, partial, hide, className, showPartiallySelected, readOnly, checked
+    keepTreeOnSearch,
+    keepChildrenOnSearch,
+    _children,
+    matchInChildren,
+    matchInParent,
+    disabled,
+    partial,
+    hide,
+    className,
+    showPartiallySelected,
+    readOnly,
+    checked,
   } = props
 
   return cx(
@@ -30,7 +40,7 @@ const getNodeCx = props => {
       'match-in-parent': keepTreeOnSearch && keepChildrenOnSearch && matchInParent,
       partial: showPartiallySelected && partial,
       readOnly,
-      checked
+      checked,
     },
     className
   )
@@ -61,7 +71,7 @@ class TreeNode extends PureComponent {
     radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
-    clientId: PropTypes.string
+    clientId: PropTypes.string,
   }
 
   render() {
@@ -87,7 +97,7 @@ class TreeNode extends PureComponent {
       onCheckboxChange,
       showPartiallySelected,
       readOnly,
-      clientId
+      clientId,
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}

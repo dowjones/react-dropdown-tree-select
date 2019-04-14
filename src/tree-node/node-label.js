@@ -25,7 +25,7 @@ class NodeLabel extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,
-    clientId: PropTypes.string
+    clientId: PropTypes.string,
   }
 
   handleCheckboxChange = e => {
@@ -34,7 +34,9 @@ class NodeLabel extends PureComponent {
     if (simpleSelect || radioSelect) {
       onCheckboxChange(id, true)
     } else {
-      const { target: { checked } } = e
+      const {
+        target: { checked },
+      } = e
       onCheckboxChange(id, checked)
     }
     e.stopPropagation()
@@ -58,9 +60,17 @@ class NodeLabel extends PureComponent {
 
     return (
       <label title={title || label} htmlFor={id}>
-        {radioSelect ?
-          <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} /> :
-          <Checkbox name={id} className={cx('checkbox-item', { 'simple-select': simpleSelect })} indeterminate={showPartiallySelected && partial} onChange={this.handleCheckboxChange} {...sharedProps} />}
+        {radioSelect ? (
+          <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} />
+        ) : (
+          <Checkbox
+            name={id}
+            className={cx('checkbox-item', { 'simple-select': simpleSelect })}
+            indeterminate={showPartiallySelected && partial}
+            onChange={this.handleCheckboxChange}
+            {...sharedProps}
+          />
+        )}
         <span {...nodeLabelProps}>{label}</span>
       </label>
     )

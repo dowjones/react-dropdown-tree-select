@@ -13,7 +13,7 @@ class RadioButton extends PureComponent {
     checked: PropTypes.bool,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
   }
 
   render() {
@@ -21,7 +21,16 @@ class RadioButton extends PureComponent {
 
     const isDisabled = disabled || readOnly
 
-    return <input type="radio" name={name} ref={refUpdater({ checked })} onChange={onChange} disabled={isDisabled} {...rest} />
+    return (
+      <input
+        type="radio"
+        name={name}
+        ref={refUpdater({ checked })}
+        onChange={onChange}
+        disabled={isDisabled}
+        {...rest}
+      />
+    )
   }
 }
 

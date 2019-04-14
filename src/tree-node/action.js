@@ -8,11 +8,11 @@ class Action extends PureComponent {
     className: PropTypes.string,
     actionData: PropTypes.object,
     onAction: PropTypes.func,
-    readOnly: PropTypes.bool
+    readOnly: PropTypes.bool,
   }
 
   static defaultProps = {
-    onAction: () => {}
+    onAction: () => {},
   }
 
   handleClick = () => {

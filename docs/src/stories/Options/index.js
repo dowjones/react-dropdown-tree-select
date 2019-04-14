@@ -19,7 +19,7 @@ class WithOptions extends PureComponent {
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
-      hierarchical: false
+      hierarchical: false,
     }
   }
 
@@ -38,7 +38,17 @@ class WithOptions extends PureComponent {
   }
 
   render() {
-    const { clearSearchOnChange, keepTreeOnSearch, keepOpenOnSelect, simpleSelect, radioSelect, showPartiallySelected, disabled, readOnly, hierarchical } = this.state
+    const {
+      clearSearchOnChange,
+      keepTreeOnSearch,
+      keepOpenOnSelect,
+      simpleSelect,
+      radioSelect,
+      showPartiallySelected,
+      disabled,
+      readOnly,
+      hierarchical,
+    } = this.state
 
     return (
       <div>
@@ -49,15 +59,35 @@ class WithOptions extends PureComponent {
             border: '1px solid #ccc',
             borderRadius: '4px',
             marginBottom: '20px',
-            padding: 10
+            padding: 10,
           }}
         >
-          <Checkbox label="Clear search on selection" value="clearSearchOnChange" checked={clearSearchOnChange} onChange={this.onOptionsChange} />
-          <Checkbox label="Keep tree on search" value="keepTreeOnSearch" checked={keepTreeOnSearch} onChange={this.onOptionsChange} />
-          <Checkbox label="Keep tree open on select" value="keepOpenOnSelect" checked={keepOpenOnSelect} onChange={this.onOptionsChange} />
+          <Checkbox
+            label="Clear search on selection"
+            value="clearSearchOnChange"
+            checked={clearSearchOnChange}
+            onChange={this.onOptionsChange}
+          />
+          <Checkbox
+            label="Keep tree on search"
+            value="keepTreeOnSearch"
+            checked={keepTreeOnSearch}
+            onChange={this.onOptionsChange}
+          />
+          <Checkbox
+            label="Keep tree open on select"
+            value="keepOpenOnSelect"
+            checked={keepOpenOnSelect}
+            onChange={this.onOptionsChange}
+          />
           <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
           <Checkbox label="Radio Select" value="radioSelect" checked={radioSelect} onChange={this.onOptionsChange} />
-          <Checkbox label="Show Partially Selected" value="showPartiallySelected" checked={showPartiallySelected} onChange={this.onOptionsChange} />
+          <Checkbox
+            label="Show Partially Selected"
+            value="showPartiallySelected"
+            checked={showPartiallySelected}
+            onChange={this.onOptionsChange}
+          />
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
           <Checkbox label="Hierarchical" value="hierarchical" checked={hierarchical} onChange={this.onOptionsChange} />

@@ -108,7 +108,7 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
     radio,
     showPartialState,
     hierarchical,
-    rootPrefixId
+    rootPrefixId,
   })
 }
 
@@ -132,8 +132,16 @@ function setInitialStateProps(node, parent = {}, inheritChecked = true) {
 }
 
 function walkNodes({
-  nodes, parent, depth = 0, simple, radio, showPartialState, hierarchical, rootPrefixId,
-  _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null } }) {
+  nodes,
+  parent,
+  depth = 0,
+  simple,
+  radio,
+  showPartialState,
+  hierarchical,
+  rootPrefixId,
+  _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null },
+}) {
   const single = simple || radio
   nodes.forEach((node, i) => {
     node._depth = depth
@@ -154,8 +162,7 @@ function walkNodes({
       }
     }
 
-    if (single && node.isDefaultValue && _rv.singleSelectedNode
-      && !_rv.singleSelectedNode.isDefaultValue) {
+    if (single && node.isDefaultValue && _rv.singleSelectedNode && !_rv.singleSelectedNode.isDefaultValue) {
       // Default value has precedence, uncheck previous value
       _rv.singleSelectedNode.checked = false
       _rv.singleSelectedNode = null
@@ -181,7 +188,7 @@ function walkNodes({
         radio,
         showPartialState,
         hierarchical,
-        _rv
+        _rv,
       })
 
       if (showPartialState && !node.checked) {

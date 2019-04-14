@@ -11,7 +11,7 @@ const dropdownId = 'rdts'
 const action = {
   id: 'NOT',
   title: 'NOT',
-  className: 'fa fa-ban'
+  className: 'fa fa-ban',
 }
 
 const node0 = {
@@ -21,7 +21,7 @@ const node0 = {
   label: 'item1',
   value: 'value1',
   children: undefined,
-  actions: [action]
+  actions: [action],
 }
 
 test.beforeEach(t => {
@@ -35,9 +35,9 @@ test.beforeEach(t => {
           value: 'value1-1',
           children: [{ label: 'item1-1-1', value: 'value1-1-1' }, { label: 'item1-1-2', value: 'value1-1-2' }],
         },
-        { label: 'item1-2', value: 'value1-2' }
+        { label: 'item1-2', value: 'value1-2' },
       ],
-      actions: [action]
+      actions: [action],
     },
     {
       label: 'item2',

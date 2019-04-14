@@ -25,7 +25,7 @@ test('notifies clicks if handler is passed', t => {
     title: 'action',
     className: 'cn0-0-0',
     onAction: onClick,
-    actionData: { action: { id: 'actionA' }, nodeId: 'nodeId' }
+    actionData: { action: { id: 'actionA' }, nodeId: 'nodeId' },
   }
 
   const wrapper = shallow(<Action {...props} />)

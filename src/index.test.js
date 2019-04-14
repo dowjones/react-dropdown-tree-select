@@ -224,11 +224,11 @@ const keyDownTests = [
   { keyCode: 32, expected: true }, // Space
   { keyCode: 40, expected: true }, // Arrow down
   { keyCode: 9, expected: false }, // Tab
-  { keyCode: 38, expected: false } // Up arrow
+  { keyCode: 38, expected: false }, // Up arrow
 ]
 
 keyDownTests.forEach(testArgs => {
-  test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : 'can\'t'} open dropdown on keyDown`, t => {
+  test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : "can't"} open dropdown on keyDown`, t => {
     const { tree } = t.context
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     const trigger = wrapper.find('.dropdown-trigger')
@@ -237,4 +237,3 @@ keyDownTests.forEach(testArgs => {
     t.is(wrapper.state().showDropdown, testArgs.expected)
   })
 })
-

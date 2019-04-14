@@ -106,7 +106,7 @@ test('should set aria-selected to true for selected node', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: true
+    checked: true,
   }
 
   const wrapper = shallow(<TreeNode {...node} simpleSelect />)
@@ -120,7 +120,7 @@ test('should set aria-selected to false for selected nods', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: false
+    checked: false,
   }
 
   const wrapper = shallow(<TreeNode {...node} simpleSelect />)
@@ -134,7 +134,7 @@ test('should set aria-checked to true for checked nodes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: true
+    checked: true,
   }
 
   const wrapper = shallow(<TreeNode {...node} />)
@@ -148,7 +148,7 @@ test('should set aria-checked to false for unchecked nodes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    checked: false
+    checked: false,
   }
 
   const wrapper = shallow(<TreeNode {...node} />)
@@ -162,7 +162,7 @@ test('should set aria-checked to mixed for partial nodes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
-    partial: true
+    partial: true,
   }
 
   const wrapper = shallow(<TreeNode {...node} />)

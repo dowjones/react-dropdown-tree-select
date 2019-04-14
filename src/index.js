@@ -245,7 +245,9 @@ class DropdownTreeSelect extends Component {
       >
         <div className="dropdown">
           <a
-            ref={node => { this.triggerNode = node }}
+            ref={node => {
+              this.triggerNode = node
+            }}
             className={dropdownTriggerClassname}
             onClick={!this.props.disabled ? this.handleTrigger : undefined}
             onKeyDown={!this.props.disabled ? this.handleTrigger : undefined}

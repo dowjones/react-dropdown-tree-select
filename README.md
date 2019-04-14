@@ -4,7 +4,7 @@
 
 [![NPM version][npm-image]][npm-url] [![gzip][gzip-image]][gzip-url] [![npm download][download-image]][npm-url]
 
-[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![semantic-release][semantic-release]][semantic-release-url] [![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors)
+[![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Commitizen friendly][commitizen]][commitizen-url] [![semantic-release][semantic-release]][semantic-release-url] [![All Contributors][all-contributors-url]](#contributors) ![npm type definitions][types-url]
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
@@ -19,6 +19,8 @@
 [gzip-url]: https://unpkg.com/react-dropdown-tree-select/dist/react-dropdown-tree-select.js
 [semantic-release]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square
 [semantic-release-url]: https://github.com/semantic-release/semantic-release
+[all-contributors-url]: https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square
+[types-url]: https://img.shields.io/npm/types/react-dropdown-tree-select.svg?style=flat-square
 
 ## React Dropdown Tree Select
 
@@ -143,11 +145,11 @@ const data = {
       children: [
         {
           label: 'No one can get me',
-          value: 'anonymous'
-        }
-      ]
-    }
-  ]
+          value: 'anonymous',
+        },
+      ],
+    },
+  ],
 }
 
 const onChange = (currentNode, selectedNodes) => {
@@ -160,7 +162,10 @@ const onNodeToggle = currentNode => {
   console.log('onNodeToggle::', currentNode)
 }
 
-ReactDOM.render(<DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />, document.body) // in real world, you'd want to render to an element, instead of body.
+ReactDOM.render(
+  <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />,
+  document.body
+) // in real world, you'd want to render to an element, instead of body.
 ```
 
 ## Props
@@ -220,7 +225,7 @@ Type: `function`
 Fires when a action is triggered. Example:
 
 ```jsx
-function onAction({action, id}) {
+function onAction({ action, id }) {
   console.log(`onAction:: [${action}]`, id)
 }
 
@@ -299,7 +304,7 @@ Type: `bool`
 
 Displays children of found nodes to allow searching for a parent node on then selecting any child node of the found node. Defaults to `false`
 
-*NOTE* this works only in combination with `keepTreeOnSearch`
+_NOTE_ this works only in combination with `keepTreeOnSearch`
 
 ### simpleSelect
 
@@ -366,12 +371,12 @@ module: {
         fallback: 'style-loader',
         use: [
           {
-            loader: 'css-loader'
-          }
-        ]
+            loader: 'css-loader',
+          },
+        ],
       }),
-      include: /node_modules[/\\]react-dropdown-tree-select/
-    }
+      include: /node_modules[/\\]react-dropdown-tree-select/,
+    },
   ]
 }
 ```
@@ -402,7 +407,6 @@ Once you import default styles, it is easy to add/override the provided styles t
 Adds navigation with `arrow` keys, `page down/up` / `home/end` and toggle of selection with `enter`. `Arrow/page up/down` also toggles open of dropdown if closed.
 
 To close open dropdown `escape` or `tab` can be used and `backspace` can be used for deletion of tags on empty search input.
-
 
 ## Performance
 
@@ -532,6 +536,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 | [<img src="https://avatars1.githubusercontent.com/u/13344028?v=4" width="100px;" alt="BaarishRain"/><br /><sub><b>BaarishRain</b></sub>](https://github.com/BaarishRain)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3ABaarishRain "Bug reports") | [<img src="https://avatars0.githubusercontent.com/u/32507174?v=4" width="100px;" alt="Kovacs Alexandru Robert"/><br /><sub><b>Kovacs Alexandru Robert</b></sub>](http://kovacsalexandrurobert.ro)<br />[🤔](#ideas-akovacspentalog "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/11201133?v=4" width="100px;" alt="Alexis Mondragon"/><br /><sub><b>Alexis Mondragon</b></sub>](https://github.com/amondragon)<br />[🤔](#ideas-amondragon "Ideas, Planning, & Feedback") | [<img src="https://avatars2.githubusercontent.com/u/13438795?v=4" width="100px;" alt="Charlie91"/><br /><sub><b>Charlie91</b></sub>](https://github.com/Charlie91)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3ACharlie91 "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/1930681?v=4" width="100px;" alt="Dhirendrasinh"/><br /><sub><b>Dhirendrasinh</b></sub>](https://github.com/dhirendrarathod2000)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Adhirendrarathod2000 "Bug reports") | [<img src="https://avatars1.githubusercontent.com/u/7006862?v=4" width="100px;" alt="JKapostins"/><br /><sub><b>JKapostins</b></sub>](https://github.com/JKapostins)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3AJKapostins "Bug reports") | [<img src="https://avatars0.githubusercontent.com/u/24354568?v=4" width="100px;" alt="josvegit"/><br /><sub><b>josvegit</b></sub>](https://github.com/josvegit)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Ajosvegit "Bug reports") |
 | [<img src="https://avatars1.githubusercontent.com/u/12422912?v=4" width="100px;" alt="Luis Locon"/><br /><sub><b>Luis Locon</b></sub>](https://twitter.com/LoconLuis)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Aloconluis "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/10121255?v=4" width="100px;" alt="Mikdat DOĞRU"/><br /><sub><b>Mikdat DOĞRU</b></sub>](https://github.com/mikdatdogru)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Amikdatdogru "Bug reports") | [<img src="https://avatars1.githubusercontent.com/u/7553535?v=4" width="100px;" alt="Will Izard"/><br /><sub><b>Will Izard</b></sub>](https://github.com/will-izard)<br />[🤔](#ideas-will-izard "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/4504265?v=4" width="100px;" alt="Nikola Peric"/><br /><sub><b>Nikola Peric</b></sub>](https://gitlab.com/nikperic)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Anikolap "Bug reports") | [<img src="https://avatars2.githubusercontent.com/u/6119839?v=4" width="100px;" alt="Ramón Alejandro Reyes Fajardo"/><br /><sub><b>Ramón Alejandro Reyes Fajardo</b></sub>](https://github.com/ramonrf)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Aramonrf "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/10716099?v=4" width="100px;" alt="Sarada Cherukupalli"/><br /><sub><b>Sarada Cherukupalli</b></sub>](https://github.com/sarada-Cheukupalli)<br />[🤔](#ideas-sarada-Cheukupalli "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/45608461?v=4" width="100px;" alt="Dilip Gavara"/><br /><sub><b>Dilip Gavara</b></sub>](https://github.com/dilip025)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=dilip025 "Code") |
 | [<img src="https://avatars3.githubusercontent.com/u/491877?v=4" width="100px;" alt="Lutz Lengemann"/><br /><sub><b>Lutz Lengemann</b></sub>](http://www.dealzeit.de)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=mobilutz "Code") | [<img src="https://avatars0.githubusercontent.com/u/26381655?v=4" width="100px;" alt="Akshay Dipta"/><br /><sub><b>Akshay Dipta</b></sub>](https://github.com/Eainde)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3AEainde "Bug reports") | [<img src="https://avatars3.githubusercontent.com/u/137158?v=4" width="100px;" alt="Ian Langworth ☠"/><br /><sub><b>Ian Langworth ☠</b></sub>](https://langworth.com/)<br />[🤔](#ideas-statico "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/5932031?v=4" width="100px;" alt="Stoyan Berov"/><br /><sub><b>Stoyan Berov</b></sub>](https://github.com/stoberov)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=stoberov "Code") [🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Astoberov "Bug reports") | [<img src="https://avatars0.githubusercontent.com/u/17863113?v=4" width="100px;" alt="ellinge"/><br /><sub><b>ellinge</b></sub>](https://github.com/ellinge)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=ellinge "Code") [🤔](#ideas-ellinge "Ideas, Planning, & Feedback") [🚧](#maintenance-ellinge "Maintenance") |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

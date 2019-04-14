@@ -20,8 +20,8 @@ const Simple = () => (
   <div>
     <h1>Component with Default Values</h1>
     <p>
-      Default Values get applied when there is no other user based selection. User can select more values and unselect default values as long as there
-      is at least one user-selected value still present.
+      Default Values get applied when there is no other user based selection. User can select more values and unselect
+      default values as long as there is at least one user-selected value still present.
     </p>
     <DropdownTreeSelect data={data} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
   </div>

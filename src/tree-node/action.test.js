@@ -11,7 +11,7 @@ test('renders action with given props', t => {
     title: 'action',
     className: 'cn0-0-0',
     text: 'hello',
-    junk: '1'
+    junk: '1',
   }
 
   const wrapper = toJson(shallow(<Action {...props} />))

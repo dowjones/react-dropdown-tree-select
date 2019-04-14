@@ -8,9 +8,9 @@ test('should not mutate input', t => {
     children: [
       {
         label: 'l1c1',
-        value: 'l1v1'
-      }
-    ]
+        value: 'l1v1',
+      },
+    ],
   }
   const actual = {
     label: 'l1',
@@ -18,9 +18,9 @@ test('should not mutate input', t => {
     children: [
       {
         label: 'l1c1',
-        value: 'l1v1'
-      }
-    ]
+        value: 'l1v1',
+      },
+    ],
   }
   /* eslint-disable no-new */
   new TreeManager({ data: actual })
@@ -36,10 +36,10 @@ test('should set initial check state based on parent check state when node check
       {
         id: 'c1',
         label: 'l1c1',
-        value: 'l1v1'
-      }
+        value: 'l1v1',
+      },
     ],
-    checked: true
+    checked: true,
   }
   const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').checked)
@@ -55,9 +55,9 @@ test('should set initial check state based on node check state when node check s
         id: 'c1',
         label: 'l1c1',
         value: 'l1v1',
-        checked: true
-      }
-    ]
+        checked: true,
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   t.true(manager.getNodeById('c1').checked)
@@ -73,9 +73,9 @@ test('should set initial check state based on node check state when node check s
         id: 'c1',
         label: 'l1c1',
         value: 'l1v1',
-        checked: false
-      }
-    ]
+        checked: false,
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   t.false(manager.getNodeById('c1').checked)
@@ -91,9 +91,9 @@ test('should get tags based on children check state', t => {
         id: 'c1',
         label: 'l1c1',
         value: 'l1v1',
-        checked: true
-      }
-    ]
+        checked: true,
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   t.deepEqual(manager.getTags().map(t => t.label), ['l1c1'])
@@ -108,9 +108,9 @@ test('should get tags based on parent check state', t => {
       {
         label: 'l1c1',
         value: 'l1v1',
-        checked: true
-      }
-    ]
+        checked: true,
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   t.deepEqual(manager.getTags().map(t => t.label), ['l1'])
@@ -125,9 +125,9 @@ test('should get tags based on multiple parent check state', t => {
       children: [
         {
           label: 'l1c1',
-          value: 'l1v1'
-        }
-      ]
+          value: 'l1v1',
+        },
+      ],
     },
     {
       label: 'l2',
@@ -136,10 +136,10 @@ test('should get tags based on multiple parent check state', t => {
       children: [
         {
           label: 'l2c2',
-          value: 'l2v2'
-        }
-      ]
-    }
+          value: 'l2v2',
+        },
+      ],
+    },
   ]
   const manager = new TreeManager({ data: tree })
   t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2'])
@@ -154,9 +154,9 @@ test('should get tags based on multiple parent/child check state', t => {
       children: [
         {
           label: 'l1c1',
-          value: 'l1v1'
-        }
-      ]
+          value: 'l1v1',
+        },
+      ],
     },
     {
       label: 'l2',
@@ -165,10 +165,10 @@ test('should get tags based on multiple parent/child check state', t => {
         {
           label: 'l2c2',
           value: 'l2v2',
-          checked: true
-        }
-      ]
-    }
+          checked: true,
+        },
+      ],
+    },
   ]
   const manager = new TreeManager({ data: tree })
   t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2c2'])
@@ -183,9 +183,9 @@ test('should toggle children when checked', t => {
       {
         id: 'c1',
         label: 'l1c1',
-        value: 'l1v1'
-      }
-    ]
+        value: 'l1v1',
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.setNodeCheckedState('i1', true)
@@ -202,9 +202,9 @@ test('should toggle children when unchecked', t => {
         id: 'c1',
         label: 'l1c1',
         value: 'l1v1',
-        checked: true
-      }
-    ]
+        checked: true,
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.setNodeCheckedState('i1', false)
@@ -221,9 +221,9 @@ test('should uncheck parent when unchecked', t => {
       {
         id: 'c1',
         label: 'l1c1',
-        value: 'l1v1'
-      }
-    ]
+        value: 'l1v1',
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.setNodeCheckedState('c1', false)
@@ -244,11 +244,11 @@ test('should uncheck all parents when unchecked', t => {
           {
             id: 'c2',
             label: 'l2c1',
-            value: 'l2v1'
-          }
-        ]
-      }
-    ]
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.setNodeCheckedState('c2', false)
@@ -273,11 +273,11 @@ test('should collapse all children when collapsed', t => {
             id: 'c2',
             label: 'l2c1',
             value: 'l2v1',
-            expanded: true
-          }
-        ]
-      }
-    ]
+            expanded: true,
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.toggleNodeExpandState('i1')
@@ -299,11 +299,11 @@ test('should expand node (and not children) when expanded', t => {
           {
             id: 'c2',
             label: 'l2c1',
-            value: 'l2v1'
-          }
-        ]
-      }
-    ]
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   manager.toggleNodeExpandState('i1')
@@ -326,11 +326,11 @@ test('should get matching nodes when searched', t => {
           {
             id: 'c2',
             label: 'No one can get me',
-            value: 'l2v1'
-          }
-        ]
-      }
-    ]
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   const { allNodesHidden, tree: matchTree } = manager.filterTree('search')
@@ -354,11 +354,11 @@ test('should hide all nodes when search term is not found', t => {
           {
             id: 'c2',
             label: 'l2c1',
-            value: 'l2v1'
-          }
-        ]
-      }
-    ]
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   const { allNodesHidden } = manager.filterTree('bla-bla')
@@ -380,17 +380,17 @@ test('should use cached results for subsequent searches', t => {
             {
               id: 'c2',
               label: 'No one can get me',
-              value: 'l2v1'
-            }
-          ]
-        }
-      ]
+              value: 'l2v1',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'i2',
       label: 'sears',
-      value: 'sears'
-    }
+      value: 'sears',
+    },
   ]
   const manager = new TreeManager({ data: tree })
   const { allNodesHidden } = manager.filterTree('sea')
@@ -416,17 +416,17 @@ test('should restore nodes', t => {
             {
               id: 'c2',
               label: 'No one can get me',
-              value: 'l2v1'
-            }
-          ]
-        }
-      ]
+              value: 'l2v1',
+            },
+          ],
+        },
+      ],
     },
     {
       id: 'i2',
       label: 'sears',
-      value: 'sears'
-    }
+      value: 'sears',
+    },
   ]
   const manager = new TreeManager({ data: tree })
   manager.filterTree('search')
@@ -449,11 +449,11 @@ test('should get matching nodes with mixed case when searched', t => {
           {
             id: 'c2',
             label: 'No one can get me',
-            value: 'l2v1'
-          }
-        ]
-      }
-    ]
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
   }
   const manager = new TreeManager({ data: tree })
   const { allNodesHidden, tree: matchTree } = manager.filterTree('SearCH')
@@ -473,9 +473,9 @@ test('should uncheck previous node in simple select mode', t => {
         {
           id: 'c1',
           label: 'l1c1',
-          value: 'l1v1'
-        }
-      ]
+          value: 'l1v1',
+        },
+      ],
     },
     {
       id: 'i2',
@@ -485,10 +485,10 @@ test('should uncheck previous node in simple select mode', t => {
         {
           id: 'c2',
           label: 'l2c2',
-          value: 'l2v2'
-        }
-      ]
-    }
+          value: 'l2v2',
+        },
+      ],
+    },
   ]
   const manager = new TreeManager({ data: tree, simpleSelect: true })
   manager.setNodeCheckedState('i1', true)
@@ -514,9 +514,9 @@ test('should restore default values', t => {
           id: 'c1',
           label: 'l1c1',
           value: 'l1v1',
-          isDefaultValue: true
-        }
-      ]
+          isDefaultValue: true,
+        },
+      ],
     },
     {
       id: 'i2',
@@ -527,10 +527,10 @@ test('should restore default values', t => {
         {
           id: 'c2',
           label: 'l2c2',
-          value: 'l2v2'
-        }
-      ]
-    }
+          value: 'l2v2',
+        },
+      ],
+    },
   ]
   const manager = new TreeManager({ data: tree })
   manager.setNodeCheckedState('c1', false)
@@ -559,12 +559,12 @@ test('should return children when search with `keepChildrenOnSearch`', t => {
             {
               id: 'c2',
               label: 'You can see me',
-              value: 'l2v1'
-            }
-          ]
-        }
-      ]
-    }
+              value: 'l2v1',
+            },
+          ],
+        },
+      ],
+    },
   ]
   const manager = new TreeManager({ data: tree })
   const keepTreeOnSearch = true

@@ -33,7 +33,7 @@ test('call stopPropagation and stopImmediatePropagation when clicked', t => {
   const wrapper = shallow(<Checkbox className="sample" onChange={onChange} />)
   const event = {
     stopPropagation: spy(),
-    nativeEvent: { stopImmediatePropagation: spy() }
+    nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.simulate('change', event)
   t.true(onChange.called)

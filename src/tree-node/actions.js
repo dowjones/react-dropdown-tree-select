@@ -7,7 +7,7 @@ import { isEmpty } from '../utils'
 class Actions extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
-    actions: PropTypes.array
+    actions: PropTypes.array,
   }
 
   render() {

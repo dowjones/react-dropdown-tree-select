@@ -45,8 +45,7 @@ A lightweight and fast control to render a select component that can display hie
   - [onChange](#onchange)
   - [onNodeToggle](#onnodetoggle)
   - [data](#data)
-  - [placeholderText](#placeholdertext)
-  - [noMatchesText](#nomatchestext)
+  - [texts](#texts)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [keepOpenOnSelect](#keepopenonselect)
@@ -278,17 +277,18 @@ The `action` object requires the following structure:
 
 An array renders a tree with multiple root level items whereas an object renders a tree with a single root element (e.g. a `Select All` root node).
 
-### placeholderText
+### texts
 
-Type: `string`
+Texts to override output for
 
-The text to display as placeholder on the search box. Defaults to `Choose...`
+The `texts` object requires the following structure:
 
-### noMatchesText
-
-Type: `string`
-
-The text to display when the search does not find results in the content list. Defaults to `No matches found`
+```js
+{
+  placeholder,  // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
+  noMatches,    // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
+}
+```
 
 ### keepTreeOnSearch
 
@@ -447,10 +447,10 @@ Node toggling also achieves the expand/collapse effect by manipulating css class
 
 ### How do I change the placeholder text?
 
-The default [placeholder](#placeholdertext) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
+The default [placeholder](#texts) is `Choose...`. If you want to change this to something else, you can use `placeholder` property to set it.
 
 ```jsx
-<DropdownTreeSelect placeholderText="Search" />
+<DropdownTreeSelect texts={{ placeholder: 'Search' }} />
 ```
 
 ### How do I tweak styles?

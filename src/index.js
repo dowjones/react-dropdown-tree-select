@@ -284,7 +284,7 @@ class DropdownTreeSelect extends Component {
           <a
             className={dropdownTriggerClassname}
             onClick={!this.props.disabled ? this.handleClick : undefined}
-            {...getAriaLabel(this.props.label)}
+            {...getAriaLabel(this.props.texts.label)}
           >
             <Input
               inputRef={el => {

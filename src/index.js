@@ -27,7 +27,12 @@ class DropdownTreeSelect extends Component {
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
-    placeholderText: PropTypes.string,
+    texts: PropTypes.shape({
+      placeholder: PropTypes.string,
+      noMatches: PropTypes.string,
+      label: PropTypes.string,
+      labelRemove: PropTypes.string,
+    }),
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
     onChange: PropTypes.func,
@@ -36,20 +41,18 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     simpleSelect: PropTypes.bool,
-    noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     hierarchical: PropTypes.bool,
     id: PropTypes.string,
-    label: PropTypes.string,
-    labelRemove: PropTypes.string,
   }
 
   static defaultProps = {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
+    texts: {},
   }
 
   constructor(props) {
@@ -288,7 +291,7 @@ class DropdownTreeSelect extends Component {
                 this.searchInput = el
               }}
               tags={this.state.tags}
-              placeholderText={this.props.placeholderText}
+              texts={this.props.texts}
               onInputChange={this.onInputChange}
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
@@ -297,14 +300,12 @@ class DropdownTreeSelect extends Component {
               disabled={this.props.disabled}
               readOnly={this.props.readOnly}
               activeDescendant={activeDescendant}
-              label={this.props.label}
-              labelRemove={this.props.labelRemove}
             />
           </a>
           {this.state.showDropdown && (
             <div className={cx('dropdown-content')}>
               {this.state.allNodesHidden ? (
-                <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
+                <span className="no-matches">{this.props.texts.noMatches || 'No matches found'}</span>
               ) : (
                 <Tree
                   data={this.state.tree}

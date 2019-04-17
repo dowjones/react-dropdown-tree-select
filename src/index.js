@@ -26,10 +26,7 @@ class DropdownTreeSelect extends Component {
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
     keepOpenOnSelect: PropTypes.bool,
-    texts: PropTypes.shape({
-      placeholder: PropTypes.string,
-      noMatches: PropTypes.string,
-    }),
+    placeholderText: PropTypes.string,
     showDropdown: PropTypes.bool,
     className: PropTypes.string,
     onChange: PropTypes.func,
@@ -38,6 +35,7 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    noMatchesText: PropTypes.string,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -49,7 +47,6 @@ class DropdownTreeSelect extends Component {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
-    texts: {},
   }
 
   constructor(props) {
@@ -226,7 +223,7 @@ class DropdownTreeSelect extends Component {
                 this.searchInput = el
               }}
               tags={this.state.tags}
-              texts={this.props.texts}
+              placeholderText={this.props.placeholderText}
               onInputChange={this.onInputChange}
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
@@ -238,7 +235,7 @@ class DropdownTreeSelect extends Component {
           {showDropdown && (
             <div className="dropdown-content">
               {this.state.allNodesHidden ? (
-                <span className="no-matches">{this.props.texts.noMatches || 'No matches found'}</span>
+                <span className="no-matches">{this.props.noMatchesText || 'No matches found'}</span>
               ) : (
                 <Tree
                   data={this.state.tree}

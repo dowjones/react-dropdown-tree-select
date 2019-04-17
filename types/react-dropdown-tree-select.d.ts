@@ -19,8 +19,8 @@ declare module "react-dropdown-tree-select" {
          * NOTE this works only in combination with simpleSelect or radioSelect
          */
         keepOpenOnSelect?: boolean;
-        /** Texts to override output for */
-        texts?: TextProps;
+        /** The text to display as placeholder on the search box. Defaults to Choose... */
+        placeholderText?: string;
         /** If set to true, shows the dropdown when rendered.
          * This can be used to render the component with the dropdown open as its initial state
          */
@@ -65,6 +65,8 @@ declare module "react-dropdown-tree-select" {
          * 
          * NOTE if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected */
         mode?: 'multiSelect' | 'simpleSelect' | 'radioSelect';
+        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
+        noMatchesText?: string;
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
          * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
          * Simply add desired styles to .node.partial .checkbox-item:indeterminate { ... } in your CSS
@@ -132,13 +134,6 @@ declare module "react-dropdown-tree-select" {
     export interface TreeNodeProps extends TreeNode {
         /** Array of child objects */
         children?: TreeNode[];
-    }
-
-    export interface TextProps {
-        /** The text to display as placeholder on the search box. Defaults to Choose... */
-        placeholderT: string;
-        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
-        noMatches: string;
     }
 
     export interface NodeAction {

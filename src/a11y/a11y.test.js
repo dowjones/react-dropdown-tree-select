@@ -48,11 +48,11 @@ test('regular tree has no a11y exceptions', async t => {
   const { tree } = t.context
   const component = mountToDoc(
     <div>
-      <DropdownTreeSelect data={tree} showDropDown texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown disabled texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown readOnly texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown simpleSelect texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown simpleSelect texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropDown label="test" />
+      <DropdownTreeSelect data={tree} showDropDown disabled label="test" />
+      <DropdownTreeSelect data={tree} showDropDown readOnly label="test" />
+      <DropdownTreeSelect data={tree} showDropDown simpleSelect label="test" />
+      <DropdownTreeSelect data={tree} showDropDown simpleSelect label="test" />
     </div>
   )
   const domNode = component.getDOMNode()

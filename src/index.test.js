@@ -221,14 +221,14 @@ test('detects click outside when other dropdown instance', t => {
 
 test('adds aria-labelledby when label contains # to search input', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect data={tree} texts={{ label: '#hello #world' }} />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} label="#hello #world" />)
   t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), 'hello world')
   t.deepEqual(wrapper.find('.search').prop('aria-label'), undefined)
 })
 
 test('adds aria-label when having label on search input', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect data={tree} texts={{ label: 'hello world' }} />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} label="hello world" />)
   t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), undefined)
   t.deepEqual(wrapper.find('.search').prop('aria-label'), 'hello world')
 })

@@ -45,7 +45,8 @@ A lightweight and fast control to render a select component that can display hie
   - [onChange](#onchange)
   - [onNodeToggle](#onnodetoggle)
   - [data](#data)
-  - [texts](#texts)
+  - [placeholderText](#placeholdertext)
+  - [noMatchesText](#nomatchestext)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [simpleSelect](#simpleselect)
@@ -53,6 +54,8 @@ A lightweight and fast control to render a select component that can display hie
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
+  - [label](#label)
+  - [labelRemove](#labelRemove)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -277,20 +280,17 @@ The `action` object requires the following structure:
 
 An array renders a tree with multiple root level items whereas an object renders a tree with a single root element (e.g. a `Select All` root node).
 
-### texts
+### placeholderText
 
-Texts to override output for
+Type: `string`
 
-The `texts` object requires the following structure:
+The text to display as placeholder on the search box. Defaults to `Choose...`
 
-```js
-{
-  placeholder,  // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
-  noMatches,    // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
-  label,        // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
-  labelRemove,  // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
-}
-```
+### noMatchesText
+
+Type: `string`
+
+The text to display when the search does not find results in the content list. Defaults to `No matches found`
 
 ### keepTreeOnSearch
 
@@ -338,6 +338,18 @@ Type: `string`
 Specific id for container. The container renders with a default id of `rdtsN` where N is the count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
+
+### label
+
+Type: `string`
+
+Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
+
+### labelRemove
+
+Type: `string`
+
+The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
 
 ## Styling and Customization
 
@@ -431,10 +443,10 @@ Node toggling also achieves the expand/collapse effect by manipulating css class
 
 ### How do I change the placeholder text?
 
-The default [placeholder](#texts) is `Choose...`. If you want to change this to something else, you can use `placeholder` property to set it.
+The default [placeholder](#placeholdertext) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
 
 ```jsx
-<DropdownTreeSelect texts={{ placeholder: 'Search' }} />
+<DropdownTreeSelect placeholderText="Search" />
 ```
 
 ### How do I tweak styles?

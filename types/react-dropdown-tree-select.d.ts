@@ -15,8 +15,8 @@ declare module "react-dropdown-tree-select" {
          * NOTE this works only in combination with keepTreeOnSearch
          */
         keepChildrenOnSearch?: boolean;
-        /** Texts to override output for */
-        texts?: TextProps;
+        /** The text to display as placeholder on the search box. Defaults to Choose... */
+        placeholderText?: string;
         /** If set to true, shows the dropdown when rendered.
          * This can be used to render the component with the dropdown open as its initial state
          */
@@ -51,6 +51,8 @@ declare module "react-dropdown-tree-select" {
          * Defaults to false
          */
         simpleSelect?: boolean;
+        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
+        noMatchesText?: string;
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
          * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
          * Simply add desired styles to .node.partial .checkbox-item:indeterminate { ... } in your CSS
@@ -68,6 +70,10 @@ declare module "react-dropdown-tree-select" {
          * Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
          */
         id?: string;
+        /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
+        label?: string;
+        /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
+        labelRemove?: string;
     }
 
     export interface DropdownTreeSelectState {
@@ -118,17 +124,6 @@ declare module "react-dropdown-tree-select" {
     export interface TreeNodeProps extends TreeNode {
         /** Array of child objects */
         children?: TreeNode[];
-    }
-
-    export interface TextProps {
-        /** The text to display as placeholder on the search box. Defaults to Choose... */
-        placeholderT: string;
-        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
-        noMatches: string;
-        /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
-        label?: string;
-        /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
-        labelRemove?: string;
     }
 
     export interface NodeAction {

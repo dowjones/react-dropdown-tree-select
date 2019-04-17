@@ -28,7 +28,7 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
 class Input extends PureComponent {
   static propTypes = {
     tags: PropTypes.array,
-    texts: PropTypes.object,
+    placeholderText: PropTypes.string,
     onInputChange: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
@@ -38,6 +38,8 @@ class Input extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     activeDescendant: PropTypes.string,
+    label: PropTypes.string,
+    labelRemove: PropTypes.string,
   }
 
   constructor(props) {
@@ -55,25 +57,27 @@ class Input extends PureComponent {
       tags,
       onTagRemove,
       inputRef,
-      texts = {},
+      placeholderText = 'Choose...',
       onFocus,
       onBlur,
       disabled,
       readOnly,
       onKeyDown,
       activeDescendant,
+      label,
+      labelRemove,
     } = this.props
 
     return (
       <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+        {getTags(tags, onTagRemove, readOnly, disabled, labelRemove)}
         <li className={cx('tag-item')}>
           <input
             type="text"
             disabled={disabled}
             ref={inputRef}
             className={cx('search')}
-            placeholder={texts.placeholder || 'Choose...'}
+            placeholder={placeholderText}
             onKeyDown={onKeyDown}
             onChange={this.handleInputChange}
             onFocus={onFocus}
@@ -81,7 +85,7 @@ class Input extends PureComponent {
             readOnly={readOnly}
             aria-activedescendant={activeDescendant}
             aria-autocomplete={onKeyDown ? 'list' : undefined}
-            {...getAriaLabel(texts.label)}
+            {...getAriaLabel(label)}
           />
         </li>
       </ul>

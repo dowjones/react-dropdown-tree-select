@@ -76,9 +76,9 @@ class TreeNode extends PureComponent {
 
     attributes.role = simpleSelect ? 'option' : 'treeitem'
     attributes['aria-disabled'] = disabled || readOnly
-    attributes['aria-selected'] = checked ? 'true' : 'false'
+    attributes['aria-selected'] = checked
     if (!simpleSelect) {
-      attributes['aria-checked'] = partial ? 'mixed' : checked ? 'true' : 'false'
+      attributes['aria-checked'] = partial ? 'mixed' : checked
       attributes['aria-level'] = (_depth || 0) + 1
       attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
     }

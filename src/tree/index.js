@@ -113,8 +113,8 @@ class Tree extends Component {
     const attributes = {}
 
     attributes.role = simpleSelect ? 'listbox' : 'tree'
-    attributes['aria-multiselectable'] = !simpleSelect
-    attributes['aria-readonly'] = readOnly
+    attributes['aria-multiselectable'] = simpleSelect ? 'false' : 'true'
+    attributes['aria-readonly'] = readOnly ? 'true' : 'false'
     return attributes
   }
 

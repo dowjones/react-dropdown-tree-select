@@ -4,24 +4,24 @@ import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, hierarchical, rootPrefixId }) {
+  constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
     this._src = data
-    this.simpleSelect = mode === 'simpleSelect'
-    this.radioSelect = mode === 'radioSelect'
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
-      simple: this.simpleSelect,
-      radio: this.radioSelect,
+      simple: simpleSelect,
+      radio: radioSelect,
       showPartialState: showPartiallySelected,
       hierarchical,
       rootPrefixId,
     })
     this.tree = list
     this.defaultValues = defaultValues
+    this.simpleSelect = simpleSelect
+    this.radioSelect = radioSelect
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
-    if ((this.simpleSelect || this.radioSelect) && singleSelectedNode) {
+    if ((simpleSelect || radioSelect) && singleSelectedNode) {
       // Remembers initial check on single select dropdowns
       this.currentChecked = singleSelectedNode._id
     }

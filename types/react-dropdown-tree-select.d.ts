@@ -50,20 +50,15 @@ declare module "react-dropdown-tree-select" {
          * This is helpful for setting dirty or touched flags with forms
          */
         onBlur?: () => void;
-        /** Defines how the dropdown is rendered / behaves
-         * multiSelect
-         * A multi selectable dropdown which supports hierarchial data.
-         * 
-         * simpleSelect
-         * Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to false.
-         * 
-         * NOTE if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected
-         * 
-         * radioSelect
-         * Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to false.
-         * 
-         * NOTE if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected */
-        mode?: 'multiSelect' | 'simpleSelect' | 'radioSelect';
+        /** Turns the dropdown into a simple, single select dropdown.
+         * If you pass tree data, only immediate children are picked, grandchildren nodes are ignored.
+         * Defaults to false
+         */
+        simpleSelect?: boolean;
+        /** Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+         * *NOTE* if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected
+         */
+        radioSelect?: boolean;
         /** The text to display when the search does not find results in the content list. Defaults to No matches found */
         noMatchesText?: string;
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.

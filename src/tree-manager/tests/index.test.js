@@ -490,7 +490,7 @@ test('should uncheck previous node in simple select mode', t => {
       ],
     },
   ]
-  const manager = new TreeManager({ data: tree, mode: 'simpleSelect' })
+  const manager = new TreeManager({ data: tree, simpleSelect: true })
   manager.setNodeCheckedState('i1', true)
   t.true(manager.getNodeById('i1').checked)
 

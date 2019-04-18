@@ -147,7 +147,7 @@ test('should set partial state if at least one child is partial', t => {
     ],
   }
 
-  const manager = new TreeManager({ data: tree, mode: 'multiSelect', showPartiallySelected: true })
+  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
   t.true(manager.getNodeById('1').partial)
   t.true(manager.getNodeById('1-1').partial)
 

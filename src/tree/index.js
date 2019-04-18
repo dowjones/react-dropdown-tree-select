@@ -23,7 +23,8 @@ class Tree extends Component {
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,
@@ -65,7 +66,8 @@ class Tree extends Component {
       keepTreeOnSearch,
       keepChildrenOnSearch,
       searchModeOn,
-      mode,
+      simpleSelect,
+      radioSelect,
       showPartiallySelected,
       readOnly,
       onAction,
@@ -88,7 +90,8 @@ class Tree extends Component {
             onCheckboxChange={onCheckboxChange}
             onNodeToggle={onNodeToggle}
             onAction={onAction}
-            mode={mode}
+            simpleSelect={simpleSelect}
+            radioSelect={radioSelect}
             showPartiallySelected={showPartiallySelected}
             readOnly={readOnly}
             clientId={clientId}

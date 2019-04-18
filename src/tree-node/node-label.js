@@ -20,7 +20,8 @@ class NodeLabel extends PureComponent {
     expanded: PropTypes.bool,
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,
@@ -28,9 +29,9 @@ class NodeLabel extends PureComponent {
   }
 
   handleCheckboxChange = e => {
-    const { mode, id, onCheckboxChange } = this.props
+    const { simpleSelect, radioSelect, id, onCheckboxChange } = this.props
 
-    if (mode === 'simpleSelect' || mode === 'radioSelect') {
+    if (simpleSelect || radioSelect) {
       onCheckboxChange(id, true)
     } else {
       const {
@@ -43,13 +44,13 @@ class NodeLabel extends PureComponent {
   }
 
   render() {
-    const { mode, title, label, id, partial, checked } = this.props
+    const { simpleSelect, radioSelect, title, label, id, partial, checked } = this.props
     const { value, disabled, showPartiallySelected, readOnly, clientId } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label
     // but not if the control is in readOnly or disabled state
-    const shouldRegisterClickHandler = mode === 'simpleSelect' && !readOnly && !disabled
+    const shouldRegisterClickHandler = simpleSelect && !readOnly && !disabled
 
     if (shouldRegisterClickHandler) {
       nodeLabelProps.onClick = this.handleCheckboxChange
@@ -59,12 +60,12 @@ class NodeLabel extends PureComponent {
 
     return (
       <label title={title || label} htmlFor={id}>
-        {mode === 'radioSelect' ? (
+        {radioSelect ? (
           <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} />
         ) : (
           <Checkbox
             name={id}
-            className={cx('checkbox-item', { 'simple-select': mode === 'simpleSelect' })}
+            className={cx('checkbox-item', { 'simple-select': simpleSelect })}
             indeterminate={showPartiallySelected && partial}
             onChange={this.handleCheckboxChange}
             {...sharedProps}

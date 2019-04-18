@@ -45,7 +45,8 @@
   display: none;
 }
 
-.checkbox-item {
+.checkbox-item,
+.radio-item {
   vertical-align: middle;
   margin: 0 4px 0 0;
 

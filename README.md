@@ -49,7 +49,9 @@ A lightweight and fast control to render a select component that can display hie
   - [noMatchesText](#nomatchestext)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
+  - [keepOpenOnSelect](#keepopenonselect)
   - [simpleSelect](#simpleselect)
+  - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
   - [form states (disabled|readOnly)](#formstates)
@@ -306,11 +308,29 @@ Displays children of found nodes to allow searching for a parent node on then se
 
 _NOTE_ this works only in combination with `keepTreeOnSearch`
 
+### keepOpenOnSelect
+
+Type: `bool` (default: 'false')
+
+Keeps single selects open after selection. Defaults to `false`
+
+_NOTE_ this works only in combination with `simpleSelect` or `radioSelect`
+
 ### simpleSelect
 
 Type: `bool` (default: `false`)
 
 Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+
+_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+
+### radioSelect
+
+Type: `bool` (default: `false`)
+
+Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+
+_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
 
 ### showPartiallySelected
 

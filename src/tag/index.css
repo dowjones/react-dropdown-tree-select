@@ -20,7 +20,8 @@
   border: none;
   outline: none;
 
-  &.readOnly {
+  &.readOnly,
+  &.disabled {
     cursor: not-allowed;
   }
 

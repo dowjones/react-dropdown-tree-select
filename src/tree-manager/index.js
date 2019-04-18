@@ -5,11 +5,12 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { NavActions, FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
+  constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
     this._src = data
-    const { list, defaultValues } = flattenTree({
+    const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: simpleSelect,
+      radio: radioSelect,
       showPartialState: showPartiallySelected,
       hierarchical,
       rootPrefixId,
@@ -17,9 +18,14 @@ class TreeManager {
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect
+    this.radioSelect = radioSelect
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
+    if ((simpleSelect || radioSelect) && singleSelectedNode) {
+      // Remembers initial check on single select dropdowns
+      this.currentChecked = singleSelectedNode._id
+    }
   }
 
   getNodeById(id) {
@@ -128,14 +134,14 @@ class TreeManager {
     return this.tree
   }
 
-  togglePreviousChecked(id) {
+  togglePreviousChecked(id, checked) {
     const prevChecked = this.currentChecked
 
     // if id is same as previously selected node, then do nothing (since it's state is already set correctly by setNodeCheckedState)
     // but if they ar not same, then toggle the previous one
     if (prevChecked && prevChecked !== id) this.getNodeById(prevChecked).checked = false
 
-    this.currentChecked = id
+    this.currentChecked = checked ? id : null
   }
 
   setNodeCheckedState(id, checked) {
@@ -148,7 +154,15 @@ class TreeManager {
     }
 
     if (this.simpleSelect) {
-      this.togglePreviousChecked(id)
+      this.togglePreviousChecked(id, checked)
+    } else if (this.radioSelect) {
+      this.togglePreviousChecked(id, checked)
+      if (this.showPartialState) {
+        this.partialCheckParents(node)
+      }
+      if (!checked) {
+        this.unCheckParents(node)
+      }
     } else {
       if (!this.hierarchical) this.toggleChildren(id, checked)
 
@@ -220,6 +234,10 @@ class TreeManager {
   }
 
   getTags() {
+    if (this.radioSelect || this.simpleSelect) {
+      return this._getTagsForSingleSelect()
+    }
+
     return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
       if (node.checked && !this.hierarchical) {
         // Parent node, so no need to walk children
@@ -229,12 +247,16 @@ class TreeManager {
     })
   }
 
+  getTreeAndTags() {
+    return { tree: this.tree, tags: this.getTags() }
+  }
+
   handleNavigationKey(currentFocus, tree, key, readOnly, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
     const prevFocus = currentFocus && this.getNodeById(currentFocus)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
-      const newFocus = this.handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
+      const newFocus = this._handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
       return newFocus
     }
 
@@ -243,10 +265,10 @@ class TreeManager {
       return currentFocus
     }
 
-    return this.handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
+    return this._handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
   }
 
-  handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {
+  _handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {
     const getNodeById = id => this.getNodeById(id)
     const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded)
     if (prevFocus && newFocus && prevFocus._id !== newFocus._id) {
@@ -259,13 +281,20 @@ class TreeManager {
     return prevFocus && prevFocus._id
   }
 
-  handleToggleNavigationkey = (action, prevFocus, readOnly, onToggleChecked, onToggleExpanded) => {
+  _handleToggleNavigationkey = (action, prevFocus, readOnly, onToggleChecked, onToggleExpanded) => {
     if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
       onToggleChecked(prevFocus._id, prevFocus.checked !== true)
     } else if (action === NavActions.ToggleExpanded) {
       onToggleExpanded(prevFocus._id)
     }
     return prevFocus && prevFocus._id
+  }
+
+  _getTagsForSingleSelect() {
+    if (this.currentChecked) {
+      return [this.getNodeById(this.currentChecked)]
+    }
+    return []
   }
 }
 

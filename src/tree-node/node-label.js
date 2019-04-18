@@ -2,6 +2,7 @@ import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 import Checkbox from '../checkbox'
+import RadioButton from '../radio'
 
 import styles from './index.css'
 
@@ -19,15 +20,17 @@ class NodeLabel extends PureComponent {
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
     simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,
+    clientId: PropTypes.string,
   }
 
   handleCheckboxChange = e => {
-    const { simpleSelect, id, onCheckboxChange } = this.props
+    const { simpleSelect, radioSelect, id, onCheckboxChange } = this.props
 
-    if (simpleSelect) {
+    if (simpleSelect || radioSelect) {
       onCheckboxChange(id, true)
     } else {
       const {
@@ -35,35 +38,38 @@ class NodeLabel extends PureComponent {
       } = e
       onCheckboxChange(id, checked)
     }
+    e.stopPropagation()
+    e.nativeEvent.stopImmediatePropagation()
   }
 
   render() {
-    const { simpleSelect, title, label, id, partial, checked } = this.props
-    const { value, disabled, showPartiallySelected, readOnly } = this.props
+    const { simpleSelect, radioSelect, title, label, id, partial, checked } = this.props
+    const { value, disabled, showPartiallySelected, readOnly, clientId } = this.props
     const nodeLabelProps = { className: 'node-label' }
 
     // in case of simple select mode, there is no checkbox, so we need to handle the click via the node label
-    // but not if the control is in readOnly state
-    const shouldRegisterClickHandler = simpleSelect && !readOnly
+    // but not if the control is in readOnly or disabled state
+    const shouldRegisterClickHandler = simpleSelect && !readOnly && !disabled
 
     if (shouldRegisterClickHandler) {
       nodeLabelProps.onClick = this.handleCheckboxChange
     }
 
+    const sharedProps = { id, value, checked, disabled, readOnly, tabIndex: -1 }
+
     return (
       <label title={title || label} htmlFor={id}>
-        <Checkbox
-          name={id}
-          id={id}
-          indeterminate={showPartiallySelected && partial}
-          className={cx('checkbox-item', { 'simple-select': simpleSelect })}
-          checked={checked}
-          onChange={this.handleCheckboxChange}
-          value={value}
-          disabled={disabled}
-          readOnly={readOnly}
-          tabIndex={-1}
-        />
+        {radioSelect ? (
+          <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} />
+        ) : (
+          <Checkbox
+            name={id}
+            className={cx('checkbox-item', { 'simple-select': simpleSelect })}
+            indeterminate={showPartiallySelected && partial}
+            onChange={this.handleCheckboxChange}
+            {...sharedProps}
+          />
+        )}
         <span {...nodeLabelProps}>{label}</span>
       </label>
     )

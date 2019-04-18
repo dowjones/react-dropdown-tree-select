@@ -24,9 +24,11 @@ class Tree extends Component {
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
     simpleSelect: PropTypes.bool,
+    radioSelect: PropTypes.bool,
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,
+    clientId: PropTypes.string,
     activeDescendant: PropTypes.string,
   }
 
@@ -79,6 +81,7 @@ class Tree extends Component {
       keepChildrenOnSearch,
       searchModeOn,
       simpleSelect,
+      radioSelect,
       showPartiallySelected,
       readOnly,
       onAction,
@@ -86,6 +89,7 @@ class Tree extends Component {
       onCheckboxChange,
       onNodeToggle,
       activeDescendant,
+      clientId,
     } = props
     const items = []
     data.forEach(node => {
@@ -102,8 +106,10 @@ class Tree extends Component {
             onNodeToggle={onNodeToggle}
             onAction={onAction}
             simpleSelect={simpleSelect}
+            radioSelect={radioSelect}
             showPartiallySelected={showPartiallySelected}
             readOnly={readOnly}
+            clientId={clientId}
             activeDescendant={activeDescendant}
           />
         )

@@ -60,6 +60,12 @@ test('renders default state', t => {
   t.snapshot(toJson(wrapper))
 })
 
+test('renders default radio select state', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} radioSelect />)
+  t.snapshot(toJson(wrapper))
+})
+
 test('shows dropdown', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown />)
@@ -107,11 +113,18 @@ test('sets search mode on input change', t => {
 
 test('hides dropdown onChange for simpleSelect', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} simpleSelect />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown data={tree} simpleSelect />)
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.false(wrapper.state().searchModeOn)
   t.false(wrapper.state().allNodesHidden)
   t.false(wrapper.state().showDropdown)
+})
+
+test('keeps dropdown open onChange for simpleSelect and keepOpenOnSelect', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown simpleSelect keepOpenOnSelect />)
+  wrapper.instance().onCheckboxChange(node0._id, true)
+  t.true(wrapper.state().showDropdown)
 })
 
 test('clears input onChange for clearSearchOnChange', t => {

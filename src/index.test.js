@@ -72,6 +72,19 @@ test('shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
+test('always shows dropdown', t => {
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('keeps dropdown open for showDropdownAlways', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+})
+
 test('notifies on action', t => {
   const handler = spy()
   const { tree } = t.context
@@ -230,4 +243,37 @@ test('detects click outside when other dropdown instance', t => {
   wrapper1.instance().handleOutsideClick(event)
 
   t.false(wrapper1.state().showDropdown)
+})
+
+const keyDownTests = [
+  { keyCode: 13, expected: true }, // Enter
+  { keyCode: 32, expected: true }, // Space
+  { keyCode: 40, expected: true }, // Arrow down
+  { keyCode: 9, expected: false }, // Tab
+  { keyCode: 38, expected: false }, // Up arrow
+]
+
+keyDownTests.forEach(testArgs => {
+  test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : "can't"} open dropdown on keyDown`, t => {
+    const { tree } = t.context
+    const wrapper = mount(<DropdownTreeSelect data={tree} />)
+    const trigger = wrapper.find('.dropdown-trigger')
+    trigger.instance().focus()
+    trigger.simulate('keyDown', { key: 'mock', keyCode: testArgs.keyCode })
+    t.is(wrapper.state().showDropdown, testArgs.expected)
+  })
+})
+
+test('adds aria-labelledby when label contains # to search input', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} label="#hello #world" />)
+  t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), 'hello world')
+  t.deepEqual(wrapper.find('.search').prop('aria-label'), undefined)
+})
+
+test('adds aria-label when having label on search input', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} label="hello world" />)
+  t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), undefined)
+  t.deepEqual(wrapper.find('.search').prop('aria-label'), 'hello world')
 })

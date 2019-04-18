@@ -13,7 +13,9 @@ class WithOptions extends PureComponent {
     this.state = {
       clearSearchOnChange: false,
       keepTreeOnSearch: false,
+      keepOpenOnSelect: false,
       simpleSelect: false,
+      radioSelect: false,
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
@@ -39,7 +41,9 @@ class WithOptions extends PureComponent {
     const {
       clearSearchOnChange,
       keepTreeOnSearch,
+      keepOpenOnSelect,
       simpleSelect,
+      radioSelect,
       showPartiallySelected,
       disabled,
       readOnly,
@@ -70,7 +74,14 @@ class WithOptions extends PureComponent {
             checked={keepTreeOnSearch}
             onChange={this.onOptionsChange}
           />
+          <Checkbox
+            label="Keep tree open on select"
+            value="keepOpenOnSelect"
+            checked={keepOpenOnSelect}
+            onChange={this.onOptionsChange}
+          />
           <Checkbox label="Simple Select" value="simpleSelect" checked={simpleSelect} onChange={this.onOptionsChange} />
+          <Checkbox label="Radio Select" value="radioSelect" checked={radioSelect} onChange={this.onOptionsChange} />
           <Checkbox
             label="Show Partially Selected"
             value="showPartiallySelected"
@@ -83,13 +94,16 @@ class WithOptions extends PureComponent {
         </div>
         <div>
           <DropdownTreeSelect
+            id="rdts"
             data={data}
             onChange={this.onChange}
             onAction={this.onAction}
             onNodeToggle={this.onNodeToggle}
             clearSearchOnChange={clearSearchOnChange}
             keepTreeOnSearch={keepTreeOnSearch}
+            keepOpenOnSelect={keepOpenOnSelect}
             simpleSelect={simpleSelect}
+            radioSelect={radioSelect}
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}

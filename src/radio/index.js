@@ -1,31 +1,31 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-export const refUpdater = ({ checked, indeterminate }) => input => {
+export const refUpdater = ({ checked }) => input => {
   if (input) {
     input.checked = checked
-    input.indeterminate = indeterminate
   }
 }
 
-class Checkbox extends PureComponent {
+class RadioButton extends PureComponent {
   static propTypes = {
+    name: PropTypes.string.isRequired,
     checked: PropTypes.bool,
-    indeterminate: PropTypes.bool,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
   }
 
   render() {
-    const { checked, indeterminate = false, onChange, disabled, readOnly, ...rest } = this.props
+    const { name, checked, onChange, disabled, readOnly, ...rest } = this.props
 
     const isDisabled = disabled || readOnly
 
     return (
       <input
-        type="checkbox"
-        ref={refUpdater({ checked, indeterminate })}
+        type="radio"
+        name={name}
+        ref={refUpdater({ checked })}
         onChange={onChange}
         disabled={isDisabled}
         {...rest}
@@ -34,4 +34,4 @@ class Checkbox extends PureComponent {
   }
 }
 
-export default Checkbox
+export default RadioButton

@@ -72,6 +72,19 @@ test('shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
+test('always shows dropdown', t => {
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  t.snapshot(toJson(wrapper))
+})
+
+test('keeps dropdown open  for showDropdownAlways', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+})
+
 test('notifies on action', t => {
   const handler = spy()
   const { tree } = t.context

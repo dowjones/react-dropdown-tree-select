@@ -4,11 +4,12 @@ import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 
 class TreeManager {
-  constructor({ data, simpleSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
+  constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
     this._src = data
-    const { list, defaultValues } = flattenTree({
+    const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: simpleSelect,
+      radio: radioSelect,
       showPartialState: showPartiallySelected,
       hierarchical,
       rootPrefixId,
@@ -16,9 +17,14 @@ class TreeManager {
     this.tree = list
     this.defaultValues = defaultValues
     this.simpleSelect = simpleSelect
+    this.radioSelect = radioSelect
     this.showPartialState = !hierarchical && showPartiallySelected
     this.searchMaps = new Map()
     this.hierarchical = hierarchical
+    if ((simpleSelect || radioSelect) && singleSelectedNode) {
+      // Remembers initial check on single select dropdowns
+      this.currentChecked = singleSelectedNode._id
+    }
   }
 
   getNodeById(id) {
@@ -130,14 +136,14 @@ class TreeManager {
     return this.tree
   }
 
-  togglePreviousChecked(id) {
+  togglePreviousChecked(id, checked) {
     const prevChecked = this.currentChecked
 
     // if id is same as previously selected node, then do nothing (since it's state is already set correctly by setNodeCheckedState)
     // but if they ar not same, then toggle the previous one
     if (prevChecked && prevChecked !== id) this.getNodeById(prevChecked).checked = false
 
-    this.currentChecked = id
+    this.currentChecked = checked ? id : null
   }
 
   setNodeCheckedState(id, checked) {
@@ -150,7 +156,15 @@ class TreeManager {
     }
 
     if (this.simpleSelect) {
-      this.togglePreviousChecked(id)
+      this.togglePreviousChecked(id, checked)
+    } else if (this.radioSelect) {
+      this.togglePreviousChecked(id, checked)
+      if (this.showPartialState) {
+        this.partialCheckParents(node)
+      }
+      if (!checked) {
+        this.unCheckParents(node)
+      }
     } else {
       if (!this.hierarchical) this.toggleChildren(id, checked)
 
@@ -222,6 +236,10 @@ class TreeManager {
   }
 
   getTags() {
+    if (this.radioSelect || this.simpleSelect) {
+      return this._getTagsForSingleSelect()
+    }
+
     const tags = []
     const visited = {}
     const markSubTreeVisited = node => {
@@ -234,16 +252,26 @@ class TreeManager {
 
       if (node.checked) {
         tags.push(node)
-
-        if (!this.hierarchical) {
-          // Parent node, so no need to walk children
-          markSubTreeVisited(node)
-        }
       } else {
         visited[key] = true
       }
+      if (node.checked && !this.hierarchical) {
+        // Parent node, so no need to walk children
+        markSubTreeVisited(node)
+      }
     })
     return tags
+  }
+
+  getTreeAndTags() {
+    return { tree: this.tree, tags: this.getTags() }
+  }
+
+  _getTagsForSingleSelect() {
+    if (this.currentChecked) {
+      return [this.getNodeById(this.currentChecked)]
+    }
+    return []
   }
 }
 

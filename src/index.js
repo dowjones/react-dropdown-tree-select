@@ -200,7 +200,7 @@ class DropdownTreeSelect extends Component {
     attributes.role = 'button'
     attributes.tabIndex = 0
     attributes['aria-haspopup'] = simpleSelect ? 'listbox' : 'tree'
-    attributes['aria-expanded'] = showDropdown
+    attributes['aria-expanded'] = showDropdown ? 'true' : 'false'
     return attributes
   }
 

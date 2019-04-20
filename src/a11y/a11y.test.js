@@ -52,7 +52,7 @@ test('regular tree has no a11y exceptions', async t => {
       <DropdownTreeSelect data={tree} showDropDown disabled label="test" />
       <DropdownTreeSelect data={tree} showDropDown readOnly label="test" />
       <DropdownTreeSelect data={tree} showDropDown simpleSelect label="test" />
-      <DropdownTreeSelect data={tree} showDropDown simpleSelect label="test" />
+      <DropdownTreeSelect data={tree} showDropDown radioSelect label="test" />
     </div>
   )
   const domNode = component.getDOMNode()

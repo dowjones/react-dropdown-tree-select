@@ -157,10 +157,34 @@ const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
   return fallback
 }
 
+const handleFocusNavigationkey = (tree, action, prevFocus, getNodeById, markSubTreeOnNonExpanded) => {
+  const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded)
+  if (prevFocus && newFocus && prevFocus._id !== newFocus._id) {
+    prevFocus._focused = false
+  }
+  if (newFocus) {
+    newFocus._focused = true
+    return newFocus._id
+  }
+  return prevFocus && prevFocus._id
+}
+
+const handleToggleNavigationkey = (action, prevFocus, readOnly, onToggleChecked, onToggleExpanded) => {
+  if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
+    onToggleChecked(prevFocus._id, prevFocus.checked !== true)
+  } else if (action === NavActions.ToggleExpanded) {
+    onToggleExpanded(prevFocus._id)
+  }
+  return prevFocus && prevFocus._id
+}
+
 const keyboardNavigation = {
   isValidKey,
   getAction,
   getNextFocus,
   getNextFocusAfterTagDelete,
+  handleFocusNavigationkey,
+  handleToggleNavigationkey,
 }
+
 export default keyboardNavigation

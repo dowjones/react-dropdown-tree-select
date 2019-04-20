@@ -2,7 +2,7 @@ import getPartialState from './getPartialState'
 import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
 import nodeVisitor from './nodeVisitor'
-import keyboardNavigation, { NavActions, FocusActionNames } from './keyboardNavigation'
+import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
   constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
@@ -235,7 +235,10 @@ class TreeManager {
 
   getTags() {
     if (this.radioSelect || this.simpleSelect) {
-      return this._getTagsForSingleSelect()
+      if (this.currentChecked) {
+        return [this.getNodeById(this.currentChecked)]
+      }
+      return []
     }
 
     return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
@@ -253,10 +256,17 @@ class TreeManager {
 
   handleNavigationKey(currentFocus, tree, key, readOnly, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
     const prevFocus = currentFocus && this.getNodeById(currentFocus)
+    const getNodeById = id => this.getNodeById(id)
     const action = keyboardNavigation.getAction(prevFocus, key)
 
     if (FocusActionNames.has(action)) {
-      const newFocus = this._handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded)
+      const newFocus = keyboardNavigation.handleFocusNavigationkey(
+        tree,
+        action,
+        prevFocus,
+        getNodeById,
+        markSubTreeOnNonExpanded
+      )
       return newFocus
     }
 
@@ -265,36 +275,7 @@ class TreeManager {
       return currentFocus
     }
 
-    return this._handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
-  }
-
-  _handleFocusNavigationkey(tree, action, prevFocus, markSubTreeOnNonExpanded) {
-    const getNodeById = id => this.getNodeById(id)
-    const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded)
-    if (prevFocus && newFocus && prevFocus._id !== newFocus._id) {
-      prevFocus._focused = false
-    }
-    if (newFocus) {
-      newFocus._focused = true
-      return newFocus._id
-    }
-    return prevFocus && prevFocus._id
-  }
-
-  _handleToggleNavigationkey = (action, prevFocus, readOnly, onToggleChecked, onToggleExpanded) => {
-    if (action === NavActions.ToggleChecked && !readOnly && !(prevFocus.readOnly || prevFocus.disabled)) {
-      onToggleChecked(prevFocus._id, prevFocus.checked !== true)
-    } else if (action === NavActions.ToggleExpanded) {
-      onToggleExpanded(prevFocus._id)
-    }
-    return prevFocus && prevFocus._id
-  }
-
-  _getTagsForSingleSelect() {
-    if (this.currentChecked) {
-      return [this.getNodeById(this.currentChecked)]
-    }
-    return []
+    return keyboardNavigation.handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
   }
 }
 

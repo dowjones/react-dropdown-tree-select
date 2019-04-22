@@ -78,7 +78,7 @@ test('always shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
-test('keeps dropdown open  for showDropdownAlways', t => {
+test('keeps dropdown open for showDropdownAlways', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
   wrapper.instance().handleClick()

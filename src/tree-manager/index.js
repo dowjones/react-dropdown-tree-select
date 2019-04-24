@@ -233,7 +233,7 @@ class TreeManager {
     }
   }
 
-  getTags() {
+  get tags() {
     if (this.radioSelect || this.simpleSelect) {
       if (this.currentChecked) {
         return [this.getNodeById(this.currentChecked)]
@@ -251,7 +251,7 @@ class TreeManager {
   }
 
   getTreeAndTags() {
-    return { tree: this.tree, tags: this.getTags() }
+    return { tree: this.tree, tags: this.tags }
   }
 
   handleNavigationKey(currentFocus, tree, key, readOnly, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {

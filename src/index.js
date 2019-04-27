@@ -31,6 +31,7 @@ class DropdownTreeSelect extends Component {
       noMatches: PropTypes.string,
     }),
     showDropdown: PropTypes.bool,
+    showDropdownAlways: PropTypes.bool,
     className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
@@ -55,7 +56,7 @@ class DropdownTreeSelect extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showDropdown: this.props.showDropdown || false,
+      showDropdown: this.props.showDropdown || this.props.showDropdownAlways || false,
       searchModeOn: false,
     }
     this.clientId = props.id || clientIdGenerator.get(this)
@@ -98,7 +99,7 @@ class DropdownTreeSelect extends Component {
   handleClick = () => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
-      const showDropdown = this.keepDropdownActive || !prevState.showDropdown
+      const showDropdown = this.props.showDropdownAlways || this.keepDropdownActive || !prevState.showDropdown
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {
@@ -117,7 +118,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (!isOutsideClick(e, this.node)) {
+    if (this.props.showDropdownAlways || !isOutsideClick(e, this.node)) {
       return
     }
 

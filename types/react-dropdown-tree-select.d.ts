@@ -25,6 +25,9 @@ declare module "react-dropdown-tree-select" {
          * This can be used to render the component with the dropdown open as its initial state
          */
         showDropdown?: boolean;
+        /** If set to true, always shows the dropdown when rendered, and toggling dropdown will be disabled.
+         */
+        showDropdownAlways?: boolean;
         /** Additional classname for container.
          * The container renders with a default classname of react-dropdown-tree-select
          */

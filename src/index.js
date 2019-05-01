@@ -322,6 +322,7 @@ class DropdownTreeSelect extends Component {
             onClick={!this.props.disabled ? this.handleTrigger : undefined}
             onKeyDown={!this.props.disabled ? this.handleTrigger : undefined}
             {...this.getAriaAttributes()}
+            {...getAriaLabel(this.props.label)}
           >
             <Input
               inputRef={el => {

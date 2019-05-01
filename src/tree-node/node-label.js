@@ -17,7 +17,6 @@ class NodeLabel extends PureComponent {
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     partial: PropTypes.bool,
-    expanded: PropTypes.bool,
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
     simpleSelect: PropTypes.bool,
@@ -56,7 +55,7 @@ class NodeLabel extends PureComponent {
       nodeLabelProps.onClick = this.handleCheckboxChange
     }
 
-    const sharedProps = { id, value, checked, disabled, readOnly }
+    const sharedProps = { id, value, checked, disabled, readOnly, tabIndex: -1 }
 
     return (
       <label title={title || label} htmlFor={id}>

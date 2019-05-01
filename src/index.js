@@ -11,8 +11,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import { isOutsideClick, clientIdGenerator } from './utils'
-import { getAriaLabel } from './a11y'
 import Input from './input'
+import Trigger from './trigger'
 import Tree from './tree'
 import TreeManager from './tree-manager'
 import keyboardNavigation from './tree-manager/keyboardNavigation'
@@ -210,34 +210,7 @@ class DropdownTreeSelect extends Component {
     this.keepDropdownActive = false
   }
 
-  getAriaAttributes = () => {
-    const { showDropdown } = this.state
-    const { simpleSelect, label } = this.props
-
-    const attributes = {
-      role: 'button',
-      tabIndex: 0,
-      'aria-haspopup': simpleSelect ? 'listbox' : 'tree',
-      'aria-expanded': showDropdown ? 'true' : 'false',
-      ...getAriaLabel(label),
-    }
-
-    return attributes
-  }
-
-  handleTrigger = e => {
-    // Just return if triggered from keyDown and the key isn't enter, space or arrow down
-    if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
-      return
-    } else if (e.key && this.triggerNode && this.triggerNode !== document.activeElement) {
-      // Do not trigger if not activeElement
-      return
-    } else if (!this.state.showDropdown && e.keyCode === 32) {
-      // Avoid adding space to input on open
-      e.preventDefault()
-    }
-
-    // Else this is a key press that should trigger the dropdown
+  onTrigger = e => {
     this.handleClick(e, () => {
       // If the dropdown is shown after key press, focus the input
       if (this.state.showDropdown) {
@@ -289,18 +262,12 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, simpleSelect, radioSelect } = this.props
+    const { disabled, readOnly, simpleSelect, radioSelect, label } = this.props
     const { showDropdown } = this.state
-    const dropdownTriggerClassname = cx({
-      'dropdown-trigger': true,
-      arrow: true,
-      disabled,
-      readOnly,
-      top: showDropdown,
-      bottom: !showDropdown,
-    })
 
     const activeDescendant = this.state.currentFocus ? `${this.state.currentFocus}_li` : undefined
+
+    const commonProps = { disabled, readOnly, activeDescendant, label, simpleSelect, radioSelect }
 
     return (
       <div
@@ -311,15 +278,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className={cx('dropdown', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
-          <a
-            ref={node => {
-              this.triggerNode = node
-            }}
-            className={dropdownTriggerClassname}
-            onClick={!this.props.disabled ? this.handleTrigger : undefined}
-            onKeyDown={!this.props.disabled ? this.handleTrigger : undefined}
-            {...this.getAriaAttributes()}
-          >
+          <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps}>
             <Input
               inputRef={el => {
                 this.searchInput = el
@@ -331,13 +290,10 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               onKeyDown={this.onKeyboardKeyDown}
-              disabled={disabled}
-              readOnly={readOnly}
-              activeDescendant={activeDescendant}
-              label={this.props.label}
               labelRemove={this.props.labelRemove}
+              {...commonProps}
             />
-          </a>
+          </Trigger>
           {showDropdown && (
             <div className="dropdown-content">
               {this.state.allNodesHidden ? (
@@ -351,12 +307,9 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
-                  simpleSelect={simpleSelect}
-                  radioSelect={radioSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
-                  readOnly={readOnly}
                   clientId={this.clientId}
-                  activeDescendant={activeDescendant}
+                  {...commonProps}
                 />
               )}
             </div>

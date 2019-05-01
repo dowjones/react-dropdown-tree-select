@@ -19,10 +19,28 @@ class Toggle extends PureComponent {
     this.props.onNodeToggle(this.props.id)
   }
 
+  onKeyDown = e => {
+    if (e.key === 'Enter' || e.keyCode === 32) {
+      this.props.onNodeToggle(this.props.id)
+      e.preventDefault()
+    }
+  }
+
   render() {
     const { expanded, isLeaf } = this.props
-    const toggleCx = cx('toggle', { expanded: !isLeaf && expanded, collapsed: !isLeaf && !expanded })
-    return <i className={toggleCx} onClick={this.onToggle} />
+    if (isLeaf) return null
+
+    const toggleCx = cx('toggle', { expanded, collapsed: !expanded })
+    return (
+      <i
+        role="button"
+        tabIndex={-1}
+        className={toggleCx}
+        onClick={this.onToggle}
+        onKeyDown={this.onKeyDown}
+        aria-hidden
+      />
+    )
   }
 }
 

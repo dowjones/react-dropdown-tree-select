@@ -1,7 +1,8 @@
 import getPartialState from './getPartialState'
-
 import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
+import nodeVisitor from './nodeVisitor'
+import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
   constructor({ data, simpleSelect, radioSelect, showPartiallySelected, hierarchical, rootPrefixId }) {
@@ -47,20 +48,17 @@ class TreeManager {
 
     const matches = []
 
+    const addOnMatch = node => {
+      if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
+        matches.push(node._id)
+      }
+    }
+
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
-      superMatches.forEach(key => {
-        const node = this.getNodeById(key)
-        if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
-          matches.push(node._id)
-        }
-      })
+      superMatches.forEach(key => addOnMatch(this.getNodeById(key)))
     } else {
-      this.tree.forEach(node => {
-        if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
-          matches.push(node._id)
-        }
-      })
+      this.tree.forEach(addOnMatch)
     }
 
     this.searchMaps.set(searchTerm, matches)
@@ -235,43 +233,49 @@ class TreeManager {
     }
   }
 
-  getTags() {
+  get tags() {
     if (this.radioSelect || this.simpleSelect) {
-      return this._getTagsForSingleSelect()
-    }
-
-    const tags = []
-    const visited = {}
-    const markSubTreeVisited = node => {
-      visited[node._id] = true
-      if (!isEmpty(node._children)) node._children.forEach(c => markSubTreeVisited(this.getNodeById(c)))
-    }
-
-    this.tree.forEach((node, key) => {
-      if (visited[key]) return
-
-      if (node.checked) {
-        tags.push(node)
-      } else {
-        visited[key] = true
+      if (this.currentChecked) {
+        return [this.getNodeById(this.currentChecked)]
       }
+      return []
+    }
+
+    return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
       if (node.checked && !this.hierarchical) {
         // Parent node, so no need to walk children
-        markSubTreeVisited(node)
+        nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
       }
+      return node.checked
     })
-    return tags
   }
 
   getTreeAndTags() {
-    return { tree: this.tree, tags: this.getTags() }
+    return { tree: this.tree, tags: this.tags }
   }
 
-  _getTagsForSingleSelect() {
-    if (this.currentChecked) {
-      return [this.getNodeById(this.currentChecked)]
+  handleNavigationKey(currentFocus, tree, key, readOnly, markSubTreeOnNonExpanded, onToggleChecked, onToggleExpanded) {
+    const prevFocus = currentFocus && this.getNodeById(currentFocus)
+    const getNodeById = id => this.getNodeById(id)
+    const action = keyboardNavigation.getAction(prevFocus, key)
+
+    if (FocusActionNames.has(action)) {
+      const newFocus = keyboardNavigation.handleFocusNavigationkey(
+        tree,
+        action,
+        prevFocus,
+        getNodeById,
+        markSubTreeOnNonExpanded
+      )
+      return newFocus
     }
-    return []
+
+    if (!prevFocus || !tree.has(prevFocus._id)) {
+      // No current focus or not visible
+      return currentFocus
+    }
+
+    return keyboardNavigation.handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
   }
 }
 

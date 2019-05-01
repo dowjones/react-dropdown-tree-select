@@ -29,6 +29,7 @@ class Tree extends Component {
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    activeDescendant: PropTypes.string,
   }
 
   static defaultProps = {
@@ -47,7 +48,14 @@ class Tree extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.computeInstanceProps(nextProps)
-    this.setState({ items: this.allVisibleNodes.slice(0, this.props.pageSize) })
+    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
+      const { activeDescendant } = nextProps
+      const { scrollableTarget } = this.state
+      const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
+      if (activeLi && scrollableTarget) {
+        scrollableTarget.scrollTop = activeLi.offsetTop - (scrollableTarget.clientHeight - activeLi.clientHeight) / 2
+      }
+    })
   }
 
   componentDidMount = () => {
@@ -57,7 +65,13 @@ class Tree extends Component {
   computeInstanceProps = props => {
     this.allVisibleNodes = this.getNodes(props)
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
-    this.currentPage = 1
+    if (props.activeDescendant) {
+      const currentId = props.activeDescendant.replace(/_li$/, '')
+      const focusIndex = this.allVisibleNodes.findIndex(n => n.key === currentId) + 1
+      this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
+    } else {
+      this.currentPage = 1
+    }
   }
 
   getNodes = props => {
@@ -74,6 +88,7 @@ class Tree extends Component {
       onChange,
       onCheckboxChange,
       onNodeToggle,
+      activeDescendant,
       clientId,
     } = props
     const items = []
@@ -95,6 +110,7 @@ class Tree extends Component {
             showPartiallySelected={showPartiallySelected}
             readOnly={readOnly}
             clientId={clientId}
+            activeDescendant={activeDescendant}
           />
         )
       }
@@ -102,7 +118,7 @@ class Tree extends Component {
     return items
   }
 
-  hasMore = () => this.currentPage <= this.totalPages
+  hasMore = () => this.currentPage < this.totalPages
 
   loadMore = () => {
     this.currentPage = this.currentPage + 1

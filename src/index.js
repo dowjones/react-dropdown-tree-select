@@ -212,13 +212,16 @@ class DropdownTreeSelect extends Component {
 
   getAriaAttributes = () => {
     const { showDropdown } = this.state
-    const { simpleSelect } = this.props
-    const attributes = {}
+    const { simpleSelect, label } = this.props
 
-    attributes.role = 'button'
-    attributes.tabIndex = 0
-    attributes['aria-haspopup'] = simpleSelect ? 'listbox' : 'tree'
-    attributes['aria-expanded'] = showDropdown ? 'true' : 'false'
+    const attributes = {
+      role: 'button',
+      tabIndex: 0,
+      'aria-haspopup': simpleSelect ? 'listbox' : 'tree',
+      'aria-expanded': showDropdown ? 'true' : 'false',
+      ...getAriaLabel(label),
+    }
+
     return attributes
   }
 
@@ -316,7 +319,6 @@ class DropdownTreeSelect extends Component {
             onClick={!this.props.disabled ? this.handleTrigger : undefined}
             onKeyDown={!this.props.disabled ? this.handleTrigger : undefined}
             {...this.getAriaAttributes()}
-            {...getAriaLabel(this.props.label)}
           >
             <Input
               inputRef={el => {

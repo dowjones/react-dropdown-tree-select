@@ -40,6 +40,7 @@ test('notifies node toggle changes', t => {
     label: 'item0-0-0',
     value: 'value0-0-0',
     className: 'cn0-0-0',
+    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }],
   }
 
   const onChange = spy()
@@ -51,6 +52,24 @@ test('notifies node toggle changes', t => {
   }
   wrapper.find('.toggle').simulate('click', event)
   t.true(onChange.calledWith('0-0-0'))
+})
+
+test('can toggle with enter and space', t => {
+  const node = {
+    _id: '0-0-0',
+    _parent: '0-0',
+    label: 'item0-0-0',
+    value: 'value0-0-0',
+    className: 'cn0-0-0',
+    _children: [{ label: 'item0-0-1', value: 'value0-0-1' }, { label: 'item0-0-2', value: 'value0-0-2' }],
+  }
+
+  ;[{ key: 'Enter' }, { keyCode: 32 }].forEach(event => {
+    const onChange = spy()
+    const wrapper = mount(<TreeNode {...node} onNodeToggle={onChange} />)
+    wrapper.find('.toggle').simulate('keydown', event)
+    t.true(onChange.calledWith('0-0-0'))
+  })
 })
 
 test('remove gap during search', t => {

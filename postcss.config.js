@@ -7,7 +7,7 @@ module.exports = () => ({
     require('postcss-nested')(),
     require('postcss-cssnext')({
       browsers: ['ie >= 10', 'last 2 versions'],
-      warnForDuplicates: false
-    })
-  ]
+      warnForDuplicates: false,
+    }),
+  ],
 })

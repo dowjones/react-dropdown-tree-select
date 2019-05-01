@@ -27,6 +27,7 @@ const getNodeCx = props => {
     showPartiallySelected,
     readOnly,
     checked,
+    _focused: focused,
   } = props
 
   return cx(
@@ -41,6 +42,7 @@ const getNodeCx = props => {
       partial: showPartiallySelected && partial,
       readOnly,
       checked,
+      focused,
     },
     className
   )
@@ -102,8 +104,10 @@ class TreeNode extends PureComponent {
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
+    const liId = `${_id}_li`
+
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)}>
+      <li className={liCx} style={style} {...getDataset(dataset)} id={liId}>
         <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}

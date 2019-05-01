@@ -241,6 +241,7 @@ class DropdownTreeSelect extends Component {
         this.searchInput.focus()
       }
     })
+  }
 
   onKeyboardKeyDown = e => {
     const { readOnly, simpleSelect } = this.props
@@ -288,7 +289,6 @@ class DropdownTreeSelect extends Component {
       return
     }
     e.preventDefault()
-
   }
 
   render() {

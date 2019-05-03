@@ -11,8 +11,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import { isOutsideClick, clientIdGenerator } from './utils'
-import { getAriaLabel } from './a11y'
 import Input from './input'
+import Trigger from './trigger'
 import Tree from './tree'
 import TreeManager from './tree-manager'
 import keyboardNavigation from './tree-manager/keyboardNavigation'
@@ -210,6 +210,15 @@ class DropdownTreeSelect extends Component {
     this.keepDropdownActive = false
   }
 
+  onTrigger = e => {
+    this.handleClick(e, () => {
+      // If the dropdown is shown after key press, focus the input
+      if (this.state.showDropdown) {
+        this.searchInput.focus()
+      }
+    })
+  }
+
   onKeyboardKeyDown = e => {
     const { readOnly, simpleSelect } = this.props
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
@@ -243,13 +252,7 @@ class DropdownTreeSelect extends Component {
         this.handleClick()
       }
       return
-    } else if (
-      e.key === 'Backspace' &&
-      tags &&
-      tags.length &&
-      this.searchInput &&
-      this.searchInput.value.length === 0
-    ) {
+    } else if (e.key === 'Backspace' && tags.length && this.searchInput.value.length === 0) {
       const lastTag = tags.pop()
       this.onCheckboxChange(lastTag._id, false)
     } else {
@@ -259,18 +262,12 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, simpleSelect, radioSelect } = this.props
+    const { disabled, readOnly, simpleSelect, radioSelect, label } = this.props
     const { showDropdown } = this.state
-    const dropdownTriggerClassname = cx({
-      'dropdown-trigger': true,
-      arrow: true,
-      disabled,
-      readOnly,
-      top: showDropdown,
-      bottom: !showDropdown,
-    })
 
     const activeDescendant = this.state.currentFocus ? `${this.state.currentFocus}_li` : undefined
+
+    const commonProps = { disabled, readOnly, activeDescendant, label, simpleSelect, radioSelect }
 
     return (
       <div
@@ -281,11 +278,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className={cx('dropdown', { 'simple-select': simpleSelect }, { 'radio-select': radioSelect })}>
-          <a
-            className={dropdownTriggerClassname}
-            onClick={!this.props.disabled ? this.handleClick : undefined}
-            {...getAriaLabel(this.props.label)}
-          >
+          <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps}>
             <Input
               inputRef={el => {
                 this.searchInput = el
@@ -297,13 +290,10 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               onKeyDown={this.onKeyboardKeyDown}
-              disabled={disabled}
-              readOnly={readOnly}
-              activeDescendant={activeDescendant}
-              label={this.props.label}
               labelRemove={this.props.labelRemove}
+              {...commonProps}
             />
-          </a>
+          </Trigger>
           {showDropdown && (
             <div className="dropdown-content">
               {this.state.allNodesHidden ? (
@@ -317,12 +307,9 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
-                  simpleSelect={simpleSelect}
-                  radioSelect={radioSelect}
                   showPartiallySelected={this.props.showPartiallySelected}
-                  readOnly={readOnly}
                   clientId={this.clientId}
-                  activeDescendant={activeDescendant}
+                  {...commonProps}
                 />
               )}
             </div>

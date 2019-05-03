@@ -76,6 +76,21 @@ class TreeNode extends PureComponent {
     clientId: PropTypes.string,
   }
 
+  getAriaAttributes = () => {
+    const { _children, _depth, checked, disabled, expanded, readOnly, simpleSelect, partial } = this.props
+    const attributes = {}
+
+    attributes.role = simpleSelect ? 'option' : 'treeitem'
+    attributes['aria-disabled'] = disabled || readOnly
+    attributes['aria-selected'] = checked
+    if (!simpleSelect) {
+      attributes['aria-checked'] = partial ? 'mixed' : checked
+      attributes['aria-level'] = (_depth || 0) + 1
+      attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
+    }
+    return attributes
+  }
+
   render() {
     const {
       simpleSelect,
@@ -107,7 +122,7 @@ class TreeNode extends PureComponent {
     const liId = `${_id}_li`
 
     return (
-      <li className={liCx} style={style} {...getDataset(dataset)} id={liId}>
+      <li className={liCx} style={style} id={liId} {...getDataset(dataset)} {...this.getAriaAttributes()}>
         <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
         <NodeLabel
           title={title}

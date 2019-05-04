@@ -33,7 +33,7 @@ module.exports = {
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
-      openAnalyzer: true,
+      openAnalyzer: false,
       generateStatsFile: true,
     }),
     new CopyPlugin([{ from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }]),

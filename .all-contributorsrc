@@ -264,6 +264,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "gazab",
+      "name": "Gustav Tonér",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/529614?v=4",
+      "profile": "https://www.gazab.se",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

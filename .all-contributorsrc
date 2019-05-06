@@ -254,6 +254,25 @@
         "ideas",
         "maintenance"
       ]
+    },
+    {
+      "login": "moonjy1993",
+      "name": "Sandy M",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5017449?v=4",
+      "profile": "https://github.com/moonjy1993",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "gazab",
+      "name": "Gustav Tonér",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/529614?v=4",
+      "profile": "https://www.gazab.se",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7

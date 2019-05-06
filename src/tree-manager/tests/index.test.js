@@ -96,7 +96,7 @@ test('should get tags based on children check state', t => {
     ],
   }
   const manager = new TreeManager({ data: tree })
-  t.deepEqual(manager.getTags().map(t => t.label), ['l1c1'])
+  t.deepEqual(manager.tags.map(t => t.label), ['l1c1'])
 })
 
 test('should get tags based on parent check state', t => {
@@ -113,7 +113,7 @@ test('should get tags based on parent check state', t => {
     ],
   }
   const manager = new TreeManager({ data: tree })
-  t.deepEqual(manager.getTags().map(t => t.label), ['l1'])
+  t.deepEqual(manager.tags.map(t => t.label), ['l1'])
 })
 
 test('should get tags based on multiple parent check state', t => {
@@ -142,7 +142,7 @@ test('should get tags based on multiple parent check state', t => {
     },
   ]
   const manager = new TreeManager({ data: tree })
-  t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2'])
+  t.deepEqual(manager.tags.map(t => t.label), ['l1', 'l2'])
 })
 
 test('should get tags based on multiple parent/child check state', t => {
@@ -171,7 +171,7 @@ test('should get tags based on multiple parent/child check state', t => {
     },
   ]
   const manager = new TreeManager({ data: tree })
-  t.deepEqual(manager.getTags().map(t => t.label), ['l1', 'l2c2'])
+  t.deepEqual(manager.tags.map(t => t.label), ['l1', 'l2c2'])
 })
 
 test('should toggle children when checked', t => {

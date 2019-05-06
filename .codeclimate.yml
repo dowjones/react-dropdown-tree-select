@@ -39,11 +39,10 @@ plugins:
     config:
       languages:
         javascript:
-          mass_threshold : 50
+          mass_threshold : 60
 exclude_patterns:
-  - 'docs/'
-  - 'snapshots/'
-  - '**/tests/*'
-  - '**/node_modules/'
-  - '**/*.test.js'
-  - 'postcss.config.js'
+- "docs/"
+- "snapshots/"
+- "**/tests/*"
+- "**/node_modules/"
+- "**/*.test.js"

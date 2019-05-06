@@ -1,13 +1,19 @@
 {
   "presets": [["es2015", { "modules": false }], "stage-0", "react"],
-  "plugins": [
-    "transform-class-properties",
-    ["transform-runtime", { "polyfill": false, "regenerator": true }]
-  ],
+  "plugins": ["transform-class-properties"],
   "env": {
     "test": {
       "presets": ["es2015", "stage-0", "react"],
-      "plugins": ["istanbul"]
+      "plugins": [
+        "istanbul",
+        [
+          "transform-runtime",
+          {
+            "polyfill": false,
+            "regenerator": true
+          }
+        ]
+      ]
     }
   }
 }

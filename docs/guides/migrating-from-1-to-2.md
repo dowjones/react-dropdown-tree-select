@@ -1,31 +1,51 @@
-# React Dropdown Tree Select Migration Guide v1 to v2
+# Migrating from v1 to v2
 
-We've made some changes in the component between the versions which is covered in the following guide
+We've made some changes in the component between the versions which is covered in the following guide.
 
-## Action changes
+## Action Changes
 
-The option to pass a custom onAction handler on node level is now removed. Use the global onAction event instead.
+- The option to pass a local `onAction` handler on a node is now removed. Use the **global** `onAction` event instead.
 
-Now, all custom props you pass, such as **myCustomNode** and **myCustomAction**, is also accessible on the event properties. This will make it easier to add generic custom logic based on your custom data/properties which can be used instead of separate handlers.
+  ```jsx
+  <DropdownTreeSelect onAction={onAction} ... />
+  ```
 
-If you previously passed:
+- `onAction` signature is now consistent with signature for other event handlers such `onChange` and `onNodeToggle`
 
-```typescript
-{ id: 'mynode' myCustomNode: true, actions: [ { id: 'myaction', myCustomAction: true ... } ... }
-```
+  ```js
+  // before
+  onAction = ({ action, id }) => {
+    console.log(action, id)
+  }
 
-which you accessed on the onAction event like:
+  // after
+  onAction = (node, action) => {
+    console.log(action, node.id)
+  }
+  ```
 
-```typescript
-onAction = ({ action, id }) => {
-  console.log(action, id)
-}
-```
+- Any custom props passed to `node` or `action` is accessible in the event properties. This will make it easier to add generic custom logic based on your custom data/properties which can be used instead of separate handlers.
 
-you can now access the same info with:
+  For example:
 
-```typescript
-onAction = (action, node) => {
-  console.log(action.id, node.id)
-}
-```
+  ```js
+  // node with action and custom props
+  {
+    id: 'mynode',
+    propA: 'hello',
+    propB: true,
+    actions: [
+      {
+        id: 'myaction',
+        propX: {...},
+        propY: 12
+      }
+    ]
+  }
+
+  onAction = (node, action) => {
+    console.log(node.propA, node.propB, action.propX, action.propY)
+    // prints hello true {...} 12
+  }
+
+  ```

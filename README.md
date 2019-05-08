@@ -158,7 +158,7 @@ const data = {
 const onChange = (currentNode, selectedNodes) => {
   console.log('onChange::', currentNode, selectedNodes)
 }
-const onAction = (action, node) => {
+const onAction = (node, action) => {
   console.log('onAction::', action, node)
 }
 const onNodeToggle = currentNode => {
@@ -228,7 +228,7 @@ Type: `function`
 Fires when a action is triggered. Example:
 
 ```jsx
-function onAction(action, node) {
+function onAction(node, action) {
   console.log('onAction::', action, node)
 }
 

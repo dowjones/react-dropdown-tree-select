@@ -8,7 +8,7 @@ import bigData from './big-data.json'
 const onChange = (curNode, selectedNodes) => {
   console.log('onChange::', curNode, selectedNodes)
 }
-const onAction = (action, node) => {
+const onAction = (node, action) => {
   console.log('onAction::', action, node)
 }
 const onNodeToggle = curNode => {

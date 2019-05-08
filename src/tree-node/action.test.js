@@ -31,5 +31,5 @@ test('notifies clicks if handler is passed', t => {
   const wrapper = shallow(<Action {...props} />)
   wrapper.find('.cn0-0-0').simulate('click')
   t.true(onClick.calledOnce)
-  t.true(onClick.calledWith(match({ id: 'actionA' }, 'nodeId')))
+  t.true(onClick.calledWith(match('nodeId', { id: 'actionA' })))
 })

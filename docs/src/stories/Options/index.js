@@ -26,7 +26,7 @@ class WithOptions extends PureComponent {
   onChange = (curNode, selectedNodes) => {
     console.log('onChange::', curNode, selectedNodes)
   }
-  onAction = (action, node) => {
+  onAction = (node, action) => {
     console.log('onAction::', action, node)
   }
   onNodeToggle = curNode => {

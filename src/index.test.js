@@ -98,7 +98,7 @@ test('notifies on action', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown />)
   wrapper.find('i.fa-ban').simulate('click')
-  t.true(handler.calledWithExactly(action, node0))
+  t.true(handler.calledWithExactly(node0, action))
 })
 
 test('notifies on node toggle', t => {

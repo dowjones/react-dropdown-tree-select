@@ -69,21 +69,20 @@ class TreeNode extends PureComponent {
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
-    simpleSelect: PropTypes.bool,
-    radioSelect: PropTypes.bool,
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
   }
 
   getAriaAttributes = () => {
-    const { _children, _depth, checked, disabled, expanded, readOnly, simpleSelect, partial } = this.props
+    const { _children, _depth, checked, disabled, expanded, readOnly, mode, partial } = this.props
     const attributes = {}
 
-    attributes.role = simpleSelect ? 'option' : 'treeitem'
+    attributes.role = mode === 'simpleSelect' ? 'option' : 'treeitem'
     attributes['aria-disabled'] = disabled || readOnly
     attributes['aria-selected'] = checked
-    if (!simpleSelect) {
+    if (mode !== 'simpleSelect') {
       attributes['aria-checked'] = partial ? 'mixed' : checked
       attributes['aria-level'] = (_depth || 0) + 1
       attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
@@ -93,8 +92,7 @@ class TreeNode extends PureComponent {
 
   render() {
     const {
-      simpleSelect,
-      radioSelect,
+      mode,
       keepTreeOnSearch,
       _id,
       _children,
@@ -132,8 +130,7 @@ class TreeNode extends PureComponent {
           checked={checked}
           value={value}
           disabled={disabled}
-          simpleSelect={simpleSelect}
-          radioSelect={radioSelect}
+          mode={mode}
           onCheckboxChange={onCheckboxChange}
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}

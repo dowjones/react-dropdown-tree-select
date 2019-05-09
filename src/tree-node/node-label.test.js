@@ -68,7 +68,7 @@ test('notifies clicks in simple mode', t => {
 
   const onChange = spy()
 
-  const wrapper = shallow(<NodeLabel {...node} onCheckboxChange={onChange} simpleSelect />)
+  const wrapper = shallow(<NodeLabel {...node} onCheckboxChange={onChange} mode="simpleSelect" />)
   wrapper.find('.node-label').simulate('click', mockEvent)
   t.true(onChange.calledWith('0-0-0', true))
 })
@@ -81,7 +81,7 @@ test('call stopPropagation and stopImmediatePropagation when label is clicked', 
 
   const onChange = spy()
 
-  const wrapper = mount(<NodeLabel {...node} onCheckboxChange={onChange} simpleSelect />)
+  const wrapper = mount(<NodeLabel {...node} onCheckboxChange={onChange} mode="simpleSelect" />)
   const event = {
     type: 'click',
     stopPropagation: spy(),

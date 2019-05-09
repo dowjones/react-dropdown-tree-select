@@ -23,8 +23,7 @@ class Tree extends Component {
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
-    simpleSelect: PropTypes.bool,
-    radioSelect: PropTypes.bool,
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,
@@ -80,8 +79,7 @@ class Tree extends Component {
       keepTreeOnSearch,
       keepChildrenOnSearch,
       searchModeOn,
-      simpleSelect,
-      radioSelect,
+      mode,
       showPartiallySelected,
       readOnly,
       onAction,
@@ -105,8 +103,7 @@ class Tree extends Component {
             onCheckboxChange={onCheckboxChange}
             onNodeToggle={onNodeToggle}
             onAction={onAction}
-            simpleSelect={simpleSelect}
-            radioSelect={radioSelect}
+            mode={mode}
             showPartiallySelected={showPartiallySelected}
             readOnly={readOnly}
             clientId={clientId}
@@ -131,11 +128,11 @@ class Tree extends Component {
   }
 
   getAriaAttributes = () => {
-    const { readOnly, simpleSelect } = this.props
+    const { readOnly, mode } = this.props
     const attributes = {}
 
-    attributes.role = simpleSelect ? 'listbox' : 'tree'
-    attributes['aria-multiselectable'] = simpleSelect ? 'false' : 'true'
+    attributes.role = mode === 'simpleSelect' ? 'listbox' : 'tree'
+    attributes['aria-multiselectable'] = mode === 'multiSelect' ? 'true' : 'false'
     attributes['aria-readonly'] = readOnly ? 'true' : 'false'
     return attributes
   }

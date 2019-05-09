@@ -40,7 +40,7 @@ declare module "react-dropdown-tree-select" {
          */
         onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void;
         /**  Fired on click of the action */
-        onAction?: (event: ActionEvent) => void;
+        onAction?: (currentNode: TreeNode, currentAction: NodeAction) => void;
         /** Fires when a node is expanded or collapsed.
          * Calls the handler with the current node object
          */
@@ -157,11 +157,6 @@ declare module "react-dropdown-tree-select" {
         text?: string;
         /** Any extra properties that you'd like to receive during `onChange` event */
         [property: string]: any;
-    }
-
-    export interface ActionEvent {
-        action: string;
-        id: string;
     }
 
     export interface NodeDataSet {

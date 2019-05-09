@@ -16,7 +16,10 @@ class Action extends PureComponent {
   }
 
   handleClick = () => {
-    this.props.onAction(this.props.actionData)
+    const { onAction, actionData } = this.props
+    if (onAction) {
+      onAction(actionData.nodeId, actionData.action)
+    }
   }
 
   render() {

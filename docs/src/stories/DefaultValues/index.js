@@ -9,8 +9,8 @@ import data from './data.json'
 const onChange = (curNode, selectedNodes) => {
   console.log('onChange::', curNode, selectedNodes)
 }
-const onAction = ({ action, id }) => {
-  console.log(`onAction:: [${action}]`, id)
+const onAction = (node, action) => {
+  console.log('onAction::', action, node)
 }
 const onNodeToggle = curNode => {
   console.log('onNodeToggle::', curNode)

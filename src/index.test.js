@@ -8,6 +8,12 @@ import { clientIdGenerator } from './utils'
 
 const dropdownId = 'rdts'
 
+const action = {
+  id: 'NOT',
+  title: 'NOT',
+  className: 'fa fa-ban',
+}
+
 const node0 = {
   _id: `${dropdownId}-0`,
   _children: [`${dropdownId}-0-0`, `${dropdownId}-0-1`],
@@ -15,6 +21,7 @@ const node0 = {
   label: 'item1',
   value: 'value1',
   children: undefined,
+  actions: [action],
 }
 
 test.beforeEach(t => {
@@ -30,6 +37,7 @@ test.beforeEach(t => {
         },
         { label: 'item1-2', value: 'value1-2' },
       ],
+      actions: [action],
     },
     {
       label: 'item2',
@@ -88,9 +96,9 @@ test('keeps dropdown open for showDropdownAlways', t => {
 test('notifies on action', t => {
   const handler = spy()
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} />)
-  wrapper.instance().onAction('0', node0._id)
-  t.true(handler.calledWithExactly('0', node0))
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown />)
+  wrapper.find('i.fa-ban').simulate('click')
+  t.true(handler.calledWithExactly(node0, action))
 })
 
 test('notifies on node toggle', t => {

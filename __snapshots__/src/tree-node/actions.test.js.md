@@ -1,4 +1,4 @@
-# Snapshot report for `src\tree-node\actions.test.js`
+# Snapshot report for `src/tree-node/actions.test.js`
 
 The actual snapshot is saved in `actions.test.js.snap`.
 

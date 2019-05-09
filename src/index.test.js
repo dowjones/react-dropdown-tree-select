@@ -70,7 +70,7 @@ test('renders default state', t => {
 
 test('renders default radio select state', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} radioSelect />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} mode="radioSelect" />)
   t.snapshot(toJson(wrapper))
 })
 
@@ -134,7 +134,7 @@ test('sets search mode on input change', t => {
 
 test('hides dropdown onChange for simpleSelect', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown data={tree} simpleSelect />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown data={tree} mode="simpleSelect" />)
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.false(wrapper.state().searchModeOn)
   t.false(wrapper.state().allNodesHidden)
@@ -143,7 +143,9 @@ test('hides dropdown onChange for simpleSelect', t => {
 
 test('keeps dropdown open onChange for simpleSelect and keepOpenOnSelect', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown simpleSelect keepOpenOnSelect />)
+  const wrapper = mount(
+    <DropdownTreeSelect id={dropdownId} data={tree} showDropdown mode="simpleSelect" keepOpenOnSelect />
+  )
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.true(wrapper.state().showDropdown)
 })
@@ -274,14 +276,14 @@ keyDownTests.forEach(testArgs => {
 
 test('adds aria-labelledby when label contains # to search input', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect data={tree} label="#hello #world" />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} texts={{ label: '#hello #world' }} />)
   t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), 'hello world')
   t.deepEqual(wrapper.find('.search').prop('aria-label'), undefined)
 })
 
 test('adds aria-label when having label on search input', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect data={tree} label="hello world" />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} texts={{ label: 'hello world' }} />)
   t.deepEqual(wrapper.find('.search').prop('aria-labelledby'), undefined)
   t.deepEqual(wrapper.find('.search').prop('aria-label'), 'hello world')
 })

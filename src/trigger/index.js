@@ -14,18 +14,19 @@ class Trigger extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     showDropdown: PropTypes.bool,
-    label: PropTypes.string,
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    texts: PropTypes.object,
   }
 
   getAriaAttributes = () => {
-    const { simpleSelect, label, showDropdown } = this.props
+    const { mode, texts = {}, showDropdown } = this.props
 
     const attributes = {
       role: 'button',
       tabIndex: 0,
-      'aria-haspopup': simpleSelect ? 'listbox' : 'tree',
+      'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
       'aria-expanded': showDropdown ? 'true' : 'false',
-      ...getAriaLabel(label),
+      ...getAriaLabel(texts.label),
     }
 
     return attributes

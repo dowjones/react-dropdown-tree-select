@@ -19,7 +19,7 @@ test('renders input when no tags are passed', t => {
 
 test('renders placeholder', t => {
   const placeholderText = 'select something'
-  const wrapper = toJson(shallow(<Input placeholderText={placeholderText} />))
+  const wrapper = toJson(shallow(<Input texts={{ placeholder: placeholderText }} />))
   t.snapshot(wrapper)
 })
 

@@ -128,7 +128,7 @@ test('should set aria-selected to true for selected node', t => {
     checked: true,
   }
 
-  const wrapper = shallow(<TreeNode {...node} simpleSelect />)
+  const wrapper = shallow(<TreeNode {...node} mode="simpleSelect" />)
   t.snapshot(toJson(wrapper))
 })
 
@@ -142,7 +142,7 @@ test('should set aria-selected to false for selected nods', t => {
     checked: false,
   }
 
-  const wrapper = shallow(<TreeNode {...node} simpleSelect />)
+  const wrapper = shallow(<TreeNode {...node} mode="simpleSelect" />)
   t.snapshot(toJson(wrapper))
 })
 

@@ -45,20 +45,19 @@ A lightweight and fast control to render a select component that can display hie
   - [onChange](#onchange)
   - [onNodeToggle](#onnodetoggle)
   - [data](#data)
-  - [placeholderText](#placeholdertext)
-  - [noMatchesText](#nomatchestext)
+  - [texts](#texts)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [keepOpenOnSelect](#keepopenonselect)
-  - [simpleSelect](#simpleselect)
-  - [radioSelect](#radioSelect)
+  - [mode](#mode)
+    - [multiSelect](#multiSelect)
+    - [simpleSelect](#simpleSelect)
+    - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
   - [showDropdownAlways](#showDropdownAlways)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
-  - [label](#label)
-  - [labelRemove](#labelRemove)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -283,17 +282,20 @@ The `action` object requires the following structure:
 
 An array renders a tree with multiple root level items whereas an object renders a tree with a single root element (e.g. a `Select All` root node).
 
-### placeholderText
+### texts
 
-Type: `string`
+Texts to override various labels, place holders & messages used in the component. You can also use this to provide translated messages.
 
-The text to display as placeholder on the search box. Defaults to `Choose...`
+The `texts` object requires the following structure:
 
-### noMatchesText
-
-Type: `string`
-
-The text to display when the search does not find results in the content list. Defaults to `No matches found`
+```js
+{
+  placeholder,  // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
+  noMatches,    // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
+  label,        // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
+  labelRemove,  // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
+}
+```
 
 ### keepTreeOnSearch
 
@@ -317,21 +319,29 @@ Keeps single selects open after selection. Defaults to `false`
 
 _NOTE_ this works only in combination with `simpleSelect` or `radioSelect`
 
-### simpleSelect
+### mode
 
-Type: `bool` (default: `false`)
+Type: `string` (default: `multiSelect`)
 
-Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
+Defines how the dropdown is rendered / behaves
 
-_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+#### multiSelect
 
-### radioSelect
+This is the default mode. A multi selectable dropdown which supports hierarchical data.
 
-Type: `bool` (default: `false`)
+#### simpleSelect
 
-Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
+Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored.
 
-_NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
+
+#### radioSelect
+
+Turns the dropdown into radio select dropdown.
+
+Like `simpleSelect`, you can only select one value; but keeps the tree/children structure.
+
+⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
 
 ### showPartiallySelected
 
@@ -366,18 +376,6 @@ Specific id for container. The container renders with a default id of `rdtsN` wh
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
 
-### label
-
-Type: `string`
-
-Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
-
-### labelRemove
-
-Type: `string`
-
-The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
-
 ## Styling and Customization
 
 ### Default styles
@@ -386,10 +384,10 @@ The component brings minimal styles for bare-bones functional rendering. It is k
 
 #### Using WebPack
 
-If you're using a bundler like webpack, make sure you configure webpack to import the default styles. To do so, simply add this rule to your webpack config:
+If you're using a bundler like WebPack, make sure you configure WebPack to import the default styles. To do so, simply add this rule to your WebPack config:
 
 ```js
-// allow webpack to import/bundle styles from node_modules for this component
+// allow WebPack to import/bundle styles from node_modules for this component
 module: {
   rules: [
     {
@@ -470,10 +468,10 @@ Node toggling also achieves the expand/collapse effect by manipulating css class
 
 ### How do I change the placeholder text?
 
-The default [placeholder](#placeholdertext) is `Choose...`. If you want to change this to something else, you can use `placeholderText` property to set it.
+The default [placeholder](#texts) is `Choose...`. If you want to change this to something else, you can use `placeholder` property to set it.
 
 ```jsx
-<DropdownTreeSelect placeholderText="Search" />
+<DropdownTreeSelect texts={{ placeholder: 'Search' }} />
 ```
 
 ### How do I tweak styles?
@@ -486,11 +484,11 @@ Easy style customization is one of the design goals of this component. Every vis
 }
 ```
 
-The css classes needed to overide can be found by inspecting the component via developer tools (chrome/safari/ie) or firebug (firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
+The css classes needed to override can be found by inspecting the component via developer tools (Chrome/Safari/IE/Edge/Firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
 
 ### I do not want the default styles, do I need to fork the project?
 
-Absolutely not! Simply do not import the styles (webpack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
+Absolutely not! Simply do not import the styles (WebPack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
 
 ```pug
 div.react-dropdown-tree-select

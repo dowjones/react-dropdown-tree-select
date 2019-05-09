@@ -50,6 +50,9 @@ A lightweight and fast control to render a select component that can display hie
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [keepOpenOnSelect](#keepopenonselect)
   - [mode](#mode)
+    - [multiSelect](#multiSelect)
+    - [simpleSelect](#simpleSelect)
+    - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
   - [showDropdownAlways](#showDropdownAlways)
@@ -281,7 +284,7 @@ An array renders a tree with multiple root level items whereas an object renders
 
 ### texts
 
-Texts to override output for
+Texts to override various labels, place holders & messages used in the component. You can also use this to provide translated messages.
 
 The `texts` object requires the following structure:
 
@@ -322,21 +325,20 @@ Type: `string` (default: `multiSelect`)
 
 Defines how the dropdown is rendered / behaves
 
-> **multiSelect**
->
-> A multi selectable dropdown which supports hierarchial data.
+#### multiSelect
 
-> #### simpleSelect
->
-> Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to `false`.
->
-> _NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+This is the default mode. A multi selectable dropdown which supports hierarchical data.
 
-> #### radioSelect
->
-> Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
->
-> _NOTE_ if multiple nodes in data are selected, `checked` or `isDefaultValue`, only the first visited node is selected
+#### simpleSelect
+
+Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored.
+
+⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
+
+#### radioSelect
+
+Turns the dropdown into radio select dropdown. Similar to `simpleSelect` in the sense that you can only select one value, but keeps the tree/children structure.
+⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
 
 ### showPartiallySelected
 
@@ -379,10 +381,10 @@ The component brings minimal styles for bare-bones functional rendering. It is k
 
 #### Using WebPack
 
-If you're using a bundler like webpack, make sure you configure webpack to import the default styles. To do so, simply add this rule to your webpack config:
+If you're using a bundler like WebPack, make sure you configure WebPack to import the default styles. To do so, simply add this rule to your WebPack config:
 
 ```js
-// allow webpack to import/bundle styles from node_modules for this component
+// allow WebPack to import/bundle styles from node_modules for this component
 module: {
   rules: [
     {
@@ -479,11 +481,11 @@ Easy style customization is one of the design goals of this component. Every vis
 }
 ```
 
-The css classes needed to overide can be found by inspecting the component via developer tools (chrome/safari/ie) or firebug (firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
+The css classes needed to override can be found by inspecting the component via developer tools (Chrome/Safari/IE/Edge/Firefox). You can also inspect the [source code](/src) or look in [examples](/docs/index.css).
 
 ### I do not want the default styles, do I need to fork the project?
 
-Absolutely not! Simply do not import the styles (webpack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
+Absolutely not! Simply do not import the styles (WebPack) or include it in your html (link tags). Roughly, this is the HTML/CSS skeleton rendered by the component:
 
 ```pug
 div.react-dropdown-tree-select

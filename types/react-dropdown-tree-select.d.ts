@@ -19,8 +19,8 @@ declare module "react-dropdown-tree-select" {
          * NOTE this works only in combination with simpleSelect or radioSelect
          */
         keepOpenOnSelect?: boolean;
-        /** The text to display as placeholder on the search box. Defaults to Choose... */
-        placeholderText?: string;
+        /** Texts to override output for */
+        texts?: TextProps;
         /** If set to true, shows the dropdown when rendered.
          * This can be used to render the component with the dropdown open as its initial state
          */
@@ -53,17 +53,21 @@ declare module "react-dropdown-tree-select" {
          * This is helpful for setting dirty or touched flags with forms
          */
         onBlur?: () => void;
-        /** Turns the dropdown into a simple, single select dropdown.
-         * If you pass tree data, only immediate children are picked, grandchildren nodes are ignored.
-         * Defaults to false
-         */
-        simpleSelect?: boolean;
-        /** Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to `false`.
-         * *NOTE* if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected
-         */
-        radioSelect?: boolean;
-        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
-        noMatchesText?: string;
+        /** Defines how the dropdown is rendered / behaves
+         * 
+         * - multiSelect
+         * A multi selectable dropdown which supports hierarchial data.
+         * 
+         * - simpleSelect
+         * Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. Defaults to false.
+         * 
+         * NOTE if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected
+         * 
+         * - radioSelect
+         * Turns the dropdown into radio select dropdown. Similar to simpleSelect but keeps tree/children. Defaults to false.
+         * 
+         * NOTE if multiple nodes in data are selected, checked or isDefaultValue, only the first visited node is selected */
+        mode?: 'multiSelect' | 'simpleSelect' | 'radioSelect';
         /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
          * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
          * Simply add desired styles to .node.partial .checkbox-item:indeterminate { ... } in your CSS
@@ -81,10 +85,6 @@ declare module "react-dropdown-tree-select" {
          * Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
          */
         id?: string;
-        /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
-        label?: string;
-        /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
-        labelRemove?: string;
     }
 
     export interface DropdownTreeSelectState {
@@ -135,6 +135,17 @@ declare module "react-dropdown-tree-select" {
     export interface TreeNodeProps extends TreeNode {
         /** Array of child objects */
         children?: TreeNode[];
+    }
+
+    export interface TextProps {
+        /** The text to display as placeholder on the search box. Defaults to Choose... */
+        placeholder?: string;
+        /** The text to display when the search does not find results in the content list. Defaults to No matches found */
+        noMatches?: string;
+        /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
+        label?: string;
+        /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
+        labelRemove?: string;
     }
 
     export interface NodeAction {

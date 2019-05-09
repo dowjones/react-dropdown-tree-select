@@ -31,7 +31,7 @@ test('should set partial state if first child is checked', t => {
   const { tree } = t.context
   tree.children[0].checked = true
 
-  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
+  const manager = new TreeManager({ data: tree, mode: 'multiSelect', showPartiallySelected: true })
 
   const expected = {
     checked: [parent1, ...childrenOfParent1],
@@ -46,7 +46,7 @@ test('should set partial state if last child is checked', t => {
   const { tree } = t.context
   tree.children[1].checked = true
 
-  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
+  const manager = new TreeManager({ data: tree, mode: 'multiSelect', showPartiallySelected: true })
 
   const expected = {
     checked: [parent2, ...childrenOfParent2],
@@ -61,7 +61,7 @@ test('should set partial state if at least one grandchild is partial', t => {
   const { tree } = t.context
   tree.children[1].children[1].checked = true
 
-  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
+  const manager = new TreeManager({ data: tree, mode: 'multiSelect', showPartiallySelected: true })
 
   const expected = {
     checked: [tree.children[1].children[1].id],
@@ -77,7 +77,7 @@ test('should not set partial state if all of the children are checked', t => {
   tree.children[0].checked = true
   tree.children[1].checked = true
 
-  const manager = new TreeManager({ data: tree, simpleSelect: false, showPartiallySelected: true })
+  const manager = new TreeManager({ data: tree, mode: 'multiSelect', showPartiallySelected: true })
 
   const expected = {
     checked: [grandParent, ...parents, ...children],

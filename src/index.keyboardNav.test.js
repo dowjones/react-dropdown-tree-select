@@ -157,7 +157,7 @@ test('remembers current focus between prop updates', t => {
 })
 
 test('should set current focus as selected on tab out for simpleSelect', t => {
-  const wrapper = mount(<DropdownTreeSelect data={tree} simpleSelect />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} mode="simpleSelect" />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'Tab'])
   t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
 })

@@ -337,7 +337,10 @@ Turns the dropdown into a simple, single select dropdown. If you pass tree data,
 
 #### radioSelect
 
-Turns the dropdown into radio select dropdown. Similar to `simpleSelect` in the sense that you can only select one value, but keeps the tree/children structure.
+Turns the dropdown into radio select dropdown.
+
+Like `simpleSelect`, you can only select one value; but keeps the tree/children structure.
+
 ⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
 
 ### showPartiallySelected

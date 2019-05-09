@@ -1,4 +1,4 @@
-# Snapshot report for `src\tree-node\node-label.test.js`
+# Snapshot report for `src/tree-node/node-label.test.js`
 
 The actual snapshot is saved in `node-label.test.js.snap`.
 

@@ -158,8 +158,8 @@ const data = {
 const onChange = (currentNode, selectedNodes) => {
   console.log('onChange::', currentNode, selectedNodes)
 }
-const onAction = ({ action, id }) => {
-  console.log(`onAction:: [${action}]`, id)
+const onAction = (node, action) => {
+  console.log('onAction::', action, node)
 }
 const onNodeToggle = currentNode => {
   console.log('onNodeToggle::', currentNode)
@@ -228,8 +228,8 @@ Type: `function`
 Fires when a action is triggered. Example:
 
 ```jsx
-function onAction({ action, id }) {
-  console.log(`onAction:: [${action}]`, id)
+function onAction(node, action) {
+  console.log('onAction::', action, node)
 }
 
 return <DropdownTreeSelect data={data} onAction={onAction} />

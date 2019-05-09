@@ -1,7 +1,7 @@
 {
   "title": [
     {
-      "pattern": "^(feat|fix|docs|style|refactor|perf|test|chore|BREAKING CHANGE):\\s",
+      "pattern": "^(feat|fix|docs|style|refactor|perf|test|chore):\\s",
       "flags": ["i"],
       "message": "PR title doesn't match conventional commit message specs. See https://conventionalcommits.org/"
     }

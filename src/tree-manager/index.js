@@ -5,23 +5,24 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, hierarchical, rootPrefixId }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
+    this.hierarchical = mode === 'hierarchical'
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
       radio: this.radioSelect,
       showPartialState: showPartiallySelected,
-      hierarchical,
+      hierarchical: this.hierarchical,
       rootPrefixId,
     })
     this.tree = list
     this.defaultValues = defaultValues
-    this.showPartialState = !hierarchical && showPartiallySelected
+    this.showPartialState = !this.hierarchical && showPartiallySelected
     this.searchMaps = new Map()
-    this.hierarchical = hierarchical
+
     if ((this.simpleSelect || this.radioSelect) && singleSelectedNode) {
       // Remembers initial check on single select dropdowns
       this.currentChecked = singleSelectedNode._id

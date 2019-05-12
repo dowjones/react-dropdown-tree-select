@@ -51,6 +51,7 @@ A lightweight and fast control to render a select component that can display hie
   - [keepOpenOnSelect](#keepopenonselect)
   - [mode](#mode)
     - [multiSelect](#multiSelect)
+    - [hierarchical](#hierarchical)
     - [simpleSelect](#simpleSelect)
     - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
@@ -327,7 +328,13 @@ Defines how the dropdown is rendered / behaves
 
 #### multiSelect
 
-This is the default mode. A multi selectable dropdown which supports hierarchical data.
+A multi selectable dropdown which supports tree data with parent-child relationships. This is the default mode.
+
+#### hierarchical
+
+A multi selectable dropdown which supports tree data **without** parent-child relationships. In this mode, selecting a node has no ripple effects on its descendants or ancestors. Subsequently, `showPartiallySelected` becomes a moot flag and has no effect as well.
+
+⚠️ Note that `hierarchical=true` negates/overrides `showPartiallySelected`.
 
 #### simpleSelect
 

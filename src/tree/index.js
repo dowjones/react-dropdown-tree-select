@@ -23,7 +23,7 @@ class Tree extends Component {
     onNodeToggle: PropTypes.func,
     onAction: PropTypes.func,
     onCheckboxChange: PropTypes.func,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     pageSize: PropTypes.number,
     readOnly: PropTypes.bool,

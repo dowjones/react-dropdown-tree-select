@@ -42,11 +42,10 @@ class DropdownTreeSelect extends Component {
     onNodeToggle: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
-    hierarchical: PropTypes.bool,
     id: PropTypes.string,
   }
 
@@ -67,12 +66,11 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showPartiallySelected, hierarchical }) => {
+  initNewProps = ({ data, mode, showPartiallySelected }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
       showPartiallySelected,
-      hierarchical,
       rootPrefixId: this.clientId,
     })
     // Restore focus-state
@@ -94,8 +92,8 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    const { data, hierarchical } = this.props
-    this.initNewProps({ data, hierarchical, ...this.props })
+    const { data, mode, showPartiallySelected } = this.props
+    this.initNewProps({ data, mode, showPartiallySelected })
   }
 
   componentWillUnmount() {

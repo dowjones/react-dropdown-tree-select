@@ -19,7 +19,7 @@ class NodeLabel extends PureComponent {
     partial: PropTypes.bool,
     disabled: PropTypes.bool,
     dataset: PropTypes.object,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,

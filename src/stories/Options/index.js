@@ -45,7 +45,6 @@ class WithOptions extends PureComponent {
       showPartiallySelected,
       disabled,
       readOnly,
-      hierarchical,
     } = this.state
 
     return (
@@ -66,6 +65,7 @@ class WithOptions extends PureComponent {
               <option value="multiSelect">Multi select</option>
               <option value="simpleSelect">Simple select</option>
               <option value="radioSelect">Radio select</option>
+              <option value="hierarchical">Hierarchical</option>
             </select>
           </div>
           <Checkbox
@@ -94,7 +94,6 @@ class WithOptions extends PureComponent {
           />
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
-          <Checkbox label="Hierarchical" value="hierarchical" checked={hierarchical} onChange={this.onOptionsChange} />
         </div>
         <div>
           <DropdownTreeSelect
@@ -110,7 +109,6 @@ class WithOptions extends PureComponent {
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}
-            hierarchical={hierarchical}
           />
         </div>
       </div>

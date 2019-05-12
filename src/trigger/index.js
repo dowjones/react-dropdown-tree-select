@@ -14,7 +14,7 @@ class Trigger extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     showDropdown: PropTypes.bool,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect']),
+    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     texts: PropTypes.object,
   }
 

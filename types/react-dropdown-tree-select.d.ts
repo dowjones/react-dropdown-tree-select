@@ -4,6 +4,10 @@ declare module 'react-dropdown-tree-select' {
 
   export type TreeData = Object | TreeNodeProps[]
 
+  export type Mode = 'multiSelect' | 'simpleSelect' | 'radioSelect' | 'hierarchical'
+
+  export type ShowDropdownState = 'default' | 'initial' | 'always'
+
   export interface DropdownTreeSelectProps {
     data: TreeData
     /** Clear the input search if a node has been selected/unselected */
@@ -21,13 +25,10 @@ declare module 'react-dropdown-tree-select' {
     keepOpenOnSelect?: boolean
     /** Texts to override output for */
     texts?: TextProps
-    /** If set to true, shows the dropdown when rendered.
-     * This can be used to render the component with the dropdown open as its initial state
+    /** If set to initial, shows the dropdown when first rendered.
+     * If set to always, shows the dropdown when rendered, and keeps it visible at all times. Toggling dropdown is disabled.
      */
-    showDropdown?: boolean
-    /** If set to true, always shows the dropdown when rendered, and toggling dropdown will be disabled.
-     */
-    showDropdownAlways?: boolean
+    showDropdown?: ShowDropdownState
     /** Additional classname for container.
      * The container renders with a default classname of react-dropdown-tree-select
      */
@@ -77,7 +78,7 @@ declare module 'react-dropdown-tree-select' {
          *
          *
          * */
-    mode?: 'multiSelect' | 'simpleSelect' | 'radioSelect' | 'hierarchical'
+    mode?: Mode
     /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
      * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
      * Simply add desired styles to .node.partial .checkbox-item:indeterminate { ... } in your CSS
@@ -97,7 +98,7 @@ declare module 'react-dropdown-tree-select' {
   }
 
   export interface DropdownTreeSelectState {
-    showDropdown: boolean
+    showDropdown: ShowDropdownState
     searchModeOn: boolean
     allNodesHidden: boolean
     tree: TreeNode[]

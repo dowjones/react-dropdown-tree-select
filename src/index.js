@@ -265,8 +265,6 @@ class DropdownTreeSelect extends Component {
     const { disabled, readOnly, mode, texts } = this.props
     const { showDropdown, currentFocus } = this.state
 
-    console.log('---------------------- render', this.props.showDropdown, showDropdown)
-
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
     const commonProps = { disabled, readOnly, activeDescendant, texts, mode }

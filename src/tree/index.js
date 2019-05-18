@@ -131,9 +131,9 @@ class Tree extends Component {
     const { mode } = this.props
 
     const attributes = {
-      /* https://www.w3.org/TR/wai-aria-1.1/#list
+      /* https://www.w3.org/TR/wai-aria-1.1/#select
        * https://www.w3.org/TR/wai-aria-1.1/#tree */
-      role: mode === 'simpleSelect' ? 'list' : 'tree',
+      role: mode === 'simpleSelect' ? 'listbox' : 'tree',
     }
 
     if (/multiSelect|hierarchical/.test(mode)) {

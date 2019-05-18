@@ -128,12 +128,15 @@ class Tree extends Component {
   }
 
   getAriaAttributes = () => {
-    const { readOnly, mode } = this.props
-    const attributes = {}
+    const { mode } = this.props
 
-    attributes.role = mode === 'simpleSelect' ? 'listbox' : 'tree'
-    attributes['aria-multiselectable'] = mode === 'multiSelect' ? 'true' : 'false'
-    attributes['aria-readonly'] = readOnly ? 'true' : 'false'
+    const attributes = {
+      /* https://www.w3.org/TR/wai-aria-1.1/#list
+       * https://www.w3.org/TR/wai-aria-1.1/#tree */
+      role: mode === 'simpleSelect' ? 'list' : 'tree',
+      'aria-multiselectable': /multiSelect|hierarchical/.test(mode),
+    }
+
     return attributes
   }
 

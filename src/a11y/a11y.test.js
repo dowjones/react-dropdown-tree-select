@@ -44,7 +44,7 @@ test.beforeEach(t => {
   ]
 })
 
-test('regular tree has no a11y exceptions', async t => {
+test('has no a11y exceptions', async t => {
   const { tree } = t.context
   const component = mountToDoc(
     <div>

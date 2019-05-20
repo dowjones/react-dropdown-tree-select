@@ -18,6 +18,7 @@ import TreeManager from './tree-manager'
 import keyboardNavigation from './tree-manager/keyboardNavigation'
 
 import styles from './index.css'
+import { getAriaLabel } from './a11y'
 
 const cx = cn.bind(styles)
 
@@ -261,6 +262,17 @@ class DropdownTreeSelect extends Component {
     e.preventDefault()
   }
 
+  getAriaAttributes = () => {
+    const { mode, texts } = this.props
+
+    if (mode !== 'radioSelect') return {}
+
+    return {
+      role: 'radiogroup',
+      ...getAriaLabel(texts.label),
+    }
+  }
+
   render() {
     const { disabled, readOnly, mode, texts } = this.props
     const { showDropdown, currentFocus } = this.state
@@ -299,7 +311,7 @@ class DropdownTreeSelect extends Component {
             />
           </Trigger>
           {showDropdown && (
-            <div className="dropdown-content">
+            <div className="dropdown-content" {...this.getAriaAttributes()}>
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{texts.noMatches || 'No matches found'}</span>
               ) : (

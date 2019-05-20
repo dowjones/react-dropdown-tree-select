@@ -47,6 +47,7 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     id: PropTypes.string,
+    dedupTags: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -261,7 +262,7 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts } = this.props
+    const { disabled, readOnly, mode, texts, dedupTags } = this.props
     const { showDropdown, currentFocus } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
@@ -294,6 +295,7 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               onKeyDown={this.onKeyboardKeyDown}
+              dedupTags={dedupTags}
               {...commonProps}
             />
           </Trigger>

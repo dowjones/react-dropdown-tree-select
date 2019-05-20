@@ -8,8 +8,22 @@ import { getAriaLabel } from '../a11y'
 
 const cx = cn.bind(styles)
 
-const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
-  tags.map(tag => {
+const getUnique = (array, comp) => {
+  const unique = array
+    .map(e => e[comp])
+    // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+    // eliminate the dead keys & store unique objects
+    .filter(e => array[e])
+    .map(e => array[e])
+  return unique
+}
+
+const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove, dedupTags) => {
+  if (dedupTags) {
+    tags = getUnique(tags, 'value')
+  }
+  return tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
       <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
@@ -24,6 +38,7 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
       </li>
     )
   })
+}
 
 class Input extends PureComponent {
   static propTypes = {
@@ -38,6 +53,7 @@ class Input extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     activeDescendant: PropTypes.string,
+    dedupTags: PropTypes.bool,
   }
 
   constructor(props) {
@@ -62,11 +78,12 @@ class Input extends PureComponent {
       readOnly,
       onKeyDown,
       activeDescendant,
+      dedupTags,
     } = this.props
 
     return (
       <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove, dedupTags)}
         <li className={cx('tag-item')}>
           <input
             type="text"

@@ -53,6 +53,7 @@ test('has no a11y exceptions', async t => {
       <DropdownTreeSelect data={tree} showDropdown="initial" readOnly texts={{ label: 'test' }} />
       <DropdownTreeSelect data={tree} showDropdown="initial" mode="simpleSelect" texts={{ label: 'test' }} />
       <DropdownTreeSelect data={tree} showDropdown="initial" mode="radioSelect" texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" mode="hierarchical" texts={{ label: 'test' }} />
     </div>
   )
   const domNode = component.getDOMNode()

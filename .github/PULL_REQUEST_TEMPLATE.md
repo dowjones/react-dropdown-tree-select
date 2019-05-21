@@ -18,12 +18,9 @@ Please delete options that are not relevant.
 
 # Checklist:
 
-- [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] Updated documentation (if applicable)
 - [ ] Added tests that prove my fix is effective or that my feature works
 - [ ] New and existing unit tests pass locally with my changes
 - [ ] My changes generate no new warnings
-- [ ] Added myself to contributors table
-- [ ] I have updated `docs/bundle.js` file (ran `yarn build:docs` and checked in the new `bundle.js` file)

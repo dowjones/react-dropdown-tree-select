@@ -134,10 +134,7 @@ class Tree extends Component {
       /* https://www.w3.org/TR/wai-aria-1.1/#select
        * https://www.w3.org/TR/wai-aria-1.1/#tree */
       role: mode === 'simpleSelect' ? 'listbox' : 'tree',
-    }
-
-    if (/multiSelect|hierarchical/.test(mode)) {
-      attributes['aria-multiselectable'] = true
+      'aria-multiselectable': /multiSelect|hierarchical/.test(mode),
     }
 
     return attributes

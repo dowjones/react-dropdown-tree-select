@@ -27,7 +27,13 @@ const tree = [
         label: 'item2-1', value: 'value2-1',
         children: [
           {label: 'item2-1-1', value: 'value2-1-1'},
-          {label: 'item2-1-2', value: 'value2-1-2'}
+          {label: 'item2-1-2', value: 'value2-1-2'},
+          {
+            label: 'item2-1-3', value: 'item2-1-3',
+            children: [
+              {label: 'item2-1-3-1', value: 'value2-1-3-1'}
+            ]
+          }
         ]
       },
       { label: 'item2-2', value: 'value2-2' }
@@ -77,6 +83,14 @@ const tree = [
   "1-0-1": {
     "_id": "1-0-1", "_parent": "1-0",
     "label": "item2-1-2", "value": "value2-1-2"
+  },
+  "1-0-2": {
+    "_id": "1-0-2", "_parent": "1-0", "_children": ["1-0-2-0"],
+    "label": "item2-1-3", "value": "value2-1-3"
+  },
+  "1-0-2-0": {
+    "_id": "1-0-2-0", "_parent": "1-0-2",
+    "label": "item2-1-3-1", "value": "value2-1-3-1"
   }
 }
 ```

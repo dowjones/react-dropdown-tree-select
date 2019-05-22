@@ -8,35 +8,61 @@ import { isEmpty } from '../utils'
 ```
 const tree = [
   {
-    label: 'item1', value: 'value1',
+    label: 'item1',
+    value: 'value1',
     children: [
       {
-        label: 'item1-1', value: 'value1-1',
+        label: 'item1-1',
+        value: 'value1-1',
         children: [
-          {label: 'item1-1-1', value: 'value1-1-1'},
-          {label: 'item1-1-2', value: 'value1-1-2'}
+          {
+            label: 'item1-1-1',
+            value: 'value1-1-1'
+          },
+          {
+            label: 'item1-1-2',
+            value: 'value1-1-2'
+          }
         ]
       },
-      { label: 'item1-2', value: 'value1-2' }
+      {
+        label: 'item1-2',
+        value: 'value1-2'
+      }
     ]
   },
   {
-    label: 'item2', value: 'value2',
+    label: 'item2',
+    value: 'value2',
     children: [
       {
-        label: 'item2-1', value: 'value2-1',
+        label: 'item2-1',
+        value: 'value2-1',
         children: [
-          {label: 'item2-1-1', value: 'value2-1-1'},
-          {label: 'item2-1-2', value: 'value2-1-2'},
           {
-            label: 'item2-1-3', value: 'item2-1-3',
+            label: 'item2-1-1',
+            value: 'value2-1-1'
+          },
+          {
+            label: 'item2-1-2',
+            value: 'value2-1-2'
+          },
+          {
+            label: 'item2-1-3',
+            value: 'item2-1-3',
             children: [
-              {label: 'item2-1-3-1', value: 'value2-1-3-1'}
+              {
+                label: 'item2-1-3-1',
+                value: 'value2-1-3-1'
+              }
             ]
           }
         ]
       },
-      { label: 'item2-2', value: 'value2-2' }
+      {
+        label: 'item2-2',
+        value: 'value2-2'
+      }
     ]
   }
 ]
@@ -45,81 +71,96 @@ const tree = [
 ```
 {
   "0": {
-    "_id": "0",
-    "_parent": null,
-    "_children": ["0-0", "0-1"],
-    "label": "item1",
-    "value": "value1"
+    _id: "0",
+    _parent: null,
+    _children: [
+      "0-0",
+      "0-1"
+    ],
+    label: "item1",
+    value: "value1"
   },
   "1": {
-    "_id": "1",
-    "_parent": null,
-    "_children": ["1-0", "1-1"],
-    "label": "item2",
-    "value": "value2"
+    _id: "1",
+    _parent: null,
+    _children: [
+      "1-0",
+      "1-1"
+    ],
+    label: "item2",
+    value: "value2"
   },
   "0-0": {
-    "_id": "0-0",
-    "_parent": "0",
-    "_children": ["0-0-0", "0-0-1"],
-    "label": "item1-1",
-    "value": "value1-1"
+    _id: "0-0",
+    _parent: "0",
+    _children: [
+      "0-0-0",
+      "0-0-1"
+    ],
+    label: "item1-1",
+    value: "value1-1"
   },
   "0-1": {
-    "_id": "0-1",
-    "_parent": "0",
-    "label": "item1-2",
-    "value": "value1-2"
+    _id: "0-1",
+    _parent: "0",
+    label: "item1-2",
+    value: "value1-2"
   },
   "0-0-0": {
-    "_id": "0-0-0",
-    "_parent": "0-0",
-    "label": "item1-1-1",
-    "value": "value1-1-1"
+    _id: "0-0-0",
+    _parent: "0-0",
+    label: "item1-1-1",
+    value: "value1-1-1"
   },
   "0-0-1": {
-    "_id": "0-0-1",
-    "_parent": "0-0",
-    "label": "item1-1-2",
-    "value": "value1-1-2"
+    _id: "0-0-1",
+    _parent: "0-0",
+    label: "item1-1-2",
+    value: "value1-1-2"
   },
   "1-0": {
-    "_id": "1-0",
-    "_parent": "1",
-    "_children": ["1-0-0", "1-0-1", "1-0-2"],
-    "label": "item2-1",
-    "value": "value2-1"
+    _id: "1-0",
+    _parent: "1",
+    _children: [
+      "1-0-0",
+      "1-0-1",
+      "1-0-2"
+    ],
+    label: "item2-1",
+    value: "value2-1"
   },
   "1-1": {
-    "_id": "1-1",
-    "_parent": "1",
-    "label": "item2-2",
-    "value": "value2-2"
+    _id: "1-1",
+    _parent: "1",
+    label: "item2-2",
+    value: "value2-2"
   },
   "1-0-0": {
-    "_id": "1-0-0",
-    "_parent": "1-0",
-    "label": "item2-1-1",
-    "value": "value2-1-1"
+    _id: "1-0-0",
+    _parent: "1-0",
+    label: "item2-1-1",
+    value: "value2-1-1"
   },
   "1-0-1": {
-    "_id": "1-0-1",
-    "_parent": "1-0",
-    "label": "item2-1-2",
-    "value": "value2-1-2"
+    _id: "1-0-1",
+    _parent: "1-0",
+    label: "item2-1-2",
+    value: "value2-1-2"
   },
   "1-0-2": {
-    "_id": "1-0-2",
-    "_parent": "1-0",
-    "_children": ["1-0-2-0"],
-    "label": "item2-1-3",
-    "value": "value2-1-3"
+    _id: "1-0-2",
+    _parent: "1-0",
+    _children: [
+      "1-0-2-0"
+    ],
+    label: "item2-1-3",
+    value: "value2-1-3"
   },
   "1-0-2-0": {
-    "_id": "1-0-2-0",
-    "_parent": "1-0-2",
-    "label": "item2-1-3-1",
-    "value": "value2-1-3-1"
+    _id: "1-0-2-0",
+    _parent: "1-0-2",
+    label: "item2-1-3-1",
+    value: "value2-1-3-1"
   }
 }
 ```

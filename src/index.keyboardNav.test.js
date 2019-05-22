@@ -1,6 +1,6 @@
 import test from 'ava'
 import React from 'react'
-import { spy } from 'sinon'
+import { spy, stub } from 'sinon'
 import { mount } from 'enzyme'
 import DropdownTreeSelect from './index'
 
@@ -160,4 +160,21 @@ test('should set current focus as selected on tab out for simpleSelect', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} mode="simpleSelect" />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'Tab'])
   t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
+})
+
+test('should scroll on keyboard navigation', t => {
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown />)
+  const getElementById = stub(document, 'getElementById')
+
+  t.deepEqual(wrapper.find('.dropdown-content').getDOMNode().scrollTop, 0)
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  largeTree.forEach((n, index) => {
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+  })
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'label148')
+  t.notDeepEqual(wrapper.find('.dropdown-content').getDOMNode().scrollTop, 0)
 })

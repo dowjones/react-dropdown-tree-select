@@ -49,6 +49,7 @@ class Tree extends Component {
     this.computeInstanceProps(nextProps)
     this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
       const { activeDescendant } = nextProps
+      if (activeDescendant === this.activeDescendant) return
       const { scrollableTarget } = this.state
       const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
       if (activeLi && scrollableTarget) {

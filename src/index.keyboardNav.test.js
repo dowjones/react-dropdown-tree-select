@@ -166,8 +166,9 @@ test('should scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
   const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown />)
   const getElementById = stub(document, 'getElementById')
+  const contentNode = wrapper.find('.dropdown-content').getDOMNode()
 
-  t.deepEqual(wrapper.find('.dropdown-content').getDOMNode().scrollTop, 0)
+  t.deepEqual(contentNode.scrollTop, 0)
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
   largeTree.forEach((n, index) => {
@@ -176,7 +177,39 @@ test('should scroll on keyboard navigation', t => {
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
   t.deepEqual(wrapper.find('li.focused').text(), 'label148')
-  t.notDeepEqual(wrapper.find('.dropdown-content').getDOMNode().scrollTop, 0)
+  t.notDeepEqual(contentNode.scrollTop, 0)
+
+  getElementById.restore()
+})
+
+test('should only scroll on keyboard navigation', t => {
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown />)
+  const getElementById = stub(document, 'getElementById')
+  const contentNode = wrapper.find('.dropdown-content').getDOMNode()
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  largeTree.forEach((n, index) => {
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+  })
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+
+  const scrollTop = contentNode.scrollTop
+
+  // Simulate scroll up and setting new props
+  contentNode.scrollTop -= 20
+  const newTree = largeTree.map(n => {
+    return { checked: true, ...n }
+  })
+  wrapper.setProps({ data: newTree, showDropdown: true })
+  t.notDeepEqual(contentNode.scrollTop, scrollTop)
+
+  // Verify scroll is restored to previous position after keyboard nav
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp', 'ArrowDown'])
+  t.deepEqual(contentNode.scrollTop, scrollTop)
+
+  getElementById.restore()
 })
 
 const keyDownTests = [

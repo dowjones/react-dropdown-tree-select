@@ -38,6 +38,7 @@ class Tree extends Component {
   constructor(props) {
     super(props)
 
+    this.currentPage = 1
     this.computeInstanceProps(props, true)
 
     this.state = {
@@ -46,11 +47,11 @@ class Tree extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    const { activeDescendant: prevActiveDescendant } = this.props
     const { activeDescendant } = nextProps
-    this.computeInstanceProps(nextProps)
+    const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
+    this.computeInstanceProps(nextProps, !hasSameActiveDescendant)
     this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
-      if (activeDescendant === prevActiveDescendant) return
+      if (hasSameActiveDescendant) return
       const { scrollableTarget } = this.state
       const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
       if (activeLi && scrollableTarget) {
@@ -63,15 +64,13 @@ class Tree extends Component {
     this.setState({ scrollableTarget: this.node.parentNode })
   }
 
-  computeInstanceProps = (props, init = false) => {
+  computeInstanceProps = (props, checkActiveDescendant) => {
     this.allVisibleNodes = this.getNodes(props)
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
-    if (props.activeDescendant) {
+    if (checkActiveDescendant && props.activeDescendant) {
       const currentId = props.activeDescendant.replace(/_li$/, '')
       const focusIndex = this.allVisibleNodes.findIndex(n => n.key === currentId) + 1
       this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
-    } else if (init) {
-      this.currentPage = 1
     }
   }
 

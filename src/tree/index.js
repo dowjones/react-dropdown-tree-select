@@ -38,7 +38,7 @@ class Tree extends Component {
   constructor(props) {
     super(props)
 
-    this.computeInstanceProps(props)
+    this.computeInstanceProps(props, true)
 
     this.state = {
       items: this.allVisibleNodes.slice(0, this.props.pageSize),
@@ -63,14 +63,14 @@ class Tree extends Component {
     this.setState({ scrollableTarget: this.node.parentNode })
   }
 
-  computeInstanceProps = props => {
+  computeInstanceProps = (props, init = false) => {
     this.allVisibleNodes = this.getNodes(props)
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
     if (props.activeDescendant) {
       const currentId = props.activeDescendant.replace(/_li$/, '')
       const focusIndex = this.allVisibleNodes.findIndex(n => n.key === currentId) + 1
       this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
-    } else {
+    } else if (init) {
       this.currentPage = 1
     }
   }

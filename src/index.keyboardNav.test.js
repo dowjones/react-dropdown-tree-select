@@ -178,3 +178,30 @@ test('should scroll on keyboard navigation', t => {
   t.deepEqual(wrapper.find('li.focused').text(), 'label148')
   t.notDeepEqual(wrapper.find('.dropdown-content').getDOMNode().scrollTop, 0)
 })
+
+const keyDownTests = [
+  { keyCode: 13, expected: true }, // Enter
+  { keyCode: 32, expected: true }, // Space
+  { keyCode: 40, expected: true }, // Arrow down
+  { keyCode: 9, expected: false }, // Tab
+  { keyCode: 38, expected: false }, // Up arrow
+]
+
+keyDownTests.forEach(testArgs => {
+  test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : "can't"} open dropdown on keyDown`, t => {
+    const wrapper = mount(<DropdownTreeSelect data={tree} />)
+    const trigger = wrapper.find('.dropdown-trigger')
+    trigger.instance().focus()
+    trigger.simulate('keyDown', { key: 'mock', keyCode: testArgs.keyCode })
+    t.is(wrapper.state().showDropdown, testArgs.expected)
+  })
+})
+
+test(`Key event should not trigger if not focused/active element`, t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  const trigger = wrapper.find('.dropdown-trigger')
+  const input = wrapper.find('.search')
+  input.instance().focus()
+  trigger.simulate('keyDown', { key: 'mock', keyCode: 13 })
+  t.is(wrapper.state().showDropdown, false)
+})

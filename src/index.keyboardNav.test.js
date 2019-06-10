@@ -1,6 +1,6 @@
 import test from 'ava'
 import React from 'react'
-import { spy } from 'sinon'
+import { spy, stub } from 'sinon'
 import { mount } from 'enzyme'
 import DropdownTreeSelect from './index'
 
@@ -160,4 +160,81 @@ test('should set current focus as selected on tab out for simpleSelect', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} mode="simpleSelect" />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'Tab'])
   t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
+})
+
+test('should scroll on keyboard navigation', t => {
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
+  const getElementById = stub(document, 'getElementById')
+  const contentNode = wrapper.find('.dropdown-content').getDOMNode()
+
+  t.deepEqual(contentNode.scrollTop, 0)
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  largeTree.forEach((n, index) => {
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+  })
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'label148')
+  t.notDeepEqual(contentNode.scrollTop, 0)
+
+  getElementById.restore()
+})
+
+test('should only scroll on keyboard navigation', t => {
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
+  const getElementById = stub(document, 'getElementById')
+  const contentNode = wrapper.find('.dropdown-content').getDOMNode()
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+  largeTree.forEach((n, index) => {
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+  })
+
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
+
+  const scrollTop = contentNode.scrollTop
+
+  // Simulate scroll up and setting new props
+  contentNode.scrollTop -= 20
+  const newTree = largeTree.map(n => {
+    return { checked: true, ...n }
+  })
+  wrapper.setProps({ data: newTree, showDropdown: 'initial' })
+  t.notDeepEqual(contentNode.scrollTop, scrollTop)
+
+  // Verify scroll is restored to previous position after keyboard nav
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowUp', 'ArrowDown'])
+  t.deepEqual(contentNode.scrollTop, scrollTop)
+
+  getElementById.restore()
+})
+
+const keyDownTests = [
+  { keyCode: 13, expected: true }, // Enter
+  { keyCode: 32, expected: true }, // Space
+  { keyCode: 40, expected: true }, // Arrow down
+  { keyCode: 9, expected: false }, // Tab
+  { keyCode: 38, expected: false }, // Up arrow
+]
+
+keyDownTests.forEach(testArgs => {
+  test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : "can't"} open dropdown on keyDown`, t => {
+    const wrapper = mount(<DropdownTreeSelect data={tree} />)
+    const trigger = wrapper.find('.dropdown-trigger')
+    trigger.instance().focus()
+    trigger.simulate('keyDown', { key: 'mock', keyCode: testArgs.keyCode })
+    t.is(wrapper.state().showDropdown, testArgs.expected)
+  })
+})
+
+test(`Key event should not trigger if not focused/active element`, t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  const trigger = wrapper.find('.dropdown-trigger')
+  const input = wrapper.find('.search')
+  input.instance().focus()
+  trigger.simulate('keyDown', { key: 'mock', keyCode: 13 })
+  t.is(wrapper.state().showDropdown, false)
 })

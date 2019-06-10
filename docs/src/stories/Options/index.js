@@ -45,6 +45,7 @@ class WithOptions extends PureComponent {
       showPartiallySelected,
       disabled,
       readOnly,
+      showDropdown,
     } = this.state
 
     return (
@@ -66,6 +67,18 @@ class WithOptions extends PureComponent {
               <option value="simpleSelect">Simple select</option>
               <option value="radioSelect">Radio select</option>
               <option value="hierarchical">Hierarchical</option>
+            </select>
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor={showDropdown}>ShowDropdown: </label>
+            <select
+              id="showDropdown"
+              value={showDropdown}
+              onChange={e => this.setState({ showDropdown: e.target.value })}
+            >
+              <option value="default">--</option>
+              <option value="initial">Initial</option>
+              <option value="always">Always</option>
             </select>
           </div>
           <Checkbox
@@ -109,6 +122,7 @@ class WithOptions extends PureComponent {
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}
+            showDropdown={showDropdown}
           />
         </div>
       </div>

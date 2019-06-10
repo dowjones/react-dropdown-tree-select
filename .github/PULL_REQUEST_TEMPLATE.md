@@ -4,7 +4,7 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 ## Fixes # (issue)
 
-Please mention in the format "Fixes #issueNumber" or "Closes #issueNumber". 
+Please mention in the format "Fixes #issueNumber" or "Closes #issueNumber".
 This is important for semantic-release to correctly generate release tags and update issues.
 
 ## Type of change

@@ -44,19 +44,20 @@ test.beforeEach(t => {
   ]
 })
 
-test('regular tree has no a11y exceptions', async t => {
+test('has no a11y exceptions', async t => {
   const { tree } = t.context
   const component = mountToDoc(
     <div>
-      <DropdownTreeSelect data={tree} showDropDown texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown disabled texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown readOnly texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown mode="simpleSelect" texts={{ label: 'test' }} />
-      <DropdownTreeSelect data={tree} showDropDown mode="radioSelect" texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" disabled texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" readOnly texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" mode="simpleSelect" texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" mode="radioSelect" texts={{ label: 'test' }} />
+      <DropdownTreeSelect data={tree} showDropdown="initial" mode="hierarchical" texts={{ label: 'test' }} />
     </div>
   )
   const domNode = component.getDOMNode()
   const { error, violations } = await run(domNode)
-  t.is(error, null, JSON.stringify(error, null, 4))
-  t.is(violations.length, 0, JSON.stringify(violations, null, 4))
+  t.is(error, null, JSON.stringify(error, null, 2))
+  t.is(violations.length, 0, JSON.stringify(violations, null, 2))
 })

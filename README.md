@@ -56,7 +56,8 @@ A lightweight and fast control to render a select component that can display hie
     - [radioSelect](#radioSelect)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showDropdown)
-  - [showDropdownAlways](#showDropdownAlways)
+    - [initial](#initial)
+    - [always](#always)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
 - [Styling and Customization](#styling-and-customization)
@@ -358,15 +359,17 @@ If set to true, shows checkboxes in a partial state when one, but not all of the
 
 ### showDropdown
 
-Type: `bool` (default: `false`)
+Type: `string`
 
-If set to true, shows the dropdown when rendered. This can be used to render the component with the dropdown open as its initial state.
+Let's you choose the rendered state of the dropdown.
 
-### showDropdownAlways
+#### initial
 
-Type: `bool`
+`showDropdown: initial` shows the dropdown when rendered. This can be used to render the component with the dropdown open as its initial state.
 
-If set to true, always shows the dropdown when rendered, and toggling dropdown will be disabled.
+#### always
+
+`showDropdown: always` shows the dropdown when rendered, and keeps it visible at all times. Toggling dropdown is disabled.
 
 ### form states (disabled|readOnly)
 

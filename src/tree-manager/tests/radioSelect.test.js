@@ -8,14 +8,14 @@ const dropdownId = 'rdts'
 const tree = ['nodeA', 'nodeB', 'nodeC'].map(nv => ({ id: nv, label: nv, value: nv }))
 
 test('should render radio inputs with shared name', t => {
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} mode="radioSelect" showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} mode="radioSelect" showDropdown="initial" />)
 
   const inputs = wrapper.find('.dropdown-content').find(`input[type="radio"][name="${dropdownId}"]`)
   t.deepEqual(inputs.length, 3)
 })
 
 test('hides dropdown onChange for radioSelect', t => {
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown mode="radioSelect" />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="radioSelect" />)
   wrapper.instance().onCheckboxChange('nodeA', true)
   t.false(wrapper.state().searchModeOn)
   t.false(wrapper.state().allNodesHidden)
@@ -24,7 +24,7 @@ test('hides dropdown onChange for radioSelect', t => {
 
 test('keeps dropdown open onChange for radioSelect and keepOpenOnSelect', t => {
   const wrapper = mount(
-    <DropdownTreeSelect id={dropdownId} data={tree} showDropdown mode="radioSelect" keepOpenOnSelect />
+    <DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="radioSelect" keepOpenOnSelect />
   )
   wrapper.instance().onCheckboxChange('nodeA', true)
   t.true(wrapper.state().showDropdown)

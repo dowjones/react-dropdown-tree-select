@@ -164,7 +164,7 @@ test('should set current focus as selected on tab out for simpleSelect', t => {
 
 test('should scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
-  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')
   const contentNode = wrapper.find('.dropdown-content').getDOMNode()
 
@@ -184,7 +184,7 @@ test('should scroll on keyboard navigation', t => {
 
 test('should only scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
-  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')
   const contentNode = wrapper.find('.dropdown-content').getDOMNode()
 
@@ -202,7 +202,7 @@ test('should only scroll on keyboard navigation', t => {
   const newTree = largeTree.map(n => {
     return { checked: true, ...n }
   })
-  wrapper.setProps({ data: newTree, showDropdown: true })
+  wrapper.setProps({ data: newTree, showDropdown: 'initial' })
   t.notDeepEqual(contentNode.scrollTop, scrollTop)
 
   // Verify scroll is restored to previous position after keyboard nav

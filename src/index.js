@@ -18,6 +18,7 @@ import TreeManager from './tree-manager'
 import keyboardNavigation from './tree-manager/keyboardNavigation'
 
 import styles from './index.css'
+import { getAriaLabel } from './a11y'
 
 const cx = cn.bind(styles)
 
@@ -34,8 +35,7 @@ class DropdownTreeSelect extends Component {
       label: PropTypes.string,
       labelRemove: PropTypes.string,
     }),
-    showDropdown: PropTypes.bool,
-    showDropdownAlways: PropTypes.bool,
+    showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
     className: PropTypes.string,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
@@ -54,19 +54,19 @@ class DropdownTreeSelect extends Component {
     onBlur: () => {},
     onChange: () => {},
     texts: {},
+    showDropdown: 'default',
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      showDropdown: this.props.showDropdown || this.props.showDropdownAlways || false,
       searchModeOn: false,
       currentFocus: undefined,
     }
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showPartiallySelected }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -78,7 +78,10 @@ class DropdownTreeSelect extends Component {
     if (currentFocusNode) {
       currentFocusNode._focused = true
     }
-    this.setState(this.treeManager.getTreeAndTags())
+    this.setState({
+      showDropdown: /initial|always/.test(showDropdown) || false,
+      ...this.treeManager.getTreeAndTags(),
+    })
   }
 
   resetSearchState = () => {
@@ -92,8 +95,7 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillMount() {
-    const { data, mode, showPartiallySelected } = this.props
-    this.initNewProps({ data, mode, showPartiallySelected })
+    this.initNewProps(this.props)
   }
 
   componentWillUnmount() {
@@ -107,7 +109,7 @@ class DropdownTreeSelect extends Component {
   handleClick = (e, callback) => {
     this.setState(prevState => {
       // keep dropdown active when typing in search box
-      const showDropdown = this.props.showDropdownAlways || this.keepDropdownActive || !prevState.showDropdown
+      const showDropdown = this.props.showDropdown === 'always' || this.keepDropdownActive || !prevState.showDropdown
 
       // register event listeners only if there is a state change
       if (showDropdown !== prevState.showDropdown) {
@@ -126,7 +128,7 @@ class DropdownTreeSelect extends Component {
   }
 
   handleOutsideClick = e => {
-    if (this.props.showDropdownAlways || !isOutsideClick(e, this.node)) {
+    if (this.props.showDropdown === 'always' || !isOutsideClick(e, this.node)) {
       return
     }
 
@@ -260,6 +262,17 @@ class DropdownTreeSelect extends Component {
     e.preventDefault()
   }
 
+  getAriaAttributes = () => {
+    const { mode, texts } = this.props
+
+    if (mode !== 'radioSelect') return {}
+
+    return {
+      role: 'radiogroup',
+      ...getAriaLabel(texts.label),
+    }
+  }
+
   render() {
     const { disabled, readOnly, mode, texts } = this.props
     const { showDropdown, currentFocus } = this.state
@@ -298,7 +311,7 @@ class DropdownTreeSelect extends Component {
             />
           </Trigger>
           {showDropdown && (
-            <div className="dropdown-content">
+            <div className="dropdown-content" {...this.getAriaAttributes()}>
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{texts.noMatches || 'No matches found'}</span>
               ) : (

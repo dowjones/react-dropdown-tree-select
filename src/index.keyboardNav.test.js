@@ -98,7 +98,7 @@ test('can collapse on keyboardNavigation', t => {
 })
 
 test('can navigate searchresult on keyboardNavigation', t => {
-  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
@@ -147,7 +147,7 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
 })
 
 test('remembers current focus between prop updates', t => {
-  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
   t.false(wrapper.find('li.focused').exists())
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'ccc 1')

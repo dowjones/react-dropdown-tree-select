@@ -76,19 +76,19 @@ test('renders default radio select state', t => {
 
 test('shows dropdown', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown />)
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" />)
   t.snapshot(toJson(wrapper))
 })
 
 test('always shows dropdown', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="always" />)
   t.snapshot(toJson(wrapper))
 })
 
-test('keeps dropdown open for showDropdownAlways', t => {
+test('keeps dropdown open for showDropdown: always', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdownAlways />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="always" />)
   wrapper.instance().handleClick()
   t.true(wrapper.state().showDropdown)
 })
@@ -96,7 +96,7 @@ test('keeps dropdown open for showDropdownAlways', t => {
 test('notifies on action', t => {
   const handler = spy()
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown="initial" />)
   wrapper.find('i.fa-ban').simulate('click')
   t.true(handler.calledWithExactly(node0, action))
 })
@@ -134,7 +134,7 @@ test('sets search mode on input change', t => {
 
 test('hides dropdown onChange for simpleSelect', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown data={tree} mode="simpleSelect" />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown="initial" data={tree} mode="simpleSelect" />)
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.false(wrapper.state().searchModeOn)
   t.false(wrapper.state().allNodesHidden)
@@ -144,7 +144,7 @@ test('hides dropdown onChange for simpleSelect', t => {
 test('keeps dropdown open onChange for simpleSelect and keepOpenOnSelect', t => {
   const { tree } = t.context
   const wrapper = mount(
-    <DropdownTreeSelect id={dropdownId} data={tree} showDropdown mode="simpleSelect" keepOpenOnSelect />
+    <DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="simpleSelect" keepOpenOnSelect />
   )
   wrapper.instance().onCheckboxChange(node0._id, true)
   t.true(wrapper.state().showDropdown)

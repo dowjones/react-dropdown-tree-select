@@ -79,7 +79,7 @@ class DropdownTreeSelect extends Component {
       currentFocusNode._focused = true
     }
     this.setState(prevState => ({
-      showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown,
+      showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
       ...this.treeManager.getTreeAndTags(),
     }))
   }

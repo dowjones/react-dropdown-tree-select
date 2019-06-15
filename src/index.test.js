@@ -168,6 +168,28 @@ test('toggles dropdown', t => {
   t.false(wrapper.state().showDropdown)
 })
 
+test('keeps dropdown open on props update', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+  wrapper.setProps({ data: tree })
+  t.true(wrapper.state().showDropdown)
+})
+
+test('opens dropdown on props update with show intention', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  t.false(wrapper.state().showDropdown)
+  wrapper.setProps({ data: tree, showDropdown: 'initial' })
+  t.true(wrapper.state().showDropdown)
+  wrapper.instance().handleClick()
+  t.false(wrapper.state().showDropdown)
+  wrapper.setProps({ data: tree, showDropdown: 'always' })
+  wrapper.instance().handleClick()
+  t.true(wrapper.state().showDropdown)
+})
+
 test('sets unique ids on dropdowns', t => {
   const { tree } = t.context
   clientIdGenerator.reset()

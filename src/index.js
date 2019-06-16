@@ -78,10 +78,10 @@ class DropdownTreeSelect extends Component {
     if (currentFocusNode) {
       currentFocusNode._focused = true
     }
-    this.setState({
-      showDropdown: /initial|always/.test(showDropdown) || false,
+    this.setState(prevState => ({
+      showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
       ...this.treeManager.getTreeAndTags(),
-    })
+    }))
   }
 
   resetSearchState = () => {

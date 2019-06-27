@@ -395,7 +395,7 @@ Optional search predicate to override the default case insensitive contains matc
 
 ```jsx
 function searchPredicate(node, searchTerm) {
-  return (node.label + ' ' + node.customData).toLower().indexOf(searchTerm) >= 0
+  return node.customData && node.customData.toLower().indexOf(searchTerm) >= 0
 }
 
 return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />

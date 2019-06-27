@@ -463,7 +463,7 @@ test('should get matching nodes with mixed case when searched', t => {
   t.is(matchTree.get('c2'), undefined)
 })
 
-test('should get match on hidden label also', t => {
+test('should get matching nodes when using custom search predicate', t => {
   const tree = {
     id: 'i1',
     label: 'search me',
@@ -477,15 +477,16 @@ test('should get match on hidden label also', t => {
           {
             id: 'c2',
             label: 'I have some extra data to filter on',
-            hiddenLabel: "I'm a little teapot",
+            customField: "I'm a little TeApOt",
             value: 'l2v1',
           },
         ],
       },
     ],
   }
-  const manager = new TreeManager({ data: tree })
-  const { allNodesHidden, tree: matchTree } = manager.filterTree('teapot')
+  const searchPredicate = (node, term) => node.customField && node.customField.toLowerCase().indexOf(term) >= 0
+  const manager = new TreeManager({ data: tree, searchPredicate })
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('tEaPoT')
   t.false(allNodesHidden)
   const nodes = ['i1', 'c1']
   nodes.forEach(n => t.is(matchTree.get(n), undefined))

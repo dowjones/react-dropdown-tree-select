@@ -60,6 +60,7 @@ A lightweight and fast control to render a select component that can display hie
     - [always](#always)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
+  - [searchPredicate](#searchPredicate)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -267,7 +268,6 @@ Data for rendering the tree select items. The object requires the following stru
   actions,        // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
   dataset,        // optional: Allows data-* attributes to be set on the node and tag elements
   isDefaultValue, // optional: Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.
-  hiddenLabel,    // optional: Checkbox hidden label, used for search/filtering
   ...             // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```
@@ -386,6 +386,20 @@ Type: `string`
 Specific id for container. The container renders with a default id of `rdtsN` where N is the count of the current component rendered.
 
 Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
+
+### searchPredicate
+
+Type: `function`
+
+Optional search predicate to override the default case insensitive contains match on node labels. Example:
+
+```jsx
+function searchPredicate(node, searchTerm) {
+  return (node.label + ' ' + node.customData).toLower().indexOf(searchTerm) >= 0
+}
+
+return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
+```
 
 ## Styling and Customization
 

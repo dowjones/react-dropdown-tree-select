@@ -5,11 +5,12 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
     this.hierarchical = mode === 'hierarchical'
+    this.searchPredicate = searchPredicate
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
@@ -49,8 +50,13 @@ class TreeManager {
 
     const matches = []
 
+    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
+    if (this.searchPredicate && typeof this.searchPredicate === 'function') {
+      isMatch = this.searchPredicate
+    }
+
     const addOnMatch = node => {
-      if ((node.label + ' ' + node.hiddenLabel).toLowerCase().indexOf(searchTerm) >= 0) {
+      if (isMatch(node, searchTerm) === true) {
         matches.push(node._id)
       }
     }

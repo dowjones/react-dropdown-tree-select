@@ -50,16 +50,7 @@ class TreeManager {
 
     const matches = []
 
-    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
-    if (this.searchPredicate && typeof this.searchPredicate === 'function') {
-      isMatch = this.searchPredicate
-    }
-
-    const addOnMatch = node => {
-      if (isMatch(node, searchTerm) === true) {
-        matches.push(node._id)
-      }
-    }
+    const addOnMatch = this._getAddOnMatch(matches, searchTerm)
 
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
@@ -283,6 +274,19 @@ class TreeManager {
     }
 
     return keyboardNavigation.handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
+  }
+
+  _getAddOnMatch(matches, searchTerm) {
+    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
+    if (this.searchPredicate && typeof this.searchPredicate === 'function') {
+      isMatch = this.searchPredicate
+    }
+
+    return node => {
+      if (isMatch(node, searchTerm) === true) {
+        matches.push(node._id)
+      }
+    }
   }
 }
 

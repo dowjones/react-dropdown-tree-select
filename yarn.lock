@@ -1291,9 +1291,10 @@ array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
 
-array.partial@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/array.partial/-/array.partial-1.0.4.tgz#a88c8372953d8a8d495b24b8c94bdb285084d2a6"
+array.partial@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/array.partial/-/array.partial-1.0.5.tgz#f514595aacbf6a99ea20bbcffbcacc10316f0d56"
+  integrity sha512-nkHH1dU6JXrwppCqdUD5M1R85vihgBqhk9miq+3WFwwRayNY1ggpOT6l99PppqYQ1Hcjv2amFfUzhe25eAcYfA==
 
 array.prototype.find@^2.0.4:
   version "2.0.4"

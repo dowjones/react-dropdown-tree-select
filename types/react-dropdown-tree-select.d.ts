@@ -139,7 +139,7 @@ declare module 'react-dropdown-tree-select' {
      */
     isDefaultValue?: boolean
     /** Checkbox hidden label, used for search/filtering */
-    hiddenLabel: string
+    hiddenLabel?: string
     /** Any extra properties that you'd like to receive during `onChange` event */
     [property: string]: any
   }

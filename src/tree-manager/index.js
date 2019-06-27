@@ -50,7 +50,7 @@ class TreeManager {
     const matches = []
 
     const addOnMatch = node => {
-      if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
+      if ((node.label + ' ' + node.hiddenLabel).toLowerCase().indexOf(searchTerm) >= 0) {
         matches.push(node._id)
       }
     }

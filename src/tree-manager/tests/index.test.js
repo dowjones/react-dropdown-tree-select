@@ -463,6 +463,35 @@ test('should get matching nodes with mixed case when searched', t => {
   t.is(matchTree.get('c2'), undefined)
 })
 
+test('should get match on hidden label also', t => {
+  const tree = {
+    id: 'i1',
+    label: 'search me',
+    value: 'v1',
+    children: [
+      {
+        id: 'c1',
+        label: 'SeaRch me too',
+        value: 'l1v1',
+        children: [
+          {
+            id: 'c2',
+            label: 'I have some extra data to filter on',
+            hiddenLabel: "I'm a little teapot",
+            value: 'l2v1',
+          },
+        ],
+      },
+    ],
+  }
+  const manager = new TreeManager({ data: tree })
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('teapot')
+  t.false(allNodesHidden)
+  const nodes = ['i1', 'c1']
+  nodes.forEach(n => t.is(matchTree.get(n), undefined))
+  t.not(matchTree.get('c2'), undefined)
+})
+
 test('should uncheck previous node in simple select mode', t => {
   const tree = [
     {

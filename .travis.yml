@@ -8,7 +8,7 @@ git:
 jobs:
   include:
     - stage: test
-      node_js: '8'
+      node_js: '10'
       install:
         - yarn install --ignore-engines
       script:
@@ -20,7 +20,7 @@ jobs:
     # Define the release stage that runs semantic-release
     - stage: release
       if: (NOT type IN (pull_request)) AND (branch = master)
-      node_js: '8'
+      node_js: '10'
       # overwrite default `script` step to skip the tests
       script: echo "Deploying to npm ..."
       deploy:
@@ -30,7 +30,7 @@ jobs:
           - npx semantic-release
     - stage: docs
       if: (NOT type IN (pull_request)) AND (branch = develop)
-      node_js: '8'
+      node_js: '10'
       # un-ignore bundle.js
       before_deploy: mv docs/.gitignore .gitignore
       # overwrite default `script` step to skip the tests

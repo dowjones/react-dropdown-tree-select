@@ -278,7 +278,7 @@ class TreeManager {
 
   _getAddOnMatch(matches, searchTerm) {
     let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
-    if (this.searchPredicate && typeof this.searchPredicate === 'function') {
+    if (typeof this.searchPredicate === 'function') {
       isMatch = this.searchPredicate
     }
 

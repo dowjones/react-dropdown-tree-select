@@ -283,7 +283,7 @@ class TreeManager {
     }
 
     return node => {
-      if (isMatch(node, searchTerm) === true) {
+      if (isMatch(node, searchTerm)) {
         matches.push(node._id)
       }
     }

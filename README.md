@@ -26,41 +26,20 @@
 
 A lightweight and fast control to render a select component that can display hierarchical tree data. In addition, the control shows the selection in pills and allows user to search the options for quick filtering and selection. Also supports displaying partially selected nodes.
 
+## At a Glance
+
+
+| [Demo](#example) | [Props](#props) | Events | [Keyboard navigation](#keyboard-navigation) |
+|:----------------:|:-------------------------------------------------------:|:------------------------------------:|:-------------------------------------------:|
+| [**Modes**](#mode) | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) | [**Custom Filtering**](#searchPredicate) |
+
 ## Table of Contents
 
 - [Screenshot](#screenshot)
 - [Demo](#example)
-  - [Vanilla (no framework)](#vanilla-no-framework)
-  - [With Bootstrap](#with-bootstrap)
-  - [With Material Design](#with-material-design)
-  - [As Single Select](#as-single-select)
 - [Install](#install)
-  - [As NPM package](#as-npm-package)
-  - [Using a CDN](#using-a-cdn)
-  - [Peer Dependencies](#peer-dependencies)
 - [Usage](#usage)
 - [Props](#props)
-  - [className](#classname)
-  - [clearSearchOnChange](#clearsearchonchange)
-  - [onChange](#onchange)
-  - [onNodeToggle](#onnodetoggle)
-  - [data](#data)
-  - [texts](#texts)
-  - [keepTreeOnSearch](#keeptreeonsearch)
-  - [keepChildrenOnSearch](#keepchildrenonsearch)
-  - [keepOpenOnSelect](#keepopenonselect)
-  - [mode](#mode)
-    - [multiSelect](#multiSelect)
-    - [hierarchical](#hierarchical)
-    - [simpleSelect](#simpleSelect)
-    - [radioSelect](#radioSelect)
-  - [showPartiallySelected](#showpartiallyselected)
-  - [showDropdown](#showDropdown)
-    - [initial](#initial)
-    - [always](#always)
-  - [form states (disabled|readOnly)](#formstates)
-  - [id](#id)
-  - [searchPredicate](#searchPredicate)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)

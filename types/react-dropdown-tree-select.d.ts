@@ -95,6 +95,8 @@ declare module 'react-dropdown-tree-select' {
      * Use to ensure a own unique id when a simple counter is not sufficient, e.g in a partial server render (SSR)
      */
     id?: string
+    /** Optional search predicate to override the default case insensitive contains match on node labels. */
+    searchPredicate?: (currentNode: TreeNode, searchTerm: string) => boolean
   }
 
   export interface DropdownTreeSelectState {

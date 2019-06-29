@@ -5,11 +5,12 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
     this.hierarchical = mode === 'hierarchical'
+    this.searchPredicate = searchPredicate
     const { list, defaultValues, singleSelectedNode } = flattenTree({
       tree: JSON.parse(JSON.stringify(data)),
       simple: this.simpleSelect,
@@ -49,11 +50,7 @@ class TreeManager {
 
     const matches = []
 
-    const addOnMatch = node => {
-      if (node.label.toLowerCase().indexOf(searchTerm) >= 0) {
-        matches.push(node._id)
-      }
-    }
+    const addOnMatch = this._getAddOnMatch(matches, searchTerm)
 
     if (closestMatch !== searchTerm) {
       const superMatches = this.searchMaps.get(closestMatch)
@@ -277,6 +274,19 @@ class TreeManager {
     }
 
     return keyboardNavigation.handleToggleNavigationkey(action, prevFocus, readOnly, onToggleChecked, onToggleExpanded)
+  }
+
+  _getAddOnMatch(matches, searchTerm) {
+    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
+    if (typeof this.searchPredicate === 'function') {
+      isMatch = this.searchPredicate
+    }
+
+    return node => {
+      if (isMatch(node, searchTerm)) {
+        matches.push(node._id)
+      }
+    }
   }
 }
 

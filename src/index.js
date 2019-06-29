@@ -47,6 +47,7 @@ class DropdownTreeSelect extends Component {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     id: PropTypes.string,
+    searchPredicate: PropTypes.func,
   }
 
   static defaultProps = {
@@ -66,12 +67,13 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
       showPartiallySelected,
       rootPrefixId: this.clientId,
+      searchPredicate,
     })
     // Restore focus-state
     const currentFocusNode = this.state.currentFocus && this.treeManager.getNodeById(this.state.currentFocus)

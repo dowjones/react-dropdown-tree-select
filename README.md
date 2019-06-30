@@ -28,55 +28,18 @@ A lightweight and fast control to render a select component that can display hie
 
 ## At a Glance
 
-| [Demos](#example) <br> [📄](#vanilla-no-framework "Pure HTML + CSS; No framework") ꞁ [![bootstrap][bsurl]](#with-bootstrap "With Bootstrap") ꞁ [![material ui][muiurl]](#with-material-design "With Material Design") |                       [Props](#props)                       |                  Events                  | [Keyboard navigation](#keyboard-navigation) |
-| :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
-|                                                              [**Modes**](#mode)                                                               | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) |  [**Custom Filtering**](#searchPredicate)   |
+|                   [Demos][demosurl] <br /> [vanilla][vanillaurl] ꞁ [bootstrap][bsurl] ꞁ [material ui][muiurl]                   |                       [Props](#props)                       |                  Events                  | [Keyboard navigation](#keyboard-navigation) |
+| :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
+| [**Modes**](#mode)<br />[multi](#multiselect) ꞁ [hierarchical](#hierarchical) ꞁ [simple](#simpleselect) ꞁ [radio](#radioselect) | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) |  [**Custom Filtering**](#searchPredicate)   |
 
-[bsurl]: https://user-images.githubusercontent.com/781818/60391894-23204e80-9ac7-11e9-9b46-44041261ac00.png
-[muiurl]: https://user-images.githubusercontent.com/781818/60391917-801c0480-9ac7-11e9-9232-8e403af29ec5.png
-
-## Table of Contents
-
-- [Screenshot](#screenshot)
-- [Demo](#example)
-- [Install](#install)
-- [Usage](#usage)
-- [Props](#props)
-- [Styling and Customization](#styling-and-customization)
-  - [Using default styles](#default-styles)
-  - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
-- [Performance](#performance)
-  - [Search optimizations](#search-optimizations)
-  - [Search debouncing](#search-debouncing)
-  - [Virtualized rendering](#virtualized-rendering)
-  - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
-- [Keyboard navigation](#keyboard-navigation)
-- [FAQ](#faq)
-- [Doing more with HOCs](/docs/HOC.md)
-- [Development](#development)
-- [License](#license)
+[demosurl]: https://dowjones.github.io/react-dropdown-tree-select/ 'All Demos & more'
+[vanillaurl]: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-vanilla-styles 'Pure HTML + CSS; No framework'
+[bsurl]: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-bootstrap-styles 'With Bootstrap'
+[muiurl]: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-material-design-styles 'With Material Design'
 
 ## Screenshot
 
 ![animated demo screenshot](https://user-images.githubusercontent.com/781818/37562235-0ae9e9ec-2a3a-11e8-8266-b0e6b716d0d1.gif)
-
-## Demo
-
-##### Vanilla, no framework
-
-Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-vanilla-styles
-
-##### With Bootstrap
-
-Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-bootstrap-styles
-
-##### With Material Design
-
-Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-material-design-styles
-
-##### As Single Select
-
-Online demo: https://dowjones.github.io/react-dropdown-tree-select/#/story/simple-select
 
 ## Install
 
@@ -309,29 +272,12 @@ Type: `string` (default: `multiSelect`)
 
 Defines how the dropdown is rendered / behaves
 
-#### multiSelect
-
-A multi selectable dropdown which supports tree data with parent-child relationships. This is the default mode.
-
-#### hierarchical
-
-A multi selectable dropdown which supports tree data **without** parent-child relationships. In this mode, selecting a node has no ripple effects on its descendants or ancestors. Subsequently, `showPartiallySelected` becomes a moot flag and has no effect as well.
-
-⚠️ Note that `hierarchical=true` negates/overrides `showPartiallySelected`.
-
-#### simpleSelect
-
-Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored.
-
-⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
-
-#### radioSelect
-
-Turns the dropdown into radio select dropdown.
-
-Like `simpleSelect`, you can only select one value; but keeps the tree/children structure.
-
-⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
+| Value          | What it does                                                                                                                                                                                                                                                                                                                                    |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `multiSelect`  | **Default** mode. A multi-selectable dropdown which supports tree data with parent-child relationships.                                                                                                                                                                                                                                         |
+| `hierarchical` | A multi-selectable dropdown which supports tree data without parent-child relationships. In this mode, selecting a node has no ripple effects on its descendants or ancestors. Subsequently, `showPartiallySelected` becomes a moot flag and has no effect as well. ⚠️ Note that `hierarchical=true` negates/overrides `showPartiallySelected`. |
+| `simpleSelect` | Turns the dropdown into a simple, single select dropdown. If you pass tree data, only immediate children are picked, grandchildren nodes are ignored. ⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.                                                  |
+| `radioSelect`  | Turns the dropdown into radio select dropdown. Like `simpleSelect` , you can only select one value; but keeps the tree/children structure. ⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.                                                             |
 
 ### showPartiallySelected
 

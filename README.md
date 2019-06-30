@@ -28,7 +28,7 @@ A lightweight and fast control to render a select component that can display hie
 
 ## At a Glance
 
-|                   [Demos][demosurl] <br /> [vanilla][vanillaurl] ꞁ [bootstrap][bsurl] ꞁ [material ui][muiurl]                   |                       [Props](#props)                       |                  Events                  | [Keyboard navigation](#keyboard-navigation) |
+|                   [Demos][demosurl] <br /> [vanilla][vanillaurl] ꞁ [bootstrap][bsurl] ꞁ [material ui][muiurl]                   |                       [Props](#props)                       |         Handling Events(#events)         | [Keyboard navigation](#keyboard-navigation) |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
 | [**Modes**](#mode)<br />[multi](#multiselect) ꞁ [hierarchical](#hierarchical) ꞁ [simple](#simpleselect) ꞁ [radio](#radioselect) | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) |  [**Custom Filtering**](#searchPredicate)   |
 
@@ -130,68 +130,6 @@ Additional classname for container. The container renders with a default classna
 Type: `bool`
 
 Clear the input search if a node has been selected/unselected.
-
-### onChange
-
-Type: `function`
-
-Fires when a node change event occurs. Currently the following actions trigger a node change:
-
-- Checkbox click which checks/unchecks the item
-- Closing of pill (which unchecks the corresponding checkbox item)
-
-Calls the handler with the current node object and all selected nodes (if any). Example:
-
-```jsx
-function onChange(currentNode, selectedNodes) {
-  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
-  // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
-}
-
-return <DropdownTreeSelect data={data} onChange={onChange} />
-```
-
-### onNodeToggle
-
-Type: `function`
-
-Fires when a node is expanded or collapsed.
-
-Calls the handler with the current node object. Example:
-
-```jsx
-function onNodeToggle(currentNode) {
-  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
-}
-
-return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
-```
-
-### onAction
-
-Type: `function`
-
-Fires when a action is triggered. Example:
-
-```jsx
-function onAction(node, action) {
-  console.log('onAction::', action, node)
-}
-
-return <DropdownTreeSelect data={data} onAction={onAction} />
-```
-
-### onFocus
-
-Type: `function`
-
-Fires when input box receives focus or the dropdown arrow is clicked. This is helpful for setting `dirty` or `touched` flags with forms.
-
-### onBlur
-
-Type: `function`
-
-Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
 
 ### data
 
@@ -327,6 +265,72 @@ function searchPredicate(node, searchTerm) {
 
 return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
 ```
+
+### Events
+
+To make it easy to keep track of changes, the component exposes the following events. You can pass your own event handler as a prop to listen to these events.
+
+#### onChange
+
+Type: `function`
+
+Fires when a node change event occurs. Currently the following actions trigger a node change:
+
+- Checkbox click which checks/unchecks the item
+- Closing of pill (which unchecks the corresponding checkbox item)
+
+Calls the handler with the current node object and all selected nodes (if any). Example:
+
+```jsx
+function onChange(currentNode, selectedNodes) {
+  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+  // selectedNodes: [{ label, value, children, expanded, checked, className, ...extraProps }]
+}
+
+return <DropdownTreeSelect data={data} onChange={onChange} />
+```
+
+#### onNodeToggle
+
+Type: `function`
+
+Fires when a node is expanded or collapsed.
+
+Calls the handler with the current node object. Example:
+
+```jsx
+function onNodeToggle(currentNode) {
+  // currentNode: { label, value, children, expanded, checked, className, ...extraProps }
+}
+
+return <DropdownTreeSelect data={data} onNodeToggle={onNodeToggle} />
+```
+
+#### onAction
+
+Type: `function`
+
+Fires when a action is triggered. Example:
+
+```jsx
+function onAction(node, action) {
+  console.log('onAction::', action, node)
+}
+
+return <DropdownTreeSelect data={data} onAction={onAction} />
+```
+
+#### onFocus
+
+Type: `function`
+
+Fires when input box receives focus or the dropdown arrow is clicked. This is helpful for setting `dirty` or `touched` flags with forms.
+
+#### onBlur
+
+Type: `function`
+
+Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
 
 ## Styling and Customization
 

@@ -28,7 +28,7 @@ A lightweight and fast control to render a select component that can display hie
 
 ## At a Glance
 
-| [Demos](#example) <br> [📄](#vanilla-no-framework) ꞁ [![bootstrap][bsurl]](#with-bootstrap) ꞁ [![material ui][muiurl]](#with-material-design) |                       [Props](#props)                       |                  Events                  | [Keyboard navigation](#keyboard-navigation) |
+| [Demos](#example) <br> [📄](#vanilla-no-framework "Pure HTML + CSS; No framework") ꞁ [![bootstrap][bsurl]](#with-bootstrap "With Bootstrap") ꞁ [![material ui][muiurl]](#with-material-design "With Material Design") |                       [Props](#props)                       |                  Events                  | [Keyboard navigation](#keyboard-navigation) |
 | :-------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
 |                                                              [**Modes**](#mode)                                                               | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) |  [**Custom Filtering**](#searchPredicate)   |
 

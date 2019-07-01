@@ -28,9 +28,9 @@ A lightweight and fast control to render a select component that can display hie
 
 ## At a Glance
 
-|                   [Demos][demosurl] <br /> [vanilla][vanillaurl] ꞁ [bootstrap][bsurl] ꞁ [material ui][muiurl]                   |                       [Props](#props)                       |        [Handling Events](#events)        | [Keyboard navigation](#keyboard-navigation) |
-| :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------: |
-| [**Modes**](#mode)<br />[multi](#multiselect) ꞁ [hierarchical](#hierarchical) ꞁ [simple](#simpleselect) ꞁ [radio](#radioselect) | [**Styling and Customization**](#styling-and-customization) | [**Doing more with HOCs**](/docs/HOC.md) |  [**Custom Filtering**](#searchPredicate)   |
+|                   **[Demos][demosurl] <br /> [vanilla][vanillaurl] \| [bootstrap][bsurl] \| [material ui][muiurl]**                    |                     **[Props](#props)**                     |      **[Handling Events](#events)**      | **[Keyboard navigation](#keyboard-navigation)** |
+| :------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------: | :--------------------------------------: | :---------------------------------------------: |
+| **[**Modes**](#mode)<br />[multi](#multiselect) \| [hierarchical](#hierarchical) \| [simple](#simpleselect) \| [radio](#radioselect)** | **[Styling and Customization](#styling-and-customization)** | **[Doing more with HOCs](/docs/HOC.md)** |    **[Custom Filtering](#searchPredicate)**     |
 
 [demosurl]: https://dowjones.github.io/react-dropdown-tree-select/ 'All Demos & more'
 [vanillaurl]: https://dowjones.github.io/react-dropdown-tree-select/#/story/with-vanilla-styles 'Pure HTML + CSS; No framework'

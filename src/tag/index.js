@@ -41,6 +41,7 @@ class Tag extends PureComponent {
     const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
 
     const tagId = `${id}_tag`
+    const buttonId = `${id}_button`
     const className = cx('tag-remove', { readOnly }, { disabled })
     const isDisabled = readOnly || disabled
     const onClick = !isDisabled ? this.handleClick : undefined
@@ -51,13 +52,14 @@ class Tag extends PureComponent {
       <span className={cx('tag')} id={tagId}>
         {label}
         <button
+          id={buttonId}
           onClick={onClick}
           onKeyDown={onKeyDown}
           onKeyUp={onKeyUp}
           className={className}
           type="button"
           aria-label={labelRemove}
-          aria-labelledby={tagId}
+          aria-labelledby={`${buttonId} ${tagId}`}
           aria-disabled={isDisabled}
         >
           x

@@ -281,7 +281,7 @@ class DropdownTreeSelect extends Component {
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
-    const commonProps = { disabled, readOnly, activeDescendant, texts, mode }
+    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
 
     return (
       <div
@@ -327,7 +327,6 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
-                  clientId={this.clientId}
                   {...commonProps}
                 />
               )}

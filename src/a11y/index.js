@@ -2,7 +2,7 @@ export function getAriaLabel(label, additionalLabelledBy) {
   const attributes = getAriaAttributeForLabel(label)
 
   if (additionalLabelledBy) {
-    attributes['aria-labelledby'] = ((attributes['aria-labelledby'] || '') + ' ' + additionalLabelledBy).trim()
+    attributes['aria-labelledby'] = `${attributes['aria-labelledby'] || ''} ${additionalLabelledBy}`.trim()
   }
 
   return attributes

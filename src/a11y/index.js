@@ -1,6 +1,4 @@
 export function getAriaLabel(label, additionalLabelledBy) {
-  if (!label && !additionalLabelledBy) return undefined
-
   let attributes = {}
 
   if (label) {

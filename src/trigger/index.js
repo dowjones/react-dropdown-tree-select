@@ -25,11 +25,16 @@ class Trigger extends PureComponent {
 
     const triggerId = `${clientId}_trigger`
     const labelledBy = []
-    if (tags) {
-      labelledBy.push(triggerId)
+    let labelAttributes = getAriaLabel(texts.label)
+    if (tags && tags.length) {
+      if (labelAttributes['aria-label']) {
+        // Adds reference to self when having aria-label
+        labelledBy.push(triggerId)
+      }
       tags.forEach(t => {
         labelledBy.push(`${t._id}_tag`)
       })
+      labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
     }
 
     const attributes = {
@@ -38,7 +43,7 @@ class Trigger extends PureComponent {
       tabIndex: 0,
       'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
       'aria-expanded': showDropdown ? 'true' : 'false',
-      ...getAriaLabel(texts.label, labelledBy.join(' ')),
+      ...labelAttributes,
     }
 
     return attributes

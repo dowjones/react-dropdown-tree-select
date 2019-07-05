@@ -49,8 +49,8 @@ class Tag extends PureComponent {
     const onKeyUp = !isDisabled ? this.onKeyUp : undefined
 
     return (
-      <span className={cx('tag')} id={tagId}>
-        {label}
+      <span className={cx('tag')}>
+        <span id={tagId}>{label}</span>
         <button
           id={buttonId}
           onClick={onClick}

@@ -1,10 +1,21 @@
 export function getAriaLabel(label, additionalLabelledBy) {
   if (!label && !additionalLabelledBy) return undefined
 
-  if (label && label[0] === '#') {
+  let attributes = {}
+
+  if (label) {
     /* See readme for label. When label starts with # it references ids of dom nodes instead.
       When used on aria-labelledby, they should be referenced without a starting hash/# */
-    return { 'aria-labelledby': (label.replace(/#/g, '') + ' ' + additionalLabelledBy).trim() }
+    if (label[0] === '#') {
+      attributes['aria-labelledby'] = label.replace(/#/g, '')
+    } else {
+      attributes['aria-label'] = label
+    }
   }
-  return { 'aria-label': label, 'aria-labelledby': additionalLabelledBy }
+
+  if (additionalLabelledBy) {
+    attributes['aria-labelledby'] = ((attributes['aria-labelledby'] || '') + ' ' + additionalLabelledBy).trim()
+  }
+
+  return attributes
 }

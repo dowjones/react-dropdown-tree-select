@@ -60,7 +60,7 @@ A lightweight and fast control to render a select component that can display hie
     - [always](#always)
   - [form states (disabled|readOnly)](#formstates)
   - [id](#id)
-  - [searchPredicate](#searchPredicate)
+  - [searchPredicate](#searchpredicate)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)

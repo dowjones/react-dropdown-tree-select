@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 
 import { getAriaLabel } from '../a11y'
+import { getTagId } from '../tag'
 
 import styles from '../index.css'
 
@@ -32,7 +33,7 @@ class Trigger extends PureComponent {
         labelledBy.push(triggerId)
       }
       tags.forEach(t => {
-        labelledBy.push(`${t._id}_tag`)
+        labelledBy.push(getTagId(t._id))
       })
       labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
     }

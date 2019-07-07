@@ -6,6 +6,8 @@ import styles from './index.css'
 
 const cx = cn.bind(styles)
 
+export const getTagId = id => `${id}_tag`
+
 class Tag extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -40,7 +42,7 @@ class Tag extends PureComponent {
   render() {
     const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
 
-    const tagId = `${id}_tag`
+    const tagId = getTagId(id)
     const buttonId = `${id}_button`
     const className = cx('tag-remove', { readOnly }, { disabled })
     const isDisabled = readOnly || disabled

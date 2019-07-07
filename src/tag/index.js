@@ -46,8 +46,8 @@ class Tag extends PureComponent {
     const isDisabled = readOnly || disabled
 
     return (
-      <span className={cx('tag')}>
-        <span id={tagId}>{label}</span>
+      <span className={cx('tag')} id={tagId} aria-label={label}>
+        {label}
         <button
           id={buttonId}
           onClick={!isDisabled ? this.handleClick : undefined}

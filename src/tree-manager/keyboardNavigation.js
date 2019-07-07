@@ -151,7 +151,7 @@ const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
 
   index = tags.length > index ? index : tags.length - 1
   const newFocusId = tags[index]._id
-  const focusNode = document.getElementById(getTagId(newFocusId))
+  const focusNode = document.getElementById(`${getTagId(newFocusId)}`)
   if (focusNode) {
     return focusNode.firstElementChild || fallback
   }

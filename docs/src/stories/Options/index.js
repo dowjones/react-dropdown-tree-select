@@ -70,7 +70,7 @@ class WithOptions extends PureComponent {
             </select>
           </div>
           <div style={{ marginBottom: '10px' }}>
-            <label htmlFor={showDropdown}>ShowDropdown: </label>
+            <label htmlFor={showDropdown}>Show dropdown: </label>
             <select
               id="showDropdown"
               value={showDropdown}
@@ -123,6 +123,7 @@ class WithOptions extends PureComponent {
             disabled={disabled}
             readOnly={readOnly}
             showDropdown={showDropdown}
+            texts={{ label: 'Demo Dropdown' }}
           />
         </div>
       </div>

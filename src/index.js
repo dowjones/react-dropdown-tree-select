@@ -277,11 +277,11 @@ class DropdownTreeSelect extends Component {
 
   render() {
     const { disabled, readOnly, mode, texts } = this.props
-    const { showDropdown, currentFocus } = this.state
+    const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
-    const commonProps = { disabled, readOnly, activeDescendant, texts, mode }
+    const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
 
     return (
       <div
@@ -298,12 +298,12 @@ class DropdownTreeSelect extends Component {
             { 'radio-select': mode === 'radioSelect' }
           )}
         >
-          <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps}>
+          <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
             <Input
               inputRef={el => {
                 this.searchInput = el
               }}
-              tags={this.state.tags}
+              tags={tags}
               onInputChange={this.onInputChange}
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}
@@ -327,7 +327,6 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
-                  clientId={this.clientId}
                   {...commonProps}
                 />
               )}

@@ -1,4 +1,5 @@
 import nodeVisitor from './nodeVisitor'
+import { getTagId } from '../tag'
 
 const Keys = {
   Up: 'ArrowUp',
@@ -150,7 +151,7 @@ const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
 
   index = tags.length > index ? index : tags.length - 1
   const newFocusId = tags[index]._id
-  const focusNode = document.getElementById(`${newFocusId}_tag`)
+  const focusNode = document.getElementById(getTagId(newFocusId))
   if (focusNode) {
     return focusNode.firstElementChild || fallback
   }

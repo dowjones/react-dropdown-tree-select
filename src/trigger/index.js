@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 
 import { getAriaLabel } from '../a11y'
+import { getTagId } from '../tag'
 
 import styles from '../index.css'
 
@@ -16,17 +17,34 @@ class Trigger extends PureComponent {
     showDropdown: PropTypes.bool,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     texts: PropTypes.object,
+    clientId: PropTypes.string,
+    tags: PropTypes.array,
   }
 
   getAriaAttributes = () => {
-    const { mode, texts = {}, showDropdown } = this.props
+    const { mode, texts = {}, showDropdown, clientId, tags } = this.props
+
+    const triggerId = `${clientId}_trigger`
+    const labelledBy = []
+    let labelAttributes = getAriaLabel(texts.label)
+    if (tags && tags.length) {
+      if (labelAttributes['aria-label']) {
+        // Adds reference to self when having aria-label
+        labelledBy.push(triggerId)
+      }
+      tags.forEach(t => {
+        labelledBy.push(getTagId(t._id))
+      })
+      labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
+    }
 
     const attributes = {
+      id: triggerId,
       role: 'button',
       tabIndex: 0,
       'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
       'aria-expanded': showDropdown ? 'true' : 'false',
-      ...getAriaLabel(texts.label),
+      ...labelAttributes,
     }
 
     return attributes

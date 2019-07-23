@@ -6,6 +6,8 @@ import styles from './index.css'
 
 const cx = cn.bind(styles)
 
+export const getTagId = id => `${id}_tag`
+
 class Tag extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -40,24 +42,23 @@ class Tag extends PureComponent {
   render() {
     const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
 
-    const tagId = `${id}_tag`
+    const tagId = getTagId(id)
+    const buttonId = `${id}_button`
     const className = cx('tag-remove', { readOnly }, { disabled })
     const isDisabled = readOnly || disabled
-    const onClick = !isDisabled ? this.handleClick : undefined
-    const onKeyDown = !isDisabled ? this.onKeyDown : undefined
-    const onKeyUp = !isDisabled ? this.onKeyUp : undefined
 
     return (
-      <span className={cx('tag')} id={tagId}>
+      <span className={cx('tag')} id={tagId} aria-label={label}>
         {label}
         <button
-          onClick={onClick}
-          onKeyDown={onKeyDown}
-          onKeyUp={onKeyUp}
+          id={buttonId}
+          onClick={!isDisabled ? this.handleClick : undefined}
+          onKeyDown={!isDisabled ? this.onKeyDown : undefined}
+          onKeyUp={!isDisabled ? this.onKeyUp : undefined}
           className={className}
           type="button"
           aria-label={labelRemove}
-          aria-labelledby={tagId}
+          aria-labelledby={`${buttonId} ${tagId}`}
           aria-disabled={isDisabled}
         >
           x

@@ -400,3 +400,29 @@ test('does not check parent with empty children when showing partial state', t =
   const { list } = flattenTree({ tree, simple: false, showPartialState: true })
   t.deepEqual(mapToObject(list), expectedTree)
 })
+
+test('check custom keys', t => {
+  const tree = [
+    {
+      code: 'AM2000000',
+      name: 'AM2000000-label',
+      isLeaf: '0',
+      children: [],
+    },
+  ]
+
+  const expectedTree = {
+    0: {
+      _id: '0',
+      _depth: 0,
+      children: undefined,
+      _children: [],
+      isLeaf: '0',
+      value: 'AM2000000',
+      label: 'AM2000000-label',
+    },
+  }
+
+  const { list } = flattenTree({ tree, dataCustomKey: { label: 'name', value: 'code' } })
+  t.deepEqual(mapToObject(list), expectedTree)
+})

@@ -97,6 +97,10 @@ declare module 'react-dropdown-tree-select' {
     id?: string
     /** Optional search predicate to override the default case insensitive contains match on node labels. */
     searchPredicate?: (currentNode: TreeNode, searchTerm: string) => boolean
+    /** Custom keys for label */
+    keyLabel?: string
+    /** Custom keys for value */
+    keyValue?: string
   }
 
   export interface DropdownTreeSelectState {

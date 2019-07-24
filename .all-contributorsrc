@@ -273,6 +273,18 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "SergeyWebDeveloper",
+      "name": "Sergey Kozlov",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12486958?v=4",
+      "profile": "https://github.com/SergeyWebDeveloper",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7

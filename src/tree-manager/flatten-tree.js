@@ -169,9 +169,10 @@ const tree = [
  * @param  {[bool]} radio             Whether its in Radio select mode (radio dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
  * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
+ * @param  {object} dataCustomKey     Custom keys for label and value
  * @return {object}                   The flattened list
  */
-function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId }) {
+function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId, dataCustomKey }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
@@ -182,6 +183,7 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
     showPartialState,
     hierarchical,
     rootPrefixId,
+    dataCustomKey,
   })
 }
 
@@ -213,10 +215,14 @@ function walkNodes({
   showPartialState,
   hierarchical,
   rootPrefixId,
+  dataCustomKey = {},
   _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null },
 }) {
   const single = simple || radio
-  nodes.forEach((node, i) => {
+  nodes.forEach((itemNode, i) => {
+    const { [dataCustomKey.label]: label, [dataCustomKey.value]: value, ...node } = itemNode
+    node.label = itemNode[dataCustomKey.label]
+    node.value = itemNode[dataCustomKey.value]
     node._depth = depth
 
     if (parent) {
@@ -261,6 +267,7 @@ function walkNodes({
         radio,
         showPartialState,
         hierarchical,
+        dataCustomKey,
         _rv,
       })
 

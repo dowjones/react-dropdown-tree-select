@@ -100,6 +100,7 @@ declare module 'react-dropdown-tree-select' {
   }
 
   export interface DropdownTreeSelectState {
+    searchTerm: string
     showDropdown: ShowDropdownState
     searchModeOn: boolean
     allNodesHidden: boolean

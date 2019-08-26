@@ -22,6 +22,7 @@ const node0 = {
   value: 'value1',
   children: undefined,
   actions: [action],
+  hide: false,
 }
 
 test.beforeEach(t => {
@@ -305,4 +306,28 @@ test('appends selected tags to aria-labelledby with text label', t => {
   const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} texts={{ label: 'hello world' }} />)
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'rdts_trigger rdts-0_tag')
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
+})
+
+test('sets search and dynamic update data', t => {
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
+  const searchTerm = 'item'
+
+  wrapper.instance().onInputChange(searchTerm)
+  t.is(wrapper.state().searchTerm, searchTerm)
+
+  const count = wrapper.update().find('.dropdown-content ul li').length
+  const result = count + 1
+
+  const data = [
+    ...tree,
+    {
+      label: `item${result}`,
+      value: `value${result}`,
+      children: [],
+    },
+  ]
+
+  wrapper.setProps({ data })
+  t.is(result, wrapper.find('.dropdown-content ul li').length)
 })

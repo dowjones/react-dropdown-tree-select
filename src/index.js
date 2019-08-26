@@ -61,6 +61,7 @@ class DropdownTreeSelect extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      searchTerm: '',
       searchModeOn: false,
       currentFocus: undefined,
     }
@@ -68,6 +69,9 @@ class DropdownTreeSelect extends Component {
   }
 
   initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate }) => {
+    const { keepTreeOnSearch, keepChildrenOnSearch } = this.props
+    const { searchTerm } = this.state
+
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -80,9 +84,15 @@ class DropdownTreeSelect extends Component {
     if (currentFocusNode) {
       currentFocusNode._focused = true
     }
+
+    const { allNodesHidden, tree } = this.treeManager.filterTree(searchTerm, keepTreeOnSearch, keepChildrenOnSearch)
+
     this.setState(prevState => ({
       showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
       ...this.treeManager.getTreeAndTags(),
+      tree,
+      allNodesHidden,
+      searchModeOn: searchTerm.length > 0,
     }))
   }
 
@@ -93,6 +103,7 @@ class DropdownTreeSelect extends Component {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,
       allNodesHidden: false,
+      searchTerm: '',
     }
   }
 
@@ -137,18 +148,19 @@ class DropdownTreeSelect extends Component {
     this.handleClick()
   }
 
-  onInputChange = value => {
+  onInputChange = searchTerm => {
     const { allNodesHidden, tree } = this.treeManager.filterTree(
-      value,
+      searchTerm,
       this.props.keepTreeOnSearch,
       this.props.keepChildrenOnSearch
     )
-    const searchModeOn = value.length > 0
+    const searchModeOn = searchTerm.length > 0
 
     this.setState({
       tree,
       searchModeOn,
       allNodesHidden,
+      searchTerm,
     })
   }
 
@@ -277,7 +289,7 @@ class DropdownTreeSelect extends Component {
 
   render() {
     const { disabled, readOnly, mode, texts } = this.props
-    const { showDropdown, currentFocus, tags } = this.state
+    const { showDropdown, currentFocus, tags, searchTerm } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
@@ -304,6 +316,7 @@ class DropdownTreeSelect extends Component {
                 this.searchInput = el
               }}
               tags={tags}
+              value={searchTerm}
               onInputChange={this.onInputChange}
               onFocus={this.onInputFocus}
               onBlur={this.onInputBlur}

@@ -1,5 +1,5 @@
 {
-  "name": "adss-hierarchical-select",
+  "name": "react-hierarchical-select",
   "version": "0.0.0-semantic-release",
   "description": "An extended/hierarchical dropdown library based on react-dropdown-tree-select",
   "keywords": [

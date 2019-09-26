@@ -1,7 +1,7 @@
 {
-  "name": "react-dropdown-tree-select",
+  "name": "react-hierarchical-select",
   "version": "0.0.0-semantic-release",
-  "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
+  "description": "An extended/hierarchical dropdown library based on react-dropdown-tree-select",
   "keywords": [
     "react",
     "tree-select",

@@ -1,4 +1,4 @@
-# react-hierarchical-dropdown
+# adss-hierarchical-dropdown
 
 ---
 

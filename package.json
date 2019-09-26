@@ -1,5 +1,5 @@
 {
-  "name": "react-hierarchical-select",
+  "name": "adss-hierarchical-select",
   "version": "0.0.0-semantic-release",
   "description": "An extended/hierarchical dropdown library based on react-dropdown-tree-select",
   "keywords": [
@@ -20,7 +20,7 @@
   ],
   "main": "dist/react-dropdown-tree-select.js",
   "types": "dist/react-dropdown-tree-select.d.ts",
-  "repository": "https://github.com/dowjones/react-dropdown-tree-select.git",
+  "repository": "https://github.com/ruaanvds/react-dropdown-tree-select",
   "author": "Hrusikesh Panda <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
   "scripts": {

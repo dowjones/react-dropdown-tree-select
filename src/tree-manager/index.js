@@ -5,7 +5,7 @@ import nodeVisitor from './nodeVisitor'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
 
 class TreeManager {
-  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate }) {
+  constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate, enforceSingleSelection }) {
     this._src = data
     this.simpleSelect = mode === 'simpleSelect'
     this.radioSelect = mode === 'radioSelect'
@@ -28,6 +28,8 @@ class TreeManager {
       // Remembers initial check on single select dropdowns
       this.currentChecked = singleSelectedNode._id
     }
+
+    this.enforceSingleSelection = enforceSingleSelection
   }
 
   getNodeById(id) {
@@ -239,13 +241,18 @@ class TreeManager {
       return []
     }
 
-    return nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
+    let nodesMatching = nodeVisitor.getNodesMatching(this.tree, (node, key, visited) => {
       if (node.checked && !this.hierarchical) {
         // Parent node, so no need to walk children
         nodeVisitor.markSubTreeVisited(node, visited, id => this.getNodeById(id))
       }
       return node.checked
     })
+
+    if (this.enforceSingleSelection)
+      nodesMatching = nodesMatching.length ? [nodesMatching[nodesMatching.length - 1]] : []
+
+    return nodesMatching
   }
 
   getTreeAndTags() {

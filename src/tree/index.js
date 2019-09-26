@@ -29,6 +29,11 @@ class Tree extends Component {
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
     activeDescendant: PropTypes.string,
+    searchInput: PropTypes.string,
+    prependElement: PropTypes.node,
+    highlightSearch: PropTypes.bool,
+    onNodeHover: PropTypes.func,
+    scrollHeight: PropTypes.number,
   }
 
   static defaultProps = {
@@ -109,6 +114,9 @@ class Tree extends Component {
             readOnly={readOnly}
             clientId={clientId}
             activeDescendant={activeDescendant}
+            searchInput={this.props.searchInput}
+            highlightSearch={this.props.highlightSearch}
+            onNodeHover={this.props.onNodeHover}
           />
         )
       }
@@ -146,6 +154,7 @@ class Tree extends Component {
 
     return (
       <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} {...this.getAriaAttributes()}>
+        {this.props.prependElement && this.props.prependElement}
         {this.state.scrollableTarget && (
           <InfiniteScroll
             dataLength={this.state.items.length}
@@ -153,6 +162,7 @@ class Tree extends Component {
             hasMore={this.hasMore()}
             loader={<span className="searchLoader">Loading...</span>}
             scrollableTarget={this.state.scrollableTarget}
+            height={this.props.scrollHeight}
           >
             {this.state.items}
           </InfiniteScroll>

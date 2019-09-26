@@ -48,6 +48,11 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
+    prependElement: PropTypes.node,
+    highlightSearch: PropTypes.bool,
+    onNodeHover: PropTypes.func,
+    scrollHeight: PropTypes.number,
+    enforceSingleSelection: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -61,6 +66,7 @@ class DropdownTreeSelect extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      searchInput: '',
       searchModeOn: false,
       currentFocus: undefined,
     }
@@ -74,6 +80,7 @@ class DropdownTreeSelect extends Component {
       showPartiallySelected,
       rootPrefixId: this.clientId,
       searchPredicate,
+      enforceSingleSelection: this.props.enforceSingleSelection,
     })
     // Restore focus-state
     const currentFocusNode = this.state.currentFocus && this.treeManager.getNodeById(this.state.currentFocus)
@@ -98,6 +105,10 @@ class DropdownTreeSelect extends Component {
 
   componentWillMount() {
     this.initNewProps(this.props)
+  }
+
+  componentDidMount() {
+    this.searchInput.focus()
   }
 
   componentWillUnmount() {
@@ -146,6 +157,7 @@ class DropdownTreeSelect extends Component {
     const searchModeOn = value.length > 0
 
     this.setState({
+      searchInput: value,
       tree,
       searchModeOn,
       allNodesHidden,
@@ -172,12 +184,15 @@ class DropdownTreeSelect extends Component {
     const { mode, keepOpenOnSelect } = this.props
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.tags
+
     const isSingleSelect = ['simpleSelect', 'radioSelect'].indexOf(mode) > -1
     const showDropdown = isSingleSelect && !keepOpenOnSelect ? false : this.state.showDropdown
 
     if (!tags.length) {
       this.treeManager.restoreDefaultValues()
       tags = this.treeManager.tags
+    } else {
+      if (this.props.enforceSingleSelection) tags = [this.treeManager.tags[this.treeManager.tags.length - 1]]
     }
 
     const tree = this.state.searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
@@ -198,6 +213,7 @@ class DropdownTreeSelect extends Component {
     this.setState(nextState, () => {
       callback && callback(tags)
     })
+
     this.props.onChange(this.treeManager.getNodeById(id), tags)
   }
 
@@ -216,7 +232,7 @@ class DropdownTreeSelect extends Component {
   onTrigger = e => {
     this.handleClick(e, () => {
       // If the dropdown is shown after key press, focus the input
-      if (this.state.showDropdown) {
+      if (this.state.showDropdown && this.searchInput) {
         this.searchInput.focus()
       }
     })
@@ -244,6 +260,8 @@ class DropdownTreeSelect extends Component {
         this.onNodeToggle
       )
       if (newFocus !== currentFocus) {
+        const newFocusData = this.treeManager.getNodeById(newFocus)
+        this.props.onNodeNavigate(newFocusData)
         this.setState({ currentFocus: newFocus })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
@@ -309,6 +327,7 @@ class DropdownTreeSelect extends Component {
               onBlur={this.onInputBlur}
               onTagRemove={this.onTagRemove}
               onKeyDown={this.onKeyboardKeyDown}
+              enforceSingleSelection={this.props.enforceSingleSelection}
               {...commonProps}
             />
           </Trigger>
@@ -327,6 +346,12 @@ class DropdownTreeSelect extends Component {
                   onNodeToggle={this.onNodeToggle}
                   mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
+                  searchInput={this.state.searchInput}
+                  prependElement={this.props.prependElement}
+                  highlightSearch={this.props.highlightSearch}
+                  onNodeHover={this.props.onNodeHover}
+                  onNodeNavigate={this.props.onNodeNavigate}
+                  scrollHeight={this.props.scrollHeight}
                   {...commonProps}
                 />
               )}

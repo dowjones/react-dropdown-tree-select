@@ -73,6 +73,8 @@ class TreeNode extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    searchInput: PropTypes.string,
+    highlightSearch: PropTypes.bool,
   }
 
   getAriaAttributes = () => {
@@ -119,9 +121,26 @@ class TreeNode extends PureComponent {
 
     const liId = `${_id}_li`
 
+    const nodeData = {
+      title,
+      label,
+      checked,
+      value,
+    }
+
+    const onNodeHover = (e, nodeData) => {
+      if (this.props.onNodeHover) this.props.onNodeHover(e, nodeData)
+    }
+
     return (
-      <li className={liCx} style={style} id={liId} {...getDataset(dataset)} {...this.getAriaAttributes()}>
-        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+      <li
+        className={liCx}
+        style={style}
+        id={liId}
+        {...getDataset(dataset)}
+        {...this.getAriaAttributes()}
+        onMouseEnter={e => onNodeHover(e, nodeData)}
+      >
         <NodeLabel
           title={title}
           label={label}
@@ -135,8 +154,13 @@ class TreeNode extends PureComponent {
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}
           clientId={clientId}
+          searchInput={this.props.searchInput}
+          highlightSearch={this.props.highlightSearch}
         />
         <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
+        {!this.props.searchInput && (
+          <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+        )}
       </li>
     )
   }

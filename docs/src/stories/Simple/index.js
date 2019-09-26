@@ -2,26 +2,20 @@ import React from 'react'
 
 import DropdownTreeSelect from '../../../../src'
 
-import './index.css'
 import data from './data.json'
 
-const onChange = (curNode, selectedNodes) => {
-  console.log('onChange::', curNode, selectedNodes)
-}
-const onAction = (node, action) => {
-  console.log('onAction::', action, node)
-}
-const onNodeToggle = curNode => {
-  console.log('onNodeToggle::', curNode)
-}
+const onChange = (curNode, selectedNodes) => {}
 
-const onFocus = () => {
-  console.log('onFocus')
-}
+const onAction = (node, action) => {}
+const onNodeToggle = curNode => {}
 
-const onBlur = () => {
-  console.log('onBlur')
-}
+const onNodeNavigate = data => {}
+
+const onFocus = () => {}
+
+const onBlur = () => {}
+
+const onNodeHover = (e, data) => {}
 
 const Simple = () => (
   <div>
@@ -39,6 +33,9 @@ const Simple = () => (
       look right in your app but looks OK here, you know what is messing things up).
     </p>
     <DropdownTreeSelect
+      onNodeHover={onNodeHover}
+      showDropdown="always"
+      keepTreeOnSearch={true}
       data={data}
       onChange={onChange}
       onAction={onAction}
@@ -46,6 +43,11 @@ const Simple = () => (
       onFocus={onFocus}
       onBlur={onBlur}
       className="demo"
+      mode="hierarchical"
+      prependElement={<div>Test</div>}
+      highlightSearch={true}
+      onNodeNavigate={onNodeNavigate}
+      enforceSingleSelection={true}
     />
   </div>
 )

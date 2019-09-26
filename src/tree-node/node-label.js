@@ -24,6 +24,8 @@ class NodeLabel extends PureComponent {
     onCheckboxChange: PropTypes.func,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    searchInput: PropTypes.string,
+    highlightSearch: PropTypes.bool,
   }
 
   handleCheckboxChange = e => {
@@ -41,6 +43,21 @@ class NodeLabel extends PureComponent {
     e.nativeEvent.stopImmediatePropagation()
   }
 
+  getHighlightedText(text, higlight) {
+    let parts = text.split(new RegExp(`(${higlight})`, 'gi'))
+    return (
+      <span>
+        {parts.map((part, i) => (
+          <span
+            key={i}
+            style={part.toLowerCase() === higlight.toLowerCase() ? { fontWeight: 'bold', color: '#eb9110' } : {}}
+          >
+            {part}
+          </span>
+        ))}
+      </span>
+    )
+  }
   render() {
     const { mode, title, label, id, partial, checked } = this.props
     const { value, disabled, showPartiallySelected, readOnly, clientId } = this.props
@@ -69,7 +86,9 @@ class NodeLabel extends PureComponent {
             {...sharedProps}
           />
         )}
-        <span {...nodeLabelProps}>{label}</span>
+        <span {...nodeLabelProps}>
+          {this.props.highlightSearch ? this.getHighlightedText(label, this.props.searchInput) : label}
+        </span>
       </label>
     )
   }

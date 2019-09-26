@@ -28,7 +28,7 @@
     "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
-    "demo": "rimraf ./docs/bundle.js && webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
+    "demo": "rimraf ./docs/bundle.js && webpack-serve --content ./docs --port 3003 --open --config docs/webpack.config.js",
     "prepublishOnly": "npm run build",
     "lint": "eslint --fix src docs webpack.config.js && stylelint --fix \"src/**/*.css\"",
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",

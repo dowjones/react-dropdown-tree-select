@@ -604,3 +604,39 @@ test('should return children when search with `keepChildrenOnSearch`', t => {
   const nodes = ['i1', 'c1', 'c2']
   nodes.forEach(n => t.not(matchTree.get(n), undefined))
 })
+
+test('should not hide parent nodes if they match search term with `keepTreeOnSearch`', t => {
+  const tree = [
+    {
+      id: 'i1',
+      label: 'A top level item',
+      value: 'v1',
+      children: [
+        {
+          id: 'c1',
+          label: 'SeaRch me too',
+          value: 'l1v1',
+          children: [
+            {
+              id: 'c2',
+              label: 'search me, please!',
+              value: 'l2v1',
+            },
+          ],
+        },
+      ],
+    },
+  ]
+  const manager = new TreeManager({ data: tree })
+  const keepTreeOnSearch = true
+  const { allNodesHidden, tree: matchTree } = manager.filterTree('search me', keepTreeOnSearch)
+  t.false(allNodesHidden)
+  const nodes = ['c1', 'c2']
+  nodes.forEach(n => {
+    t.not(matchTree.get(n), undefined, `${n} should not be undefined.`)
+    t.false(manager.getNodeById(n).hide, `${n} should not be hidden.`)
+  })
+
+  const hiddenNodes = ['i1']
+  hiddenNodes.forEach(n => t.true(manager.getNodeById(n).hide, `${n} should not be visible.`))
+})

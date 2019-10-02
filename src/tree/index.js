@@ -52,14 +52,22 @@ class Tree extends Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    const { activeDescendant } = nextProps
+    const { activeDescendant, scrollToElement } = nextProps
+
     const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
     this.computeInstanceProps(nextProps, !hasSameActiveDescendant)
+
     this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
-      if (hasSameActiveDescendant) return
       const { scrollableTarget } = this.state
+
+      if (scrollToElement && document) {
+        const domElement = document.getElementById(scrollToElement._id).parentNode
+        scrollableTarget.scrollTop = domElement.offsetTop
+      }
+      if (hasSameActiveDescendant) return
+
       const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-      if (activeLi && scrollableTarget) {
+      if (scrollableTarget && activeLi) {
         scrollableTarget.scrollTop = activeLi.offsetTop - (scrollableTarget.clientHeight - activeLi.clientHeight) / 2
       }
     })

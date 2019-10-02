@@ -53,6 +53,8 @@ class DropdownTreeSelect extends Component {
     onNodeHover: PropTypes.func,
     scrollHeight: PropTypes.number,
     enforceSingleSelection: PropTypes.bool,
+    value: PropTypes.string,
+    onInputChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -117,6 +119,14 @@ class DropdownTreeSelect extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.initNewProps(nextProps)
+    if (!this.props.data.length && nextProps.data.length && this.props.value) {
+      const matchedElements = this.getNodeBySearchTerm(this.props.value)
+      if (matchedElements) {
+        this.setState({
+          scrollToElement: Array.from(matchedElements.values()).pop(),
+        })
+      }
+    }
   }
 
   handleClick = (e, callback) => {
@@ -156,12 +166,20 @@ class DropdownTreeSelect extends Component {
     )
     const searchModeOn = value.length > 0
 
+    if (this.props.onInputChange) this.props.onInputChange(value)
+
     this.setState({
       searchInput: value,
       tree,
       searchModeOn,
       allNodesHidden,
     })
+  }
+
+  getNodeBySearchTerm = value => {
+    const { tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
+
+    return tree
   }
 
   onTagRemove = (id, isKeyboardEvent) => {
@@ -328,6 +346,7 @@ class DropdownTreeSelect extends Component {
               onTagRemove={this.onTagRemove}
               onKeyDown={this.onKeyboardKeyDown}
               enforceSingleSelection={this.props.enforceSingleSelection}
+              value={this.props.value}
               {...commonProps}
             />
           </Trigger>
@@ -352,6 +371,7 @@ class DropdownTreeSelect extends Component {
                   onNodeHover={this.props.onNodeHover}
                   onNodeNavigate={this.props.onNodeNavigate}
                   scrollHeight={this.props.scrollHeight}
+                  scrollToElement={this.state.scrollToElement}
                   {...commonProps}
                 />
               )}

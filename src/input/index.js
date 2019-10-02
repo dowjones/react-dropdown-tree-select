@@ -38,16 +38,30 @@ class Input extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     activeDescendant: PropTypes.string,
+    value: PropTypes.string,
   }
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 300)
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 100)
+
+    this.state = {
+      value: '',
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.value) {
+      this.setState({
+        value: this.props.value,
+      })
+    }
   }
 
   handleInputChange = e => {
     e.persist()
     this.delayedCallback(e)
+    this.setState({ value: e.target.value })
   }
 
   render() {
@@ -62,6 +76,7 @@ class Input extends PureComponent {
       readOnly,
       onKeyDown,
       activeDescendant,
+      value,
     } = this.props
 
     return (
@@ -83,6 +98,7 @@ class Input extends PureComponent {
             aria-activedescendant={activeDescendant}
             aria-autocomplete={onKeyDown ? 'list' : undefined}
             {...getAriaLabel(texts.label)}
+            value={this.state.value}
           />
         </li>
       </ul>

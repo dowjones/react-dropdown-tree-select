@@ -29,28 +29,29 @@ As noted above, this library extends the existing feature set of [react-dropdown
 | Prop                     | Value                 | Description                                                                                                                                |
 | ------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | `prependElement`         | Any valid JSX element | This allows for pre-pending an element to the top of the dropdown component (first child of the `.root` element).                          |
+| `enforceSingleSelection` | boolean               | When selected, will allow for only selecting a single element (as opposed to the tag-based selection bundled with this library by default) |
 | `highlightSearch`        | boolean               | Enables phrase matching/highlighting on search                                                                                             |
 | `onNodeHover`            | function              | Provides a callback for mouseover events on individual nodes                                                                               |
 | `onInputChange`          | function              | Provides a callback for when the search's input changes                                                                                    |
-| `enforceSingleSelection` | boolean               | When selected, will allow for only selecting a single element (as opposed to the tag-based selection bundled with this library by default) |
 
 Example usage:
 
 ```jsx
-import HierarchicalSelect from 'react-hierarchical-select'
-;<HierarchicalSelect
+import HierarchicalSelect from 'react-hierarchical-select';
+
+<HierarchicalSelect
   mode="hierarchical"
   showDropdown="always"
   data={menuItems}
   prependElement={
-    isHierarchical && <HierarchicalDisplay hierarchy={hierarchyStruct} displayLevels={this.props.displayLevels} />
+   <div>Foo</div>
   }
+  enforceSingleSelection={true}
   highlightSearch={true}
   onChange={this.onChange}
   onNodeHover={this.onNodeHover}
   onInputChange={this.onInputChange}
-  onNodeNavigate={this.onNodeNavigate}
-  enforceSingleSelection={true}
+  onNodeNavigate={this.onNodeNavigate}  
   value={this.props.selected}
 />
 ```

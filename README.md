@@ -14,9 +14,43 @@ This project is a fork of [react-dropdown-tree-select](https://github.com/dowjon
 - Changes to how nodes are selected
 
 ```
-Please note: this project has been extended according to a very specific set of use cases - your mileage may vary.
+Please note: this project has been extended to a specific use case.
+Your mileage may vary.
 ```
 
 # Getting Started
 
 Please follow the instructions on the [react-dropdown-tree-select](https://github.com/dowjones/react-dropdown-tree-select) Github page.
+
+# Usage
+
+As noted above, this library extends the existing feature set of [react-dropdown-tree-select](https://github.com/dowjones/react-dropdown-tree-select), with the following properties and associated functionality added:
+
+| Prop                     | Value                 | Description                                                                                                                                |
+| ------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `prependElement`         | Any valid JSX element | This allows for pre-pending an element to the top of the dropdown component (first child of the `.root` element).                          |
+| `highlightSearch`        | boolean               | Enables phrase matching/highlighting on search                                                                                             |
+| `onNodeHover`            | function              | Provides a callback for mouseover events on individual nodes                                                                               |
+| `onInputChange`          | function              | Provides a callback for when the search's input changes                                                                                    |
+| `enforceSingleSelection` | boolean               | When selected, will allow for only selecting a single element (as opposed to the tag-based selection bundled with this library by default) |
+
+Example usage:
+
+```jsx
+import HierarchicalSelect from 'react-hierarchical-select'
+;<HierarchicalSelect
+  mode="hierarchical"
+  showDropdown="always"
+  data={menuItems}
+  prependElement={
+    isHierarchical && <HierarchicalDisplay hierarchy={hierarchyStruct} displayLevels={this.props.displayLevels} />
+  }
+  highlightSearch={true}
+  onChange={this.onChange}
+  onNodeHover={this.onNodeHover}
+  onInputChange={this.onInputChange}
+  onNodeNavigate={this.onNodeNavigate}
+  enforceSingleSelection={true}
+  value={this.props.selected}
+/>
+```

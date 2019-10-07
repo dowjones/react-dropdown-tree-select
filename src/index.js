@@ -22,6 +22,12 @@ import { getAriaLabel } from './a11y'
 
 const cx = cn.bind(styles)
 
+const initialState = {
+  searchInput: '',
+  searchModeOn: false,
+  currentFocus: undefined,
+}
+
 class DropdownTreeSelect extends Component {
   static propTypes = {
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
@@ -67,11 +73,10 @@ class DropdownTreeSelect extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      searchInput: '',
-      searchModeOn: false,
-      currentFocus: undefined,
-    }
+
+    this.initialProps = props
+    this.state = initialState
+
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
@@ -84,6 +89,7 @@ class DropdownTreeSelect extends Component {
       searchPredicate,
       enforceSingleSelection: this.props.enforceSingleSelection,
     })
+
     // Restore focus-state
     const currentFocusNode = this.state.currentFocus && this.treeManager.getNodeById(this.state.currentFocus)
     if (currentFocusNode) {
@@ -119,12 +125,18 @@ class DropdownTreeSelect extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.initNewProps(nextProps)
-    if (!this.props.data.length && nextProps.data.length && this.props.value) {
-      const matchedElements = this.getNodeBySearchTerm(this.props.value)
-      if (matchedElements) {
-        this.setState({
-          scrollToElement: Array.from(matchedElements.values()).pop(),
-        })
+    if (!this.props.data.length && nextProps.data.length) {
+      this.initialData = nextProps.data
+
+      if (this.props.value) {
+        const matchedElements = this.getNodeBySearchTerm(this.props.value)
+        if (matchedElements) {
+          const domElement = Array.from(matchedElements.values()).pop()
+          this.setFocusedNode(domElement._id)
+          this.setState({
+            scrollToElement: domElement,
+          })
+        }
       }
     }
   }
@@ -158,6 +170,11 @@ class DropdownTreeSelect extends Component {
     this.handleClick()
   }
 
+  resetComponent = () => {
+    const initialPropsWithData = { ...this.initialProps, data: this.initialData }
+    this.setState(initialState, () => this.initNewProps(initialPropsWithData))
+  }
+
   onInputChange = value => {
     const { allNodesHidden, tree } = this.treeManager.filterTree(
       value,
@@ -168,6 +185,10 @@ class DropdownTreeSelect extends Component {
 
     if (this.props.onInputChange) this.props.onInputChange(value)
 
+    if (!value) {
+      return this.resetComponent()
+    }
+
     this.setState({
       searchInput: value,
       tree,
@@ -176,9 +197,12 @@ class DropdownTreeSelect extends Component {
     })
   }
 
+  setFocusedNode = nodeId => {
+    this.setState({ currentFocus: nodeId })
+  }
+
   getNodeBySearchTerm = value => {
     const { tree } = this.treeManager.filterTree(value, this.props.keepTreeOnSearch, this.props.keepChildrenOnSearch)
-
     return tree
   }
 
@@ -292,8 +316,8 @@ class DropdownTreeSelect extends Component {
       }
       return
     } else if (e.key === 'Backspace' && tags.length && this.searchInput.value.length === 0) {
-      const lastTag = tags.pop()
-      this.onCheckboxChange(lastTag._id, false)
+      // const lastTag = tags.pop()
+      // this.onCheckboxChange(lastTag._id, false)
     } else {
       return
     }
@@ -368,6 +392,7 @@ class DropdownTreeSelect extends Component {
                   searchInput={this.state.searchInput}
                   prependElement={this.props.prependElement}
                   highlightSearch={this.props.highlightSearch}
+                  onChange={this.props.onChange}
                   onNodeHover={this.props.onNodeHover}
                   onNodeNavigate={this.props.onNodeNavigate}
                   scrollHeight={this.props.scrollHeight}

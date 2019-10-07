@@ -59,11 +59,14 @@ class Tree extends Component {
 
     this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
       const { scrollableTarget } = this.state
-
-      if (scrollToElement && document) {
-        const domElement = document.getElementById(scrollToElement._id).parentNode
-        scrollableTarget.scrollTop = domElement.offsetTop
+      if (!this.props.scrollToElement && scrollToElement && document) {
+        const domElement = document.getElementById(scrollToElement._id)
+        if (domElement) {
+          scrollableTarget.scrollTop =
+            domElement.parentNode.offsetTop - (scrollableTarget.clientHeight - domElement.parentNode.clientHeight) / 2
+        }
       }
+
       if (hasSameActiveDescendant) return
 
       const activeLi = activeDescendant && document && document.getElementById(activeDescendant)

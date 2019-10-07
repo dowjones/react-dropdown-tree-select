@@ -111,12 +111,14 @@ class TreeNode extends PureComponent {
       onAction,
       searchModeOn,
       onNodeToggle,
+      onChange,
       onCheckboxChange,
       showPartiallySelected,
       readOnly,
       clientId,
     } = this.props
     const liCx = getNodeCx(this.props)
+
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
 
     const liId = `${_id}_li`
@@ -140,6 +142,7 @@ class TreeNode extends PureComponent {
         {...getDataset(dataset)}
         {...this.getAriaAttributes()}
         onMouseEnter={e => onNodeHover(e, nodeData)}
+        onClick={() => onChange(nodeData)}
       >
         <NodeLabel
           title={title}

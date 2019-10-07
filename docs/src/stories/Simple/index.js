@@ -4,7 +4,9 @@ import DropdownTreeSelect from '../../../../src'
 
 import data from './data.json'
 
-const onChange = (curNode, selectedNodes) => {}
+const onChange = (curNode, selectedNodes) => {
+  console.log({ curNode, selectedNodes })
+}
 const onAction = (node, action) => {}
 const onNodeToggle = curNode => {}
 const onNodeNavigate = data => {}
@@ -34,7 +36,7 @@ const Simple = () => (
       onNodeNavigate={onNodeNavigate}
       enforceSingleSelection={true}
       onInputChange={onInputChange}
-      value="Professor"
+      value="iWay (yeah)"
     />
   </div>
 )

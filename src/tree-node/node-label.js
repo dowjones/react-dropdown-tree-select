@@ -44,7 +44,9 @@ class NodeLabel extends PureComponent {
   }
 
   getHighlightedText(text, higlight) {
-    let parts = text.split(new RegExp(`(${higlight})`, 'gi'))
+    const escapeRegExp = (str = '') => str.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1')
+
+    let parts = text.split(new RegExp(`(${escapeRegExp(higlight)})`, 'i'))
     return (
       <span>
         {parts.map((part, i) => (

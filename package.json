@@ -1,6 +1,6 @@
 {
   "name": "react-hierarchical-select",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An extended/hierarchical dropdown library based on react-dropdown-tree-select",
   "keywords": [
     "react",

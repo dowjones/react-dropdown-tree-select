@@ -1,5 +1,6 @@
 {
   "extends": ["react-app", "plugin:prettier/recommended"],
+  "plugins": ["react-hooks"],
   "rules": {
     "prettier/prettier": ["error"],
     "react/jsx-filename-extension": [
@@ -7,6 +8,8 @@
       {
         "extensions": [".js", ".jsx"]
       }
-    ]
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   }
 }

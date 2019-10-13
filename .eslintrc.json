@@ -1,12 +1,28 @@
 {
-  "extends": ["react-app", "plugin:prettier/recommended"],
+  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
   "plugins": ["react-hooks"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
   "rules": {
-    "prettier/prettier": ["error"],
-    "react/jsx-filename-extension": [
-      1,
+    "jsx-a11y/href-no-hash": ["off"],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
+    "max-len": [
+      "warn",
       {
-        "extensions": [".js", ".jsx"]
+        "code": 120,
+        "tabWidth": 2,
+        "comments": 120,
+        "ignoreComments": false,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
       }
     ],
     "react-hooks/rules-of-hooks": "error",

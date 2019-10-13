@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 export const refUpdater = ({ checked }) => input => {
   if (input) {
+    // eslint-disable-next-line no-param-reassign
     input.checked = checked
   }
 }

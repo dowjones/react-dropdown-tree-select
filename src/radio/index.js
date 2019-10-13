@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'
 
 export const refUpdater = ({ checked }) => input => {
@@ -31,6 +33,13 @@ RadioButton.propTypes = {
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
+}
+
+RadioButton.defaultProps = {
+  checked: undefined,
+  onChange: () => {},
+  disabled: undefined,
+  readOnly: undefined,
 }
 
 export default RadioButton

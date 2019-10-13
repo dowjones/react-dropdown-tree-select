@@ -1,4 +1,6 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
 import Tag from '../tag'
@@ -40,7 +42,7 @@ const Input = props => {
     tags,
     onTagRemove,
     inputRef,
-    texts = {},
+    texts,
     onFocus,
     onBlur,
     disabled,
@@ -74,8 +76,12 @@ const Input = props => {
 }
 
 Input.propTypes = {
-  tags: PropTypes.array,
-  texts: PropTypes.object,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  texts: PropTypes.shape({
+    labelRemove: PropTypes.string,
+    placeholder: PropTypes.string,
+    label: PropTypes.string,
+  }),
   onInputChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
@@ -85,6 +91,20 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   activeDescendant: PropTypes.string,
+}
+
+Input.defaultProps = {
+  tags: [],
+  texts: {},
+  onInputChange: () => {},
+  onFocus: () => {},
+  onBlur: () => {},
+  onTagRemove: () => {},
+  onKeyDown: () => {},
+  inputRef: () => {},
+  disabled: undefined,
+  readOnly: undefined,
+  activeDescendant: undefined,
 }
 
 export default Input

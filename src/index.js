@@ -171,7 +171,7 @@ class DropdownTreeSelect extends Component {
   onCheckboxChange = (id, checked, callback) => {
     const { mode, keepOpenOnSelect } = this.props
     this.treeManager.setNodeCheckedState(id, checked)
-    let tags = this.treeManager.tags
+    let { tags } = this.treeManager
     const isSingleSelect = ['simpleSelect', 'radioSelect'].indexOf(mode) > -1
     const showDropdown = isSingleSelect && !keepOpenOnSelect ? false : this.state.showDropdown
 

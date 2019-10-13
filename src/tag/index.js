@@ -1,6 +1,4 @@
 import cn from 'classnames/bind'
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'
 import React from 'react'
 

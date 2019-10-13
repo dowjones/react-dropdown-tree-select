@@ -45,7 +45,8 @@
   "dependencies": {
     "array.partial": "^1.0.5",
     "classnames": "^2.2.6",
-    "react-infinite-scroll-component": "^4.0.2"
+    "react-infinite-scroll-component": "^4.0.2",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "7.0.0-beta.46",
@@ -100,7 +101,6 @@
     "prettier": "^1.18.2",
     "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "^0.4.2",
-    "prop-types": "^15.7.2",
     "raw-loader": "^0.5.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",

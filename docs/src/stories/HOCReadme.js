@@ -9,7 +9,7 @@ import HOCReadme from '../../HOC.md'
 
 export default class HOCStory extends React.Component {
   componentDidMount() {
-    global.Prism && global.Prism.highlightAll()
+    if (global.Prism) global.Prism.highlightAll()
   }
 
   render() {

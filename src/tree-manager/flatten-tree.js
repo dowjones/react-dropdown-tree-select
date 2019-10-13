@@ -1,6 +1,5 @@
-import getPartialState from './getPartialState'
-
 import { isEmpty } from '../utils'
+import getPartialState from './getPartialState'
 
 /**
  * Converts a nested node into an associative array with pointers to child and parent nodes

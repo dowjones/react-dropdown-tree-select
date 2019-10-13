@@ -1,7 +1,5 @@
-import React from 'react'
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export const refUpdater = ({ checked }) => input => {
   if (input) {

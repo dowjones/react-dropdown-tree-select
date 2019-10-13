@@ -1,12 +1,12 @@
+import cn from 'classnames/bind'
+import PropTypes from 'prop-types'
 import React from 'react'
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import PropTypes from 'prop-types'
-import cn from 'classnames/bind'
-import Tag from '../tag'
-import styles from './index.css'
-import { getDataset, debounce } from '../utils'
 import { getAriaLabel } from '../a11y'
+import { getDataset, debounce } from '../utils'
+import Tag from '../tag'
+
+import styles from './index.css'
 
 const cx = cn.bind(styles)
 

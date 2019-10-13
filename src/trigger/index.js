@@ -54,10 +54,12 @@ class Trigger extends PureComponent {
     // Just return if triggered from keyDown and the key isn't enter, space or arrow down
     if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
       return
-    } else if (e.key && this.triggerNode && this.triggerNode !== document.activeElement) {
+    }
+    if (e.key && this.triggerNode && this.triggerNode !== document.activeElement) {
       // Do not trigger if not activeElement
       return
-    } else if (!this.props.showDropdown && e.keyCode === 32) {
+    }
+    if (!this.props.showDropdown && e.keyCode === 32) {
       // Avoid adding space to input on open
       e.preventDefault()
     }

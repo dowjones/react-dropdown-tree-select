@@ -1,10 +1,12 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 
 export const refUpdater = ({ checked, indeterminate }) => input => {
   if (input) {
+    /* eslint-disable no-param-reassign */
     input.checked = checked
     input.indeterminate = indeterminate
+    /* eslint-enable no-param-reassign */
   }
 }
 

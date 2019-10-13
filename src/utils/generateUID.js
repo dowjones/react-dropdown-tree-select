@@ -5,6 +5,7 @@ const generateUID = prefix => {
 
   const get = item => {
     if (!map.has(item)) {
+      // eslint-disable-next-line no-plusplus
       map.set(item, counter++)
     }
     return `${prefix}${map.get(item)}`

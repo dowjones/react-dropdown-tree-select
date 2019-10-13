@@ -9,7 +9,7 @@ import Readme from '../../../README.md'
 
 export default class Story extends React.Component {
   componentDidMount() {
-    global.Prism && global.Prism.highlightAll()
+    if (global.Prism) global.Prism.highlightAll()
   }
 
   render() {

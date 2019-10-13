@@ -2,7 +2,7 @@ import test from 'ava'
 import React from 'react'
 import { mount } from 'enzyme'
 import TreeManager from '..'
-import DropdownTreeSelect from '../../'
+import DropdownTreeSelect from '../..'
 
 const dropdownId = 'rdts'
 const tree = ['nodeA', 'nodeB', 'nodeC'].map(nv => ({ id: nv, label: nv, value: nv }))

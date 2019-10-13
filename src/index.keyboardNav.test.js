@@ -195,7 +195,7 @@ test('should only scroll on keyboard navigation', t => {
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
 
-  const scrollTop = contentNode.scrollTop
+  const { scrollTop } = contentNode
 
   // Simulate scroll up and setting new props
   contentNode.scrollTop -= 20

@@ -1,8 +1,8 @@
-import getPartialState from './getPartialState'
 import { isEmpty } from '../utils'
 import flattenTree from './flatten-tree'
-import nodeVisitor from './nodeVisitor'
+import getPartialState from './getPartialState'
 import keyboardNavigation, { FocusActionNames } from './keyboardNavigation'
+import nodeVisitor from './nodeVisitor'
 
 class TreeManager {
   constructor({ data, mode, showPartiallySelected, rootPrefixId, searchPredicate }) {

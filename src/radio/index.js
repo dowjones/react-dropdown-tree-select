@@ -7,31 +7,29 @@ export const refUpdater = ({ checked }) => input => {
   }
 }
 
-class RadioButton extends PureComponent {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    checked: PropTypes.bool,
-    onChange: PropTypes.func,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-  }
+const RadioButton = props => {
+  const { name, checked, onChange, disabled, readOnly, ...rest } = props
+  const isDisabled = disabled || readOnly
+  return (
+    <input
+      type="radio"
+      name={name}
+      ref={refUpdater({
+        checked,
+      })}
+      onChange={onChange}
+      disabled={isDisabled}
+      {...rest}
+    />
+  )
+}
 
-  render() {
-    const { name, checked, onChange, disabled, readOnly, ...rest } = this.props
-
-    const isDisabled = disabled || readOnly
-
-    return (
-      <input
-        type="radio"
-        name={name}
-        ref={refUpdater({ checked })}
-        onChange={onChange}
-        disabled={isDisabled}
-        {...rest}
-      />
-    )
-  }
+RadioButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
 }
 
 export default RadioButton

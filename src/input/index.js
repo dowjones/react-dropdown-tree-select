@@ -25,68 +25,66 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
     )
   })
 
-class Input extends PureComponent {
-  static propTypes = {
-    tags: PropTypes.array,
-    texts: PropTypes.object,
-    onInputChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onTagRemove: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    inputRef: PropTypes.func,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    activeDescendant: PropTypes.string,
-  }
+const createDelayedCallback = callback => debounce(e => callback(e.target.value), 300)
 
-  constructor(props) {
-    super(props)
-    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 300)
-  }
-
-  handleInputChange = e => {
+function handleChange(onInputChange) {
+  const delayedCallback = createDelayedCallback(onInputChange)
+  return e => {
     e.persist()
-    this.delayedCallback(e)
+    delayedCallback(e)
   }
+}
 
-  render() {
-    const {
-      tags,
-      onTagRemove,
-      inputRef,
-      texts = {},
-      onFocus,
-      onBlur,
-      disabled,
-      readOnly,
-      onKeyDown,
-      activeDescendant,
-    } = this.props
+const Input = props => {
+  const {
+    tags,
+    onTagRemove,
+    inputRef,
+    texts = {},
+    onFocus,
+    onBlur,
+    disabled,
+    readOnly,
+    onKeyDown,
+    activeDescendant,
+    onInputChange,
+  } = props
+  return (
+    <ul className={cx('tag-list')}>
+      {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+      <li className={cx('tag-item')}>
+        <input
+          type="text"
+          disabled={disabled}
+          ref={inputRef}
+          className={cx('search')}
+          placeholder={texts.placeholder || 'Choose...'}
+          onKeyDown={onKeyDown}
+          onChange={handleChange(onInputChange)}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          readOnly={readOnly}
+          aria-activedescendant={activeDescendant}
+          aria-autocomplete={onKeyDown ? 'list' : undefined}
+          {...getAriaLabel(texts.label)}
+        />
+      </li>
+    </ul>
+  )
+}
 
-    return (
-      <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-        <li className={cx('tag-item')}>
-          <input
-            type="text"
-            disabled={disabled}
-            ref={inputRef}
-            className={cx('search')}
-            placeholder={texts.placeholder || 'Choose...'}
-            onKeyDown={onKeyDown}
-            onChange={this.handleInputChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            readOnly={readOnly}
-            aria-activedescendant={activeDescendant}
-            aria-autocomplete={onKeyDown ? 'list' : undefined}
-            {...getAriaLabel(texts.label)}
-          />
-        </li>
-      </ul>
-    )
-  }
+Input.propTypes = {
+  tags: PropTypes.array,
+  texts: PropTypes.object,
+  onInputChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onTagRemove: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  inputRef: PropTypes.func,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  activeDescendant: PropTypes.string,
 }
 
 export default Input

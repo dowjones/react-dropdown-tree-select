@@ -1,9 +1,10 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React from 'react'
 
 import { getDataset, isEmpty } from '../utils'
 import Actions from './actions'
+import { actionType } from './action'
 import NodeLabel from './node-label'
 import Toggle from './toggle'
 
@@ -48,98 +49,122 @@ const getNodeCx = props => {
   )
 }
 
-class TreeNode extends PureComponent {
-  static propTypes = {
-    _id: PropTypes.string.isRequired,
-    _depth: PropTypes.number,
-    _children: PropTypes.array,
-    actions: PropTypes.array,
-    className: PropTypes.string,
-    title: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    checked: PropTypes.bool,
-    expanded: PropTypes.bool,
-    disabled: PropTypes.bool,
-    partial: PropTypes.bool,
-    dataset: PropTypes.object,
-    keepTreeOnSearch: PropTypes.bool,
-    keepChildrenOnSearch: PropTypes.bool,
-    searchModeOn: PropTypes.bool,
-    onNodeToggle: PropTypes.func,
-    onAction: PropTypes.func,
-    onCheckboxChange: PropTypes.func,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
-    showPartiallySelected: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    clientId: PropTypes.string,
+const getAriaAttributes = props => {
+  const { _children, _depth, checked, disabled, expanded, readOnly, mode, partial } = props
+  const attributes = {}
+
+  attributes.role = mode === 'simpleSelect' ? 'option' : 'treeitem'
+  attributes['aria-disabled'] = disabled || readOnly
+  attributes['aria-selected'] = checked
+  if (mode !== 'simpleSelect') {
+    attributes['aria-checked'] = partial ? 'mixed' : checked
+    attributes['aria-level'] = (_depth || 0) + 1
+    attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
   }
+  return attributes
+}
 
-  getAriaAttributes = () => {
-    const { _children, _depth, checked, disabled, expanded, readOnly, mode, partial } = this.props
-    const attributes = {}
+const TreeNode = props => {
+  const {
+    mode,
+    keepTreeOnSearch,
+    _id,
+    _children,
+    dataset,
+    _depth,
+    expanded,
+    title,
+    label,
+    partial,
+    checked,
+    value,
+    disabled,
+    actions,
+    onAction,
+    searchModeOn,
+    onNodeToggle,
+    onCheckboxChange,
+    showPartiallySelected,
+    readOnly,
+    clientId,
+  } = props
+  const liCx = getNodeCx(props)
+  const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${_depth * 20}px` } : {}
+  const liId = `${_id}_li`
+  return (
+    <li
+      className={liCx}
+      style={style}
+      id={liId}
+      {...getDataset(dataset)}
+      {...getAriaAttributes({ _children, _depth, checked, disabled, expanded, readOnly, mode, partial })}
+    >
+      <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
+      <NodeLabel
+        title={title}
+        label={label}
+        id={_id}
+        partial={partial}
+        checked={checked}
+        value={value}
+        disabled={disabled}
+        mode={mode}
+        onCheckboxChange={onCheckboxChange}
+        showPartiallySelected={showPartiallySelected}
+        readOnly={readOnly}
+        clientId={clientId}
+      />
+      <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
+    </li>
+  )
+}
 
-    attributes.role = mode === 'simpleSelect' ? 'option' : 'treeitem'
-    attributes['aria-disabled'] = disabled || readOnly
-    attributes['aria-selected'] = checked
-    if (mode !== 'simpleSelect') {
-      attributes['aria-checked'] = partial ? 'mixed' : checked
-      attributes['aria-level'] = (_depth || 0) + 1
-      attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
-    }
-    return attributes
-  }
+TreeNode.propTypes = {
+  _id: PropTypes.string.isRequired,
+  _depth: PropTypes.number,
+  _children: PropTypes.arrayOf(PropTypes.node),
+  actions: PropTypes.arrayOf(PropTypes.shape(actionType)),
+  className: PropTypes.string,
+  title: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  expanded: PropTypes.bool,
+  disabled: PropTypes.bool,
+  partial: PropTypes.bool,
+  dataset: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+  keepTreeOnSearch: PropTypes.bool,
+  keepChildrenOnSearch: PropTypes.bool,
+  searchModeOn: PropTypes.bool,
+  onNodeToggle: PropTypes.func,
+  onAction: PropTypes.func,
+  onCheckboxChange: PropTypes.func,
+  mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
+  showPartiallySelected: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  clientId: PropTypes.string.isRequired,
+}
 
-  render() {
-    const {
-      mode,
-      keepTreeOnSearch,
-      _id,
-      _children,
-      dataset,
-      _depth,
-      expanded,
-      title,
-      label,
-      partial,
-      checked,
-      value,
-      disabled,
-      actions,
-      onAction,
-      searchModeOn,
-      onNodeToggle,
-      onCheckboxChange,
-      showPartiallySelected,
-      readOnly,
-      clientId,
-    } = this.props
-    const liCx = getNodeCx(this.props)
-    const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
-
-    const liId = `${_id}_li`
-
-    return (
-      <li className={liCx} style={style} id={liId} {...getDataset(dataset)} {...this.getAriaAttributes()}>
-        <Toggle isLeaf={isLeaf(_children)} expanded={expanded} id={_id} onNodeToggle={onNodeToggle} />
-        <NodeLabel
-          title={title}
-          label={label}
-          id={_id}
-          partial={partial}
-          checked={checked}
-          value={value}
-          disabled={disabled}
-          mode={mode}
-          onCheckboxChange={onCheckboxChange}
-          showPartiallySelected={showPartiallySelected}
-          readOnly={readOnly}
-          clientId={clientId}
-        />
-        <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
-      </li>
-    )
-  }
+TreeNode.defaultProps = {
+  _depth: 0,
+  _children: undefined,
+  actions: undefined,
+  className: undefined,
+  title: undefined,
+  checked: undefined,
+  expanded: undefined,
+  disabled: undefined,
+  partial: undefined,
+  dataset: undefined,
+  keepTreeOnSearch: undefined,
+  keepChildrenOnSearch: undefined,
+  searchModeOn: undefined,
+  onNodeToggle: undefined,
+  onAction: undefined,
+  onCheckboxChange: undefined,
+  mode: undefined,
+  showPartiallySelected: undefined,
+  readOnly: undefined,
 }
 
 export default TreeNode

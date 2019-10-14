@@ -1,25 +1,33 @@
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React from 'react'
 
-import Action from './action'
 import { isEmpty } from '../utils'
+import Action, { actionType } from './action'
 
-class Actions extends PureComponent {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    actions: PropTypes.array,
-  }
+const Actions = ({ actions, id, ...rest }) => {
+  if (isEmpty(actions)) return null
 
-  render() {
-    const { actions, id, ...rest } = this.props
-
-    if (isEmpty(actions)) return null
-
-    return actions.map((a, idx) => {
-      const actionId = a.id || `action-${idx}`
-      return <Action key={actionId} {...rest} {...a} actionData={{ action: { ...a, id: actionId }, nodeId: id }} />
-    })
-  }
+  return actions.map((a, idx) => {
+    const actionId = a.id || `action-${idx}`
+    return (
+      <Action
+        key={actionId}
+        {...rest}
+        {...a}
+        actionData={{
+          action: { ...a, id: actionId },
+          nodeId: id,
+        }}
+      />
+    )
+  })
 }
+
+Actions.propTypes = {
+  id: PropTypes.string.isRequired,
+  actions: PropTypes.arrayOf(PropTypes.shape(actionType)),
+}
+
+Actions.defaultProps = { actions: [] }
 
 export default Actions

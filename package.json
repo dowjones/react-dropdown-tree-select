@@ -45,8 +45,8 @@
   "dependencies": {
     "array.partial": "^1.0.5",
     "classnames": "^2.2.6",
-    "react-infinite-scroll-component": "^4.0.2",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "7.0.0-beta.46",
@@ -105,6 +105,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-story": "^0.0.10",
+    "react-to-typescript-definitions": "^2.0.0",
     "rimraf": "^2.6.1",
     "sinon": "^5.0.0",
     "style-loader": "^0.20.1",

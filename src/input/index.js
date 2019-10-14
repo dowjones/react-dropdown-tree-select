@@ -3,29 +3,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { getAriaLabel } from '../a11y'
-import { getDataset, debounce } from '../utils'
-import Tag from '../tag'
+import { debounce } from '../utils'
+import getTags, { tagType } from './tags'
 
 import styles from './index.css'
 
 const cx = cn.bind(styles)
-
-const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
-  tags.map(tag => {
-    const { _id, label, tagClassName, dataset } = tag
-    return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
-        <Tag
-          label={label}
-          id={_id}
-          onDelete={onDelete}
-          readOnly={readOnly}
-          disabled={disabled}
-          labelRemove={labelRemove}
-        />
-      </li>
-    )
-  })
 
 const createDelayedCallback = callback => debounce(e => callback(e.target.value), 300)
 
@@ -76,7 +59,7 @@ const Input = props => {
 }
 
 Input.propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.string),
+  tags: PropTypes.arrayOf(PropTypes.shape(tagType)),
   texts: PropTypes.shape({
     labelRemove: PropTypes.string,
     placeholder: PropTypes.string,

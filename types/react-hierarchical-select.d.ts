@@ -138,6 +138,7 @@ declare module 'react-hierarchical-select' {
     enforceSingleSelection?: boolean
 
     /**
+     * The selecetd value.
      * TODO: We have to double check this, current vaue van be of type string, string[], any[] whitch is not correct.
      * @type {(string | any[] | string[])}
      * @memberof DropdownTreeSelectProps

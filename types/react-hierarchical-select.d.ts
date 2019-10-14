@@ -1,5 +1,5 @@
 // tslint:disable:interface-name
-declare module 'react-dropdown-tree-select' {
+declare module 'react-hierarchical-select' {
   import * as React from 'react'
 
   export type TreeData = Object | TreeNodeProps[]
@@ -97,6 +97,52 @@ declare module 'react-dropdown-tree-select' {
     id?: string
     /** Optional search predicate to override the default case insensitive contains match on node labels. */
     searchPredicate?: (currentNode: TreeNode, searchTerm: string) => boolean
+
+    /**
+     * Element to prepend the dropdown with.
+     * @type {JSX.Element}
+     * @memberof DropdownTreeSelectProps
+     */
+    prependElement?: JSX.Element
+
+    /**
+     * Whether or not searches should be highlighted.
+     * @type {boolean}
+     * @memberof DropdownTreeSelectProps
+     */
+    highlightSearch?: boolean
+
+    /**
+     * The function that should be called when hovering over a Node element.
+     * @memberof DropdownTreeSelectProps
+     */
+    onNodeHover?: (e: MouseEvent, data: IDropdownNode) => void
+
+    /**
+     * Function that is called whenever the dropdown input changes.
+     * @memberof DropdownTreeSelectProps
+     */
+    onInputChange?: (value: string) => void
+
+    /**
+     * Function that is called whenver a node is being navigated.
+     * @memberof DropdownTreeSelectProps
+     */
+    onNodeNavigate?: (data: IDropdownNode) => void
+
+    /**
+     * Whether or not only a single selection can be made.
+     * @type {boolean}
+     * @memberof DropdownTreeSelectProps
+     */
+    enforceSingleSelection?: boolean
+
+    /**
+     * TODO: We have to double check this, current vaue van be of type string, string[], any[] whitch is not correct.
+     * @type {(string | any[] | string[])}
+     * @memberof DropdownTreeSelectProps
+     */
+    value?: string | any[] | string[]
   }
 
   export interface DropdownTreeSelectState {
@@ -154,7 +200,7 @@ declare module 'react-dropdown-tree-select' {
     placeholder?: string
     /** The text to display when the search does not find results in the content list. Defaults to No matches found */
     noMatches?: string
-    /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */
+    /** Adds `aria-labelledby` to search input when input starts  ith `#`, adds `aria-label` to search input when label has value (not containing '#') */
     label?: string
     /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
     labelRemove?: string
@@ -169,6 +215,14 @@ declare module 'react-dropdown-tree-select' {
     text?: string
     /** Any extra properties that you'd like to receive during `onChange` event */
     [property: string]: any
+  }
+
+  export interface IDropdownNode {
+    checked: boolean
+    label: string
+    title: string
+    value: string
+    parent?: string
   }
 
   export interface NodeDataSet {

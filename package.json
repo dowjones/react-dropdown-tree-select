@@ -19,7 +19,7 @@
     "search"
   ],
   "main": "dist/react-dropdown-tree-select.js",
-  "types": "dist/react-dropdown-tree-select.d.ts",
+  "types": "dist/react-hierarchical-select.d.ts",
   "repository": "https://github.com/ruaanvds/react-dropdown-tree-select",
   "author": "Hrusikesh Panda <hrusikesh.panda@dowjones.com>",
   "license": "MIT",
@@ -43,6 +43,7 @@
     "dist"
   ],
   "dependencies": {
+    "@types/react": "16.8.23",
     "array.partial": "^1.0.5",
     "classnames": "^2.2.6",
     "react-infinite-scroll-component": "^4.0.2"
@@ -102,7 +103,7 @@
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
-    "react": "^16.0.0",
+    "react": "16.8.6",
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
     "rimraf": "^2.6.1",
@@ -118,7 +119,7 @@
     "why-did-you-update": "^0.1.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": "16.8.6"
   },
   "ava": {
     "files": [
@@ -166,33 +167,10 @@
   "stylelint": {
     "extends": "stylelint-config-standard"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "subject-case": [
-        2,
-        "always",
-        "sentence-case"
-      ]
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog-emoji"
-    }
-  },
   "lint-staged": {
     "*.{js,json,css,md,ts}": [
       "prettier --write",
       "git add -f"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   }
 }

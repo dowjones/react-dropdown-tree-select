@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const handleClickFactory = ({ onAction, actionData }) => () => {
-  if (onAction) {
+  if (typeof onAction === 'function') {
     onAction(actionData.nodeId, actionData.action)
   }
 }
@@ -33,14 +33,5 @@ export const actionType = {
 }
 
 Action.propTypes = actionType
-
-Action.defaultProps = {
-  onAction: () => {},
-  title: undefined,
-  text: undefined,
-  className: undefined,
-  actionData: PropTypes.object,
-  readOnly: undefined,
-}
 
 export default Action

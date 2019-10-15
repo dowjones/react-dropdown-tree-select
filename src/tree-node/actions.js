@@ -28,6 +28,4 @@ Actions.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.shape(actionType)),
 }
 
-Actions.defaultProps = { actions: undefined }
-
 export default Actions

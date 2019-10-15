@@ -1,99 +1,107 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
+import PropTypes from 'prop-types'
+import React, { memo, useCallback } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
+import { tagType } from '../input/tags'
 
 import styles from '../index.css'
 
 const cx = cn.bind(styles)
 
-class Trigger extends PureComponent {
-  static propTypes = {
-    onTrigger: PropTypes.func,
-    disabled: PropTypes.bool,
-    readOnly: PropTypes.bool,
-    showDropdown: PropTypes.bool,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
-    texts: PropTypes.object,
-    clientId: PropTypes.string,
-    tags: PropTypes.array,
+const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags }) => {
+  const triggerId = `${clientId}_trigger`
+  const labelledBy = []
+  let labelAttributes = getAriaLabel(texts.label)
+  if (tags && tags.length) {
+    if (labelAttributes['aria-label']) {
+      // Adds reference to self when having aria-label
+      labelledBy.push(triggerId)
+    }
+    tags.forEach(t => {
+      labelledBy.push(getTagId(t._id))
+    })
+    labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
   }
 
-  getAriaAttributes = () => {
-    const { mode, texts = {}, showDropdown, clientId, tags } = this.props
-
-    const triggerId = `${clientId}_trigger`
-    const labelledBy = []
-    let labelAttributes = getAriaLabel(texts.label)
-    if (tags && tags.length) {
-      if (labelAttributes['aria-label']) {
-        // Adds reference to self when having aria-label
-        labelledBy.push(triggerId)
-      }
-      tags.forEach(t => {
-        labelledBy.push(getTagId(t._id))
-      })
-      labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
-    }
-
-    const attributes = {
-      id: triggerId,
-      role: 'button',
-      tabIndex: 0,
-      'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
-      'aria-expanded': showDropdown ? 'true' : 'false',
-      ...labelAttributes,
-    }
-
-    return attributes
+  const attributes = {
+    id: triggerId,
+    role: 'button',
+    tabIndex: 0,
+    'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
+    'aria-expanded': showDropdown ? 'true' : 'false',
+    ...labelAttributes,
   }
 
-  handleTrigger = e => {
+  return attributes
+}
+
+const Trigger = props => {
+  let triggerNode
+  const ref = useCallback(node => {
+    triggerNode = node
+  }, [])
+
+  const { disabled, readOnly, mode, texts = {}, showDropdown, clientId, tags, onTrigger, children } = props
+  const dropdownTriggerClassname = cx({
+    'dropdown-trigger': true,
+    arrow: true,
+    disabled,
+    readOnly,
+    top: showDropdown,
+    bottom: !showDropdown,
+  })
+
+  const handleTrigger = e => {
     // Just return if triggered from keyDown and the key isn't enter, space or arrow down
     if (e.key && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 40) {
       return
     }
-    if (e.key && this.triggerNode && this.triggerNode !== document.activeElement) {
+
+    if (e.key && triggerNode && triggerNode !== document.activeElement) {
       // Do not trigger if not activeElement
       return
     }
-    if (!this.props.showDropdown && e.keyCode === 32) {
+
+    if (!showDropdown && e.keyCode === 32) {
       // Avoid adding space to input on open
       e.preventDefault()
     }
 
     // Else this is a key press that should trigger the dropdown
-    this.props.onTrigger(e)
+    onTrigger(e)
   }
 
-  render() {
-    const { disabled, readOnly, showDropdown } = this.props
-
-    const dropdownTriggerClassname = cx({
-      'dropdown-trigger': true,
-      arrow: true,
-      disabled,
-      readOnly,
-      top: showDropdown,
-      bottom: !showDropdown,
-    })
-
-    return (
-      <a
-        ref={node => {
-          this.triggerNode = node
-        }}
-        className={dropdownTriggerClassname}
-        onClick={!disabled ? this.handleTrigger : undefined}
-        onKeyDown={!disabled ? this.handleTrigger : undefined}
-        {...this.getAriaAttributes()}
-      >
-        {this.props.children}
-      </a>
-    )
-  }
+  return (
+    <a
+      ref={ref}
+      className={dropdownTriggerClassname}
+      onClick={!disabled ? handleTrigger : undefined}
+      onKeyDown={!disabled ? handleTrigger : undefined}
+      {...getAriaAttributes({
+        mode,
+        texts,
+        showDropdown,
+        clientId,
+        tags,
+      })}
+    >
+      {children}
+    </a>
+  )
 }
 
-export default Trigger
+Trigger.propTypes = {
+  onTrigger: PropTypes.func,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  showDropdown: PropTypes.bool,
+  mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
+  texts: PropTypes.shape({ label: PropTypes.string }),
+  clientId: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.shape(tagType)),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+}
+
+export default memo(Trigger)

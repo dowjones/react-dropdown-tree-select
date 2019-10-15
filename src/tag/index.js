@@ -1,6 +1,6 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { memo } from 'react'
 
 import styles from './index.css'
 
@@ -29,7 +29,7 @@ const onKeyUpFactory = ({ handleClick }) => e => {
 }
 
 const Tag = props => {
-  const { id, label, labelRemove, readOnly, disabled, onDelete } = props
+  const { id, label, labelRemove = 'Remove', readOnly, disabled, onDelete } = props
   const tagId = getTagId(id)
   const buttonId = `${id}_button`
   const className = cx('tag-remove', { readOnly, disabled })
@@ -73,11 +73,4 @@ Tag.propTypes = {
   labelRemove: PropTypes.string,
 }
 
-Tag.defaultProps = {
-  onDelete: () => {},
-  readOnly: undefined,
-  disabled: undefined,
-  labelRemove: 'Remove',
-}
-
-export default Tag
+export default memo(Tag)

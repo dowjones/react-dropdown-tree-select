@@ -23,9 +23,9 @@
       "name": "Run AVA test",
       "program": "${workspaceFolder}/node_modules/ava/cli.js",
       "autoAttachChildProcesses": true,
-      //"args": ["${file}", "--serial"],
+      "args": ["${file}", "--serial"],
       // "args": ["${file}"],
-      "args": ["${workspaceFolder}\\src\\index.test.js", "--serial"],
+      //"args": ["${workspaceFolder}/src/index.test.js", "--serial"],
       "skipFiles": ["<node_internals>/**/*.js"]
     }
   ]

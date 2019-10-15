@@ -1,30 +1,25 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 
 export const refUpdater = ({ checked, indeterminate }) => input => {
   if (input) {
-    /* eslint-disable no-param-reassign */
     input.checked = checked
     input.indeterminate = indeterminate
-    /* eslint-enable no-param-reassign */
   }
 }
 
 const Checkbox = props => {
   const { checked, indeterminate = false, onChange, disabled, readOnly, ...rest } = props
   const isDisabled = disabled || readOnly
-  return (
-    <input
-      type="checkbox"
-      ref={refUpdater({
-        checked,
-        indeterminate,
-      })}
-      onChange={onChange}
-      disabled={isDisabled}
-      {...rest}
-    />
-  )
+
+  const ref = useCallback(node => {
+    if (node) {
+      node.checked = checked
+      node.indeterminate = indeterminate
+    }
+  }, [])
+
+  return <input type="checkbox" ref={ref} onChange={onChange} disabled={isDisabled} {...rest} />
 }
 
 Checkbox.propTypes = {
@@ -35,4 +30,4 @@ Checkbox.propTypes = {
   readOnly: PropTypes.bool,
 }
 
-export default Checkbox
+export default memo(Checkbox)

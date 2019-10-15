@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { memo } from 'react'
 
 export const refUpdater = ({ checked }) => input => {
   if (input) {
-    // eslint-disable-next-line no-param-reassign
     input.checked = checked
   }
 }
@@ -33,11 +32,4 @@ RadioButton.propTypes = {
   readOnly: PropTypes.bool,
 }
 
-RadioButton.defaultProps = {
-  checked: undefined,
-  onChange: () => {},
-  disabled: undefined,
-  readOnly: undefined,
-}
-
-export default RadioButton
+export default memo(RadioButton)

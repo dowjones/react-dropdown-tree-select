@@ -13,12 +13,13 @@
     "jsx-a11y/href-no-hash": ["off"],
     "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0,
     "import/no-extraneous-dependencies": [
       "error",
       { "devDependencies": ["**/*.test.js", "**/docs/**/*", "webpack.config.js", "a11y/a11y.utils.js"] }
     ],
     "no-underscore-dangle": 0,
-    "no-param-reassign": ["error", { "ignorePropertyModificationsFor": ["t", "node"] }],
+    "no-param-reassign": ["error", { "ignorePropertyModificationsFor": ["t", "node", "input"] }],
     "react/destructuring-assignment": 0,
     "max-len": [
       "warn",

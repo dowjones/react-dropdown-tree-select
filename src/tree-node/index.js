@@ -1,6 +1,6 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { memo } from 'react'
 
 import { getDataset, isEmpty } from '../utils'
 import Actions from './actions'
@@ -58,7 +58,7 @@ const getAriaAttributes = props => {
   attributes['aria-selected'] = checked
   if (mode !== 'simpleSelect') {
     attributes['aria-checked'] = partial ? 'mixed' : checked
-    attributes['aria-level'] = (_depth || 0) + 1
+    attributes['aria-level'] = _depth + 1
     attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
   }
   return attributes
@@ -71,7 +71,7 @@ const TreeNode = props => {
     _id,
     _children,
     dataset,
-    _depth,
+    _depth = 0,
     expanded,
     title,
     label,
@@ -145,26 +145,4 @@ TreeNode.propTypes = {
   clientId: PropTypes.string.isRequired,
 }
 
-TreeNode.defaultProps = {
-  _depth: 0,
-  _children: undefined,
-  actions: undefined,
-  className: undefined,
-  title: undefined,
-  checked: undefined,
-  expanded: undefined,
-  disabled: undefined,
-  partial: undefined,
-  dataset: undefined,
-  keepTreeOnSearch: undefined,
-  keepChildrenOnSearch: undefined,
-  searchModeOn: undefined,
-  onNodeToggle: undefined,
-  onAction: undefined,
-  onCheckboxChange: undefined,
-  mode: undefined,
-  showPartiallySelected: undefined,
-  readOnly: undefined,
-}
-
-export default TreeNode
+export default memo(TreeNode)

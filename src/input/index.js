@@ -1,6 +1,6 @@
 import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { memo } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { debounce } from '../utils'
@@ -25,7 +25,7 @@ const Input = props => {
     tags,
     onTagRemove,
     inputRef,
-    texts,
+    texts = {},
     onFocus,
     onBlur,
     disabled,
@@ -76,18 +76,4 @@ Input.propTypes = {
   activeDescendant: PropTypes.string,
 }
 
-Input.defaultProps = {
-  tags: [],
-  texts: {},
-  onInputChange: () => {},
-  onFocus: () => {},
-  onBlur: () => {},
-  onTagRemove: () => {},
-  onKeyDown: () => {},
-  inputRef: () => {},
-  disabled: undefined,
-  readOnly: undefined,
-  activeDescendant: undefined,
-}
-
-export default Input
+export default memo(Input)

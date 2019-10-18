@@ -14,23 +14,6 @@ const shouldRenderNode = (node, searchModeOn, data) => {
 }
 
 class Tree extends Component {
-  static propTypes = {
-    data: PropTypes.object,
-    keepTreeOnSearch: PropTypes.bool,
-    keepChildrenOnSearch: PropTypes.bool,
-    searchModeOn: PropTypes.bool,
-    onChange: PropTypes.func,
-    onNodeToggle: PropTypes.func,
-    onAction: PropTypes.func,
-    onCheckboxChange: PropTypes.func,
-    mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
-    showPartiallySelected: PropTypes.bool,
-    pageSize: PropTypes.number,
-    readOnly: PropTypes.bool,
-    clientId: PropTypes.string,
-    activeDescendant: PropTypes.string,
-  }
-
   static defaultProps = {
     pageSize: 100,
   }
@@ -160,6 +143,23 @@ class Tree extends Component {
       </ul>
     )
   }
+}
+
+Tree.propTypes = {
+  data: PropTypes.object,
+  keepTreeOnSearch: PropTypes.bool,
+  keepChildrenOnSearch: PropTypes.bool,
+  searchModeOn: PropTypes.bool,
+  onChange: PropTypes.func,
+  onNodeToggle: PropTypes.func,
+  onAction: PropTypes.func,
+  onCheckboxChange: PropTypes.func,
+  mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
+  showPartiallySelected: PropTypes.bool,
+  pageSize: PropTypes.number,
+  readOnly: PropTypes.bool,
+  clientId: PropTypes.string,
+  activeDescendant: PropTypes.string,
 }
 
 export default Tree

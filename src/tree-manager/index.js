@@ -217,7 +217,7 @@ class TreeManager {
     }
 
     if (!isEmpty(node._children)) {
-      node._children.forEach(id => this.toggleChildren(id, state))
+      node._children.forEach(childId => this.toggleChildren(childId, state))
     }
   }
 

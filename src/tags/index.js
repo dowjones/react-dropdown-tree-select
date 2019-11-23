@@ -7,6 +7,23 @@ import { getDataset } from '../utils'
 
 const cx = cn.bind(styles)
 
+const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
+  tags.map(tag => {
+    const { _id, label, tagClassName, dataset } = tag
+    return (
+      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
+        <Tag
+          label={label}
+          id={_id}
+          onDelete={onDelete}
+          readOnly={readOnly}
+          disabled={disabled}
+          labelRemove={labelRemove}
+        />
+      </li>
+    )
+  })
+
 class Tags extends PureComponent {
   static propTypes = {
     tags: PropTypes.array,
@@ -21,21 +38,7 @@ class Tags extends PureComponent {
     const { tags, onTagRemove, texts = {}, disabled, readOnly, children } = this.props
     return (
       <ul className={cx('tag-list')}>
-        {tags.map(tag => {
-          const { _id, label, tagClassName, dataset } = tag
-          return (
-            <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
-              <Tag
-                label={label}
-                id={_id}
-                onDelete={onTagRemove}
-                readOnly={readOnly}
-                disabled={disabled}
-                labelRemove={texts.labelRemove}
-              />
-            </li>
-          )
-        })}
+        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
         {children && <li className={cx('tag-item')}>{children}</li>}
         {!children && tags.length === 0 && (
           <li className={cx('tag-item')}>

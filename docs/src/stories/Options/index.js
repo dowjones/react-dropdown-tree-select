@@ -15,9 +15,11 @@ class WithOptions extends PureComponent {
       keepTreeOnSearch: false,
       keepOpenOnSelect: false,
       mode: 'multiSelect',
+      searchInputLocation: 'dropdownToggle',
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
+      showSearchInput: true,
       hierarchical: false,
     }
   }
@@ -45,7 +47,9 @@ class WithOptions extends PureComponent {
       showPartiallySelected,
       disabled,
       readOnly,
+      showSearchInput,
       showDropdown,
+      searchInputLocation,
     } = this.state
 
     return (
@@ -81,6 +85,17 @@ class WithOptions extends PureComponent {
               <option value="always">Always</option>
             </select>
           </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor={searchInputLocation}>Show dropdown: </label>
+            <select
+              id="searchInputLocation"
+              value={searchInputLocation}
+              onChange={e => this.setState({ searchInputLocation: e.target.value })}
+            >
+              <option value="dropdownToggle">Dropdown Toggle</option>
+              <option value="dropdownContent">Dropdown Content</option>
+            </select>
+          </div>
           <Checkbox
             label="Clear search on selection"
             value="clearSearchOnChange"
@@ -107,6 +122,12 @@ class WithOptions extends PureComponent {
           />
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
+          <Checkbox
+            label="Show Search Input"
+            value="showSearchInput"
+            checked={showSearchInput}
+            onChange={this.onOptionsChange}
+          />
         </div>
         <div>
           <DropdownTreeSelect
@@ -122,6 +143,8 @@ class WithOptions extends PureComponent {
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}
+            showSearchInput={showSearchInput}
+            searchInputLocation={searchInputLocation}
             showDropdown={showDropdown}
             texts={{ label: 'Demo Dropdown' }}
           />

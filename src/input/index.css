@@ -1,25 +1,13 @@
-.node > label {
-  cursor: pointer;
-  margin-left: 2px;
+.search {
+  border: none;
+  border-bottom: solid 1px #ccc;
+  outline: none;
 }
 
-.tag-list {
-  display: inline;
-  padding: 0;
-  margin: 0;
+.search-dropdown-trigger {
 }
 
-.tag-item {
-  display: inline-block;
-  margin: 4px;
-
-  .search {
-    border: none;
-    border-bottom: solid 1px #ccc;
-    outline: none;
-  }
-}
-
-.tag-item:last-child {
-  margin-right: 4px;
+.search-dropdown-content {
+  width: 100%;
+  margin-bottom: 5px;
 }

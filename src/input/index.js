@@ -1,29 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames/bind'
-import Tag from '../tag'
 import styles from './index.css'
-import { getDataset, debounce } from '../utils'
+import { debounce } from '../utils'
 import { getAriaLabel } from '../a11y'
 
 const cx = cn.bind(styles)
-
-const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
-  tags.map(tag => {
-    const { _id, label, tagClassName, dataset } = tag
-    return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
-        <Tag
-          label={label}
-          id={_id}
-          onDelete={onDelete}
-          readOnly={readOnly}
-          disabled={disabled}
-          labelRemove={labelRemove}
-        />
-      </li>
-    )
-  })
 
 class Input extends PureComponent {
   static propTypes = {
@@ -38,6 +20,7 @@ class Input extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     activeDescendant: PropTypes.string,
+    searchInputLocation: PropTypes.oneOf(['dropdownToggle', 'dropdownContent']),
   }
 
   constructor(props) {
@@ -52,8 +35,6 @@ class Input extends PureComponent {
 
   render() {
     const {
-      tags,
-      onTagRemove,
       inputRef,
       texts = {},
       onFocus,
@@ -62,29 +43,28 @@ class Input extends PureComponent {
       readOnly,
       onKeyDown,
       activeDescendant,
+      searchInputLocation,
     } = this.props
 
     return (
-      <ul className={cx('tag-list')}>
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-        <li className={cx('tag-item')}>
-          <input
-            type="text"
-            disabled={disabled}
-            ref={inputRef}
-            className={cx('search')}
-            placeholder={texts.placeholder || 'Choose...'}
-            onKeyDown={onKeyDown}
-            onChange={this.handleInputChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            readOnly={readOnly}
-            aria-activedescendant={activeDescendant}
-            aria-autocomplete={onKeyDown ? 'list' : undefined}
-            {...getAriaLabel(texts.label)}
-          />
-        </li>
-      </ul>
+      <input
+        type="text"
+        disabled={disabled}
+        ref={inputRef}
+        className={cx('search', {
+          'search-dropdown-trigger': searchInputLocation === 'dropdownToggle',
+          'search-dropdown-content': searchInputLocation === 'dropdownContent',
+        })}
+        placeholder={texts.placeholder || 'Choose...'}
+        onKeyDown={onKeyDown}
+        onChange={this.handleInputChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        readOnly={readOnly}
+        aria-activedescendant={activeDescendant}
+        aria-autocomplete={onKeyDown ? 'list' : undefined}
+        {...getAriaLabel(texts.label)}
+      />
     )
   }
 }

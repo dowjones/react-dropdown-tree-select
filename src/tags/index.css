@@ -12,9 +12,6 @@
 .tag-item {
   display: inline-block;
   margin: 4px;
-
-  .placeholder {
-  }
 }
 
 .tag-item:last-child {

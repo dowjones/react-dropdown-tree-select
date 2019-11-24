@@ -401,7 +401,7 @@ function searchPredicate(node, searchTerm) {
 return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
 ```
 
-### searchInputLocation
+### inlineSearchInput
 
 Type: `bool` (default: 'false')
 

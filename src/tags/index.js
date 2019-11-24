@@ -40,7 +40,7 @@ class Tags extends PureComponent {
       <ul className={cx('tag-list')}>
         {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
         {children && <li className={cx('tag-item')}>{children}</li>}
-        {!children && tags.length === 0 && (
+        {!children && (!tags || (tags && tags.length === 0)) && (
           <li className={cx('tag-item')}>
             <span className={cx('placeholder')}>{texts.placeholder || 'Choose...'}</span>
           </li>

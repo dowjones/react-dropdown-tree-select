@@ -1,11 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames/bind'
-import styles from './index.css'
 import { debounce } from '../utils'
 import { getAriaLabel } from '../a11y'
-
-const cx = cn.bind(styles)
 
 class Input extends PureComponent {
   static propTypes = {
@@ -20,7 +16,7 @@ class Input extends PureComponent {
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     activeDescendant: PropTypes.string,
-    searchInputLocation: PropTypes.oneOf(['dropdownToggle', 'dropdownContent']),
+    inlineSearchInput: PropTypes.bool,
   }
 
   constructor(props) {
@@ -34,27 +30,14 @@ class Input extends PureComponent {
   }
 
   render() {
-    const {
-      inputRef,
-      texts = {},
-      onFocus,
-      onBlur,
-      disabled,
-      readOnly,
-      onKeyDown,
-      activeDescendant,
-      searchInputLocation,
-    } = this.props
+    const { inputRef, texts = {}, onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant } = this.props
 
     return (
       <input
         type="text"
         disabled={disabled}
         ref={inputRef}
-        className={cx('search', {
-          'search-dropdown-trigger': searchInputLocation === 'dropdownToggle',
-          'search-dropdown-content': searchInputLocation === 'dropdownContent',
-        })}
+        className="search"
         placeholder={texts.placeholder || 'Choose...'}
         onKeyDown={onKeyDown}
         onChange={this.handleInputChange}

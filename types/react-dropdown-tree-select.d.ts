@@ -97,10 +97,8 @@ declare module 'react-dropdown-tree-select' {
     id?: string
     /** Optional search predicate to override the default case insensitive contains match on node labels. */
     searchPredicate?: (currentNode: TreeNode, searchTerm: string) => boolean
-    /** Whether to show or hide the SearchInput */
-    showSearchInput?: boolean
-    /** Whether to render the SearchInput inside the toggle button or inside the dropdown options list. */
-    searchInputLocation?: 'dropdownToggle' | 'dropdownContent'
+    /** inlineSearchInput=true Makes the search input renders inside the dropdown-content. Defaults to `false` */
+    inlineSearchInput?: boolean
   }
 
   export interface DropdownTreeSelectState {

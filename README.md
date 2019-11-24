@@ -401,17 +401,11 @@ function searchPredicate(node, searchTerm) {
 return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
 ```
 
-### showSearchInput
+### searchInputLocation
 
 Type: `bool` (default: 'false')
 
-Whether to show or hide the SearchInput
-
-### searchInputLocation
-
-Type: `string` (default: 'dropdownToggle')
-
-Whether to render the SearchInput inside the toggle button or inside the dropdown options list.
+inlineSearchInput=true Makes the search input renders inside the dropdown-content.
 
 ## Styling and Customization
 

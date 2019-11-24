@@ -49,8 +49,7 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
-    showSearchInput: PropTypes.bool,
-    searchInputLocation: PropTypes.oneOf(['dropdownToggle', 'dropdownContent']),
+    inlineSearchInput: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -59,8 +58,7 @@ class DropdownTreeSelect extends Component {
     onChange: () => {},
     texts: {},
     showDropdown: 'default',
-    showSearchInput: true,
-    searchInputLocation: 'dropdownToggle',
+    inlineSearchInput: false,
   }
 
   constructor(props) {
@@ -93,13 +91,11 @@ class DropdownTreeSelect extends Component {
 
   resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
-    if (this.searchInput) {
-      this.searchInput.value = ''
-      return {
-        tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
-        searchModeOn: false,
-        allNodesHidden: false,
-      }
+    this.searchInput.value = ''
+    return {
+      tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
+      searchModeOn: false,
+      allNodesHidden: false,
     }
   }
 
@@ -223,7 +219,7 @@ class DropdownTreeSelect extends Component {
   onTrigger = e => {
     this.handleClick(e, () => {
       // If the dropdown is shown after key press, focus the input
-      if (this.state.showDropdown && this.searchInput) {
+      if (this.state.showDropdown) {
         this.searchInput.focus()
       }
     })
@@ -283,7 +279,7 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts, showSearchInput, searchInputLocation } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput } = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
@@ -295,7 +291,6 @@ class DropdownTreeSelect extends Component {
         inputRef={el => {
           this.searchInput = el
         }}
-        searchInputLocation={searchInputLocation}
         onInputChange={this.onInputChange}
         onFocus={this.onInputFocus}
         onBlur={this.onInputBlur}
@@ -303,7 +298,6 @@ class DropdownTreeSelect extends Component {
         {...commonProps}
       />
     )
-
     return (
       <div
         id={this.clientId}
@@ -321,12 +315,12 @@ class DropdownTreeSelect extends Component {
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
             <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
-              {showSearchInput && searchInputLocation === 'dropdownToggle' && searchInput}
+              {!inlineSearchInput && searchInput}
             </Tags>
           </Trigger>
           {showDropdown && (
             <div className="dropdown-content" {...this.getAriaAttributes()}>
-              {showSearchInput && searchInputLocation === 'dropdownContent' && searchInput}
+              {inlineSearchInput && searchInput}
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{texts.noMatches || 'No matches found'}</span>
               ) : (

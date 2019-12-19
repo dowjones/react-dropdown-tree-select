@@ -10,11 +10,11 @@ const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
   tags.map(tag => {
-    const { _id, label, tagClassName, dataset } = tag
+    const { _id, label, tagClassName, dataset, tagLabel } = tag
     return (
       <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
         <Tag
-          label={label}
+          label={tagLabel || label}
           id={_id}
           onDelete={onDelete}
           readOnly={readOnly}

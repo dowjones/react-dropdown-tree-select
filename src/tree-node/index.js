@@ -73,6 +73,7 @@ class TreeNode extends PureComponent {
     showPartiallySelected: PropTypes.bool,
     readOnly: PropTypes.bool,
     clientId: PropTypes.string,
+    selectable: PropTypes.bool,
   }
 
   getAriaAttributes = () => {
@@ -113,6 +114,7 @@ class TreeNode extends PureComponent {
       showPartiallySelected,
       readOnly,
       clientId,
+      selectable,
     } = this.props
     const liCx = getNodeCx(this.props)
     const style = keepTreeOnSearch || !searchModeOn ? { paddingLeft: `${(_depth || 0) * 20}px` } : {}
@@ -135,6 +137,7 @@ class TreeNode extends PureComponent {
           showPartiallySelected={showPartiallySelected}
           readOnly={readOnly}
           clientId={clientId}
+          selectable={selectable}
         />
         <Actions actions={actions} onAction={onAction} id={_id} readOnly={readOnly} />
       </li>

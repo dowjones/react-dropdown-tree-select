@@ -1,4 +1,3 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { memo } from 'react'
 
@@ -6,9 +5,7 @@ import { getAriaLabel } from '../a11y'
 import { debounce } from '../utils'
 import getTags, { tagType } from './tags'
 
-import styles from './index.css'
-
-const cx = cn.bind(styles)
+import './index.css'
 
 const createDelayedCallback = callback => debounce(e => callback(e.target.value), 300)
 
@@ -35,14 +32,14 @@ const Input = props => {
     onInputChange,
   } = props
   return (
-    <ul className={cx('tag-list')}>
+    <ul className="tag-list">
       {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-      <li className={cx('tag-item')}>
+      <li className="tag-item">
         <input
           type="text"
           disabled={disabled}
           ref={inputRef}
-          className={cx('search')}
+          className="search"
           placeholder={texts.placeholder || 'Choose...'}
           onKeyDown={onKeyDown}
           onChange={handleChange(onInputChange)}

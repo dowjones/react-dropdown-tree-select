@@ -6,7 +6,6 @@
  * license MIT
  * see https://github.com/dowjones/react-dropdown-tree-select
  */
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
@@ -17,10 +16,8 @@ import Tree from './tree'
 import TreeManager from './tree-manager'
 import keyboardNavigation from './tree-manager/keyboardNavigation'
 
-import styles from './index.css'
+import './index.css'
 import { getAriaLabel } from './a11y'
-
-const cx = cn.bind(styles)
 
 class DropdownTreeSelect extends Component {
   static propTypes = {
@@ -286,17 +283,17 @@ class DropdownTreeSelect extends Component {
     return (
       <div
         id={this.clientId}
-        className={cx(this.props.className, 'react-dropdown-tree-select')}
+        className={[this.props.className && this.props.className, 'react-dropdown-tree-select']
+          .filter(Boolean)
+          .join(' ')}
         ref={node => {
           this.node = node
         }}
       >
         <div
-          className={cx(
-            'dropdown',
-            { 'simple-select': mode === 'simpleSelect' },
-            { 'radio-select': mode === 'radioSelect' }
-          )}
+          className={['dropdown', mode === 'simpleSelect' && 'simple-select', mode === 'radioSelect' && 'radio-select']
+            .filter(Boolean)
+            .join(' ')}
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
             <Input

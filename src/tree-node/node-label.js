@@ -1,12 +1,9 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { memo } from 'react'
 import Checkbox from '../checkbox'
 import RadioButton from '../radio'
 
-import styles from './index.css'
-
-const cx = cn.bind(styles)
+import './index.css'
 
 const NodeLabel = props => {
   const { mode, title, label, id, partial, checked, onCheckboxChange } = props
@@ -38,6 +35,8 @@ const NodeLabel = props => {
     readOnly,
     tabIndex: -1,
   }
+  const className = ['checkbox-item', mode === 'simpleSelect' && 'simple-select'].filter(Boolean).join(' ')
+
   return (
     <label title={title || label} htmlFor={id}>
       {mode === 'radioSelect' ? (
@@ -45,7 +44,7 @@ const NodeLabel = props => {
       ) : (
         <Checkbox
           name={id}
-          className={cx('checkbox-item', { 'simple-select': mode === 'simpleSelect' })}
+          className={className}
           indeterminate={showPartiallySelected && partial}
           onChange={handleCheckboxChange}
           {...sharedProps}

@@ -1,19 +1,20 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 import { getDataset } from '../utils'
 import Tag from '../tag'
 
-import styles from './index.css'
-
-const cx = cn.bind(styles)
+import './index.css'
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
+      <li
+        className={['tag-item', tagClassName && tagClassName.toString()].filter(Boolean).join(' ')}
+        key={`tag-item-${_id}`}
+        {...getDataset(dataset)}
+      >
         <Tag
           label={label}
           id={_id}

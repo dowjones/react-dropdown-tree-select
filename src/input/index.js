@@ -1,18 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames/bind'
 import Tag from '../tag'
-import styles from './index.css'
+import './index.css'
 import { getDataset, debounce } from '../utils'
 import { getAriaLabel } from '../a11y'
-
-const cx = cn.bind(styles)
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
+      <li
+        className={['tag-item', tagClassName && tagClassName.toString()].filter(Boolean).join(' ')}
+        key={`tag-item-${_id}`}
+        {...getDataset(dataset)}
+      >
         <Tag
           label={label}
           id={_id}
@@ -65,14 +66,14 @@ class Input extends PureComponent {
     } = this.props
 
     return (
-      <ul className={cx('tag-list')}>
+      <ul className="tag-list">
         {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-        <li className={cx('tag-item')}>
+        <li className="tag-item">
           <input
             type="text"
             disabled={disabled}
             ref={inputRef}
-            className={cx('search')}
+            className="search"
             placeholder={texts.placeholder || 'Choose...'}
             onKeyDown={onKeyDown}
             onChange={this.handleInputChange}

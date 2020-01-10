@@ -1,13 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames/bind'
 
 import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
-
-import styles from '../index.css'
-
-const cx = cn.bind(styles)
 
 class Trigger extends PureComponent {
   static propTypes = {
@@ -69,14 +64,16 @@ class Trigger extends PureComponent {
   render() {
     const { disabled, readOnly, showDropdown } = this.props
 
-    const dropdownTriggerClassname = cx({
-      'dropdown-trigger': true,
-      arrow: true,
-      disabled,
-      readOnly,
-      top: showDropdown,
-      bottom: !showDropdown,
-    })
+    const dropdownTriggerClassname = [
+      'dropdown-trigger',
+      'arrow',
+      disabled && 'disabled',
+      readOnly && 'readOnly',
+      showDropdown && 'top',
+      !showDropdown && 'bottom',
+    ]
+      .filter(Boolean)
+      .join(' ')
 
     return (
       <a

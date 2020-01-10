@@ -44,7 +44,6 @@
   ],
   "dependencies": {
     "array.partial": "^1.0.5",
-    "classnames": "^2.2.6",
     "react-infinite-scroll-component": "^4.0.2"
   },
   "devDependencies": {

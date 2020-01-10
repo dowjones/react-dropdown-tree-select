@@ -1,9 +1,5 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
-import styles from './index.css'
-
-const cx = cn.bind(styles)
 
 class Toggle extends PureComponent {
   static propTypes = {
@@ -30,7 +26,7 @@ class Toggle extends PureComponent {
     const { expanded, isLeaf } = this.props
     if (isLeaf) return null
 
-    const toggleCx = cx('toggle', { expanded, collapsed: !expanded })
+    const toggleCx = ['toggle', expanded && 'expanded', !expanded && 'collapsed'].filter(Boolean).join(' ')
     return (
       <i
         role="button"

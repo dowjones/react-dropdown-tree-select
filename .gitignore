@@ -45,3 +45,6 @@ dist
 # Webstorm cache
 .idea
 /webpack-stats.json
+
+# Mac crap
+.DS_Store

@@ -1,17 +1,19 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import cn from 'classnames/bind'
 import Tag from '../tag'
-import styles from './index.css'
 import { getDataset } from '../utils'
 
-const cx = cn.bind(styles)
+import './index.css'
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
-      <li className={cx('tag-item', tagClassName)} key={`tag-item-${_id}`} {...getDataset(dataset)}>
+      <li
+        className={['tag-item', tagClassName].filter(Boolean).join(' ')}
+        key={`tag-item-${_id}`}
+        {...getDataset(dataset)}
+      >
         <Tag
           label={label}
           id={_id}
@@ -37,12 +39,12 @@ class Tags extends PureComponent {
   render() {
     const { tags, onTagRemove, texts = {}, disabled, readOnly, children } = this.props
     return (
-      <ul className={cx('tag-list')}>
+      <ul className="tag-list">
         {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-        {children && <li className={cx('tag-item')}>{children}</li>}
+        {children && <li className="tag-item">{children}</li>}
         {!children && (!tags || (tags && tags.length === 0)) && (
-          <li className={cx('tag-item')}>
-            <span className={cx('placeholder')}>{texts.placeholder || 'Choose...'}</span>
+          <li className="tag-item">
+            <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
           </li>
         )}
       </ul>

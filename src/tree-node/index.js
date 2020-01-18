@@ -1,4 +1,3 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { PureComponent } from 'react'
 
@@ -7,9 +6,7 @@ import Actions from './actions'
 import NodeLabel from './node-label'
 import Toggle from './toggle'
 
-import styles from './index.css'
-
-const cx = cn.bind(styles)
+import './index.css'
 
 const isLeaf = children => isEmpty(children)
 
@@ -30,22 +27,22 @@ const getNodeCx = props => {
     _focused: focused,
   } = props
 
-  return cx(
+  return [
     'node',
-    {
-      leaf: isLeaf(_children),
-      tree: !isLeaf(_children),
-      disabled,
-      hide,
-      'match-in-children': keepTreeOnSearch && matchInChildren,
-      'match-in-parent': keepTreeOnSearch && keepChildrenOnSearch && matchInParent,
-      partial: showPartiallySelected && partial,
-      readOnly,
-      checked,
-      focused,
-    },
-    className
-  )
+    isLeaf(_children) && 'leaf',
+    !isLeaf(_children) && 'tree',
+    disabled && 'disabled',
+    hide && 'hide',
+    keepTreeOnSearch && matchInChildren && 'match-in-children',
+    keepTreeOnSearch && keepChildrenOnSearch && matchInParent && 'match-in-parent',
+    showPartiallySelected && partial && 'partial',
+    readOnly && 'readOnly',
+    checked && 'checked',
+    focused && 'focused',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
 }
 
 class TreeNode extends PureComponent {

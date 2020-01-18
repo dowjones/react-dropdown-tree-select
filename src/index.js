@@ -11,6 +11,7 @@ import React, { Component } from 'react'
 
 import { isOutsideClick, clientIdGenerator } from './utils'
 import Input from './input'
+import Tags from './tags'
 import Trigger from './trigger'
 import Tree from './tree'
 import TreeManager from './tree-manager'
@@ -45,6 +46,7 @@ class DropdownTreeSelect extends Component {
     readOnly: PropTypes.bool,
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
+    inlineSearchInput: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -53,6 +55,7 @@ class DropdownTreeSelect extends Component {
     onChange: () => {},
     texts: {},
     showDropdown: 'default',
+    inlineSearchInput: false,
   }
 
   constructor(props) {
@@ -273,13 +276,25 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput } = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
     const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
 
+    const searchInput = (
+      <Input
+        inputRef={el => {
+          this.searchInput = el
+        }}
+        onInputChange={this.onInputChange}
+        onFocus={this.onInputFocus}
+        onBlur={this.onInputBlur}
+        onKeyDown={this.onKeyboardKeyDown}
+        {...commonProps}
+      />
+    )
     return (
       <div
         id={this.clientId}
@@ -296,21 +311,13 @@ class DropdownTreeSelect extends Component {
             .join(' ')}
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
-            <Input
-              inputRef={el => {
-                this.searchInput = el
-              }}
-              tags={tags}
-              onInputChange={this.onInputChange}
-              onFocus={this.onInputFocus}
-              onBlur={this.onInputBlur}
-              onTagRemove={this.onTagRemove}
-              onKeyDown={this.onKeyboardKeyDown}
-              {...commonProps}
-            />
+            <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
+              {!inlineSearchInput && searchInput}
+            </Tags>
           </Trigger>
           {showDropdown && (
             <div className="dropdown-content" {...this.getAriaAttributes()}>
+              {inlineSearchInput && searchInput}
               {this.state.allNodesHidden ? (
                 <span className="no-matches">{texts.noMatches || 'No matches found'}</span>
               ) : (

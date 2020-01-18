@@ -3,9 +3,6 @@ import React, { memo } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { debounce } from '../utils'
-import getTags, { tagType } from './tags'
-
-import './index.css'
 
 const createDelayedCallback = callback => debounce(e => callback(e.target.value), 300)
 
@@ -19,8 +16,6 @@ function handleChange(onInputChange) {
 
 const Input = props => {
   const {
-    tags,
-    onTagRemove,
     inputRef,
     texts = {},
     onFocus,
@@ -32,31 +27,25 @@ const Input = props => {
     onInputChange,
   } = props
   return (
-    <ul className="tag-list">
-      {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-      <li className="tag-item">
-        <input
-          type="text"
-          disabled={disabled}
-          ref={inputRef}
-          className="search"
-          placeholder={texts.placeholder || 'Choose...'}
-          onKeyDown={onKeyDown}
-          onChange={handleChange(onInputChange)}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          readOnly={readOnly}
-          aria-activedescendant={activeDescendant}
-          aria-autocomplete={onKeyDown ? 'list' : undefined}
-          {...getAriaLabel(texts.label)}
-        />
-      </li>
-    </ul>
+    <input
+      type="text"
+      disabled={disabled}
+      ref={inputRef}
+      className="search"
+      placeholder={texts.placeholder || 'Choose...'}
+      onKeyDown={onKeyDown}
+      onChange={handleChange(onInputChange)}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      readOnly={readOnly}
+      aria-activedescendant={activeDescendant}
+      aria-autocomplete={onKeyDown ? 'list' : undefined}
+      {...getAriaLabel(texts.label)}
+    />
   )
 }
 
 Input.propTypes = {
-  tags: PropTypes.arrayOf(PropTypes.shape(tagType)),
   texts: PropTypes.shape({
     labelRemove: PropTypes.string,
     placeholder: PropTypes.string,

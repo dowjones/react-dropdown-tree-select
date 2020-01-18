@@ -3,7 +3,7 @@ import React, { memo, useCallback } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
-import { tagType } from '../input/tags'
+import { tagType } from '../tags'
 
 const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags }) => {
   const triggerId = `${clientId}_trigger`

@@ -86,6 +86,12 @@ test('always shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
+test('always shows dropdown with inline search Input', t => {
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} inlineSearchInput showDropdown="always" />)
+  t.snapshot(toJson(wrapper))
+})
+
 test('keeps dropdown open for showDropdown: always', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="always" />)

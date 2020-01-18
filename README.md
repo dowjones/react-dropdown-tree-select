@@ -29,8 +29,8 @@ A lightweight and fast control to render a select component that can display hie
 ## Table of Contents
 
 - [Screenshot](#screenshot)
-- [Demo](#example)
-  - [Vanilla (no framework)](#vanilla-no-framework)
+- [Demo](#demo)
+  - [Vanilla, no framework](#vanilla-no-framework)
   - [With Bootstrap](#with-bootstrap)
   - [With Material Design](#with-material-design)
   - [As Single Select](#as-single-select)
@@ -44,36 +44,41 @@ A lightweight and fast control to render a select component that can display hie
   - [clearSearchOnChange](#clearsearchonchange)
   - [onChange](#onchange)
   - [onNodeToggle](#onnodetoggle)
+  - [onAction](#onaction)
+  - [onFocus](#onfocus)
+  - [onBlur](#onblur)
   - [data](#data)
   - [texts](#texts)
   - [keepTreeOnSearch](#keeptreeonsearch)
   - [keepChildrenOnSearch](#keepchildrenonsearch)
   - [keepOpenOnSelect](#keepopenonselect)
   - [mode](#mode)
-    - [multiSelect](#multiSelect)
+    - [multiSelect](#multiselect)
     - [hierarchical](#hierarchical)
-    - [simpleSelect](#simpleSelect)
-    - [radioSelect](#radioSelect)
+    - [simpleSelect](#simpleselect)
+    - [radioSelect](#radioselect)
   - [showPartiallySelected](#showpartiallyselected)
-  - [showDropdown](#showDropdown)
+  - [showDropdown](#showdropdown)
     - [initial](#initial)
     - [always](#always)
-  - [form states (disabled|readOnly)](#formstates)
+  - [form states (disabled|readOnly)](#form-states-disabled-readonly)
   - [id](#id)
   - [searchPredicate](#searchpredicate)
+  - [inlineSearchInput](#inlinesearchinput)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
+- [Keyboard navigation](#keyboard-navigation)
 - [Performance](#performance)
   - [Search optimizations](#search-optimizations)
   - [Search debouncing](#search-debouncing)
   - [Virtualized rendering](#virtualized-rendering)
   - [Reducing costly DOM manipulations](#reducing-costly-dom-manipulations)
-- [Keyboard navigation](#keyboard-navigation)
 - [FAQ](#faq)
 - [Doing more with HOCs](/docs/HOC.md)
 - [Development](#development)
 - [License](#license)
+- [Contributors](#contributors)
 
 ## Screenshot
 
@@ -400,6 +405,12 @@ function searchPredicate(node, searchTerm) {
 
 return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
 ```
+
+### inlineSearchInput
+
+Type: `bool` (default: `false`)
+
+`inlineSearchInput=true` makes the search input renders **inside** the dropdown-content. This can be useful when your UX looks something like [this comment](https://github.com/dowjones/react-dropdown-tree-select/issues/308#issue-526467109).
 
 ## Styling and Customization
 

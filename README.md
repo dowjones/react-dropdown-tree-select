@@ -61,7 +61,7 @@ A lightweight and fast control to render a select component that can display hie
   - [showDropdown](#showdropdown)
     - [initial](#initial)
     - [always](#always)
-  - [form states (disabled|readOnly)](#form-states-disabledreadonly)
+  - [form states (disabled|readOnly)](#form-states-disabled-readonly)
   - [id](#id)
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)

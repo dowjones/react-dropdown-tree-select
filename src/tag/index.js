@@ -3,8 +3,6 @@ import React, { PureComponent } from 'react'
 
 import './index.css'
 
-export const getTagId = id => `${id}_tag`
-
 class Tag extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
@@ -37,10 +35,9 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
-
-    const tagId = getTagId(id)
-    const buttonId = `${id}_button`
+    const { label, labelRemove = 'Remove', readOnly, disabled, getDOMId } = this.props
+    const tagId = getDOMId('tag')
+    const buttonId = getDOMId('button')
     const className = ['tag-remove', readOnly && 'readOnly', disabled && 'disabled'].filter(Boolean).join(' ')
     const isDisabled = readOnly || disabled
 

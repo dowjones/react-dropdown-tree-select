@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { getAriaLabel } from '../a11y'
-import { getTagId } from '../tag'
 
 class Trigger extends PureComponent {
   static propTypes = {
@@ -28,7 +27,7 @@ class Trigger extends PureComponent {
         labelledBy.push(triggerId)
       }
       tags.forEach(t => {
-        labelledBy.push(getTagId(t._id))
+        labelledBy.push(t.getDOMId('tag'))
       })
       labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
     }

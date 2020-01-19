@@ -7,7 +7,7 @@ import './index.css'
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
   tags.map(tag => {
-    const { _id, label, tagClassName, dataset } = tag
+    const { _id, label, tagClassName, dataset, getDOMId } = tag
     return (
       <li
         className={['tag-item', tagClassName].filter(Boolean).join(' ')}
@@ -21,6 +21,7 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
           readOnly={readOnly}
           disabled={disabled}
           labelRemove={labelRemove}
+          getDOMId={getDOMId}
         />
       </li>
     )

@@ -9,13 +9,13 @@ import Tag from './index'
 const mockEvent = { nativeEvent: { stopImmediatePropagation: spy() } }
 
 test('renders label when passed in', t => {
-  const wrapper = toJson(shallow(<Tag label="hello" id="abc" />))
+  const wrapper = toJson(shallow(<Tag label="hello" clientId="rdts" id="abc" />))
   t.snapshot(wrapper)
 })
 
 test('call stopPropagation and stopImmediatePropagation when pill is closed', t => {
   const onDelete = spy()
-  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} />)
+  const wrapper = mount(<Tag label="hello" clientId="rdts" id="abc" onDelete={onDelete} />)
   const event = {
     type: 'click',
     stopPropagation: spy(),
@@ -28,21 +28,21 @@ test('call stopPropagation and stopImmediatePropagation when pill is closed', t 
 
 test('call onDelete handler when pill is closed', t => {
   const onDelete = spy()
-  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} />)
+  const wrapper = mount(<Tag label="hello" clientId="rdts" id="abc" onDelete={onDelete} />)
   wrapper.find('.tag-remove').simulate('click', mockEvent)
   t.true(onDelete.calledWith('abc'))
 })
 
 test('should not call onDelete when readOnly', t => {
   const onDelete = spy()
-  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} readOnly />)
+  const wrapper = mount(<Tag label="hello" clientId="rdts" id="abc" onDelete={onDelete} readOnly />)
   wrapper.find('.tag-remove').simulate('click', mockEvent)
   t.true(onDelete.notCalled)
 })
 
 test('should not call onDelete when disabled', t => {
   const onDelete = spy()
-  const wrapper = mount(<Tag label="hello" id="abc" onDelete={onDelete} disabled />)
+  const wrapper = mount(<Tag label="hello" clientId="rdts" id="abc" onDelete={onDelete} disabled />)
   wrapper.find('.tag-remove').simulate('click', mockEvent)
   t.true(onDelete.notCalled)
 })
@@ -52,7 +52,7 @@ test('should not cause form submit', t => {
   const onDelete = spy()
   const wrapper = mount(
     <form onSubmit={onSubmit}>
-      <Tag label="hello" id="abc" onDelete={onDelete} />
+      <Tag label="hello" clientId="rdts" id="abc" onDelete={onDelete} />
     </form>
   )
   wrapper.find('.tag-remove').simulate('click', mockEvent)

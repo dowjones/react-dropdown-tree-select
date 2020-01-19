@@ -134,15 +134,15 @@ test('can select with enter on keyboardNavigation', t => {
 
 test('can delete tags with backspace/delete on keyboardNavigation', t => {
   const data = [{ ...node('a', 'a'), checked: true }, { ...node('b', 'b'), checked: true }]
-  const wrapper = mount(<DropdownTreeSelect data={data} />)
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={data} />)
   const event = {
     type: 'keydown',
     stopPropagation: spy(),
     nativeEvent: { stopImmediatePropagation: spy() },
   }
-  wrapper.find('#a_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Backspace' })
+  wrapper.find('#rdts_a_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Backspace' })
   t.deepEqual(wrapper.state().tags.length, 1)
-  wrapper.find('#b_tag > .tag-remove').simulate('keyUp', { ...event, key: 'Delete' })
+  wrapper.find('#rdts_b_tag > .tag-remove').simulate('keyUp', { ...event, key: 'Delete' })
   t.deepEqual(wrapper.state().tags.length, 0)
 })
 

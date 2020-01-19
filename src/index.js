@@ -153,11 +153,15 @@ class DropdownTreeSelect extends Component {
   }
 
   onTagRemove = (id, isKeyboardEvent) => {
-    const { tags: prevTags } = this.state
+    const {
+      clientId,
+      searchInput,
+      state: { tags: prevTags },
+    } = this
     this.onCheckboxChange(id, false, tags => {
       if (!isKeyboardEvent) return
 
-      keyboardNavigation.getNextFocusAfterTagDelete(id, prevTags, tags, this.searchInput).focus()
+      keyboardNavigation.getNextFocusAfterTagDelete({ id, prevTags, tags, fallback: searchInput, clientId }).focus()
     })
   }
 

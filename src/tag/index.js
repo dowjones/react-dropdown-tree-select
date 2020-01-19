@@ -3,11 +3,12 @@ import React, { PureComponent } from 'react'
 
 import './index.css'
 
-export const getTagId = id => `${id}_tag`
+export const getTagId = ({ id, clientId }) => `${clientId}_${id}_tag`
 
 class Tag extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
+    clientId: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     onDelete: PropTypes.func,
     readOnly: PropTypes.bool,
@@ -37,10 +38,10 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { id, label, labelRemove = 'Remove', readOnly, disabled } = this.props
+    const { id, label, labelRemove = 'Remove', readOnly, disabled, clientId } = this.props
 
-    const tagId = getTagId(id)
-    const buttonId = `${id}_button`
+    const tagId = getTagId({ id, clientId })
+    const buttonId = `${clientId}_${id}_button`
     const className = ['tag-remove', readOnly && 'readOnly', disabled && 'disabled'].filter(Boolean).join(' ')
     const isDisabled = readOnly || disabled
 

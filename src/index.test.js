@@ -301,7 +301,7 @@ test('appends selected tags to aria-labelledby with provided aria-labelledby', t
   const { tree } = t.context
   tree[0].checked = true
   const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} texts={{ label: '#hello #world' }} />)
-  t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'hello world rdts-0_tag')
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'hello world rdts_rdts-0_tag')
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), undefined)
 })
 
@@ -309,6 +309,6 @@ test('appends selected tags to aria-labelledby with text label', t => {
   const { tree } = t.context
   tree[0].checked = true
   const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} texts={{ label: 'hello world' }} />)
-  t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'rdts_trigger rdts-0_tag')
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'rdts_trigger rdts_rdts-0_tag')
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
 })

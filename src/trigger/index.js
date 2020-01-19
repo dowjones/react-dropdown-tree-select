@@ -28,7 +28,7 @@ class Trigger extends PureComponent {
         labelledBy.push(triggerId)
       }
       tags.forEach(t => {
-        labelledBy.push(getTagId(t._id))
+        labelledBy.push(getTagId({ clientId, id: t._id }))
       })
       labelAttributes = getAriaLabel(texts.label, labelledBy.join(' '))
     }

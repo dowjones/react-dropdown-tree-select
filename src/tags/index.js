@@ -5,7 +5,7 @@ import { getDataset } from '../utils'
 
 import './index.css'
 
-const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
+const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove, clientId) =>
   tags.map(tag => {
     const { _id, label, tagClassName, dataset } = tag
     return (
@@ -17,6 +17,7 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
         <Tag
           label={label}
           id={_id}
+          clientId={clientId}
           onDelete={onDelete}
           readOnly={readOnly}
           disabled={disabled}
@@ -34,15 +35,16 @@ class Tags extends PureComponent {
     disabled: PropTypes.bool,
     texts: PropTypes.object,
     children: PropTypes.node,
+    clientId: PropTypes.string.isRequired,
   }
 
   render() {
-    const { tags, onTagRemove, texts = {}, disabled, readOnly, children } = this.props
+    const { tags, onTagRemove, texts = {}, disabled, readOnly, children, clientId } = this.props
     const lastItem = children || <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
 
     return (
       <ul className="tag-list">
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove, clientId)}
         <li className="tag-item">{lastItem}</li>
       </ul>
     )

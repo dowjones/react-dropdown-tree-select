@@ -144,14 +144,14 @@ const getNextFocus = (tree, prevFocus, action, getNodeById, markSubTreeOnNonExpa
   return getRelativeFocus(nodes, prevFocus, action)
 }
 
-const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
+const getNextFocusAfterTagDelete = ({ id, prevTags, tags, fallback, clientId }) => {
   // Sets new focus to next tag or returns fallback
-  let index = prevTags && prevTags.findIndex(t => t._id === deletedId)
+  let index = prevTags && prevTags.findIndex(t => t._id === id)
   if (index < 0 || !tags.length) return fallback
 
   index = tags.length > index ? index : tags.length - 1
   const newFocusId = tags[index]._id
-  const focusNode = document.getElementById(getTagId(newFocusId))
+  const focusNode = document.getElementById(getTagId({ clientId, id: newFocusId }))
   if (focusNode) {
     return focusNode.firstElementChild || fallback
   }

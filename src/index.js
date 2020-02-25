@@ -268,6 +268,12 @@ class DropdownTreeSelect extends Component {
     e.preventDefault()
   }
 
+  onReorderList = newList => {
+    this.setState({ tags: newList }, () => {
+      this.props.onChange(newList)
+    })
+  }
+
   getAriaAttributes = () => {
     const { mode, texts } = this.props
 
@@ -280,7 +286,7 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts, inlineSearchInput } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput, sortable = false } = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
@@ -315,7 +321,13 @@ class DropdownTreeSelect extends Component {
             .join(' ')}
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
-            <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
+            <Tags
+              tags={tags}
+              onTagRemove={this.onTagRemove}
+              onReorderList={this.onReorderList}
+              sortable
+              {...commonProps}
+            >
               {!inlineSearchInput && searchInput}
             </Tags>
           </Trigger>

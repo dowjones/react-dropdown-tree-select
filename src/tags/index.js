@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import Tag from '../tag'
 import { getDataset } from '../utils'
+import { ReactSortable } from 'react-sortablejs'
 
 import './index.css'
 
@@ -31,18 +32,26 @@ class Tags extends PureComponent {
     tags: PropTypes.array,
     onTagRemove: PropTypes.func,
     readOnly: PropTypes.bool,
+    sortable: PropTypes.bool,
+    onReorderList: PropTypes.func,
     disabled: PropTypes.bool,
     texts: PropTypes.object,
     children: PropTypes.node,
   }
 
   render() {
-    const { tags, onTagRemove, texts = {}, disabled, readOnly, children } = this.props
+    const { tags, onTagRemove, texts = {}, disabled, readOnly, sortable = false, onReorderList, children } = this.props
     const lastItem = children || <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
 
     return (
       <ul className="tag-list">
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+        {!sortable ? (
+          getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)
+        ) : (
+          <ReactSortable list={tags} setList={newList => onReorderList(newList)}>
+            {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+          </ReactSortable>
+        )}
         <li className="tag-item">{lastItem}</li>
       </ul>
     )

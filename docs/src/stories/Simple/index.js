@@ -45,6 +45,7 @@ const Simple = () => (
       onNodeToggle={onNodeToggle}
       onFocus={onFocus}
       onBlur={onBlur}
+      sortable
       className="demo"
     />
   </div>

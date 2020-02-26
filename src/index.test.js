@@ -120,7 +120,11 @@ test('notifies on checkbox change', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
   wrapper.instance().onCheckboxChange(node0._id, true)
-  t.true(handler.calledWithExactly({ ...node0, checked: true }, [{ ...node0, checked: true }]))
+  t.true(
+    handler.calledWithExactly({ ...node0, _focused: true, checked: true }, [
+      { ...node0, _focused: true, checked: true },
+    ])
+  )
 })
 
 test('notifies on tag removal', t => {
@@ -128,7 +132,7 @@ test('notifies on tag removal', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
   wrapper.instance().onTagRemove(node0._id)
-  t.true(handler.calledWithExactly({ ...node0, checked: false }, []))
+  t.true(handler.calledWithExactly({ ...node0, _focused: true, checked: false }, []))
 })
 
 test('sets search mode on input change', t => {

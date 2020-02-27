@@ -88,7 +88,11 @@ class DropdownTreeSelect extends Component {
 
   resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
-    this.searchInput.value = ''
+    // !this.props.inlineSearchInput is gated as inline search is not rendered until dropdown is shown
+    if (!this.props.inlineSearchInput) {
+      this.searchInput.value = ''
+    }
+
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
       searchModeOn: false,

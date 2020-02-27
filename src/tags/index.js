@@ -19,7 +19,7 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
           id={_id}
           onDelete={onDelete}
           readOnly={readOnly}
-          disabled={disabled}
+          disabled={disabled || tag.disabled}
           labelRemove={labelRemove}
           getDOMId={getDOMId}
         />

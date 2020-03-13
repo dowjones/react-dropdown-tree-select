@@ -173,25 +173,29 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked, callback) => {
-    const { mode, keepOpenOnSelect } = this.props
+    const { mode, keepOpenOnSelect, clearSearchOnChange } = this.props
+    const { currentFocus, searchModeOn } = this.state
     this.treeManager.setNodeCheckedState(id, checked)
     let { tags } = this.treeManager
     const isSingleSelect = ['simpleSelect', 'radioSelect'].indexOf(mode) > -1
     const showDropdown = isSingleSelect && !keepOpenOnSelect ? false : this.state.showDropdown
+    const currentFocusNode = currentFocus && this.treeManager.getNodeById(currentFocus)
+    const node = this.treeManager.getNodeById(id)
 
     if (!tags.length) {
       this.treeManager.restoreDefaultValues()
       tags = this.treeManager.tags
     }
 
-    const tree = this.state.searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
+    const tree = searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
     const nextState = {
       tree,
       tags,
       showDropdown,
+      currentFocus: id,
     }
 
-    if ((isSingleSelect && !showDropdown) || this.props.clearSearchOnChange) {
+    if ((isSingleSelect && !showDropdown) || clearSearchOnChange) {
       Object.assign(nextState, this.resetSearchState())
     }
 
@@ -199,10 +203,11 @@ class DropdownTreeSelect extends Component {
       document.removeEventListener('click', this.handleOutsideClick, false)
     }
 
+    keyboardNavigation.adjustFocusedProps(currentFocusNode, node)
     this.setState(nextState, () => {
       callback && callback(tags)
     })
-    this.props.onChange(this.treeManager.getNodeById(id), tags)
+    this.props.onChange(node, tags)
   }
 
   onAction = (nodeId, action) => {

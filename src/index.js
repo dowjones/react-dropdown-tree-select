@@ -42,6 +42,7 @@ class DropdownTreeSelect extends Component {
     onBlur: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
+    expandAllAncestors: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
     id: PropTypes.string,
@@ -67,11 +68,12 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate }) => {
+  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, expandAllAncestors, searchPredicate }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
       showPartiallySelected,
+      expandAllAncestors,
       rootPrefixId: this.clientId,
       searchPredicate,
     })

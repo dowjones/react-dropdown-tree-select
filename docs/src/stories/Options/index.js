@@ -17,6 +17,7 @@ class WithOptions extends PureComponent {
       mode: 'multiSelect',
       inlineSearchInput: false,
       showPartiallySelected: false,
+      expandAllAncestors: false,
       disabled: false,
       readOnly: false,
       hierarchical: false,
@@ -44,6 +45,7 @@ class WithOptions extends PureComponent {
       keepOpenOnSelect,
       mode,
       showPartiallySelected,
+      expandAllAncestors,
       disabled,
       readOnly,
       showDropdown,
@@ -113,6 +115,12 @@ class WithOptions extends PureComponent {
             checked={showPartiallySelected}
             onChange={this.onOptionsChange}
           />
+          <Checkbox
+            label="Expand all ancestors of a selected node"
+            value="expandAllAncestors"
+            checked={expandAllAncestors}
+            onChange={this.onOptionsChange}
+          />
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
         </div>
@@ -127,6 +135,7 @@ class WithOptions extends PureComponent {
             keepTreeOnSearch={keepTreeOnSearch}
             keepOpenOnSelect={keepOpenOnSelect}
             mode={mode}
+            expandAllAncestors={expandAllAncestors}
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}

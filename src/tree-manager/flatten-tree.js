@@ -1,6 +1,7 @@
 import getPartialState from './getPartialState'
 
 import { isEmpty } from '../utils'
+import getExpanded from './getExpanded'
 
 /**
  * Converts a nested node into an associative array with pointers to child and parent nodes
@@ -168,10 +169,12 @@ const tree = [
  * @param  {[bool]} simple            Whether its in Single select mode (simple dropdown)
  * @param  {[bool]} radio             Whether its in Radio select mode (radio dropdown)
  * @param  {[bool]} showPartialState  Whether to show partially checked state
+ * @param  {[bool]} expandAllAncestors  Whether to expand partially checked state
+ * @param  {[bool]} hierarchical
  * @param  {[string]} rootPrefixId    The prefix to use when setting root node ids
  * @return {object}                   The flattened list
  */
-function flattenTree({ tree, simple, radio, showPartialState, hierarchical, rootPrefixId }) {
+function flattenTree({ tree, simple, radio, showPartialState, expandAllAncestors, hierarchical, rootPrefixId }) {
   const forest = Array.isArray(tree) ? tree : [tree]
 
   // eslint-disable-next-line no-use-before-define
@@ -180,6 +183,7 @@ function flattenTree({ tree, simple, radio, showPartialState, hierarchical, root
     simple,
     radio,
     showPartialState,
+    expandAllAncestors,
     hierarchical,
     rootPrefixId,
   })
@@ -211,6 +215,7 @@ function walkNodes({
   simple,
   radio,
   showPartialState,
+  expandAllAncestors,
   hierarchical,
   rootPrefixId,
   _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null },
@@ -260,6 +265,7 @@ function walkNodes({
         depth: depth + 1,
         radio,
         showPartialState,
+        expandAllAncestors,
         hierarchical,
         _rv,
       })
@@ -270,6 +276,14 @@ function walkNodes({
         // re-check if all children are checked. if so, check thyself
         if (!single && !isEmpty(node.children) && node.children.every(c => c.checked)) {
           node.checked = true
+        }
+      }
+      if (expandAllAncestors && !node.checked) {
+        node.expanded = getPartialState(node) || getExpanded(node)
+
+        // re-check if all children are checked. if so, expand thyself
+        if (!isEmpty(node.children) && node.children.every(c => c.checked)) {
+          node.expanded = true
         }
       }
 

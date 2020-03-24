@@ -58,6 +58,7 @@ A lightweight and fast control to render a select component that can display hie
     - [simpleSelect](#simpleselect)
     - [radioSelect](#radioselect)
   - [showPartiallySelected](#showpartiallyselected)
+  - [expandAllAncestors](#expandAllAncestors)
   - [showDropdown](#showdropdown)
     - [initial](#initial)
     - [always](#always)
@@ -362,6 +363,12 @@ Like `simpleSelect`, you can only select one value; but keeps the tree/children 
 Type: `bool` (default: `false`)
 
 If set to true, shows checkboxes in a partial state when one, but not all of their children are selected. Allows styling of partially selected nodes as well, by using [:indeterminate](https://developer.mozilla.org/en-US/docs/Web/CSS/:indeterminate) pseudo class. Simply add desired styles to `.node.partial .checkbox-item:indeterminate { ... }` in your CSS.
+
+### expandAllAncestors
+
+Type: `bool` (default: `false`)
+
+If set to true, it expands all ancestors of a selected node
 
 ### showDropdown
 

@@ -69,7 +69,7 @@ class Tree extends Component {
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
     if (checkActiveDescendant && props.activeDescendant) {
       const currentId = props.activeDescendant.replace(/_li$/, '')
-      const focusIndex = this.allVisibleNodes.findIndex(n => n.key === currentId) + 1
+      const focusIndex = this.allVisibleNodes.some(n => n.key === currentId) + 1
       this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
     }
   }

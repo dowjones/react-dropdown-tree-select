@@ -1,4 +1,9 @@
 function findIndex(arr, predicate, thisArg) {
+  // if native support is available, ship it off
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(predicate, thisArg)
+  }
+
   if (!arr) {
     throw new TypeError('findIndex called on null or undefined')
   }

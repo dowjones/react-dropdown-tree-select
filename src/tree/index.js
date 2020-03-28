@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import TreeNode from '../tree-node'
+import { findIndex } from '../utils'
 
 const shouldRenderNode = (node, searchModeOn, data) => {
   if (searchModeOn || node.expanded) return true
@@ -52,13 +53,7 @@ class Tree extends Component {
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
     if (checkActiveDescendant && props.activeDescendant) {
       const currentId = props.activeDescendant.replace(/_li$/, '')
-      let focusIndex = -1
-      this.allVisibleNodes.map((n, i) => {
-        if (n.key === currentId) {
-          focusIndex = i + 1
-        }
-        return false
-      })
+      let focusIndex = findIndex(this.allVisibleNodes, n => n.key === currentId) + 1
       this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
     }
   }

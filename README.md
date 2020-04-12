@@ -8,7 +8,7 @@
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
-[travis-image]: https://img.shields.io/travis/dowjones/react-dropdown-tree-select.svg?style=flat-square
+[travis-image]: https://travis-ci.org/dowjones/react-dropdown-tree-select.svg?branch=develop
 [travis-url]: https://travis-ci.org/dowjones/react-dropdown-tree-select
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master

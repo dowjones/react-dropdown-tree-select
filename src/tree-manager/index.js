@@ -70,7 +70,7 @@ class TreeManager {
         return
       }
       const node = this.getNodeById(id)
-      this.addParentsToTree(node._parent, tree)
+      this.addParentsToTree(node._parent, tree, matches)
       node.hide = true
       node.matchInChildren = true
       tree.set(id, node)

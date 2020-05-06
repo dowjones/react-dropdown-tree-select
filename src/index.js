@@ -150,7 +150,7 @@ class DropdownTreeSelect extends Component {
     const searchModeOn = value.length > 0
 
     this.setState({
-      tree,
+      tree: searchModeOn ? tree : this.treeManager.restoreNodes(),
       searchModeOn,
       allNodesHidden,
     })

@@ -21,6 +21,9 @@ class TreeManager {
     })
     this.tree = list
     this.defaultValues = defaultValues
+    this.defaultHidden = Array.from(list)
+      .filter(item => item[1].hide)
+      .map(item => item[0])
     this.showPartialState = !this.hierarchical && showPartiallySelected
     this.searchMaps = new Map()
 
@@ -122,7 +125,7 @@ class TreeManager {
 
   restoreNodes() {
     this.tree.forEach(node => {
-      node.hide = false
+      node.hide = this.defaultHidden.includes(node._id) ? true : false
     })
 
     return this.tree

@@ -117,7 +117,7 @@ class TreeManager {
     // this is the least intrusive way of fixing #190
     this.matchTree = matchTree
 
-    return { allNodesHidden, tree: matchTree }
+    return { allNodesHidden, tree: matchTree, matches }
   }
 
   restoreNodes() {

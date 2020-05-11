@@ -154,9 +154,8 @@ class TreeManager {
   setNodeCheckedState(id, checked) {
     // radioSelect must be done before setting node checked, to avoid conflicts with partialCheckParents
     // this only occurs when selecting the parent of a previously selected child when the parent also has a parent
-    if (this.radioSelect) {
-      this.togglePreviousChecked(id, checked)
-    }
+    if (this.radioSelect) this.togglePreviousChecked(id, checked)
+
     const node = this.getNodeById(id)
     node.checked = checked
 

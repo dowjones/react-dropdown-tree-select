@@ -101,14 +101,14 @@ test('can navigate searchresult on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
-  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 2')
 })
 
 test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} keepTreeOnSearch />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
-  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 2')
   t.true(wrapper.find('#c1').exists())
 })
 

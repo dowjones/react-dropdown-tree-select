@@ -270,6 +270,7 @@ Data for rendering the tree select items. The object requires the following stru
   expanded,       // optional: If true, the node is expanded (children of children nodes are not expanded by default unless children nodes also have expanded: true).
   className,      // optional: Additional css class for the node. This is helpful to style the nodes your way
   tagClassName,   // optional: Css class for the corresponding tag. Use this to add custom style the pill corresponding to the node.
+  disableNavitaion, //optional: Allows to slip the keyboard navigation on this node.
   actions,        // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
   dataset,        // optional: Allows data-* attributes to be set on the node and tag elements
   isDefaultValue, // optional: Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.

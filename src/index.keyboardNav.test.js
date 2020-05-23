@@ -52,6 +52,27 @@ test('other key presses does not open dropdown on keyboardNavigation', t => {
   })
 })
 
+test('should skip navigation on a node with disableNavigation = true', t => {
+  const tree = [
+    {
+      label: 'All data',
+      value: '0',
+      disableNavigation: true,
+    },
+    {
+      label: 'iWay',
+      value: '1',
+    },
+    {
+      label: 'KDB',
+      value: '2',
+    },
+  ]
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowDown'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'KDB')
+})
+
 test('can navigate and focus child on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   triggerOnKeyboardKeyDown(wrapper, [

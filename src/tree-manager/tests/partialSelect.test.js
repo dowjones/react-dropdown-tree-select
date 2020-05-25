@@ -85,3 +85,72 @@ test('should not set partial state if all of the children are checked', t => {
   }
   assertTreeInExpectedState(t, manager, expected)
 })
+
+test('should set partial state of radioSelect', t => {
+  const { tree } = t.context
+  tree.children[0].checked = true
+
+  const manager = new TreeManager({ data: tree, mode: 'radioSelect', showPartiallySelected: true })
+
+  const expected = {
+    checked: [parent1],
+    nonPartial: [...parents, ...children],
+    partial: [grandParent],
+    unchecked: [parent2, ...childrenOfParent2, ...childrenOfParent1],
+  }
+  assertTreeInExpectedState(t, manager, expected)
+})
+
+test('should clear previous partial state of radioSelect on change', t => {
+  const { tree } = t.context
+  const manager = new TreeManager({ data: tree, mode: 'radioSelect', showPartiallySelected: true })
+
+  // first select a node
+  manager.setNodeCheckedState(tree.children[0].children[0].id, true)
+
+  const expected1 = {
+    checked: [tree.children[0].children[0].id],
+    nonPartial: [parent2, ...childrenOfParent2],
+    partial: [grandParent, parent1],
+    unchecked: [parent2, ...childrenOfParent2],
+  }
+  assertTreeInExpectedState(t, manager, expected1)
+
+  // then select a node from another parent
+  manager.setNodeCheckedState(tree.children[1].id, true)
+
+  const expected2 = {
+    checked: [parent2],
+    nonPartial: [...parents, ...children],
+    partial: [grandParent],
+    unchecked: [parent1, ...childrenOfParent1, ...childrenOfParent2],
+  }
+  assertTreeInExpectedState(t, manager, expected2)
+})
+
+test('should correctly set partial state of radioSelect when selecting a parent of a previously selected child', t => {
+  const { tree } = t.context
+  const manager = new TreeManager({ data: tree, mode: 'radioSelect', showPartiallySelected: true })
+
+  // first select a grandchild
+  manager.setNodeCheckedState(tree.children[1].children[1].id, true)
+
+  const expected1 = {
+    checked: [tree.children[1].children[1].id],
+    nonPartial: [parent1, ...childrenOfParent1],
+    partial: [grandParent, parent2],
+    unchecked: [parent1, ...childrenOfParent1],
+  }
+  assertTreeInExpectedState(t, manager, expected1)
+
+  // then select its parent
+  manager.setNodeCheckedState(tree.children[1].id, true)
+
+  const expected2 = {
+    checked: [parent2],
+    nonPartial: [...parents, ...children],
+    partial: [grandParent],
+    unchecked: [parent1, ...childrenOfParent1, ...childrenOfParent2],
+  }
+  assertTreeInExpectedState(t, manager, expected2)
+})

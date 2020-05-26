@@ -318,30 +318,19 @@ test('appends selected tags to aria-labelledby with text label', t => {
 })
 
 test('select correct focused node when using external state data container', t => {
-  class DropdownContainer extends React.Component {
-    state = {
-      data: [
-        {
-          label: 'All data',
-          value: '0',
-        },
-        {
-          label: 'iWay',
-          value: '1',
-        },
-      ],
-    }
-    handleChange = ({ value, checked }) => {
-      this.setState(prevState => {
-        const { data } = prevState
-        data[value].checked = checked
-        return { data }
-      })
-    }
-    render() {
-      return <DropdownTreeSelect id={dropdownId} data={this.state.data} onChange={this.handleChange} />
-    }
-  }
+  let data = [
+    {
+      label: 'All data',
+      value: '0',
+      checked: false,
+    },
+    {
+      label: 'iWay',
+      value: '1',
+      checked: false,
+    },
+  ]
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={data} />)
   const nodeAllData = {
     _id: `${dropdownId}-0`,
     _depth: 0,
@@ -350,16 +339,21 @@ test('select correct focused node when using external state data container', t =
     children: undefined,
     actions: [action],
   }
-  const wrapper = mount(<DropdownContainer />)
-  const DropdownTreeSelectInstance = wrapper.find('DropdownTreeSelect')
-  DropdownTreeSelectInstance.instance().onCheckboxChange(nodeAllData._id, true)
-  t.deepEqual(DropdownTreeSelectInstance.state().currentFocus, nodeAllData._id)
-  t.deepEqual(DropdownTreeSelectInstance.state().tree.get(nodeAllData._id), {
-    _depth: 0,
-    _focused: true,
-    _id: 'rdts-0',
-    checked: true,
-    label: 'All data',
-    value: '0',
+  wrapper.instance().onCheckboxChange(nodeAllData._id, true)
+  //simulate external change to the data props.
+  wrapper.setProps({
+    data: [
+      {
+        label: 'All data',
+        value: '0',
+        checked: true,
+      },
+      {
+        label: 'iWay',
+        value: '1',
+        checked: false,
+      },
+    ],
   })
+  t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
 })

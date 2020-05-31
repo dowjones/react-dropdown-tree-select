@@ -316,3 +316,44 @@ test('appends selected tags to aria-labelledby with text label', t => {
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'rdts_trigger rdts-0_tag')
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
 })
+
+test('select correct focused node when using external state data container', t => {
+  let data = [
+    {
+      label: 'All data',
+      value: '0',
+      checked: false,
+    },
+    {
+      label: 'iWay',
+      value: '1',
+      checked: false,
+    },
+  ]
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={data} />)
+  const nodeAllData = {
+    _id: `${dropdownId}-0`,
+    _depth: 0,
+    label: 'All data',
+    value: '0',
+    children: undefined,
+    actions: [action],
+  }
+  wrapper.instance().onCheckboxChange(nodeAllData._id, true)
+  //simulate external change to the data props.
+  wrapper.setProps({
+    data: [
+      {
+        label: 'All data',
+        value: '0',
+        checked: true,
+      },
+      {
+        label: 'iWay',
+        value: '1',
+        checked: false,
+      },
+    ],
+  })
+  t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
+})

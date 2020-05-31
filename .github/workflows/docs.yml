@@ -20,6 +20,7 @@ jobs:
         run: |
           # un-ignore bundle.js
           mv docs/.gitignore .gitignore
+          yarn install --ignore-engines
           yarn build:docs
       - name: Deploy Pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3

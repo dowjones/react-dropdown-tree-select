@@ -12,35 +12,7 @@ jobs:
       install:
         - yarn install --ignore-engines
       script:
-        - yarn lint:nofix
         - yarn coveralls
       branches:
         except:
           - /^v\d+\.\d+\.\d+$/
-    # Define the release stage that runs semantic-release
-    - stage: release
-      if: (NOT type IN (pull_request)) AND (branch = master)
-      node_js: '10'
-      # overwrite default `script` step to skip the tests
-      script: echo "Deploying to npm ..."
-      deploy:
-        provider: script
-        skip_cleanup: true
-        script:
-          - npx semantic-release
-    - stage: docs
-      if: (NOT type IN (pull_request)) AND (branch = develop)
-      node_js: '10'
-      # un-ignore bundle.js
-      before_deploy: mv docs/.gitignore .gitignore
-      # overwrite default `script` step to skip the tests
-      script: yarn build:docs
-      deploy:
-        provider: pages
-        skip-cleanup: true
-        github-token: $GH_PAGES_TOKEN  # Set in the settings page of the repository, as a secure variable
-        keep-history: true
-        local-dir: docs
-        verbose: true
-        on:
-          branch: develop

@@ -75,15 +75,16 @@ class DropdownTreeSelect extends Component {
       rootPrefixId: this.clientId,
       searchPredicate,
     })
-    // Restore focus-state
-    const currentFocusNode = this.state.currentFocus && this.treeManager.getNodeById(this.state.currentFocus)
-    if (currentFocusNode) {
-      currentFocusNode._focused = true
-    }
-    this.setState(prevState => ({
-      showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
-      ...this.treeManager.getTreeAndTags(),
-    }))
+    this.setState(prevState => {
+      const currentFocusNode = prevState.currentFocus && this.treeManager.getNodeById(prevState.currentFocus)
+      if (currentFocusNode) {
+        currentFocusNode._focused = true
+      }
+      return {
+        showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
+        ...this.treeManager.getTreeAndTags(),
+      }
+    })
   }
 
   resetSearchState = () => {

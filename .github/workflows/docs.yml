@@ -3,6 +3,10 @@ name: Docs
 on:
   push:
     branches: [develop]
+    paths:
+      - 'docs/**'
+      - package.json
+      - README.md
 
 jobs:
   build-docs:

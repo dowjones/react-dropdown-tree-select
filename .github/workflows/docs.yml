@@ -3,9 +3,13 @@ name: Docs
 on:
   push:
     branches: [develop]
+    paths:
+      - 'docs/**'
+      - package.json
+      - README.md
 
 jobs:
-  build:
+  build-docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,10 +24,11 @@ jobs:
         run: |
           # un-ignore bundle.js
           mv docs/.gitignore .gitignore
+          yarn install --ignore-engines
           yarn build:docs
       - name: Deploy Pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs

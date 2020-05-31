@@ -20,4 +20,5 @@ jobs:
       - run: yarn lint:nofix
       - run: yarn coveralls
         env:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_GIT_BRANCH: ${{ github.ref }}

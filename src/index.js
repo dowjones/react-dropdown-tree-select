@@ -212,7 +212,17 @@ class DropdownTreeSelect extends Component {
   }
 
   onAction = (nodeId, action) => {
-    this.props.onAction(this.treeManager.getNodeById(nodeId), action)
+    const { currentFocus } = this.state
+    const { searchModeOn } = this.props
+    const currentFocusNode = currentFocus && this.treeManager.getNodeById(currentFocus)
+    const node = this.treeManager.getNodeById(nodeId)
+    const tree = searchModeOn ? this.treeManager.matchTree : this.treeManager.tree
+    keyboardNavigation.adjustFocusedProps(currentFocusNode, node)
+    this.setState({
+      tree,
+      currentFocus: nodeId,
+    })
+    this.props.onAction(node, action)
   }
 
   onInputFocus = () => {

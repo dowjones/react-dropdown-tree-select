@@ -104,7 +104,15 @@ test('notifies on action', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown="initial" />)
   wrapper.find('i.fa-ban').simulate('click')
-  t.true(handler.calledWithExactly(node0, action))
+  t.true(handler.calledWithExactly({ ...node0, _focused: true }, action))
+})
+
+test('focus on action node', t => {
+  const handler = spy()
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onAction={handler} showDropdown="initial" />)
+  wrapper.find('i.fa-ban').simulate('click')
+  t.deepEqual(wrapper.state().currentFocus, node0._id)
 })
 
 test('notifies on node toggle', t => {

@@ -47,7 +47,7 @@ class DropdownTreeSelect extends Component {
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
-    unControlled: PropTypes.bool,
+    controlled: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -55,7 +55,7 @@ class DropdownTreeSelect extends Component {
     onBlur: () => {},
     onChange: () => {},
     texts: {},
-    unControlled: false,
+    controlled: false,
     showDropdown: 'default',
     inlineSearchInput: false,
   }
@@ -176,7 +176,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked, callback) => {
-    const { mode, keepOpenOnSelect, clearSearchOnChange, unControlled } = this.props
+    const { mode, keepOpenOnSelect, clearSearchOnChange, controlled } = this.props
     const { currentFocus, searchModeOn } = this.state
     this.treeManager.setNodeCheckedState(id, checked)
     let tags = this.treeManager.tags
@@ -209,9 +209,9 @@ class DropdownTreeSelect extends Component {
     keyboardNavigation.adjustFocusedProps(currentFocusNode, node)
     this.setState(nextState, () => {
       callback && callback(tags)
-      unControlled && this.props.onChange(node, tags)
+      controlled && this.props.onChange(node, tags)
     })
-    !unControlled && this.props.onChange(node, tags)
+    !controlled && this.props.onChange(node, tags)
   }
 
   onAction = (nodeId, action) => {

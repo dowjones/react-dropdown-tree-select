@@ -104,20 +104,12 @@ test('can navigate searchresult on keyboardNavigation', t => {
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
 })
 
-test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
+test('can navigate with keepTreeOnSearch on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} keepTreeOnSearch />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
   t.true(wrapper.find('#c1').exists())
-})
-
-test('can not navigate parents with keepTreeOnSearch on keyboardNavigation', t => {
-  const wrapper = mount(<DropdownTreeSelect data={tree} keepTreeOnSearch />)
-  // Initial search
-  wrapper.instance().onInputChange('bb')
-  triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown'])
-  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
   // Verify parents correctly hidden on second search
   wrapper.instance().onInputChange('')
   wrapper.instance().onInputChange('bb')

@@ -273,7 +273,18 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kYem",
+      "name": "Kestutis Kasiulynas",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3390897?v=4",
+      "profile": "http://kYem.net",
+      "contributions": [
+        "bug",
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }

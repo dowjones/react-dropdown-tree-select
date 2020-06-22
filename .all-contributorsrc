@@ -273,7 +273,36 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kYem",
+      "name": "Kestutis Kasiulynas",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/3390897?v=4",
+      "profile": "http://kYem.net",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {     
+      "login": "isuscbrmid",
+      "name": "Jesus Cabrera Gonzalez",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/20484267?v=4",
+      "profile": "https://github.com/isuscbrmid",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "MJRuskin",
+      "name": "MJRuskin",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/27359753?v=4",
+      "profile": "https://github.com/MJRuskin",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }

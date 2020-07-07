@@ -284,7 +284,7 @@
         "code"
       ]
     },
-    {     
+    {
       "login": "isuscbrmid",
       "name": "Jesus Cabrera Gonzalez",
       "avatar_url": "https://avatars3.githubusercontent.com/u/20484267?v=4",
@@ -298,6 +298,15 @@
       "name": "MJRuskin",
       "avatar_url": "https://avatars2.githubusercontent.com/u/27359753?v=4",
       "profile": "https://github.com/MJRuskin",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "akarshjairaj",
+      "name": "akarshjairaj",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/64946671?v=4",
+      "profile": "https://github.com/akarshjairaj",
       "contributions": [
         "code"
       ]

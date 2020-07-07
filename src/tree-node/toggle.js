@@ -25,17 +25,9 @@ class Toggle extends PureComponent {
   render() {
     const { expanded, isLeaf } = this.props
     const toggleCx = ['toggle', expanded && 'expanded', !expanded && 'collapsed'].filter(Boolean).join(' ')
-    
+
     if (isLeaf) {
-      return (
-        <i
-        role="button"
-        tabIndex={-1}
-        className={toggleCx}
-        style={{visibility: 'hidden'}}        
-        aria-hidden
-      />
-      )
+      return <i role="button" tabIndex={-1} className={toggleCx} style={{ visibility: 'hidden' }} aria-hidden />
     }
 
     return (

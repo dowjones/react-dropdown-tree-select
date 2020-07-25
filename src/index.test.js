@@ -107,6 +107,15 @@ test('notifies on action', t => {
   t.true(handler.calledWithExactly(node0, action))
 })
 
+test('notifies on action without onAction handler', t => {
+  const handler = spy(console, 'error')
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" />)
+  wrapper.find('i.fa-ban').simulate('click')
+  t.true(handler.notCalled)
+  handler.restore()
+})
+
 test('notifies on node toggle', t => {
   const handler = spy()
   const { tree } = t.context

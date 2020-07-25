@@ -18,6 +18,7 @@ jobs:
           node-version: 12.x
       - run: yarn install --ignore-engines
       - run: yarn lint:nofix
+      - run: yarn test
       # 💀💀💀💀cannot run coveralls since GH won't pass COVERALLS_REPO_TOKEN to forks; so any PRs from external contributors would fail
       # - run: yarn coveralls
       #   env:

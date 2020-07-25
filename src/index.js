@@ -50,6 +50,7 @@ class DropdownTreeSelect extends Component {
   }
 
   static defaultProps = {
+    onAction: () => {},
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},

@@ -267,8 +267,7 @@ class DropdownTreeSelect extends Component {
       }
       return
     } else if (e.key === 'Backspace' && tags.length && this.searchInput.value.length === 0) {
-      const lastTag = tags.pop()
-      this.onCheckboxChange(lastTag._id, false)
+      this.onTagRemove(tags[tags.length - 1]._id, true)
     } else {
       return
     }

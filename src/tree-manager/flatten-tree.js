@@ -1,4 +1,5 @@
 import getPartialState from './getPartialState'
+import Node from './node'
 
 import { isEmpty } from '../utils'
 
@@ -216,16 +217,8 @@ function walkNodes({
   _rv = { list: new Map(), defaultValues: [], singleSelectedNode: null },
 }) {
   const single = simple || radio
-  nodes.forEach((node, i) => {
-    node._depth = depth
-
-    if (parent) {
-      node._id = node.id || `${parent._id}-${i}`
-      node._parent = parent._id
-      parent._children.push(node._id)
-    } else {
-      node._id = node.id || `${rootPrefixId ? `${rootPrefixId}-${i}` : i}`
-    }
+  nodes.forEach((n, i) => {
+    const node = new Node({ rootPrefixId, depth, parent, index: i, ...n })
 
     if (single && node.checked) {
       if (_rv.singleSelectedNode) {
@@ -261,6 +254,7 @@ function walkNodes({
         radio,
         showPartialState,
         hierarchical,
+        rootPrefixId,
         _rv,
       })
 

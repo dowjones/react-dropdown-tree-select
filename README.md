@@ -298,10 +298,11 @@ The `texts` object requires the following structure:
 
 ```js
 {
-  placeholder,  // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
-  noMatches,    // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
-  label,        // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
-  labelRemove,  // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
+  placeholder,              // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
+  inlineSearchPlaceholder,  // optional: The text to display as placeholder on the inline search box. Only applicable with the `inlineSearchInput` setting. Defaults to `Search...`
+  noMatches,                // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
+  label,                    // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
+  labelRemove,              // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
 }
 ```
 
@@ -640,6 +641,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

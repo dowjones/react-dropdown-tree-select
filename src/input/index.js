@@ -30,7 +30,17 @@ class Input extends PureComponent {
   }
 
   render() {
-    const { inputRef, texts = {}, onFocus, onBlur, disabled, readOnly, onKeyDown, activeDescendant } = this.props
+    const {
+      inputRef,
+      texts = {},
+      onFocus,
+      onBlur,
+      disabled,
+      readOnly,
+      onKeyDown,
+      activeDescendant,
+      inlineSearchInput,
+    } = this.props
 
     return (
       <input
@@ -38,7 +48,9 @@ class Input extends PureComponent {
         disabled={disabled}
         ref={inputRef}
         className="search"
-        placeholder={texts.placeholder || 'Choose...'}
+        placeholder={
+          inlineSearchInput ? texts.inlineSearchPlaceholder || 'Search...' : texts.placeholder || 'Choose...'
+        }
         onKeyDown={onKeyDown}
         onChange={this.handleInputChange}
         onFocus={onFocus}

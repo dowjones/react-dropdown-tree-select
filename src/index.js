@@ -47,6 +47,7 @@ class DropdownTreeSelect extends Component {
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
+    centerOnSelect: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -57,6 +58,7 @@ class DropdownTreeSelect extends Component {
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
+    centerOnSelect: true,
   }
 
   constructor(props) {
@@ -343,6 +345,7 @@ class DropdownTreeSelect extends Component {
                   mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
                   {...commonProps}
+                  centerOnSelect={this.props.centerOnSelect}
                 />
               )}
             </div>

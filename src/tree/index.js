@@ -35,7 +35,6 @@ class Tree extends Component {
 
   static defaultProps = {
     pageSize: 100,
-    centerOnSelect: true,
   }
 
   constructor(props) {

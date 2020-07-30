@@ -65,6 +65,7 @@ A lightweight and fast control to render a select component that can display hie
   - [id](#id)
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)
+  - [centerOnSelect](#centerOnSelect)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -412,6 +413,13 @@ Type: `bool` (default: `false`)
 
 `inlineSearchInput=true` makes the search input renders **inside** the dropdown-content. This can be useful when your UX looks something like [this comment](https://github.com/dowjones/react-dropdown-tree-select/issues/308#issue-526467109).
 
+### centerOnSelect
+
+Type: `bool` (default: `true`)
+
+`centerOnSelect=false` disables the automatic centering of the dropdown on the selected item.
+(https://github.com/dowjones/react-dropdown-tree-select/issues/391).
+
 ## Styling and Customization
 
 ### Default styles
@@ -640,6 +648,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

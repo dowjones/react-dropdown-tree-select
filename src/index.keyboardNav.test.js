@@ -162,7 +162,7 @@ test('should set current focus as selected on tab out for simpleSelect', t => {
   t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
 })
 
-test('should scroll on keyboard navigation', t => {
+test.skip('should scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
   const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')
@@ -182,7 +182,7 @@ test('should scroll on keyboard navigation', t => {
   getElementById.restore()
 })
 
-test('should only scroll on keyboard navigation', t => {
+test.skip('should only scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
   const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')

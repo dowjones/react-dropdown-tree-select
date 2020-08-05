@@ -1,6 +1,6 @@
 import test from 'ava'
 import React from 'react'
-import { spy, stub } from 'sinon'
+import { spy, stub, assert } from 'sinon'
 import { mount } from 'enzyme'
 import DropdownTreeSelect from './index'
 
@@ -162,8 +162,9 @@ test('should set current focus as selected on tab out for simpleSelect', t => {
   t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
 })
 
-test.skip('should scroll on keyboard navigation', t => {
+test('should scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const scrollIntoView = (Element.prototype.scrollIntoView = spy())
   const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')
   const contentNode = wrapper.find('.dropdown-content').getDOMNode()
@@ -172,25 +173,26 @@ test.skip('should scroll on keyboard navigation', t => {
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
   largeTree.forEach((n, index) => {
-    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1, scrollIntoView })
   })
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
   t.deepEqual(wrapper.find('li.focused').text(), 'label148')
-  t.notDeepEqual(contentNode.scrollTop, 0)
+  assert.calledOnce(scrollIntoView)
 
   getElementById.restore()
 })
 
-test.skip('should only scroll on keyboard navigation', t => {
+test('should only scroll on keyboard navigation', t => {
   const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
-  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const getElementById = stub(document, 'getElementById')
+  const scrollIntoView = (Element.prototype.scrollIntoView = spy())
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
   const contentNode = wrapper.find('.dropdown-content').getDOMNode()
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
   largeTree.forEach((n, index) => {
-    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1 })
+    getElementById.withArgs(`${n.id}_li`).returns({ offsetTop: index, clientHeight: 1, scrollIntoView })
   })
 
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp'])
@@ -207,7 +209,8 @@ test.skip('should only scroll on keyboard navigation', t => {
 
   // Verify scroll is restored to previous position after keyboard nav
   triggerOnKeyboardKeyDown(wrapper, ['ArrowUp', 'ArrowDown'])
-  t.deepEqual(contentNode.scrollTop, scrollTop)
+  // Called once for each input, 3 in this case.
+  assert.calledThrice(scrollIntoView)
 
   getElementById.restore()
 })

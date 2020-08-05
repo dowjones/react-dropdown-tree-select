@@ -257,7 +257,7 @@ class DropdownTreeSelect extends Component {
       if (newFocus !== currentFocus) {
         this.setState({ currentFocus: newFocus }, () => {
           const ele = document && document.getElementById(`${newFocus}_li`)
-          if (ele !== null) ele.scrollIntoView()
+          ele && ele.scrollIntoView()
         })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {

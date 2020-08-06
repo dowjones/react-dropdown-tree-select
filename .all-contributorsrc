@@ -310,6 +310,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "berdyshev",
+      "name": "Artem Berdyshev",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/539090?v=4",
+      "profile": "https://github.com/berdyshev",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,

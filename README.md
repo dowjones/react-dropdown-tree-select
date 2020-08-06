@@ -635,6 +635,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://github.com/isuscbrmid"><img src="https://avatars3.githubusercontent.com/u/20484267?v=4" width="100px;" alt=""/><br /><sub><b>Jesus Cabrera Gonzalez</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=isuscbrmid" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/MJRuskin"><img src="https://avatars2.githubusercontent.com/u/27359753?v=4" width="100px;" alt=""/><br /><sub><b>MJRuskin</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=MJRuskin" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/akarshjairaj"><img src="https://avatars1.githubusercontent.com/u/64946671?v=4" width="100px;" alt=""/><br /><sub><b>akarshjairaj</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=akarshjairaj" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/berdyshev"><img src="https://avatars1.githubusercontent.com/u/539090?v=4" width="100px;" alt=""/><br /><sub><b>Artem Berdyshev</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=berdyshev" title="Code">💻</a> <a href="https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Aberdyshev" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

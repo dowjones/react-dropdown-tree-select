@@ -21,10 +21,10 @@ class Input extends PureComponent {
 
   constructor(props) {
     super(props)
-    this.delayedCallback = debounce((e) => this.props.onInputChange(e.target.value), 300)
+    this.delayedCallback = debounce(e => this.props.onInputChange(e.target.value), 300)
   }
 
-  handleInputChange = (e) => {
+  handleInputChange = e => {
     e.persist()
     this.delayedCallback(e)
   }

@@ -6,7 +6,7 @@ import { getDataset } from '../utils'
 import './index.css'
 
 const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
-  tags.map((tag) => {
+  tags.map(tag => {
     const { _id, label, tagClassName, dataset, tagLabel } = tag
     return (
       <li

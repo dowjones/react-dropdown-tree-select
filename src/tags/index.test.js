@@ -57,3 +57,15 @@ test('should render data attributes', t => {
 
   t.snapshot(wrapper)
 })
+
+test('should render the tagLabel instead of label when provided', t => {
+  const tags = [{ _id: 'i1', label: 'l1', tagLabel: 'custom label' }, { _id: 'i2', label: 'l2' }]
+  const wrapper = toJson(
+    shallow(
+      <Tags tags={tags}>
+        <Input />
+      </Tags>
+    )
+  )
+  t.snapshot(wrapper)
+})

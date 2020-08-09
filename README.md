@@ -273,6 +273,7 @@ Data for rendering the tree select items. The object requires the following stru
   actions,        // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
   dataset,        // optional: Allows data-* attributes to be set on the node and tag elements
   isDefaultValue, // optional: Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.
+  tagLabel,       // optional: tag label in case you need it to differ from the checkbox label
   ...             // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```
@@ -635,6 +636,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://github.com/isuscbrmid"><img src="https://avatars3.githubusercontent.com/u/20484267?v=4" width="100px;" alt=""/><br /><sub><b>Jesus Cabrera Gonzalez</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=isuscbrmid" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/MJRuskin"><img src="https://avatars2.githubusercontent.com/u/27359753?v=4" width="100px;" alt=""/><br /><sub><b>MJRuskin</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=MJRuskin" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/akarshjairaj"><img src="https://avatars1.githubusercontent.com/u/64946671?v=4" width="100px;" alt=""/><br /><sub><b>akarshjairaj</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=akarshjairaj" title="Code">💻</a></td>
+    <td align="center"><a href="https://matheushw.com/"><img src="https://avatars3.githubusercontent.com/u/42154031?v=4" width="100px;" alt=""/><br /><sub><b>Matheus Wichman</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=m4theushw" title="Code">💻</a></td>
   </tr>
 </table>
 

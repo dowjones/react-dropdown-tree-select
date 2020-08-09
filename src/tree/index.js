@@ -51,14 +51,7 @@ class Tree extends Component {
     const { activeDescendant } = nextProps
     const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
     this.computeInstanceProps(nextProps, !hasSameActiveDescendant)
-    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
-      if (hasSameActiveDescendant) return
-      const { scrollableTarget } = this.state
-      const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-      if (activeLi && scrollableTarget) {
-        scrollableTarget.scrollTop = activeLi.offsetTop - (scrollableTarget.clientHeight - activeLi.clientHeight) / 2
-      }
-    })
+    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) })
   }
 
   componentDidMount = () => {

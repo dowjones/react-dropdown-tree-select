@@ -273,6 +273,7 @@ Data for rendering the tree select items. The object requires the following stru
   actions,        // optional: An array of extra action on the node (such as displaying an info icon or any custom icons/elements)
   dataset,        // optional: Allows data-* attributes to be set on the node and tag elements
   isDefaultValue, // optional: Indicate if a node is a default value. When true, the dropdown will automatically select the node(s) when there is no other selected node. Can be used on more than one node.
+  tagLabel,       // optional: tag label in case you need it to differ from the checkbox label
   ...             // optional: Any extra properties that you'd like to receive during `onChange` event
 }
 ```

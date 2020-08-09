@@ -254,7 +254,10 @@ class DropdownTreeSelect extends Component {
         this.onNodeToggle
       )
       if (newFocus !== currentFocus) {
-        this.setState({ currentFocus: newFocus })
+        this.setState({ currentFocus: newFocus }, () => {
+          const ele = document && document.getElementById(`${newFocus}_li`)
+          ele && ele.scrollIntoView()
+        })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       if (mode === 'simpleSelect' && tree.has(currentFocus)) {

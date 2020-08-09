@@ -366,3 +366,17 @@ test('select correct focused node when using external state data container', t =
   })
   t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
 })
+
+test('should not scroll on select', t => {
+  const node = (id, label) => ({ id, label, value: label })
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
+  const { scrollTop } = wrapper.find('.dropdown-content').getDOMNode()
+
+  t.deepEqual(scrollTop, 0)
+
+  const checkboxes = wrapper.find('.checkbox-item')
+  checkboxes.at(140).simulate('click')
+
+  t.deepEqual(scrollTop, 0)
+})

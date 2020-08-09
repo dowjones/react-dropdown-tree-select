@@ -240,7 +240,6 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/5932031?v=4",
       "profile": "https://github.com/stoberov",
       "contributions": [
-        "code",
         "bug"
       ]
     },
@@ -337,6 +336,26 @@
       "profile": "https://github.com/aarce-uncharted",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "osmancode",
+      "name": "Mohamad Othman",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1795294?v=4",
+      "profile": "http://osmancode.me",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "smurfs2549",
+      "name": "kathleenlu",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8286468?v=4",
+      "profile": "https://github.com/smurfs2549",
+      "contributions": [
+        "code",
+        "bug"
       ]
     }
   ],

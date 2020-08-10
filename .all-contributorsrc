@@ -240,7 +240,6 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/5932031?v=4",
       "profile": "https://github.com/stoberov",
       "contributions": [
-        "code",
         "bug"
       ]
     },
@@ -312,12 +311,51 @@
       ]
     },
     {
+      "login": "berdyshev",
+      "name": "Artem Berdyshev",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/539090?v=4",
+      "profile": "https://github.com/berdyshev",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
       "login": "m4theushw",
       "name": "Matheus Wichman",
       "avatar_url": "https://avatars3.githubusercontent.com/u/42154031?v=4",
       "profile": "https://matheushw.com/",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "aarce-uncharted",
+      "name": "aarce-uncharted",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/60662654?v=4",
+      "profile": "https://github.com/aarce-uncharted",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "osmancode",
+      "name": "Mohamad Othman",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1795294?v=4",
+      "profile": "http://osmancode.me",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
+      "login": "smurfs2549",
+      "name": "kathleenlu",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8286468?v=4",
+      "profile": "https://github.com/smurfs2549",
+      "contributions": [
+        "code",
+        "bug"
       ]
     }
   ],

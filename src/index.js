@@ -91,8 +91,7 @@ class DropdownTreeSelect extends Component {
 
   resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
-    // !this.props.inlineSearchInput is gated as inline search is not rendered until dropdown is shown
-    if (!this.props.inlineSearchInput) {
+    if (this.searchInput) {
       this.searchInput.value = ''
     }
 
@@ -256,7 +255,10 @@ class DropdownTreeSelect extends Component {
         this.onNodeToggle
       )
       if (newFocus !== currentFocus) {
-        this.setState({ currentFocus: newFocus })
+        this.setState({ currentFocus: newFocus }, () => {
+          const ele = document && document.getElementById(`${newFocus}_li`)
+          ele && ele.scrollIntoView()
+        })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       if (mode === 'simpleSelect' && tree.has(currentFocus)) {

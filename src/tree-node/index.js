@@ -82,7 +82,9 @@ class TreeNode extends PureComponent {
     if (mode !== 'simpleSelect') {
       attributes['aria-checked'] = partial ? 'mixed' : checked
       attributes['aria-level'] = (_depth || 0) + 1
-      attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false')
+      _children !== undefined && _children.length > 0
+        ? (attributes['aria-expanded'] = _children && (expanded ? 'true' : 'false'))
+        : null
     }
     return attributes
   }

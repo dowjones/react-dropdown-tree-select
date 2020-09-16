@@ -331,22 +331,19 @@ class DropdownTreeSelect extends Component {
           {showDropdown && (
             <div className="dropdown-content" {...this.getAriaAttributes()}>
               {inlineSearchInput && searchInput}
-              {this.state.allNodesHidden ? (
-                <span className="no-matches">{texts.noMatches || 'No matches found'}</span>
-              ) : (
-                <Tree
-                  data={this.state.tree}
-                  keepTreeOnSearch={this.props.keepTreeOnSearch}
-                  keepChildrenOnSearch={this.props.keepChildrenOnSearch}
-                  searchModeOn={this.state.searchModeOn}
-                  onAction={this.onAction}
-                  onCheckboxChange={this.onCheckboxChange}
-                  onNodeToggle={this.onNodeToggle}
-                  mode={mode}
-                  showPartiallySelected={this.props.showPartiallySelected}
-                  {...commonProps}
-                />
-              )}
+              {this.state.allNodesHidden && <span className="no-matches">{texts.noMatches || 'No matches found'}</span>}
+              <Tree
+                data={this.state.tree}
+                keepTreeOnSearch={this.props.keepTreeOnSearch}
+                keepChildrenOnSearch={this.props.keepChildrenOnSearch}
+                searchModeOn={this.state.searchModeOn}
+                onAction={this.onAction}
+                onCheckboxChange={this.onCheckboxChange}
+                onNodeToggle={this.onNodeToggle}
+                mode={mode}
+                showPartiallySelected={this.props.showPartiallySelected}
+                {...commonProps}
+              />
             </div>
           )}
         </div>

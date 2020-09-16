@@ -243,15 +243,16 @@ test('deactivates dropdown active on blur', t => {
 test('detects click outside', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  const handleOutsideClick = spy(wrapper.instance(), 'handleOutsideClick')
+  const handleDropdownCollapse = spy(wrapper.instance(), 'handleDropdownCollapse')
 
+  wrapper.instance().onFocus()
   wrapper.instance().handleClick()
   t.true(wrapper.state().showDropdown)
 
   const event = new MouseEvent('click', { bubbles: true, cancelable: true })
   global.document.dispatchEvent(event)
 
-  t.true(handleOutsideClick.calledOnce)
+  t.true(handleDropdownCollapse.calledOnce)
   t.false(wrapper.state().showDropdown)
 })
 
@@ -270,7 +271,7 @@ test('detects click inside', t => {
     target: checkboxItem,
   })
   Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
-  wrapper.instance().handleOutsideClick(event)
+  wrapper.instance().handleDropdownCollapse(event)
 
   t.true(wrapper.state().showDropdown)
 })
@@ -291,7 +292,7 @@ test('detects click outside when other dropdown instance', t => {
     target: searchInput,
   })
   Object.defineProperty(event, 'target', { value: searchInput, enumerable: true })
-  wrapper1.instance().handleOutsideClick(event)
+  wrapper1.instance().handleDropdownCollapse(event)
 
   t.false(wrapper1.state().showDropdown)
 })

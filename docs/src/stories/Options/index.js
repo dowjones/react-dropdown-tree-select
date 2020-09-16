@@ -32,6 +32,12 @@ class WithOptions extends PureComponent {
   onNodeToggle = curNode => {
     console.log('onNodeToggle::', curNode)
   }
+  onFocus = (node, action) => {
+    console.log('onFocus::', action, node)
+  }
+  onBlur = (node, action) => {
+    console.log('onBlur::', action, node)
+  }
 
   onOptionsChange = value => {
     this.setState({ [value]: !this.state[value] })
@@ -121,6 +127,8 @@ class WithOptions extends PureComponent {
             id="rdts"
             data={data}
             onChange={this.onChange}
+            onBlur={this.onBlur}
+            onFocus={this.onFocus}
             onAction={this.onAction}
             onNodeToggle={this.onNodeToggle}
             clearSearchOnChange={clearSearchOnChange}

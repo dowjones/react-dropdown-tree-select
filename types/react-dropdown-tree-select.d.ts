@@ -114,7 +114,6 @@ declare module 'react-dropdown-tree-select' {
     searchInput: HTMLInputElement
     keepDropdownActive: boolean
     handleClick(): void
-    _timeoutID: number
   }
 
   export interface TreeNode {

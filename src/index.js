@@ -64,6 +64,7 @@ class DropdownTreeSelect extends Component {
     this.state = {
       searchModeOn: false,
       currentFocus: undefined,
+      isManagingFocus: false,
     }
     this.clientId = props.id || clientIdGenerator.get(this)
   }
@@ -106,11 +107,34 @@ class DropdownTreeSelect extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick, false)
+    document.removeEventListener('click', this.handleDropdownCollapse, false)
   }
 
   componentWillReceiveProps(nextProps) {
     this.initNewProps(nextProps)
+  }
+
+  onBlur = () => {
+    // setTimeout runs afterwards in the event.
+    // If onFocus is triggered immediately in a child component, clearTimeout will stop setTimeout to run.
+    this._timeoutID = setTimeout(() => {
+      if (this.state.isManagingFocus) {
+        this.props.onBlur()
+        this.setState({
+          isManagingFocus: false,
+        })
+      }
+    }, 0)
+  }
+
+  onFocus = () => {
+    clearTimeout(this._timeoutID)
+    if (!this.state.isManagingFocus) {
+      this.props.onFocus()
+      this.setState({
+        isManagingFocus: true,
+      })
+    }
   }
 
   handleClick = (e, callback) => {
@@ -118,28 +142,24 @@ class DropdownTreeSelect extends Component {
       // keep dropdown active when typing in search box
       const showDropdown = this.props.showDropdown === 'always' || this.keepDropdownActive || !prevState.showDropdown
 
-      // register event listeners only if there is a state change
-      if (showDropdown !== prevState.showDropdown) {
-        if (showDropdown) {
-          document.addEventListener('click', this.handleOutsideClick, false)
-        } else {
-          document.removeEventListener('click', this.handleOutsideClick, false)
-        }
+      const searchStateReset = !showDropdown ? this.resetSearchState() : {}
+      // adds event listener for collapsing the dropdown
+      if (this.state.isManagingFocus && this.props.showDropdown !== 'always') {
+        document.addEventListener('click', this.handleDropdownCollapse, false)
       }
 
-      if (showDropdown) this.props.onFocus()
-      else this.props.onBlur()
-
-      return !showDropdown ? { showDropdown, ...this.resetSearchState() } : { showDropdown }
+      return {
+        showDropdown,
+        searchStateReset,
+      }
     }, callback)
   }
 
-  handleOutsideClick = e => {
-    if (this.props.showDropdown === 'always' || !isOutsideClick(e, this.node)) {
-      return
-    }
-
-    this.handleClick()
+  handleDropdownCollapse = e => {
+    if (!isOutsideClick(e, this.node)) return
+    document.removeEventListener('click', this.handleDropdownCollapse, false)
+    const showDropdown = this.props.showDropdown === 'always'
+    this.setState({ showDropdown: showDropdown })
   }
 
   onInputChange = value => {
@@ -157,12 +177,15 @@ class DropdownTreeSelect extends Component {
     })
   }
 
-  onTagRemove = (id, isKeyboardEvent) => {
+  onTagRemove = id => {
     const { tags: prevTags } = this.state
     this.onCheckboxChange(id, false, tags => {
-      if (!isKeyboardEvent) return
-
-      keyboardNavigation.getNextFocusAfterTagDelete(id, prevTags, tags, this.searchInput).focus()
+      const nextFocus = keyboardNavigation.getNextFocusAfterTagDelete(id, prevTags, tags, this.searchInput)
+      if (nextFocus) {
+        nextFocus.focus()
+      } else {
+        this.onBlur()
+      }
     })
   }
 
@@ -201,7 +224,7 @@ class DropdownTreeSelect extends Component {
     }
 
     if (isSingleSelect && !showDropdown) {
-      document.removeEventListener('click', this.handleOutsideClick, false)
+      document.removeEventListener('click', this.handleDropdownCollapse, false)
     }
 
     keyboardNavigation.adjustFocusedProps(currentFocusNode, node)
@@ -311,6 +334,8 @@ class DropdownTreeSelect extends Component {
     return (
       <div
         id={this.clientId}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
         className={[this.props.className && this.props.className, 'react-dropdown-tree-select']
           .filter(Boolean)
           .join(' ')}

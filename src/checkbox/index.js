@@ -12,12 +12,15 @@ const Checkbox = props => {
   const { checked, indeterminate = false, onChange, disabled, readOnly, ...rest } = props
   const isDisabled = disabled || readOnly
 
-  const ref = useCallback(node => {
-    if (node) {
-      node.checked = checked
-      node.indeterminate = indeterminate
-    }
-  }, [])
+  const ref = useCallback(
+    node => {
+      if (node) {
+        node.checked = checked
+        node.indeterminate = indeterminate
+      }
+    },
+    [checked, indeterminate]
+  )
 
   return <input type="checkbox" ref={ref} onChange={onChange} disabled={isDisabled} {...rest} />
 }

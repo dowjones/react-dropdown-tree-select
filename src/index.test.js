@@ -86,6 +86,12 @@ test('always shows dropdown', t => {
   t.snapshot(toJson(wrapper))
 })
 
+test('always shows dropdown with inline search Input', t => {
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} inlineSearchInput showDropdown="always" />)
+  t.snapshot(toJson(wrapper))
+})
+
 test('keeps dropdown open for showDropdown: always', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="always" />)
@@ -101,6 +107,15 @@ test('notifies on action', t => {
   t.true(handler.calledWithExactly(node0, action))
 })
 
+test('notifies on action without onAction handler', t => {
+  const handler = spy(console, 'error')
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" />)
+  wrapper.find('button.fa-ban').simulate('click')
+  t.true(handler.notCalled)
+  handler.restore()
+})
+
 test('notifies on node toggle', t => {
   const handler = spy()
   const { tree } = t.context
@@ -114,7 +129,11 @@ test('notifies on checkbox change', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
   wrapper.instance().onCheckboxChange(node0._id, true)
-  t.true(handler.calledWithExactly({ ...node0, checked: true }, [{ ...node0, checked: true }]))
+  t.true(
+    handler.calledWithExactly({ ...node0, _focused: true, checked: true }, [
+      { ...node0, _focused: true, checked: true },
+    ])
+  )
 })
 
 test('notifies on tag removal', t => {
@@ -122,7 +141,7 @@ test('notifies on tag removal', t => {
   const { tree } = t.context
   const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
   wrapper.instance().onTagRemove(node0._id)
-  t.true(handler.calledWithExactly({ ...node0, checked: false }, []))
+  t.true(handler.calledWithExactly({ ...node0, _focused: true, checked: false }, []))
 })
 
 test('sets search mode on input change', t => {
@@ -305,4 +324,59 @@ test('appends selected tags to aria-labelledby with text label', t => {
   const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} texts={{ label: 'hello world' }} />)
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-labelledby'), 'rdts_trigger rdts-0_tag')
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
+})
+
+test('select correct focused node when using external state data container', t => {
+  let data = [
+    {
+      label: 'All data',
+      value: '0',
+      checked: false,
+    },
+    {
+      label: 'iWay',
+      value: '1',
+      checked: false,
+    },
+  ]
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={data} />)
+  const nodeAllData = {
+    _id: `${dropdownId}-0`,
+    _depth: 0,
+    label: 'All data',
+    value: '0',
+    children: undefined,
+    actions: [action],
+  }
+  wrapper.instance().onCheckboxChange(nodeAllData._id, true)
+  //simulate external change to the data props.
+  wrapper.setProps({
+    data: [
+      {
+        label: 'All data',
+        value: '0',
+        checked: true,
+      },
+      {
+        label: 'iWay',
+        value: '1',
+        checked: false,
+      },
+    ],
+  })
+  t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
+})
+
+test('should not scroll on select', t => {
+  const node = (id, label) => ({ id, label, value: label })
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
+  const { scrollTop } = wrapper.find('.dropdown-content').getDOMNode()
+
+  t.deepEqual(scrollTop, 0)
+
+  const checkboxes = wrapper.find('.checkbox-item')
+  checkboxes.at(140).simulate('click')
+
+  t.deepEqual(scrollTop, 0)
 })

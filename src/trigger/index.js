@@ -1,14 +1,9 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { memo, useCallback } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
-import { tagType } from '../input/tags'
-
-import styles from '../index.css'
-
-const cx = cn.bind(styles)
+import { tagType } from '../tags'
 
 const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags }) => {
   const triggerId = `${clientId}_trigger`
@@ -44,14 +39,16 @@ const Trigger = props => {
   }, [])
 
   const { disabled, readOnly, mode, texts = {}, showDropdown, clientId, tags, onTrigger, children } = props
-  const dropdownTriggerClassname = cx({
-    'dropdown-trigger': true,
-    arrow: true,
-    disabled,
-    readOnly,
-    top: showDropdown,
-    bottom: !showDropdown,
-  })
+  const dropdownTriggerClassname = [
+    'dropdown-trigger',
+    'arrow',
+    disabled && 'disabled',
+    readOnly && 'readOnly',
+    showDropdown && 'top',
+    !showDropdown && 'bottom',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   const handleTrigger = e => {
     // Just return if triggered from keyDown and the key isn't enter, space or arrow down

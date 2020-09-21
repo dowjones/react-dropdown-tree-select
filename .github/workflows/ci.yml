@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [develop, master]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --ignore-engines
+      - run: yarn lint:nofix
+      - run: yarn test
+      # 💀💀💀💀cannot run coveralls since GH won't pass COVERALLS_REPO_TOKEN to forks; so any PRs from external contributors would fail
+      # - run: yarn coveralls
+      #   env:
+      #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      #     COVERALLS_GIT_BRANCH: ${{ github.ref }}

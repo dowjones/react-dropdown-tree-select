@@ -1,10 +1,7 @@
-import cn from 'classnames/bind'
 import PropTypes from 'prop-types'
 import React, { memo } from 'react'
 
-import styles from './index.css'
-
-const cx = cn.bind(styles)
+import './index.css'
 
 export const getTagId = id => `${id}_tag`
 
@@ -32,7 +29,7 @@ const Tag = props => {
   const { id, label, labelRemove = 'Remove', readOnly, disabled, onDelete } = props
   const tagId = getTagId(id)
   const buttonId = `${id}_button`
-  const className = cx('tag-remove', { readOnly, disabled })
+  const className = ['tag-remove', readOnly && 'readOnly', disabled && 'disabled'].filter(Boolean).join(' ')
   const isDisabled = readOnly || disabled
   let handleClick
   let handleKeyDown
@@ -45,7 +42,7 @@ const Tag = props => {
   }
 
   return (
-    <span className={cx('tag')} id={tagId} aria-label={label}>
+    <span className="tag" id={tagId} aria-label={label}>
       {label}
       <button
         id={buttonId}

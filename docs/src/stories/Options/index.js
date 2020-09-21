@@ -15,6 +15,7 @@ class WithOptions extends PureComponent {
       keepTreeOnSearch: false,
       keepOpenOnSelect: false,
       mode: 'multiSelect',
+      inlineSearchInput: false,
       showPartiallySelected: false,
       disabled: false,
       readOnly: false,
@@ -48,6 +49,7 @@ class WithOptions extends PureComponent {
       disabled,
       readOnly,
       showDropdown,
+      inlineSearchInput,
     } = this.state
 
     return (
@@ -83,6 +85,12 @@ class WithOptions extends PureComponent {
               <option value="always">Always</option>
             </select>
           </div>
+          <Checkbox
+            label="Inline Search Input"
+            value="inlineSearchInput"
+            checked={inlineSearchInput}
+            onChange={this.onOptionsChange}
+          />
           <Checkbox
             label="Clear search on selection"
             value="clearSearchOnChange"
@@ -124,6 +132,7 @@ class WithOptions extends PureComponent {
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}
+            inlineSearchInput={inlineSearchInput}
             showDropdown={showDropdown}
             texts={{ label: 'Demo Dropdown' }}
           />

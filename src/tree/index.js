@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import TreeNode from '../tree-node'
+import { findIndex } from '../utils'
 
 const shouldRenderNode = (node, searchModeOn, data) => {
   if (searchModeOn || node.expanded) return true
@@ -33,14 +34,7 @@ class Tree extends Component {
     const { activeDescendant } = nextProps
     const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
     this.computeInstanceProps(nextProps, !hasSameActiveDescendant)
-    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) }, () => {
-      if (hasSameActiveDescendant) return
-      const { scrollableTarget } = this.state
-      const activeLi = activeDescendant && document && document.getElementById(activeDescendant)
-      if (activeLi && scrollableTarget) {
-        scrollableTarget.scrollTop = activeLi.offsetTop - (scrollableTarget.clientHeight - activeLi.clientHeight) / 2
-      }
-    })
+    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) })
   }
 
   componentDidMount = () => {
@@ -52,7 +46,7 @@ class Tree extends Component {
     this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
     if (checkActiveDescendant && props.activeDescendant) {
       const currentId = props.activeDescendant.replace(/_li$/, '')
-      const focusIndex = this.allVisibleNodes.findIndex(n => n.key === currentId) + 1
+      let focusIndex = findIndex(this.allVisibleNodes, n => n.key === currentId) + 1
       this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
     }
   }

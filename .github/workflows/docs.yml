@@ -1,0 +1,34 @@
+name: Docs
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - 'docs/**'
+      - package.json
+      - README.md
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Build Docs 📚
+        run: |
+          # un-ignore bundle.js
+          mv docs/.gitignore .gitignore
+          yarn install --ignore-engines
+          yarn build:docs
+      - name: Deploy Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs

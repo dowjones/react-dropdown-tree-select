@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node JS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --ignore-engines
+      - run: yarn lint:nofix
+      - run: yarn test
+      - name: Release to npm 🚀
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

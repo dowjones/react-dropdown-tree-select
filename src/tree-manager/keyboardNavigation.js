@@ -1,5 +1,6 @@
 import nodeVisitor from './nodeVisitor'
 import { getTagId } from '../tag'
+import { findIndex } from '../utils'
 
 const Keys = {
   Up: 'ArrowUp',
@@ -146,7 +147,7 @@ const getNextFocus = (tree, prevFocus, action, getNodeById, markSubTreeOnNonExpa
 
 const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
   // Sets new focus to next tag or returns fallback
-  let index = prevTags && prevTags.findIndex(t => t._id === deletedId)
+  let index = prevTags ? findIndex(prevTags, t => t._id === deletedId) : -1
   if (index < 0 || !tags.length) return fallback
 
   index = tags.length > index ? index : tags.length - 1
@@ -160,14 +161,20 @@ const getNextFocusAfterTagDelete = (deletedId, prevTags, tags, fallback) => {
 
 const handleFocusNavigationkey = (tree, action, prevFocus, getNodeById, markSubTreeOnNonExpanded) => {
   const newFocus = keyboardNavigation.getNextFocus(tree, prevFocus, action, getNodeById, markSubTreeOnNonExpanded)
+  keyboardNavigation.adjustFocusedProps(prevFocus, newFocus)
+  if (newFocus) {
+    return newFocus._id
+  }
+  return prevFocus && prevFocus._id
+}
+
+const adjustFocusedProps = (prevFocus, newFocus) => {
   if (prevFocus && newFocus && prevFocus._id !== newFocus._id) {
     prevFocus._focused = false
   }
   if (newFocus) {
     newFocus._focused = true
-    return newFocus._id
   }
-  return prevFocus && prevFocus._id
 }
 
 const handleToggleNavigationkey = (action, prevFocus, readOnly, onToggleChecked, onToggleExpanded) => {
@@ -186,6 +193,7 @@ const keyboardNavigation = {
   getNextFocusAfterTagDelete,
   handleFocusNavigationkey,
   handleToggleNavigationkey,
+  adjustFocusedProps,
 }
 
 export default keyboardNavigation

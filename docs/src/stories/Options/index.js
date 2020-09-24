@@ -20,8 +20,8 @@ class WithOptions extends PureComponent {
       disabled: false,
       readOnly: false,
       hierarchical: false,
-      placeholderText: 'Choose...',
-      inlinePlaceholderText: 'Search...',
+      placeholder: 'Choose...',
+      inlineSearchPlaceholder: 'Search...',
     }
   }
 
@@ -50,8 +50,8 @@ class WithOptions extends PureComponent {
       readOnly,
       showDropdown,
       inlineSearchInput,
-      placeholderText,
-      inlinePlaceholderText,
+      placeholder,
+      inlineSearchPlaceholder,
     } = this.state
 
     return (
@@ -88,19 +88,21 @@ class WithOptions extends PureComponent {
             </select>
           </div>
           <div style={{ marginBottom: '10px' }}>
-            <label htmlFor="placeholderText">Placeholder text: </label>
+            <label htmlFor="placeholder">Placeholder text: </label>
             <input
-              id="placeholderText"
-              value={placeholderText}
-              onChange={e => this.setState({ placeholderText: e.target.value })}
+              id="placeholder"
+              type="text"
+              value={placeholder}
+              onChange={e => this.setState({ placeholder: e.target.value })}
             />
           </div>
           <div style={{ marginBottom: '10px' }}>
             <label htmlFor="inlinePlaceholderText">Inline placeholder text: </label>
             <input
-              id="inlinePlaceholderText"
-              value={inlinePlaceholderText}
-              onChange={e => this.setState({ inlinePlaceholderText: e.target.value })}
+              id="inlineSearchPlaceholder"
+              type="text"
+              value={inlineSearchPlaceholder}
+              onChange={e => this.setState({ inlineSearchPlaceholder: e.target.value })}
             />
           </div>
           <Checkbox
@@ -150,11 +152,9 @@ class WithOptions extends PureComponent {
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}
-            placeholder={placeholderText}
-            inlineSearchPlaceholder={inlinePlaceholderText}
             inlineSearchInput={inlineSearchInput}
             showDropdown={showDropdown}
-            texts={{ label: 'Demo Dropdown' }}
+            texts={{ label: 'Demo Dropdown', placeholder, inlineSearchPlaceholder }}
           />
         </div>
       </div>

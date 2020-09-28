@@ -299,10 +299,11 @@ The `texts` object requires the following structure:
 
 ```js
 {
-  placeholder,  // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
-  noMatches,    // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
-  label,        // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
-  labelRemove,  // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
+  placeholder,              // optional: The text to display as placeholder on the search box. Defaults to `Choose...`
+  inlineSearchPlaceholder,  // optional: The text to display as placeholder on the inline search box. Only applicable with the `inlineSearchInput` setting. Defaults to `Search...`
+  noMatches,                // optional: The text to display when the search does not find results in the content list. Defaults to `No matches found`
+  label,                    // optional: Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#')
+  labelRemove,              // optional: The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove`
 }
 ```
 
@@ -592,6 +593,7 @@ Released 2017 by [Hrusikesh Panda](https://github.com/mrchief) @ [Dow Jones](htt
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore -->
 | [<img src="https://avatars0.githubusercontent.com/u/966550?v=4" width="100px;" alt="toofff"/><br /><sub><b>toofff</b></sub>](http://www.yanoucrea.fr)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Atoofff "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=toofff "Code") [📖](https://github.com/dowjones/react-dropdown-tree-select/commits?author=toofff "Documentation") [🤔](#ideas-toofff "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/1257968?v=4" width="100px;" alt="Grégory Copin"/><br /><sub><b>Grégory Copin</b></sub>](http://www.les-tilleuls.coop)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3AGregcop1 "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=Gregcop1 "Code") | [<img src="https://avatars1.githubusercontent.com/u/7589718?v=4" width="100px;" alt="PRIYANSHU AGRAWAL"/><br /><sub><b>PRIYANSHU AGRAWAL</b></sub>](https://github.com/priyanshu92)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Apriyanshu92 "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=priyanshu92 "Code") [🤔](#ideas-priyanshu92 "Ideas, Planning, & Feedback") | [<img src="https://avatars3.githubusercontent.com/u/425261?v=4" width="100px;" alt="James Greenaway"/><br /><sub><b>James Greenaway</b></sub>](http://james.greenaway.io)<br />[🐛](https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Ajvgreenaway "Bug reports") [💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=jvgreenaway "Code") [🤔](#ideas-jvgreenaway "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/36223986?v=4" width="100px;" alt="itrombitas"/><br /><sub><b>itrombitas</b></sub>](https://github.com/itrombitas)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=itrombitas "Code") | [<img src="https://avatars2.githubusercontent.com/u/18341459?v=4" width="100px;" alt="Dave Henton"/><br /><sub><b>Dave Henton</b></sub>](https://github.com/davehenton)<br />[🚇](#infra-davehenton "Infrastructure (Hosting, Build-Tools, etc)") | [<img src="https://avatars3.githubusercontent.com/u/4869717?v=4" width="100px;" alt="Swetha Kolli"/><br /><sub><b>Swetha Kolli</b></sub>](https://github.com/nagaskolli)<br />[💻](https://github.com/dowjones/react-dropdown-tree-select/commits?author=nagaskolli "Code") |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

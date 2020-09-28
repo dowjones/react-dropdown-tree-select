@@ -17,6 +17,14 @@ test('renders placeholder', t => {
   t.snapshot(wrapper)
 })
 
+test('renders inline search placeholder', t => {
+  const placeholderText = 'Search something'
+  const wrapper = toJson(
+    shallow(<Input inlineSearchInput={true} texts={{ inlineSearchPlaceholder: placeholderText }} />)
+  )
+  t.snapshot(wrapper)
+})
+
 test('raises onchange', t => {
   const onChange = spy()
   const wrapper = shallow(<Input onInputChange={onChange} />)

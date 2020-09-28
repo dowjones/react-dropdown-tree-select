@@ -25,6 +25,7 @@ const Input = props => {
     onKeyDown,
     activeDescendant,
     onInputChange,
+    inlineSearchInput,
   } = props
   return (
     <input
@@ -32,7 +33,7 @@ const Input = props => {
       disabled={disabled}
       ref={inputRef}
       className="search"
-      placeholder={texts.placeholder || 'Choose...'}
+      placeholder={inlineSearchInput ? texts.inlineSearchPlaceholder || 'Search...' : texts.placeholder || 'Choose...'}
       onKeyDown={onKeyDown}
       onChange={handleChange(onInputChange)}
       onFocus={onFocus}
@@ -60,6 +61,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   activeDescendant: PropTypes.string,
+  inlineSearchInput: PropTypes.bool,
 }
 
 export default memo(Input)

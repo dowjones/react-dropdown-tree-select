@@ -20,6 +20,8 @@ class WithOptions extends PureComponent {
       disabled: false,
       readOnly: false,
       hierarchical: false,
+      placeholder: 'Choose...',
+      inlineSearchPlaceholder: 'Search...',
     }
   }
 
@@ -48,6 +50,8 @@ class WithOptions extends PureComponent {
       readOnly,
       showDropdown,
       inlineSearchInput,
+      placeholder,
+      inlineSearchPlaceholder,
     } = this.state
 
     return (
@@ -82,6 +86,24 @@ class WithOptions extends PureComponent {
               <option value="initial">Initial</option>
               <option value="always">Always</option>
             </select>
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="placeholder">Placeholder text: </label>
+            <input
+              id="placeholder"
+              type="text"
+              value={placeholder}
+              onChange={e => this.setState({ placeholder: e.target.value })}
+            />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="inlinePlaceholderText">Inline placeholder text: </label>
+            <input
+              id="inlineSearchPlaceholder"
+              type="text"
+              value={inlineSearchPlaceholder}
+              onChange={e => this.setState({ inlineSearchPlaceholder: e.target.value })}
+            />
           </div>
           <Checkbox
             label="Inline Search Input"
@@ -132,7 +154,7 @@ class WithOptions extends PureComponent {
             readOnly={readOnly}
             inlineSearchInput={inlineSearchInput}
             showDropdown={showDropdown}
-            texts={{ label: 'Demo Dropdown' }}
+            texts={{ label: 'Demo Dropdown', placeholder, inlineSearchPlaceholder }}
           />
         </div>
       </div>

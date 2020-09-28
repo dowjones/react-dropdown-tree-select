@@ -29,6 +29,7 @@ class DropdownTreeSelect extends Component {
     keepOpenOnSelect: PropTypes.bool,
     texts: PropTypes.shape({
       placeholder: PropTypes.string,
+      inlineSearchPlaceholder: PropTypes.string,
       noMatches: PropTypes.string,
       label: PropTypes.string,
       labelRemove: PropTypes.string,
@@ -306,6 +307,7 @@ class DropdownTreeSelect extends Component {
         onBlur={this.onInputBlur}
         onKeyDown={this.onKeyboardKeyDown}
         {...commonProps}
+        inlineSearchInput={inlineSearchInput}
       />
     )
     return (

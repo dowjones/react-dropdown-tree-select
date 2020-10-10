@@ -154,6 +154,8 @@ declare module 'react-dropdown-tree-select' {
   export interface TextProps {
     /** The text to display as placeholder on the search box. Defaults to Choose... */
     placeholder?: string
+    /** The text to display as placeholder on the inline search box. Only applicable with the `inlineSearchInput` setting. Defaults to `Search...` */
+    inlineSearchPlaceholder?: string
     /** The text to display when the search does not find results in the content list. Defaults to No matches found */
     noMatches?: string
     /** Adds `aria-labelledby` to search input when input starts with `#`, adds `aria-label` to search input when label has value (not containing '#') */

@@ -326,6 +326,20 @@ test('appends selected tags to aria-labelledby with text label', t => {
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
 })
 
+test('default tabIndex value is 0', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 0)
+})
+
+test('set tabIndex value', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} tabIndex={5} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 5)
+})
+
 test('select correct focused node when using external state data container', t => {
   let data = [
     {

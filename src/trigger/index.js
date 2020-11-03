@@ -14,6 +14,7 @@ class Trigger extends PureComponent {
     texts: PropTypes.object,
     clientId: PropTypes.string,
     tags: PropTypes.array,
+    tabIndex: PropTypes.number,
   }
 
   getAriaAttributes = () => {
@@ -36,7 +37,7 @@ class Trigger extends PureComponent {
     const attributes = {
       id: triggerId,
       role: 'button',
-      tabIndex: 0,
+      tabIndex: this.props.tabIndex,
       'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
       'aria-expanded': showDropdown ? 'true' : 'false',
       ...labelAttributes,

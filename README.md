@@ -65,6 +65,7 @@ A lightweight and fast control to render a select component that can display hie
   - [id](#id)
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)
+  - [tabIndex](#tabIndex)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -413,6 +414,12 @@ return <DropdownTreeSelect data={data} searchPredicate={searchPredicate} />
 Type: `bool` (default: `false`)
 
 `inlineSearchInput=true` makes the search input renders **inside** the dropdown-content. This can be useful when your UX looks something like [this comment](https://github.com/dowjones/react-dropdown-tree-select/issues/308#issue-526467109).
+
+### tabIndex
+
+Type: `number` (default: `0`)
+
+`tabIndex=0` attribute indicates that its element can be focused, and where it participates in sequential keyboard navigation.
 
 ## Styling and Customization
 

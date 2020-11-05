@@ -48,6 +48,7 @@ class DropdownTreeSelect extends Component {
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
+    tabIndex: PropTypes.number,
   }
 
   static defaultProps = {
@@ -58,6 +59,7 @@ class DropdownTreeSelect extends Component {
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
+    tabIndex: 0,
   }
 
   constructor(props) {
@@ -290,7 +292,7 @@ class DropdownTreeSelect extends Component {
   }
 
   render() {
-    const { disabled, readOnly, mode, texts, inlineSearchInput } = this.props
+    const { disabled, readOnly, mode, texts, inlineSearchInput, tabIndex } = this.props
     const { showDropdown, currentFocus, tags } = this.state
 
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
@@ -325,7 +327,13 @@ class DropdownTreeSelect extends Component {
             .filter(Boolean)
             .join(' ')}
         >
-          <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
+          <Trigger
+            onTrigger={this.onTrigger}
+            showDropdown={showDropdown}
+            {...commonProps}
+            tags={tags}
+            tabIndex={tabIndex}
+          >
             <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
               {!inlineSearchInput && searchInput}
             </Tags>

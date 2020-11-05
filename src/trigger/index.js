@@ -5,7 +5,7 @@ import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
 import { tagType } from '../tags'
 
-const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags }) => {
+const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags, tabIndex }) => {
   const triggerId = `${clientId}_trigger`
   const labelledBy = []
   let labelAttributes = getAriaLabel(texts.label)
@@ -23,7 +23,7 @@ const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags }) => {
   const attributes = {
     id: triggerId,
     role: 'button',
-    tabIndex: 0,
+    tabIndex,
     'aria-haspopup': mode === 'simpleSelect' ? 'listbox' : 'tree',
     'aria-expanded': showDropdown ? 'true' : 'false',
     ...labelAttributes,
@@ -38,7 +38,7 @@ const Trigger = props => {
     triggerNode = node
   }, [])
 
-  const { disabled, readOnly, mode, texts = {}, showDropdown, clientId, tags, onTrigger, children } = props
+  const { disabled, readOnly, mode, texts = {}, showDropdown, clientId, tags, onTrigger, children, tabIndex } = props
   const dropdownTriggerClassname = [
     'dropdown-trigger',
     'arrow',
@@ -82,6 +82,7 @@ const Trigger = props => {
         showDropdown,
         clientId,
         tags,
+        tabIndex,
       })}
     >
       {children}
@@ -99,6 +100,7 @@ Trigger.propTypes = {
   clientId: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.shape(tagType)),
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  tabIndex: PropTypes.number,
 }
 
 export default memo(Trigger)

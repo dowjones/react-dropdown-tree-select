@@ -107,6 +107,15 @@ test('notifies on action', t => {
   t.true(handler.calledWithExactly(node0, action))
 })
 
+test('notifies on action without onAction handler', t => {
+  const handler = spy(console, 'error')
+  const { tree } = t.context
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" />)
+  wrapper.find('i.fa-ban').simulate('click')
+  t.true(handler.notCalled)
+  handler.restore()
+})
+
 test('notifies on node toggle', t => {
   const handler = spy()
   const { tree } = t.context
@@ -317,6 +326,20 @@ test('appends selected tags to aria-labelledby with text label', t => {
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
 })
 
+test('default tabIndex value is 0', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 0)
+})
+
+test('set tabIndex value', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} tabIndex={5} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 5)
+})
+
 test('select correct focused node when using external state data container', t => {
   let data = [
     {
@@ -356,4 +379,18 @@ test('select correct focused node when using external state data container', t =
     ],
   })
   t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
+})
+
+test('should not scroll on select', t => {
+  const node = (id, label) => ({ id, label, value: label })
+  const largeTree = [...Array(150).keys()].map(i => node(`id${i}`, `label${i}`))
+  const wrapper = mount(<DropdownTreeSelect data={largeTree} showDropdown="initial" />)
+  const { scrollTop } = wrapper.find('.dropdown-content').getDOMNode()
+
+  t.deepEqual(scrollTop, 0)
+
+  const checkboxes = wrapper.find('.checkbox-item')
+  checkboxes.at(140).simulate('click')
+
+  t.deepEqual(scrollTop, 0)
 })

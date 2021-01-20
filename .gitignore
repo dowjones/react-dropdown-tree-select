@@ -34,6 +34,9 @@ jspm_packages
 .npm
 .npmrc
 
+# NPM lockfile
+package-lock.json
+
 # Optional REPL history
 .node_repl_history
 

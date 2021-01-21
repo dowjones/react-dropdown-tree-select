@@ -1,46 +1,36 @@
 import PropTypes from 'prop-types'
-import React, { PureComponent } from 'react'
+import React from 'react'
 
-class Toggle extends PureComponent {
-  static propTypes = {
-    expanded: PropTypes.bool,
-    isLeaf: PropTypes.bool,
-    onNodeToggle: PropTypes.func,
-    id: PropTypes.string,
-  }
+const Toggle = props => {
+  const { expanded, isLeaf, onNodeToggle, id } = props
 
-  onToggle = e => {
+  const onToggle = e => {
     e.stopPropagation()
     e.nativeEvent.stopImmediatePropagation()
-    this.props.onNodeToggle(this.props.id)
+    onNodeToggle(id)
   }
 
-  onKeyDown = e => {
+  const onKeyDown = e => {
     if (e.key === 'Enter' || e.keyCode === 32) {
-      this.props.onNodeToggle(this.props.id)
+      onNodeToggle(id)
       e.preventDefault()
     }
   }
 
-  render() {
-    const { expanded, isLeaf } = this.props
-    const toggleCx = ['toggle', expanded && 'expanded', !expanded && 'collapsed'].filter(Boolean).join(' ')
+  const toggleCx = ['toggle', expanded && 'expanded', !expanded && 'collapsed'].filter(Boolean).join(' ')
 
-    if (isLeaf) {
-      return <i role="button" tabIndex={-1} className={toggleCx} style={{ visibility: 'hidden' }} aria-hidden />
-    }
-
-    return (
-      <i
-        role="button"
-        tabIndex={-1}
-        className={toggleCx}
-        onClick={this.onToggle}
-        onKeyDown={this.onKeyDown}
-        aria-hidden
-      />
-    )
+  if (isLeaf) {
+    return <i role="button" tabIndex={-1} className={toggleCx} style={{ visibility: 'hidden' }} aria-hidden />
   }
+
+  return <i role="button" tabIndex={-1} className={toggleCx} onClick={onToggle} onKeyDown={onKeyDown} aria-hidden />
+}
+
+Toggle.propTypes = {
+  expanded: PropTypes.bool,
+  isLeaf: PropTypes.bool,
+  onNodeToggle: PropTypes.func,
+  id: PropTypes.string,
 }
 
 export default Toggle

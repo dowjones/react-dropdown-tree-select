@@ -1,6 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import TreeNode from '../tree-node'
 import { findIndex } from '../utils'
@@ -14,63 +14,50 @@ const shouldRenderNode = (node, searchModeOn, data) => {
   return !parent || parent.expanded
 }
 
-class Tree extends Component {
-  static defaultProps = {
-    pageSize: 100,
-  }
+const Tree = ({
+  data,
+  keepTreeOnSearch,
+  keepChildrenOnSearch,
+  searchModeOn,
+  mode,
+  showPartiallySelected,
+  readOnly,
+  onAction,
+  onChange,
+  onCheckboxChange,
+  onNodeToggle,
+  activeDescendant,
+  clientId,
+  pageSize = 100,
+}) => {
+  const [items, setItems] = useState([])
+  const currentPage = useRef(1)
+  const totalPages = useRef(0)
+  const prevActiveDescendant = useRef()
+  const firstRender = useRef(true)
+  const [scrollableTarget, setScrollableTarget] = useState()
 
-  constructor(props) {
-    super(props)
+  const dependencies = [
+    activeDescendant,
+    clientId,
+    keepChildrenOnSearch,
+    keepTreeOnSearch,
+    mode,
+    onAction,
+    onChange,
+    onCheckboxChange,
+    onNodeToggle,
+    readOnly,
+    searchModeOn,
+    showPartiallySelected,
+    JSON.stringify([...data.values()]),
+  ]
 
-    this.currentPage = 1
-    this.computeInstanceProps(props, true)
-
-    this.state = {
-      items: this.allVisibleNodes.slice(0, this.props.pageSize),
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { activeDescendant } = nextProps
-    const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
-    this.computeInstanceProps(nextProps, !hasSameActiveDescendant)
-    this.setState({ items: this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize) })
-  }
-
-  componentDidMount = () => {
-    this.setState({ scrollableTarget: this.node.parentNode })
-  }
-
-  computeInstanceProps = (props, checkActiveDescendant) => {
-    this.allVisibleNodes = this.getNodes(props)
-    this.totalPages = Math.ceil(this.allVisibleNodes.length / this.props.pageSize)
-    if (checkActiveDescendant && props.activeDescendant) {
-      const currentId = props.activeDescendant.replace(/_li$/, '')
-      let focusIndex = findIndex(this.allVisibleNodes, n => n.key === currentId) + 1
-      this.currentPage = focusIndex > 0 ? Math.ceil(focusIndex / this.props.pageSize) : 1
-    }
-  }
-
-  getNodes = props => {
-    const {
-      data,
-      keepTreeOnSearch,
-      keepChildrenOnSearch,
-      searchModeOn,
-      mode,
-      showPartiallySelected,
-      readOnly,
-      onAction,
-      onChange,
-      onCheckboxChange,
-      onNodeToggle,
-      activeDescendant,
-      clientId,
-    } = props
-    const items = []
-    data.forEach(node => {
-      if (shouldRenderNode(node, searchModeOn, data)) {
-        items.push(
+  const allVisibleNodes = useMemo(
+    () =>
+      [...data.values()]
+        .filter(node => shouldRenderNode(node, searchModeOn, data))
+        .map(node => (
           <TreeNode
             keepTreeOnSearch={keepTreeOnSearch}
             keepChildrenOnSearch={keepChildrenOnSearch}
@@ -87,60 +74,69 @@ class Tree extends Component {
             clientId={clientId}
             activeDescendant={activeDescendant}
           />
-        )
+        )),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dependencies
+  )
+
+  const computeInstanceProps = useCallback(
+    checkActiveDescendant => {
+      totalPages.current = Math.ceil(allVisibleNodes.length / pageSize)
+      if (checkActiveDescendant && activeDescendant) {
+        const currentId = activeDescendant.replace(/_li$/, '')
+        const focusIndex = findIndex(allVisibleNodes, n => n.key === currentId) + 1
+        currentPage.current = focusIndex > 0 ? Math.ceil(focusIndex / pageSize) : 1
       }
-    })
-    return items
-  }
+    },
+    [activeDescendant, allVisibleNodes, pageSize]
+  )
 
-  hasMore = () => this.currentPage < this.totalPages
+  useEffect(() => {
+    const hasSameActiveDescendant = activeDescendant === prevActiveDescendant.current
+    computeInstanceProps(!hasSameActiveDescendant || firstRender.current)
+    firstRender.current = false
+    prevActiveDescendant.current = activeDescendant
+    setItems(allVisibleNodes.slice(0, currentPage.current * pageSize))
+  }, [activeDescendant, allVisibleNodes, computeInstanceProps, pageSize])
 
-  loadMore = () => {
-    this.currentPage = this.currentPage + 1
-    const nextItems = this.allVisibleNodes.slice(0, this.currentPage * this.props.pageSize)
-    this.setState({ items: nextItems })
-  }
+  const getAriaAttributes = () => ({
+    /* https://www.w3.org/TR/wai-aria-1.1/#select
+     * https://www.w3.org/TR/wai-aria-1.1/#tree */
+    role: mode === 'simpleSelect' ? 'listbox' : 'tree',
+    'aria-multiselectable': /multiSelect|hierarchical/.test(mode),
+  })
 
-  setNodeRef = node => {
-    this.node = node
-  }
+  const loadMore = useCallback(() => {
+    currentPage.current += 1
+    const nextItems = allVisibleNodes.slice(0, currentPage.current * pageSize)
+    setItems(nextItems)
+  }, [allVisibleNodes, pageSize])
 
-  getAriaAttributes = () => {
-    const { mode } = this.props
-
-    const attributes = {
-      /* https://www.w3.org/TR/wai-aria-1.1/#select
-       * https://www.w3.org/TR/wai-aria-1.1/#tree */
-      role: mode === 'simpleSelect' ? 'listbox' : 'tree',
-      'aria-multiselectable': /multiSelect|hierarchical/.test(mode),
+  const setNodeRef = node => {
+    if (node) {
+      setScrollableTarget(node.parentNode)
     }
-
-    return attributes
   }
 
-  render() {
-    const { searchModeOn } = this.props
-
-    return (
-      <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={this.setNodeRef} {...this.getAriaAttributes()}>
-        {this.state.scrollableTarget && (
-          <InfiniteScroll
-            dataLength={this.state.items.length}
-            next={this.loadMore}
-            hasMore={this.hasMore()}
-            loader={<span className="searchLoader">Loading...</span>}
-            scrollableTarget={this.state.scrollableTarget}
-          >
-            {this.state.items}
-          </InfiniteScroll>
-        )}
-      </ul>
-    )
-  }
+  return (
+    <ul className={`root ${searchModeOn ? 'searchModeOn' : ''}`} ref={setNodeRef} {...getAriaAttributes()}>
+      {scrollableTarget && (
+        <InfiniteScroll
+          dataLength={items.length}
+          next={loadMore}
+          hasMore={currentPage.current < totalPages.current}
+          loader={<span className="searchLoader">Loading...</span>}
+          scrollableTarget={scrollableTarget}
+        >
+          {items}
+        </InfiniteScroll>
+      )}
+    </ul>
+  )
 }
 
 Tree.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.instanceOf(Map),
   keepTreeOnSearch: PropTypes.bool,
   keepChildrenOnSearch: PropTypes.bool,
   searchModeOn: PropTypes.bool,

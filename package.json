@@ -45,7 +45,7 @@
   "dependencies": {
     "array.partial": "^1.0.5",
     "prop-types": "^15.7.2",
-    "react-infinite-scroll-component": "^4.0.2"
+    "react-infinite-scroll-component": "^5.1.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "7.0.0-beta.46",

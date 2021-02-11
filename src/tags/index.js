@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Tag from '../tag'
 import { getDataset } from '../utils'
@@ -26,34 +26,31 @@ const getTags = (tags = [], onDelete, readOnly, disabled, labelRemove) =>
     )
   })
 
-class Tags extends PureComponent {
-  static propTypes = {
-    tags: PropTypes.array,
-    onTagRemove: PropTypes.func,
-    readOnly: PropTypes.bool,
-    disabled: PropTypes.bool,
-    texts: PropTypes.object,
-    children: PropTypes.node,
-  }
+const Tags = ({ tags, onTagRemove, texts = {}, disabled, readOnly, children }) => {
+  const lastItem = children || <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
 
-  render() {
-    const { tags, onTagRemove, texts = {}, disabled, readOnly, children } = this.props
-    const lastItem = children || <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
-
-    return (
-      <ul className="tag-list">
-        {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
-        <li className="tag-item">{lastItem}</li>
-      </ul>
-    )
-  }
+  return (
+    <ul className="tag-list">
+      {getTags(tags, onTagRemove, readOnly, disabled, texts.labelRemove)}
+      <li className="tag-item">{lastItem}</li>
+    </ul>
+  )
 }
 
 export const tagType = {
   _id: PropTypes.string,
   label: PropTypes.string,
   tagClassName: PropTypes.string,
-  dataset: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+  dataset: PropTypes.objectOf(PropTypes.string),
+}
+
+Tags.propTypes = {
+  tags: PropTypes.arrayOf(PropTypes.shape(tagType)),
+  onTagRemove: PropTypes.func,
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  texts: PropTypes.objectOf(PropTypes.string),
+  children: PropTypes.node,
 }
 
 export default Tags

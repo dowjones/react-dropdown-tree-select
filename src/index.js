@@ -125,7 +125,7 @@ const DropdownTreeSelect = ({
     treeManager.current.toggleNodeExpandState(id)
     const tree = state.searchModeOn ? treeManager.current.matchTree : treeManager.current.tree
     setState(prevState => ({ ...prevState, tree }))
-    if (typeof onNodeToggle === 'function') {
+    if (typeof onNodeToggleProp === 'function') {
       onNodeToggleProp(treeManager.current.getNodeById(id))
     }
   }
@@ -199,6 +199,33 @@ const DropdownTreeSelect = ({
     })
   }
 
+  const adjustFocusedElement = (e, tree) => {
+    const { currentFocus, searchModeOn } = state
+    const { current: tm } = treeManager
+
+    const newFocus = tm.handleNavigationKey(
+      currentFocus,
+      tree,
+      e.key,
+      readOnly,
+      !searchModeOn,
+      onCheckboxChange,
+      onNodeToggle
+    )
+
+    if (newFocus !== currentFocus) {
+      setStateWithCallback(
+        prevState => ({ ...prevState, currentFocus: newFocus }),
+        () => {
+          const ele = document && document.getElementById(`${newFocus}_li`)
+          if (ele) {
+            ele.scrollIntoView()
+          }
+        }
+      )
+    }
+  }
+
   const onKeyboardKeyDown = e => {
     const { showDropdown, tags, searchModeOn, currentFocus } = state
     const { current: tm } = treeManager
@@ -207,29 +234,10 @@ const DropdownTreeSelect = ({
     if (!showDropdown && (keyboardNavigation.isValidKey(e.key, false) || /^\w$/i.test(e.key))) {
       // Triggers open of dropdown and retriggers event
       e.persist()
-      handleClick(null, () => onKeyboardKeyDown(e))
+      handleClick(null, () => adjustFocusedElement(e, tree))
       if (/\w/i.test(e.key)) return
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
-      const newFocus = tm.handleNavigationKey(
-        currentFocus,
-        tree,
-        e.key,
-        readOnly,
-        !searchModeOn,
-        onCheckboxChange,
-        onNodeToggle
-      )
-      if (newFocus !== currentFocus) {
-        setStateWithCallback(
-          prevState => ({ ...prevState, currentFocus: newFocus }),
-          () => {
-            const ele = document && document.getElementById(`${newFocus}_li`)
-            if (ele) {
-              ele.scrollIntoView()
-            }
-          }
-        )
-      }
+      adjustFocusedElement(e, tree)
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
       if (mode === 'simpleSelect' && tree.has(currentFocus)) {
         onCheckboxChange(currentFocus, true)
@@ -296,11 +304,14 @@ const DropdownTreeSelect = ({
 
   const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId }
 
+  // AVA snapshot crashes if an anonymous function is used
+  const inputRef = useCallback(function inputRef(el) {
+    searchInputRef.current = el
+  }, [])
+
   const searchInput = (
     <Input
-      inputRef={el => {
-        searchInputRef.current = el
-      }}
+      inputRef={inputRef}
       onInputChange={onInputChange}
       onFocus={onInputFocus}
       onBlur={onInputBlur}

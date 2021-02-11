@@ -24,7 +24,7 @@ const node0 = {
   actions: [action],
 }
 
-const nativeEvent = { stopImmediatePropagation: () => {} }
+const nativeEvent = { stopImmediatePropagation: spy() }
 
 test.beforeEach(t => {
   t.context.tree = [

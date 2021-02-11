@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useRef } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { getTagId } from '../tag'
@@ -33,9 +33,10 @@ const getAriaAttributes = ({ mode, texts, showDropdown, clientId, tags, tabIndex
 }
 
 const Trigger = props => {
-  let triggerNode
+  const triggerNode = useRef()
+
   const ref = useCallback(node => {
-    triggerNode = node
+    triggerNode.current = node
   }, [])
 
   const { disabled, readOnly, mode, texts = {}, showDropdown, clientId, tags, onTrigger, children, tabIndex } = props
@@ -56,7 +57,7 @@ const Trigger = props => {
       return
     }
 
-    if (e.key && triggerNode && triggerNode !== document.activeElement) {
+    if (e.key && triggerNode.current && triggerNode.current !== document.activeElement) {
       // Do not trigger if not activeElement
       return
     }

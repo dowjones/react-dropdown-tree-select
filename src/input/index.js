@@ -57,7 +57,7 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   onTagRemove: PropTypes.func,
   onKeyDown: PropTypes.func,
-  inputRef: PropTypes.func,
+  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.elementType })]),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   activeDescendant: PropTypes.string,

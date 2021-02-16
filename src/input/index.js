@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { memo } from 'react'
+import React, { memo, forwardRef } from 'react'
 
 import { getAriaLabel } from '../a11y'
 import { debounce } from '../utils'
@@ -14,9 +14,8 @@ function handleChange(onInputChange) {
   }
 }
 
-const Input = props => {
+const Input = forwardRef((props, ref) => {
   const {
-    inputRef,
     texts = {},
     onFocus,
     onBlur,
@@ -31,7 +30,7 @@ const Input = props => {
     <input
       type="text"
       disabled={disabled}
-      ref={inputRef}
+      ref={ref}
       className="search"
       placeholder={inlineSearchInput ? texts.inlineSearchPlaceholder || 'Search...' : texts.placeholder || 'Choose...'}
       onKeyDown={onKeyDown}
@@ -44,7 +43,7 @@ const Input = props => {
       {...getAriaLabel(texts.label)}
     />
   )
-}
+})
 
 Input.propTypes = {
   texts: PropTypes.shape({
@@ -57,7 +56,7 @@ Input.propTypes = {
   onBlur: PropTypes.func,
   onTagRemove: PropTypes.func,
   onKeyDown: PropTypes.func,
-  inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.elementType })]),
+  inputRef: PropTypes.shape({ current: PropTypes.elementType }),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   activeDescendant: PropTypes.string,

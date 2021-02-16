@@ -43,7 +43,11 @@ const DropdownTreeSelect = ({
   keepOpenOnSelect,
   clearSearchOnChange,
 }) => {
-  const [state, setState] = useState({ searchModeOn: false })
+  const [state, setState] = useState({
+    searchModeOn: false,
+    showDropdown: /initial|always/.test(showDropdownProp),
+    tree: new Map(),
+  })
   const clientId = useMemo(() => idProp || clientIdGenerator.get(), [idProp])
   const treeManager = useRef()
   const searchInputRef = useRef()
@@ -304,14 +308,9 @@ const DropdownTreeSelect = ({
 
   const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId }
 
-  // AVA snapshot crashes if an anonymous function is used
-  const inputRef = useCallback(function inputRef(el) {
-    searchInputRef.current = el
-  }, [])
-
   const searchInput = (
     <Input
-      inputRef={inputRef}
+      ref={searchInputRef}
       onInputChange={onInputChange}
       onFocus={onInputFocus}
       onBlur={onInputBlur}

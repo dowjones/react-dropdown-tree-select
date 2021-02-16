@@ -45,7 +45,7 @@
   "dependencies": {
     "array.partial": "^1.0.5",
     "prop-types": "^15.7.2",
-    "react-infinite-scroll-component": "^4.0.2"
+    "react-infinite-scroll-component": "^5.1.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-jsx": "7.0.0-beta.46",
@@ -74,7 +74,7 @@
     "cz-conventional-changelog-emoji": "^0.1.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.11.2",
-    "enzyme-to-json": "^3.3.5",
+    "enzyme-to-json": "^3.6.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",

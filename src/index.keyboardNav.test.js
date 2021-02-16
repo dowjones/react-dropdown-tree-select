@@ -29,7 +29,7 @@ test('some key presses opens dropdown on keyboardNavigation', t => {
   ;['ArrowUp', 'ArrowDown', 'Home', 'PageUp', 'End', 'PageDown', 'a', 'B'].forEach(key => {
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     triggerOnKeyboardKeyDown(wrapper, key)
-    t.true(wrapper.state().showDropdown)
+    t.true(wrapper.exists('.dropdown-content'))
   })
 })
 
@@ -38,7 +38,7 @@ test('esc closes dropdown on keyboardNavigation', async t => {
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'Escape'])
   const showDropdown = await new Promise(resolve =>
     setTimeout(() => {
-      resolve(wrapper.state().showDropdown)
+      resolve(wrapper.exists('.dropdown-content'))
     }, 1)
   )
   t.false(showDropdown)
@@ -48,7 +48,7 @@ test('other key presses does not open dropdown on keyboardNavigation', t => {
   ;['Enter', 'ArrowLeft', 'ArrowRight'].forEach(key => {
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     triggerOnKeyboardKeyDown(wrapper, key)
-    t.false(wrapper.state().showDropdown)
+    t.false(wrapper.exists('.dropdown-content'))
   })
 })
 
@@ -99,14 +99,15 @@ test('can collapse on keyboardNavigation', t => {
 
 test('can navigate searchresult on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
-  wrapper.instance().onInputChange('bb')
+  wrapper.find('.search').simulate('change', { target: { value: 'bb' } })
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
 })
 
-test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
+test('can navigate with keepTreeOnSearch on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} keepTreeOnSearch />)
-  wrapper.instance().onInputChange('bb')
+  wrapper.find('.search').simulate('focus')
+  wrapper.find('.search').simulate('change', { target: { value: 'bb' } })
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
   t.true(wrapper.find('#c1').exists())
@@ -115,21 +116,21 @@ test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
 test('can delete tags on empty search input with backspace on keyboardNavigation', t => {
   const data = [{ ...node('a', 'a'), checked: true }, { ...node('b', 'b'), checked: true }]
   const wrapper = mount(<DropdownTreeSelect data={data} />)
-  wrapper.instance().searchInput.value = 'x'
+  wrapper.find('.search').getDOMNode().value = 'x'
   triggerOnKeyboardKeyDown(wrapper, 'Backspace')
-  t.deepEqual(wrapper.state().tags.length, 2)
+  t.deepEqual(wrapper.find('.tag').length, 2)
 
-  wrapper.instance().searchInput.value = ''
+  wrapper.find('.search').getDOMNode().value = ''
   triggerOnKeyboardKeyDown(wrapper, 'Backspace')
-  t.deepEqual(wrapper.state().tags.length, 1)
+  t.deepEqual(wrapper.find('.tag').length, 1)
   triggerOnKeyboardKeyDown(wrapper, 'Backspace')
-  t.deepEqual(wrapper.state().tags.length, 0)
+  t.deepEqual(wrapper.find('.tag').length, 0)
 })
 
 test('can select with enter on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowDown', 'Enter'])
-  t.deepEqual(wrapper.state().tags.length, 1)
+  t.deepEqual(wrapper.find('.tag').length, 1)
 })
 
 test('can delete tags with backspace/delete on keyboardNavigation', t => {
@@ -141,9 +142,9 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
     nativeEvent: { stopImmediatePropagation: spy() },
   }
   wrapper.find('#a_tag > .tag-remove').simulate('keyDown', { ...event, key: 'Backspace' })
-  t.deepEqual(wrapper.state().tags.length, 1)
+  t.deepEqual(wrapper.find('.tag').length, 1)
   wrapper.find('#b_tag > .tag-remove').simulate('keyUp', { ...event, key: 'Delete' })
-  t.deepEqual(wrapper.state().tags.length, 0)
+  t.deepEqual(wrapper.find('.tag').length, 0)
 })
 
 test('remembers current focus between prop updates', t => {
@@ -152,14 +153,22 @@ test('remembers current focus between prop updates', t => {
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown'])
   t.deepEqual(wrapper.find('li.focused').text(), 'ccc 1')
   wrapper.setProps({ data: tree })
-  wrapper.instance().handleClick()
+  wrapper.update()
+  wrapper.find('.search').simulate('focus')
   t.deepEqual(wrapper.find('li.focused').text(), 'ccc 1')
 })
 
 test('should set current focus as selected on tab out for simpleSelect', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} mode="simpleSelect" />)
+  wrapper.find('.search').simulate('focus')
   triggerOnKeyboardKeyDown(wrapper, ['ArrowDown', 'ArrowRight', 'ArrowRight', 'Tab'])
-  t.deepEqual(wrapper.state().tags[0].label, 'ccc 1')
+  t.deepEqual(
+    wrapper
+      .find('.tag')
+      .first()
+      .prop('aria-label'),
+    'ccc 1'
+  )
 })
 
 test('should scroll on keyboard navigation', t => {
@@ -227,17 +236,16 @@ keyDownTests.forEach(testArgs => {
   test(`Key code ${testArgs.keyCode} ${testArgs.expected ? 'can' : "can't"} open dropdown on keyDown`, t => {
     const wrapper = mount(<DropdownTreeSelect data={tree} />)
     const trigger = wrapper.find('.dropdown-trigger')
-    trigger.instance().focus()
+    trigger.getDOMNode().focus()
     trigger.simulate('keyDown', { key: 'mock', keyCode: testArgs.keyCode })
-    t.is(wrapper.state().showDropdown, testArgs.expected)
+    t.is(wrapper.exists('.dropdown-content'), testArgs.expected)
   })
 })
 
 test(`Key event should not trigger if not focused/active element`, t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
   const trigger = wrapper.find('.dropdown-trigger')
-  const input = wrapper.find('.search')
-  input.instance().focus()
+  wrapper.find('.search').simulate('focus')
   trigger.simulate('keyDown', { key: 'mock', keyCode: 13 })
-  t.is(wrapper.state().showDropdown, false)
+  t.is(wrapper.exists('.dropdown-content'), false)
 })

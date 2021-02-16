@@ -1,5 +1,6 @@
 import test from 'ava'
 import React from 'react'
+import { spy } from 'sinon'
 import { mount } from 'enzyme'
 import TreeManager from '..'
 import DropdownTreeSelect from '../..'
@@ -16,18 +17,21 @@ test('should render radio inputs with shared name', t => {
 
 test('hides dropdown onChange for radioSelect', t => {
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="radioSelect" />)
-  wrapper.instance().onCheckboxChange('nodeA', true)
-  t.false(wrapper.state().searchModeOn)
-  t.false(wrapper.state().allNodesHidden)
-  t.false(wrapper.state().showDropdown)
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper
+    .find('input#nodeA')
+    .simulate('change', { target: { checked: true }, nativeEvent: { stopImmediatePropagation: spy() } })
+  t.false(wrapper.exists('.dropdown-content'))
 })
 
 test('keeps dropdown open onChange for radioSelect and keepOpenOnSelect', t => {
   const wrapper = mount(
     <DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="radioSelect" keepOpenOnSelect />
   )
-  wrapper.instance().onCheckboxChange('nodeA', true)
-  t.true(wrapper.state().showDropdown)
+  wrapper
+    .find('input#nodeA')
+    .simulate('change', { target: { checked: true }, nativeEvent: { stopImmediatePropagation: spy() } })
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('should deselect previous node', t => {

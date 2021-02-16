@@ -24,6 +24,8 @@ const node0 = {
   actions: [action],
 }
 
+const nativeEvent = { stopImmediatePropagation: spy() }
+
 test.beforeEach(t => {
   t.context.tree = [
     {
@@ -95,8 +97,12 @@ test('always shows dropdown with inline search Input', t => {
 test('keeps dropdown open for showDropdown: always', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="always" />)
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
+  const event = new MouseEvent('click', { bubbles: true, cancelable: true })
+  global.document.dispatchEvent(event)
+  wrapper.update()
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('notifies on action', t => {
@@ -119,16 +125,18 @@ test('notifies on action without onAction handler', t => {
 test('notifies on node toggle', t => {
   const handler = spy()
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onNodeToggle={handler} />)
-  wrapper.instance().onNodeToggle(node0._id)
+  const wrapper = mount(
+    <DropdownTreeSelect id={dropdownId} data={tree} onNodeToggle={handler} showDropdown="initial" />
+  )
+  wrapper.find(`#${node0._id}_li .toggle`).simulate('click', { nativeEvent })
   t.true(handler.calledWithExactly({ ...node0, expanded: true }))
 })
 
 test('notifies on checkbox change', t => {
   const handler = spy()
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
-  wrapper.instance().onCheckboxChange(node0._id, true)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} showDropdown="initial" />)
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
   t.true(
     handler.calledWithExactly({ ...node0, _focused: true, checked: true }, [
       { ...node0, _focused: true, checked: true },
@@ -139,25 +147,26 @@ test('notifies on checkbox change', t => {
 test('notifies on tag removal', t => {
   const handler = spy()
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} />)
-  wrapper.instance().onTagRemove(node0._id)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} onChange={handler} showDropdown="initial" />)
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  wrapper.find(`#${node0._id}_button`).simulate('click', { nativeEvent })
   t.true(handler.calledWithExactly({ ...node0, _focused: true, checked: false }, []))
 })
 
 test('sets search mode on input change', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} />)
-  wrapper.instance().onInputChange('it')
-  t.true(wrapper.state().searchModeOn)
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  wrapper.find('.search').simulate('click')
+  wrapper.find('.search').simulate('change', { target: { value: 'item1-1-1' } })
+  t.is(wrapper.find('.node').length, 1)
 })
 
 test('hides dropdown onChange for simpleSelect', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown="initial" data={tree} mode="simpleSelect" />)
-  wrapper.instance().onCheckboxChange(node0._id, true)
-  t.false(wrapper.state().searchModeOn)
-  t.false(wrapper.state().allNodesHidden)
-  t.false(wrapper.state().showDropdown)
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  t.false(wrapper.exists('.dropdown-content'))
 })
 
 test('keeps dropdown open onChange for simpleSelect and keepOpenOnSelect', t => {
@@ -165,48 +174,49 @@ test('keeps dropdown open onChange for simpleSelect and keepOpenOnSelect', t => 
   const wrapper = mount(
     <DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" mode="simpleSelect" keepOpenOnSelect />
   )
-  wrapper.instance().onCheckboxChange(node0._id, true)
-  t.true(wrapper.state().showDropdown)
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('clears input onChange for clearSearchOnChange', t => {
   const { tree } = t.context
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} clearSearchOnChange />)
-  wrapper.instance().onInputChange('it')
-  wrapper.instance().onCheckboxChange(node0._id, true)
-  t.false(wrapper.state().searchModeOn)
-  t.false(wrapper.state().allNodesHidden)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} showDropdown="initial" clearSearchOnChange />)
+  wrapper.find('.search').getDOMNode().value = 'it'
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  t.is(wrapper.find('.search').getDOMNode().value, '')
 })
 
 test('toggles dropdown', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
-  wrapper.instance().handleClick()
-  t.false(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find('.search').simulate('click')
+  t.false(wrapper.exists('.dropdown-content'))
 })
 
 test('keeps dropdown open on props update', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
   wrapper.setProps({ data: tree })
-  t.true(wrapper.state().showDropdown)
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('opens dropdown on props update with show intention', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  t.false(wrapper.state().showDropdown)
+  t.false(wrapper.exists('.dropdown-content'))
   wrapper.setProps({ data: tree, showDropdown: 'initial' })
-  t.true(wrapper.state().showDropdown)
-  wrapper.instance().handleClick()
-  t.false(wrapper.state().showDropdown)
+  wrapper.update()
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find('.search').simulate('click')
+  t.false(wrapper.exists('.dropdown-content'))
   wrapper.setProps({ data: tree, showDropdown: 'always' })
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('sets unique ids on dropdowns', t => {
@@ -228,39 +238,48 @@ test("doesn't toggle dropdown if it's disabled", t => {
 
 test('keeps dropdown active on focus', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} />)
-  wrapper.instance().onInputFocus()
-  t.true(wrapper.instance().keepDropdownActive)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} />)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  wrapper.find('.search').simulate('focus')
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('deactivates dropdown active on blur', t => {
   const { tree } = t.context
-  const wrapper = shallow(<DropdownTreeSelect data={tree} />)
-  wrapper.instance().onInputBlur()
-  t.false(wrapper.instance().keepDropdownActive)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={tree} />)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
+  wrapper.find(`input#${node0._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  wrapper.find('.search').simulate('focus')
+  wrapper.find('.search').simulate('click')
+  wrapper.find('.search').simulate('blur')
+  wrapper.find('.search').simulate('keydown', { key: 'Tab' })
+  t.false(wrapper.exists('.dropdown-content'))
 })
 
 test('detects click outside', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
-  const handleOutsideClick = spy(wrapper.instance(), 'handleOutsideClick')
 
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
 
   const event = new MouseEvent('click', { bubbles: true, cancelable: true })
   global.document.dispatchEvent(event)
 
-  t.true(handleOutsideClick.calledOnce)
-  t.false(wrapper.state().showDropdown)
+  wrapper.update()
+  t.false(wrapper.exists('.dropdown-content'))
 })
 
 test('detects click inside', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect data={tree} />)
 
-  wrapper.instance().handleClick()
-  t.true(wrapper.state().showDropdown)
+  wrapper.find('.search').simulate('click')
+  t.true(wrapper.exists('.dropdown-content'))
 
   const checkboxItem = wrapper.getDOMNode().getElementsByClassName('checkbox-item')[0]
   const event = new MouseEvent('click', {
@@ -270,9 +289,10 @@ test('detects click inside', t => {
     target: checkboxItem,
   })
   Object.defineProperty(event, 'target', { value: checkboxItem, enumerable: true })
-  wrapper.instance().handleOutsideClick(event)
+  global.document.dispatchEvent(event)
 
-  t.true(wrapper.state().showDropdown)
+  wrapper.update()
+  t.true(wrapper.exists('.dropdown-content'))
 })
 
 test('detects click outside when other dropdown instance', t => {
@@ -280,8 +300,8 @@ test('detects click outside when other dropdown instance', t => {
   const wrapper1 = mount(<DropdownTreeSelect data={tree} />)
   const wrapper2 = mount(<DropdownTreeSelect data={tree} />)
 
-  wrapper1.instance().handleClick()
-  t.true(wrapper1.state().showDropdown)
+  wrapper1.find('.search').simulate('click')
+  t.true(wrapper1.exists('.dropdown-content'))
 
   const searchInput = wrapper2.getDOMNode().getElementsByClassName('search')[0]
   const event = new MouseEvent('click', {
@@ -291,9 +311,10 @@ test('detects click outside when other dropdown instance', t => {
     target: searchInput,
   })
   Object.defineProperty(event, 'target', { value: searchInput, enumerable: true })
-  wrapper1.instance().handleOutsideClick(event)
+  global.document.dispatchEvent(event)
 
-  t.false(wrapper1.state().showDropdown)
+  wrapper1.update()
+  t.false(wrapper1.exists('.dropdown-content'))
 })
 
 test('adds aria-labelledby when label contains # to search input', t => {
@@ -326,8 +347,22 @@ test('appends selected tags to aria-labelledby with text label', t => {
   t.deepEqual(wrapper.find('.dropdown-trigger').prop('aria-label'), 'hello world')
 })
 
+test('default tabIndex value is 0', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 0)
+})
+
+test('set tabIndex value', t => {
+  const { tree } = t.context
+  tree[0].checked = true
+  const wrapper = mount(<DropdownTreeSelect id="rdts" data={tree} tabIndex={5} />)
+  t.deepEqual(wrapper.find('.dropdown-trigger').prop('tabIndex'), 5)
+})
+
 test('select correct focused node when using external state data container', t => {
-  let data = [
+  const data = [
     {
       label: 'All data',
       value: '0',
@@ -339,7 +374,7 @@ test('select correct focused node when using external state data container', t =
       checked: false,
     },
   ]
-  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={data} />)
+  const wrapper = mount(<DropdownTreeSelect id={dropdownId} data={data} showDropdown="initial" />)
   const nodeAllData = {
     _id: `${dropdownId}-0`,
     _depth: 0,
@@ -348,8 +383,8 @@ test('select correct focused node when using external state data container', t =
     children: undefined,
     actions: [action],
   }
-  wrapper.instance().onCheckboxChange(nodeAllData._id, true)
-  //simulate external change to the data props.
+  wrapper.find(`input#${nodeAllData._id}`).simulate('change', { target: { checked: true }, nativeEvent })
+  // simulate external change to the data props.
   wrapper.setProps({
     data: [
       {
@@ -364,7 +399,7 @@ test('select correct focused node when using external state data container', t =
       },
     ],
   })
-  t.deepEqual(wrapper.state().currentFocus, nodeAllData._id)
+  t.deepEqual(wrapper.find('.focused').prop('id'), `${nodeAllData._id}_li`)
 })
 
 test('should not scroll on select', t => {

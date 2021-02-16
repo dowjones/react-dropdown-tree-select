@@ -1,19 +1,13 @@
 const generateUID = prefix => {
-  let counter = 1
+  let counter = 0
 
-  let map = new WeakMap()
-
-  const get = item => {
-    if (!map.has(item)) {
-      // eslint-disable-next-line no-plusplus
-      map.set(item, counter++)
-    }
-    return `${prefix}${map.get(item)}`
+  const get = () => {
+    counter += 1
+    return `${prefix}${counter}`
   }
 
   const reset = () => {
-    map = new WeakMap()
-    counter = 1
+    counter = 0
   }
 
   return { get, reset }

@@ -5,15 +5,6 @@ import React, { Component } from 'react'
 import TreeNode from '../tree-node'
 import { findIndex } from '../utils'
 
-const shouldRenderNode = (node, searchModeOn, data) => {
-  if (searchModeOn || node.expanded) return true
-
-  const parent = node._parent && data.get(node._parent)
-  // if it has a parent, then check parent's state.
-  // otherwise root nodes are always rendered
-  return !parent || parent.expanded
-}
-
 class Tree extends Component {
   static propTypes = {
     data: PropTypes.object,
@@ -68,6 +59,17 @@ class Tree extends Component {
     }
   }
 
+  shouldRenderNode = (node, props) => {
+    const { data, searchModeOn } = props
+    const { expanded, _parent } = node
+    if (searchModeOn || expanded) return true
+
+    const parent = _parent && data.get(_parent)
+    // if it has a parent, then check parent's state.
+    // otherwise root nodes are always rendered
+    return !parent || parent.expanded
+  }
+
   getNodes = props => {
     const {
       data,
@@ -86,7 +88,7 @@ class Tree extends Component {
     } = props
     const items = []
     data.forEach(node => {
-      if (shouldRenderNode(node, searchModeOn, data)) {
+      if (this.shouldRenderNode(node, props)) {
         items.push(
           <TreeNode
             keepTreeOnSearch={keepTreeOnSearch}

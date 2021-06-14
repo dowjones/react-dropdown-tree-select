@@ -128,7 +128,7 @@ Visit [unpkg.com](https://unpkg.com/#/) to see other options.
 
 ### Peer Dependencies
 
-In order to avoid version conflicts in your project, you must specify and install [react](https://www.npmjs.com/package/react), [react-dom](https://www.npmjs.com/package/react-dom) as [peer dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/). Note that NPM doesn't install peer dependencies automatically. Instead it will show you a warning message with instructions on how to install them.
+In order to avoid version conflicts in your project, you must specify and install [react](https://www.npmjs.com/package/react), [react-dom](https://www.npmjs.com/package/react-dom) as [peer dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/). Note that NPM(version 4-6) doesn't install peer dependencies automatically. Instead it will show you a warning message with instructions on how to install them. If using Npm 7.X.X version, peer dependencies will be installed automatically.
 
 If you're using the UMD builds, you'd also need to install the peer dependencies in your application:
 

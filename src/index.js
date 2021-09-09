@@ -263,7 +263,7 @@ class DropdownTreeSelect extends Component {
         })
       }
     } else if (showDropdown && ['Escape', 'Tab'].indexOf(e.key) > -1) {
-      if (mode === 'simpleSelect' && tree.has(currentFocus)) {
+      if (mode === 'simpleSelect' && tree && tree.has(currentFocus)) {
         this.onCheckboxChange(currentFocus, true)
       } else {
         // Triggers close

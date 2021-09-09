@@ -11,15 +11,16 @@ const getNodesMatching = (tree, nodePredicate) => {
   const nodes = []
   const visited = {}
 
-  tree.forEach((node, key) => {
-    if (visited[key]) return
+  tree &&
+    tree.forEach((node, key) => {
+      if (visited[key]) return
 
-    if (nodePredicate(node, key, visited)) {
-      nodes.push(node)
-    }
+      if (nodePredicate(node, key, visited)) {
+        nodes.push(node)
+      }
 
-    visited[key] = true
-  })
+      visited[key] = true
+    })
 
   return nodes
 }

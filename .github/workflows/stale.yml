@@ -26,4 +26,5 @@ jobs:
         days-before-issue-stale: 30
         days-before-pr-stale: 45
         days-before-close: 10
-        exempt-pr-labels: pinned,bug,wip
+        exempt-pr-labels: pinned,bug,wip,'help wanted'
+        exempt-issue-labels: pinned,bug,'help wanted'

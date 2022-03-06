@@ -19,7 +19,9 @@ jobs:
       - name: Setup Node JS
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 16.x
+          cache: yarn
+
       - name: Build Docs 📚
         run: |
           # un-ignore bundle.js

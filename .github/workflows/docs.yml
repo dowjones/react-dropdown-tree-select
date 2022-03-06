@@ -17,7 +17,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Setup Node JS
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 16.x
           cache: yarn

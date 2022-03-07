@@ -146,6 +146,20 @@ test('can delete tags with backspace/delete on keyboardNavigation', t => {
   t.deepEqual(wrapper.state().tags.length, 0)
 })
 
+test('cannot delete tags on empty search input with backspace on keyboardNavigation when disablePoppingOnBackspace is true', t => {
+  const data = [{ ...node('a', 'a'), checked: true }, { ...node('b', 'b'), checked: true }]
+  const wrapper = mount(<DropdownTreeSelect data={data} disablePoppingOnBackspace={true} />)
+  wrapper.instance().searchInput.value = 'x'
+  triggerOnKeyboardKeyDown(wrapper, 'Backspace')
+  t.deepEqual(wrapper.state().tags.length, 2)
+
+  wrapper.instance().searchInput.value = ''
+  triggerOnKeyboardKeyDown(wrapper, 'Backspace')
+  t.deepEqual(wrapper.state().tags.length, 2)
+  triggerOnKeyboardKeyDown(wrapper, 'Backspace')
+  t.deepEqual(wrapper.state().tags.length, 2)
+})
+
 test('remembers current focus between prop updates', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
   t.false(wrapper.find('li.focused').exists())

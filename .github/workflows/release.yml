@@ -1,12 +1,14 @@
 name: Release
 
 on:
-  push:
-    branches: [master]
+  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build-release:
     runs-on: ubuntu-latest
+    environment: prod
 
     steps:
       - uses: actions/checkout@v2

@@ -156,8 +156,6 @@ test('cannot delete tags on empty search input with backspace on keyboardNavigat
   wrapper.instance().searchInput.value = ''
   triggerOnKeyboardKeyDown(wrapper, 'Backspace')
   t.deepEqual(wrapper.state().tags.length, 2)
-  triggerOnKeyboardKeyDown(wrapper, 'Backspace')
-  t.deepEqual(wrapper.state().tags.length, 2)
 })
 
 test('remembers current focus between prop updates', t => {

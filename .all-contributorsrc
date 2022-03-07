@@ -357,6 +357,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "r-zane-spalding",
+      "name": "r-zane-spalding",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88853042?v=4",
+      "profile": "https://github.com/r-zane-spalding",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

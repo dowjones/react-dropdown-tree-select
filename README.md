@@ -66,6 +66,7 @@ A lightweight and fast control to render a select component that can display hie
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)
   - [tabIndex](#tabIndex)
+  - [disablePoppingOnBackspace](#disablePoppingOnBackspace)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -420,6 +421,12 @@ Type: `bool` (default: `false`)
 Type: `number` (default: `0`)
 
 `tabIndex=0` attribute indicates that its element can be focused, and where it participates in sequential keyboard navigation.
+
+### disablePoppingOnBackspace
+
+Type: `bool` (default: `false`)
+
+`disablePoppingOnBackspace=true` attribute indicates that when a user triggers a 'backspace' keyDown in the empty search bar, the tree will not deselect nodes.
 
 ## Styling and Customization
 

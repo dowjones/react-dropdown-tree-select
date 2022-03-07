@@ -49,6 +49,7 @@ class DropdownTreeSelect extends Component {
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
     tabIndex: PropTypes.number,
+    disablePoppingOnBackspace: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -60,6 +61,7 @@ class DropdownTreeSelect extends Component {
     showDropdown: 'default',
     inlineSearchInput: false,
     tabIndex: 0,
+    disablePoppingOnBackspace: false,
   }
 
   constructor(props) {
@@ -236,7 +238,7 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
-    const { readOnly, mode } = this.props
+    const { readOnly, mode, disablePoppingOnBackspace } = this.props
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
     const tm = this.treeManager
     const tree = searchModeOn ? tm.matchTree : tm.tree
@@ -271,7 +273,12 @@ class DropdownTreeSelect extends Component {
         this.handleClick()
       }
       return
-    } else if (e.key === 'Backspace' && tags.length && this.searchInput.value.length === 0) {
+    } else if (
+      !disablePoppingOnBackspace &&
+      e.key === 'Backspace' &&
+      tags.length &&
+      this.searchInput.value.length === 0
+    ) {
       const lastTag = tags.pop()
       this.onCheckboxChange(lastTag._id, false)
     } else {

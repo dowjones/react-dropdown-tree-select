@@ -2,7 +2,7 @@ name: Docs
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
     paths:
       - 'docs/**'
       - package.json

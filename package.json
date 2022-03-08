@@ -193,5 +193,11 @@
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "release": {
+    "comment": "This is for semantic-release configuration",
+    "branches": [
+      "main"
+    ]
   }
 }

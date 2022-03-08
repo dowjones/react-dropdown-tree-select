@@ -99,6 +99,10 @@ declare module 'react-dropdown-tree-select' {
     searchPredicate?: (currentNode: TreeNode, searchTerm: string) => boolean
     /** inlineSearchInput=true Makes the search input renders inside the dropdown-content. Defaults to `false` */
     inlineSearchInput?: boolean
+    /** disablePoppingOnBackspace=true indicates that when a user triggers a 'backspace' keyDown in the empty
+     * search bar, the tree will not deselect nodes.
+     */
+    disablePoppingOnBackspace?: boolean
   }
 
   export interface DropdownTreeSelectState {

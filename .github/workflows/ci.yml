@@ -34,7 +34,7 @@ jobs:
           cache: yarn
 
       - run: yarn install --ignore-engines
-      - uses: paambaati/codeclimate-action@v2.2.4
+      - uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
         with:

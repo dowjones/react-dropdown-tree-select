@@ -60,7 +60,7 @@
     "ava": "3",
     "axe-core": "^3.2.2",
     "babel-eslint": "10.0.1",
-    "babel-loader": "7.1.2",
+    "babel-loader": "^8.2.5",
     "babel-plugin-istanbul": "4.1.3",
     "babel-plugin-transform-react-remove-prop-types": "0.4.13",
     "c8": "^7.11.2",

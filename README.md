@@ -8,7 +8,7 @@
 
 [npm-image]: http://img.shields.io/npm/v/react-dropdown-tree-select.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/react-dropdown-tree-select
-[buildstatus-image]: https://github.com/dowjones/react-dropdown-tree-select/workflows/CI/badge.svg?branch=develop
+[buildstatus-image]: https://github.com/dowjones/react-dropdown-tree-select/workflows/CI/badge.svg?branch=main
 [buildstatus-url]: https://github.com/dowjones/react-dropdown-tree-select/actions?query=workflow%3ACI
 [coveralls-image]: https://img.shields.io/coveralls/dowjones/react-dropdown-tree-select.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/dowjones/react-dropdown-tree-select?branch=master

@@ -97,18 +97,44 @@ test('can collapse on keyboardNavigation', t => {
   t.false(wrapper.find('#c3').exists())
 })
 
+test('should set focus to first match on search', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="always" />)
+  wrapper.instance().onInputChange('bb')
+  triggerOnKeyboardKeyDown(wrapper, ['b'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+})
+
+test('remembers current focus on search clear', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  wrapper.instance().onInputChange('bb')
+  triggerOnKeyboardKeyDown(wrapper, ['b'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  triggerOnKeyboardKeyDown(wrapper, ['Backspace', 'Backspace', 'Backspace'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+})
+
+test('should set focus on subsequent searches', t => {
+  const wrapper = mount(<DropdownTreeSelect data={tree} />)
+  wrapper.instance().onInputChange('bb')
+  triggerOnKeyboardKeyDown(wrapper, ['b'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  wrapper.instance().onInputChange('aa')
+  triggerOnKeyboardKeyDown(wrapper, ['a'])
+  t.deepEqual(wrapper.find('li.focused').text(), 'aaa 1')
+})
+
 test('can navigate searchresult on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} showDropdown="initial" />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
-  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 2')
 })
 
 test('can navigate with keepTreOnSearch on keyboardNavigation', t => {
   const wrapper = mount(<DropdownTreeSelect data={tree} keepTreeOnSearch />)
   wrapper.instance().onInputChange('bb')
   triggerOnKeyboardKeyDown(wrapper, ['b', 'ArrowDown', 'ArrowDown', 'ArrowDown'])
-  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 1')
+  t.deepEqual(wrapper.find('li.focused').text(), 'bbb 2')
   t.true(wrapper.find('#c1').exists())
 })
 

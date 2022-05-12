@@ -148,17 +148,25 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(
+    const { allNodesHidden, tree, matches } = this.treeManager.filterTree(
       value,
       this.props.keepTreeOnSearch,
       this.props.keepChildrenOnSearch
     )
     const searchModeOn = value.length > 0
 
+    const { currentFocus } = this.state
+    if (!allNodesHidden && !matches.includes(currentFocus)) {
+      const currentFocusNode = currentFocus && this.treeManager.getNodeById(currentFocus)
+      const firstMatchNode = this.treeManager.getNodeById(matches[0])
+      keyboardNavigation.adjustFocusedProps(currentFocusNode, firstMatchNode)
+    }
+
     this.setState({
       tree,
       searchModeOn,
       allNodesHidden,
+      currentFocus: !allNodesHidden && !matches.includes(currentFocus) ? matches[0] : currentFocus,
     })
   }
 

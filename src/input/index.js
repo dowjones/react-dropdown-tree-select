@@ -15,6 +15,7 @@ const getTags = (tags = [], onDelete, readOnly, tagRenderer) =>
         <Tag
           label={label}
           id={_id}
+          originalObject={tag}
           onDelete={onDelete}
           readOnly={readOnly}
           tagRenderer={tagRenderer}

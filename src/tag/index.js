@@ -10,6 +10,7 @@ class Tag extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    originalObject: PropTypes.object,
     onDelete: PropTypes.func,
     tagRenderer: PropTypes.func,
     readOnly: PropTypes.bool
@@ -23,10 +24,10 @@ class Tag extends PureComponent {
   }
 
   render() {
-    const { label, readOnly, tagRenderer } = this.props
+    const { label, originalObject, readOnly, tagRenderer } = this.props
 
     return tagRenderer
-      ? tagRenderer(label, this.handleClick)
+      ? tagRenderer(originalObject, this.handleClick)
       : <span className={cx('tag')}>
         {label}
         <button onClick={!readOnly && this.handleClick} className={cx('tag-remove', { readOnly })} type="button">

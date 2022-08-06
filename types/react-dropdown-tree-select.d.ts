@@ -10,6 +10,8 @@ declare module 'react-dropdown-tree-select' {
 
   export interface DropdownTreeSelectProps {
     data: TreeData
+    /** Initialize the search input with the specified term and search the nodes */
+    searchTerm?: str
     /** Clear the input search if a node has been selected/unselected */
     clearSearchOnChange?: boolean
     /** Displays search results as a tree instead of flattened results */
@@ -54,6 +56,9 @@ declare module 'react-dropdown-tree-select' {
      * This is helpful for setting dirty or touched flags with forms
      */
     onBlur?: () => void
+    /** Fires when search input is modified.
+     */
+    onSearchChange?: (searchTerm: str) => void
     /** Defines how the dropdown is rendered / behaves
          *
          * - multiSelect
@@ -79,6 +84,8 @@ declare module 'react-dropdown-tree-select' {
          *
          * */
     mode?: Mode
+    /** The size (in nodes) of a single page in the infinite scroll component. */
+    pageSize?: number
     /** If set to true, shows checkboxes in a partial state when one, but not all of their children are selected.
      * Allows styling of partially selected nodes as well, by using :indeterminate pseudo class.
      * Simply add desired styles to .node.partial .checkbox-item:indeterminate { ... } in your CSS
@@ -103,6 +110,8 @@ declare module 'react-dropdown-tree-select' {
      * search bar, the tree will not deselect nodes.
      */
     disablePoppingOnBackspace?: boolean
+    /** dsiableKeyboardNavigation will disable keyboard navigation of the tree */
+    dsiableKeyboardNavigation?: boolean
   }
 
   export interface DropdownTreeSelectState {

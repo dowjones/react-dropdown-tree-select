@@ -23,6 +23,7 @@ import { getAriaLabel } from './a11y'
 class DropdownTreeSelect extends Component {
   static propTypes = {
     data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+    searchTerm: PropTypes.string,
     clearSearchOnChange: PropTypes.bool,
     keepTreeOnSearch: PropTypes.bool,
     keepChildrenOnSearch: PropTypes.bool,
@@ -41,7 +42,9 @@ class DropdownTreeSelect extends Component {
     onNodeToggle: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onSearchChange: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
+    pageSize: PropTypes.number,
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
     readOnly: PropTypes.bool,
@@ -50,6 +53,7 @@ class DropdownTreeSelect extends Component {
     inlineSearchInput: PropTypes.bool,
     tabIndex: PropTypes.number,
     disablePoppingOnBackspace: PropTypes.bool,
+    disableKeyboardNavigation: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -57,11 +61,13 @@ class DropdownTreeSelect extends Component {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
+    onSearchChange: (_) => {},
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
     tabIndex: 0,
     disablePoppingOnBackspace: false,
+    disableKeyboardNavigation: true,
   }
 
   constructor(props) {
@@ -73,7 +79,7 @@ class DropdownTreeSelect extends Component {
     this.clientId = props.id || clientIdGenerator.get(this)
   }
 
-  initNewProps = ({ data, mode, showDropdown, showPartiallySelected, searchPredicate }) => {
+  initNewProps = ({ data, searchTerm, mode, showDropdown, showPartiallySelected, searchPredicate }) => {
     this.treeManager = new TreeManager({
       data,
       mode,
@@ -86,7 +92,12 @@ class DropdownTreeSelect extends Component {
       if (currentFocusNode) {
         currentFocusNode._focused = true
       }
+      const searchTermChanged = searchTerm !== prevState.searchTerm
+      if (this.searchInput && searchTermChanged) {
+        this.searchInput.value = searchTerm
+      }
       return {
+        searchModeOn: searchTermChanged,
         showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
         ...this.treeManager.getTreeAndTags(),
       }
@@ -96,7 +107,10 @@ class DropdownTreeSelect extends Component {
   resetSearchState = () => {
     // clear the search criteria and avoid react controlled/uncontrolled warning
     if (this.searchInput) {
-      this.searchInput.value = ''
+      if (this.searchInput.value !== '') {
+        this.props.onSearchChange(this.searchInput.value)
+        this.searchInput.value = ''
+      }
     }
 
     return {
@@ -154,6 +168,7 @@ class DropdownTreeSelect extends Component {
       this.props.keepChildrenOnSearch
     )
     const searchModeOn = value.length > 0
+    this.props.onSearchChange(value)
 
     this.setState({
       tree,
@@ -238,6 +253,10 @@ class DropdownTreeSelect extends Component {
   }
 
   onKeyboardKeyDown = e => {
+    if (this.props.disableKeyboardNavigation) {
+      return // Will fire the default action
+    }
+
     const { readOnly, mode, disablePoppingOnBackspace } = this.props
     const { showDropdown, tags, searchModeOn, currentFocus } = this.state
     const tm = this.treeManager
@@ -360,6 +379,7 @@ class DropdownTreeSelect extends Component {
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
                   mode={mode}
+                  pageSize={this.props.pageSize}
                   showPartiallySelected={this.props.showPartiallySelected}
                   {...commonProps}
                 />

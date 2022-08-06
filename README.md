@@ -41,12 +41,14 @@ A lightweight and fast control to render a select component that can display hie
 - [Usage](#usage)
 - [Props](#props)
   - [className](#classname)
+  - [searchTerm](#searchterm)
   - [clearSearchOnChange](#clearsearchonchange)
   - [onChange](#onchange)
   - [onNodeToggle](#onnodetoggle)
   - [onAction](#onaction)
   - [onFocus](#onfocus)
   - [onBlur](#onblur)
+  - [onSearchChange](#onsearchchange)
   - [data](#data)
   - [texts](#texts)
   - [keepTreeOnSearch](#keeptreeonsearch)
@@ -57,6 +59,7 @@ A lightweight and fast control to render a select component that can display hie
     - [hierarchical](#hierarchical)
     - [simpleSelect](#simpleselect)
     - [radioSelect](#radioselect)
+  - [pageSize](#pagesize)
   - [showPartiallySelected](#showpartiallyselected)
   - [showDropdown](#showdropdown)
     - [initial](#initial)
@@ -66,7 +69,8 @@ A lightweight and fast control to render a select component that can display hie
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)
   - [tabIndex](#tabIndex)
-  - [disablePoppingOnBackspace](#disablePoppingOnBackspace)
+  - [disablePoppingOnBackspace](#disablepoppingonbackspace)
+  - [disableKeyboardNavigation](#disablekeyboardnavigation)
 - [Styling and Customization](#styling-and-customization)
   - [Using default styles](#default-styles)
   - [Customizing with Bootstrap, Material Design styles](#customizing-styles)
@@ -188,6 +192,12 @@ Type: `string`
 
 Additional classname for container. The container renders with a default classname of `react-dropdown-tree-select`.
 
+### searchTerm
+
+Type: `string`
+
+Initializes or adjusts the active search term. Set to an empty string or `undefined` to turn search mode off.
+
 ### clearSearchOnChange
 
 Type: `bool`
@@ -255,6 +265,24 @@ Fires when input box receives focus or the dropdown arrow is clicked. This is he
 Type: `function`
 
 Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
+
+### onSearchChange
+
+Type: `function`
+
+Called when the search input box is changed with the current search term. This can be fired either through user input or automatically due to `clearSearchOnChange`. Example:
+
+```jsx
+function onSearchChange(searchTerm: str) {
+  if (searchTerm) {
+    console.log('New search term is', searchTerm)
+  } else {
+    console.log('Search mode has been disabled')
+  }
+}
+
+return <DropdownTreeSelect data={data} onSearchChange={onSearchChange} />
+```
 
 ### data
 
@@ -361,6 +389,12 @@ Like `simpleSelect`, you can only select one value; but keeps the tree/children 
 
 ⚠️ If multiple nodes in data are selected - by setting either `checked` or `isDefaultValue`, only the first visited node stays selected.
 
+### pageSize
+
+Type: `number` (default: `100`)
+
+Customize the number of nodes displayed in the tree before a scroll to near the bottom is required to load additional nodes.
+
 ### showPartiallySelected
 
 Type: `bool` (default: `false`)
@@ -427,6 +461,12 @@ Type: `number` (default: `0`)
 Type: `bool` (default: `false`)
 
 `disablePoppingOnBackspace=true` attribute indicates that when a user triggers a 'backspace' keyDown in the empty search bar, the tree will not deselect nodes.
+
+### disableKeyboardNavigation
+
+Type: `bool` (default: `false`)
+
+`disableKeyboardNavigation=true` prevents keyboard navigation actions from being taken on the nodes when the user triggers a keyDown in the search bar. This restores standard input box semantics.
 
 ## Styling and Customization
 

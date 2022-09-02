@@ -206,7 +206,7 @@ class DropdownTreeSelect extends Component {
         }}
       >
         <div className="dropdown">
-          <a className={dropdownTriggerClassname} onClick={!this.props.disabled && this.handleClick}>
+          <a className={dropdownTriggerClassname} onClick={!this.props.disabled ? this.handleClick : undefined}>
             <Input
               inputRef={el => {
                 this.searchInput = el

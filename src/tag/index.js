@@ -30,7 +30,7 @@ class Tag extends PureComponent {
       ? tagRenderer(originalObject, this.handleClick)
       : <span className={cx('tag')}>
         {label}
-        <button onClick={!readOnly && this.handleClick} className={cx('tag-remove', { readOnly })} type="button">
+        <button onClick={!readOnly ? this.handleClick : undefined} className={cx('tag-remove', { readOnly })} type="button">
           x
         </button>
       </span>

@@ -38,7 +38,7 @@ class Tree extends Component {
     }
   }
 
-  componentWillReceiveProps = nextProps => {
+  UNSAFE_componentWillReceiveProps = nextProps => {
     const { activeDescendant } = nextProps
     const hasSameActiveDescendant = activeDescendant === this.props.activeDescendant
     this.computeInstanceProps(nextProps, !hasSameActiveDescendant)

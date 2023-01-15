@@ -40,7 +40,8 @@
     "contributors": "all-contributors add && all-contributors generate"
   },
   "files": [
-    "dist"
+    "dist/react-dropdown-tree-select.*",
+    "dist/styles.*"
   ],
   "dependencies": {
     "array.partial": "^1.0.5",

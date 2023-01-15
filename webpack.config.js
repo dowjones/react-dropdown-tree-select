@@ -16,7 +16,7 @@ const baseConfig = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,

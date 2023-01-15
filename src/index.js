@@ -106,7 +106,7 @@ class DropdownTreeSelect extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.initNewProps(this.props)
   }
 
@@ -114,7 +114,7 @@ class DropdownTreeSelect extends Component {
     document.removeEventListener('click', this.handleOutsideClick, false)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.initNewProps(nextProps)
   }
 
@@ -148,18 +148,21 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
-    const { allNodesHidden, tree } = this.treeManager.filterTree(
-      value,
-      this.props.keepTreeOnSearch,
-      this.props.keepChildrenOnSearch
-    )
     const searchModeOn = value.length > 0
-
-    this.setState({
-      tree,
-      searchModeOn,
-      allNodesHidden,
-    })
+    if (!searchModeOn) {
+      this.setState(this.resetSearchState())
+    } else {
+      const { allNodesHidden, tree } = this.treeManager.filterTree(
+        value,
+        this.props.keepTreeOnSearch,
+        this.props.keepChildrenOnSearch
+      )
+      this.setState({
+        tree,
+        searchModeOn,
+        allNodesHidden,
+      })
+    }
   }
 
   onTagRemove = (id, isKeyboardEvent) => {

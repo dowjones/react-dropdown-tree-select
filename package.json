@@ -100,7 +100,7 @@
     "prettier-stylelint": "^0.4.2",
     "prop-types": "^15.6.0",
     "raw-loader": "^0.5.1",
-    "react": "^16.0.0",
+    "react": "^16.3.0",
     "react-dom": "^16.0.0",
     "react-story": "^0.0.10",
     "rimraf": "^2.6.1",
@@ -116,7 +116,7 @@
     "why-did-you-update": "^0.1.1"
   },
   "peerDependencies": {
-    "react": "^16.0.0 || ^17"
+    "react": "^16.3.0 || ^17 || ^18"
   },
   "ava": {
     "files": [

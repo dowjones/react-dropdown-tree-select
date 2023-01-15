@@ -36,13 +36,13 @@ module.exports = {
       openAnalyzer: false,
       generateStatsFile: true,
     }),
-    new CopyPlugin([{ from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }]),
+    new CopyPlugin({ patterns: [{ from: path.join(__dirname, 'types'), to: path.join(__dirname, 'dist') }] }),
   ],
   module: {
     rules: [
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        use: ['babel-loader'],
         include: path.join(__dirname, 'src'),
         exclude: /node_modules/,
       },
@@ -58,6 +58,7 @@ module.exports = {
               localIdentName: 'react-dropdown-tree-select__[local]--[hash:base64:5]',
               importLoaders: 1,
               minimize: true,
+              sourceMap: true,
             },
           },
           { loader: 'postcss-loader' },

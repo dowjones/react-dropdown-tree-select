@@ -11,10 +11,12 @@ class WithOptions extends PureComponent {
     super(props)
 
     this.state = {
+      searchTerm: '',
       clearSearchOnChange: false,
       keepTreeOnSearch: false,
       keepOpenOnSelect: false,
       mode: 'multiSelect',
+      pageSize: undefined,
       inlineSearchInput: false,
       showPartiallySelected: false,
       disabled: false,
@@ -39,12 +41,18 @@ class WithOptions extends PureComponent {
     this.setState({ [value]: !this.state[value] })
   }
 
+  onSearchChange = searchTerm => {
+    this.setState({ searchTerm: searchTerm })
+  }
+
   render() {
     const {
+      searchTerm,
       clearSearchOnChange,
       keepTreeOnSearch,
       keepOpenOnSelect,
       mode,
+      pageSize,
       showPartiallySelected,
       disabled,
       readOnly,
@@ -105,6 +113,26 @@ class WithOptions extends PureComponent {
               onChange={e => this.setState({ inlineSearchPlaceholder: e.target.value })}
             />
           </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="searchTerm">Search term: </label>
+            <input
+              id="searchTerm"
+              type="text"
+              value={searchTerm}
+              onChange={e => this.setState({ searchTerm: e.target.value })}
+            />
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="pageSize">Page size ({pageSize || 100}): </label>
+            <input
+              id="pageSize"
+              type="range"
+              min={50}
+              max={1000}
+              value={pageSize || 100}
+              onChange={e => this.setState({ pageSize: e.target.valueAsNumber || undefined })}
+            />
+          </div>
           <Checkbox
             label="Inline Search Input"
             value="inlineSearchInput"
@@ -142,13 +170,16 @@ class WithOptions extends PureComponent {
           <DropdownTreeSelect
             id="rdts"
             data={data}
+            searchTerm={searchTerm}
             onChange={this.onChange}
             onAction={this.onAction}
             onNodeToggle={this.onNodeToggle}
+            onSearchChange={this.onSearchChange}
             clearSearchOnChange={clearSearchOnChange}
             keepTreeOnSearch={keepTreeOnSearch}
             keepOpenOnSelect={keepOpenOnSelect}
             mode={mode}
+            pageSize={pageSize}
             showPartiallySelected={showPartiallySelected}
             disabled={disabled}
             readOnly={readOnly}

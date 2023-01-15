@@ -23,6 +23,10 @@ const onBlur = () => {
   console.log('onBlur')
 }
 
+const onSearchChange = searchTerm => {
+  console.log('onSearchChange::', searchTerm)
+}
+
 const Simple = () => (
   <div>
     <h1>Basic component</h1>
@@ -45,6 +49,7 @@ const Simple = () => (
       onNodeToggle={onNodeToggle}
       onFocus={onFocus}
       onBlur={onBlur}
+      onSearchChange={onSearchChange}
       className="demo"
     />
   </div>

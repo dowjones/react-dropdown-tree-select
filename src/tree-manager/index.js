@@ -89,7 +89,7 @@ class TreeManager {
   }
 
   filterTree(searchTerm, keepTreeOnSearch, keepChildrenOnSearch) {
-    const matches = this.getMatches(searchTerm.toLowerCase())
+    const matches = this.getMatches(searchTerm)
 
     const matchTree = new Map()
 
@@ -289,7 +289,7 @@ class TreeManager {
   }
 
   _getAddOnMatch(matches, searchTerm) {
-    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term) >= 0
+    let isMatch = (node, term) => node.label.toLowerCase().indexOf(term.toLowerCase()) >= 0
     if (typeof this.searchPredicate === 'function') {
       isMatch = this.searchPredicate
     }

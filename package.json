@@ -107,7 +107,7 @@
     "rimraf": "^2.6.1",
     "sinon": "^5.0.0",
     "style-loader": "^0.20.1",
-    "stylelint": "^9.0.0",
+    "stylelint": "^15.10.1",
     "stylelint-config-standard": "^18.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^5.75.0",

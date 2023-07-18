@@ -256,6 +256,20 @@ Type: `function`
 
 Fires when input box loses focus or the dropdown arrow is clicked again (and the dropdown collapses). This is helpful for setting `dirty` or `touched` flags with forms.
 
+### onInputCleared
+
+Type: `function`
+
+Fires when all the characters are removed from the input box.
+
+```jsx
+function onInputCleared() {
+  console.log('No characters left in the input box')
+}
+
+return <DropdownTreeSelect data={data} onInputCleared={onInputCleared} />
+```
+
 ### data
 
 Type: `Object` or `Array`

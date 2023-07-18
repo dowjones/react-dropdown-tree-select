@@ -41,6 +41,7 @@ class DropdownTreeSelect extends Component {
     onNodeToggle: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onInputCleared: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -57,6 +58,7 @@ class DropdownTreeSelect extends Component {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
+    onInputCleared: () => {},
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
@@ -151,6 +153,7 @@ class DropdownTreeSelect extends Component {
     const searchModeOn = value.length > 0
     if (!searchModeOn) {
       this.setState(this.resetSearchState())
+      this.props.onInputCleared()
     } else {
       const { allNodesHidden, tree } = this.treeManager.filterTree(
         value,

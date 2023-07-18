@@ -54,6 +54,8 @@ declare module 'react-dropdown-tree-select' {
      * This is helpful for setting dirty or touched flags with forms
      */
     onBlur?: () => void
+    /** Fires when all the characters are removed from the input box. */
+    onInputCleared?: () => void
     /** Defines how the dropdown is rendered / behaves
          *
          * - multiSelect

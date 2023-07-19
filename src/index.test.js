@@ -151,6 +151,23 @@ test('sets search mode on input change', t => {
   t.true(wrapper.state().searchModeOn)
 })
 
+test('Does not call onInputCleared when there are characters in the input box', t => {
+  const handler = spy()
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect onInputCleared={handler} data={tree} />)
+  wrapper.instance().onInputChange('it')
+  t.false(handler.called)
+})
+
+test('Calls onInputCleared when the characters in the input box are cleared', t => {
+  const handler = spy()
+  const { tree } = t.context
+  const wrapper = shallow(<DropdownTreeSelect onInputCleared={handler} data={tree} />)
+  wrapper.instance().onInputChange('it')
+  wrapper.instance().resetSearchState()
+  t.true(handler.called)
+})
+
 test('hides dropdown onChange for simpleSelect', t => {
   const { tree } = t.context
   const wrapper = mount(<DropdownTreeSelect id={dropdownId} showDropdown="initial" data={tree} mode="simpleSelect" />)

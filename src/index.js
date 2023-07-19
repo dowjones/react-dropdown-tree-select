@@ -100,6 +100,7 @@ class DropdownTreeSelect extends Component {
     if (this.searchInput) {
       this.searchInput.value = ''
     }
+    this.props.onInputCleared()
 
     return {
       tree: this.treeManager.restoreNodes(), // restore the tree to its pre-search state
@@ -153,7 +154,6 @@ class DropdownTreeSelect extends Component {
     const searchModeOn = value.length > 0
     if (!searchModeOn) {
       this.setState(this.resetSearchState())
-      this.props.onInputCleared()
     } else {
       const { allNodesHidden, tree } = this.treeManager.filterTree(
         value,

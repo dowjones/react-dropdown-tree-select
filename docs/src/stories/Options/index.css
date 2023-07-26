@@ -10,7 +10,7 @@
 
 .node .fa {
   font-size: 12px;
-  margin-left: 4px;
+  margin-inline-start: 4px;
   cursor: pointer;
 }
 

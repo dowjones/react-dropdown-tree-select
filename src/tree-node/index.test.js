@@ -10,7 +10,7 @@ const hasGap = wrapper =>
   !!wrapper
     .find('li')
     .first()
-    .props().style.paddingLeft
+    .props().style.paddingInlineStart
 
 test('renders tree node', t => {
   const node = {

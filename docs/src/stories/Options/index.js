@@ -22,6 +22,7 @@ class WithOptions extends PureComponent {
       hierarchical: false,
       placeholder: 'Choose...',
       inlineSearchPlaceholder: 'Search...',
+      direction: 'ltr',
     }
   }
 
@@ -52,6 +53,7 @@ class WithOptions extends PureComponent {
       inlineSearchInput,
       placeholder,
       inlineSearchPlaceholder,
+      direction,
     } = this.state
 
     return (
@@ -67,12 +69,19 @@ class WithOptions extends PureComponent {
           }}
         >
           <div style={{ marginBottom: '10px' }}>
-            <label htmlFor={mode}>Mode: </label>
+            <label htmlFor="mode">Mode: </label>
             <select id="mode" value={mode} onChange={e => this.setState({ mode: e.target.value })}>
               <option value="multiSelect">Multi select</option>
               <option value="simpleSelect">Simple select</option>
               <option value="radioSelect">Radio select</option>
               <option value="hierarchical">Hierarchical</option>
+            </select>
+          </div>
+          <div style={{ marginBottom: '10px' }}>
+            <label htmlFor="direction">Direction: </label>
+            <select id="direction" value={direction} onChange={e => this.setState({ direction: e.target.value })}>
+              <option value="ltr">ltr</option>
+              <option value="rtl">rtl</option>
             </select>
           </div>
           <div style={{ marginBottom: '10px' }}>
@@ -138,7 +147,7 @@ class WithOptions extends PureComponent {
           <Checkbox label="Disabled" value="disabled" checked={disabled} onChange={this.onOptionsChange} />
           <Checkbox label="Read Only" value="readOnly" checked={readOnly} onChange={this.onOptionsChange} />
         </div>
-        <div>
+        <div dir={direction}>
           <DropdownTreeSelect
             id="rdts"
             data={data}

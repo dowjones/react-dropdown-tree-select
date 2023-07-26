@@ -19,18 +19,19 @@
       &.arrow {
         cursor: pointer;
 
-        &.bottom::after {
-          content: '\25BC';
+        &.bottom::after,
+        &.top::after {
           vertical-align: middle;
           color: #3c3c3c;
-          margin-right: 2px;
+          margin-inline-end: 2px;
+        }
+
+        &.bottom::after {
+          content: '\25BC';
         }
 
         &.top::after {
           content: '\25B2';
-          vertical-align: middle;
-          color: #3c3c3c;
-          margin-right: 2px;
         }
 
         &.disabled {

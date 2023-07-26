@@ -23,6 +23,7 @@
         &.top::after {
           vertical-align: middle;
           color: #3c3c3c;
+          /*equivalent to margin-right*/
           margin-inline-end: 2px;
         }
 

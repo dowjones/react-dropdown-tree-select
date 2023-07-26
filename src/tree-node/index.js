@@ -112,7 +112,10 @@ class TreeNode extends PureComponent {
       clientId,
     } = this.props
     const liCx = getNodeCx(this.props)
-    const style = keepTreeOnSearch || !searchModeOn ? { paddingInlineStart: `${(_depth || 0) * 20}px` } : {}
+    const style =
+      keepTreeOnSearch || !searchModeOn
+        ? { /*equivalent to padding-left*/ paddingInlineStart: `${(_depth || 0) * 20}px` }
+        : {}
 
     const liId = `${_id}_li`
 

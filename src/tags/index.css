@@ -1,5 +1,6 @@
 .node > label {
   cursor: pointer;
+  /*equivalent to margin-left*/
   margin-inline-start: 2px;
 }
 
@@ -21,5 +22,6 @@
 }
 
 .tag-item:last-child {
+  /*equivalent to margin-right*/
   margin-inline-end: 4px;
 }

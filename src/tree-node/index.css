@@ -29,6 +29,7 @@
 
 .toggle {
   white-space: pre;
+  /*equivalent to margin-right*/
   margin-inline-end: 4px;
   cursor: pointer;
 
@@ -53,6 +54,7 @@
 .radio-item {
   vertical-align: middle;
   margin: 0;
+  /*equivalent to margin-right*/
   margin-inline-end: 4px;
 
   &.simple-select {

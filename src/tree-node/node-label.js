@@ -50,20 +50,22 @@ class NodeLabel extends PureComponent {
     }
 
     const sharedProps = { id, value, checked, disabled, readOnly, tabIndex: -1 }
-    const className = ['checkbox-item', mode === 'simpleSelect' && 'simple-select'].filter(Boolean).join(' ')
+    const className = ['checkbox-item form-check-input', mode === 'simpleSelect' && 'simple-select'].filter(Boolean).join(' ')
 
     return (
       <label title={title || label} htmlFor={id}>
         {mode === 'radioSelect' ? (
           <RadioButton name={clientId} className="radio-item" onChange={this.handleCheckboxChange} {...sharedProps} />
         ) : (
-          <Checkbox
+          <div className='form-check'>
+            <Checkbox
             name={id}
             className={className}
             indeterminate={showPartiallySelected && partial}
             onChange={this.handleCheckboxChange}
             {...sharedProps}
           />
+          </div>
         )}
         <span {...nodeLabelProps}>{label}</span>
       </label>

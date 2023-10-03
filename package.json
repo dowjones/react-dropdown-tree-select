@@ -91,7 +91,7 @@
     "lint-staged": "8.1.5",
     "marked": "^0.3.17",
     "mini-css-extract-plugin": "^2.7.2",
-    "postcss": "^6.0.16",
+    "postcss": "^8.4.31",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.10",

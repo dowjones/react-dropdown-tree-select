@@ -213,7 +213,7 @@ class DropdownTreeSelect extends Component {
     this.setState(nextState, () => {
       callback && callback(tags)
     })
-    this.props.onChange(node, tags)
+    this.props.onChange(node, tags, Array.from(this.state.tree.values()))
   }
 
   onAction = (nodeId, action) => {
@@ -305,6 +305,24 @@ class DropdownTreeSelect extends Component {
     const activeDescendant = currentFocus ? `${currentFocus}_li` : undefined
 
     const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
+    const mergedProps = {
+      ...commonProps,
+      ...{
+        texts: {
+          placeholder: tags && tags.length > 0 ? `(${tags.length}) selected` : commonProps.texts.placeholder || '',
+        },
+      },
+    }
+
+    // const arr = Array.from(this.state.tree.values())
+    // for (let index = 0; index < arr.length; ++index) {
+    //   if (!arr[index].checked && this.state.selected.includes(arr[index].value)) {
+    //     this.treeManager.setNodeCheckedState(
+    //       arr[index]._id,
+    //       this.state.selected.includes(arr[index].value) ? true : false
+    //     )
+    //   }
+    // }
 
     const searchInput = (
       <Input
@@ -315,7 +333,7 @@ class DropdownTreeSelect extends Component {
         onFocus={this.onInputFocus}
         onBlur={this.onInputBlur}
         onKeyDown={this.onKeyboardKeyDown}
-        {...commonProps}
+        {...mergedProps}
         inlineSearchInput={inlineSearchInput}
       />
     )

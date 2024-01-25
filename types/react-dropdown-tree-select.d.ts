@@ -1,5 +1,5 @@
 // tslint:disable:interface-name
-declare module 'react-dropdown-tree-select' {
+declare module '@sm2dev/react-dropdown-tree-select' {
   import * as React from 'react'
 
   export type TreeData = Object | TreeNodeProps[]
@@ -39,7 +39,7 @@ declare module 'react-dropdown-tree-select' {
      *
      * Calls the handler with the current node object and all selected nodes (if any)
      */
-    onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void
+    onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[], allNodes: TreeNode[]) => void
     /**  Fired on click of the action */
     onAction?: (currentNode: TreeNode, currentAction: NodeAction) => void
     /** Fires when a node is expanded or collapsed.
@@ -123,6 +123,7 @@ declare module 'react-dropdown-tree-select' {
   export interface TreeNode {
     /** Checkbox label */
     label: string
+    labelCount?: string
     /** Checkbox value */
     value: string
     /** Initial state of checkbox. if true, checkbox is selected and corresponding pill is rendered. */

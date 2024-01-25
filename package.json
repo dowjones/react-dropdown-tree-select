@@ -1,6 +1,6 @@
 {
-  "name": "react-dropdown-tree-select",
-  "version": "0.0.0-semantic-release",
+  "name": "@sm2dev/react-dropdown-tree-select",
+  "version": "0.1.22",
   "description": "Lightweight, customizable and fast Dropdown Tree Select component for React",
   "keywords": [
     "react",

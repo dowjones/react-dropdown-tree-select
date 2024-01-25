@@ -54,6 +54,7 @@ class TreeNode extends PureComponent {
     className: PropTypes.string,
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
+    labelCount: PropTypes.string,
     value: PropTypes.string.isRequired,
     checked: PropTypes.bool,
     expanded: PropTypes.bool,
@@ -98,6 +99,7 @@ class TreeNode extends PureComponent {
       expanded,
       title,
       label,
+      labelCount,
       partial,
       checked,
       value,
@@ -122,6 +124,7 @@ class TreeNode extends PureComponent {
         <NodeLabel
           title={title}
           label={label}
+          labelCount={labelCount}
           id={_id}
           partial={partial}
           checked={checked}

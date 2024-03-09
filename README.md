@@ -65,6 +65,7 @@ A lightweight and fast control to render a select component that can display hie
   - [id](#id)
   - [searchPredicate](#searchpredicate)
   - [inlineSearchInput](#inlinesearchinput)
+  - [pageSize](#pageSize)
   - [tabIndex](#tabIndex)
   - [disablePoppingOnBackspace](#disablePoppingOnBackspace)
 - [Styling and Customization](#styling-and-customization)
@@ -416,6 +417,12 @@ Type: `bool` (default: `false`)
 
 `inlineSearchInput=true` makes the search input renders **inside** the dropdown-content. This can be useful when your UX looks something like [this comment](https://github.com/dowjones/react-dropdown-tree-select/issues/308#issue-526467109).
 
+### pageSize
+
+Type: `number` (default: `100`)
+
+`pageSize=100` attribute indicates how many elements will render initially on the dropdown. When the scroll is near the end of the list at that time it automatically renders the next `100` elements in the dropdown.
+
 ### tabIndex
 
 Type: `number` (default: `0`)
@@ -659,6 +666,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://osmancode.me"><img src="https://avatars0.githubusercontent.com/u/1795294?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohamad Othman</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=osmancode" title="Code">💻</a> <a href="#ideas-osmancode" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/smurfs2549"><img src="https://avatars3.githubusercontent.com/u/8286468?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kathleenlu</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=smurfs2549" title="Code">💻</a> <a href="https://github.com/dowjones/react-dropdown-tree-select/issues?q=author%3Asmurfs2549" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/r-zane-spalding"><img src="https://avatars.githubusercontent.com/u/88853042?v=4?s=100" width="100px;" alt=""/><br /><sub><b>r-zane-spalding</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=r-zane-spalding" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ParthSatasiya"><img src="https://avatars.githubusercontent.com/u/31753548?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Parth Satasiya</b></sub></a><br /><a href="https://github.com/dowjones/react-dropdown-tree-select/commits?author=ParthSatasiya" title="Code">💻</a></td>
   </tr>
 </table>
 

@@ -103,6 +103,8 @@ declare module 'react-dropdown-tree-select' {
      * search bar, the tree will not deselect nodes.
      */
     disablePoppingOnBackspace?: boolean
+    /** `pageSize=100` attribute indicates how many elements will render initially on the dropdown. When the scroll is near the end of the list at that time it automatically renders the next `100` elements in the dropdown. */
+    pageSize?: number
   }
 
   export interface DropdownTreeSelectState {

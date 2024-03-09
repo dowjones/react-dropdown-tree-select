@@ -48,6 +48,7 @@ class DropdownTreeSelect extends Component {
     id: PropTypes.string,
     searchPredicate: PropTypes.func,
     inlineSearchInput: PropTypes.bool,
+    pageSize: PropTypes.number,
     tabIndex: PropTypes.number,
     disablePoppingOnBackspace: PropTypes.bool,
   }
@@ -60,6 +61,7 @@ class DropdownTreeSelect extends Component {
     texts: {},
     showDropdown: 'default',
     inlineSearchInput: false,
+    pageSize: 100,
     tabIndex: 0,
     disablePoppingOnBackspace: false,
   }
@@ -362,6 +364,7 @@ class DropdownTreeSelect extends Component {
                   onAction={this.onAction}
                   onCheckboxChange={this.onCheckboxChange}
                   onNodeToggle={this.onNodeToggle}
+                  pageSize={this.props.pageSize}
                   mode={mode}
                   showPartiallySelected={this.props.showPartiallySelected}
                   {...commonProps}

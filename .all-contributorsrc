@@ -366,6 +366,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ParthSatasiya",
+      "name": "Parth Satasiya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31753548?v=4",
+      "profile": "https://github.com/ParthSatasiya",
+      "contributions": [
+        "question",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

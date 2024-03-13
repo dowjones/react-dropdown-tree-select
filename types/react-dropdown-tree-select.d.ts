@@ -103,6 +103,9 @@ declare module 'react-dropdown-tree-select' {
      * search bar, the tree will not deselect nodes.
      */
     disablePoppingOnBackspace?: boolean
+    /** `tabIndex=0` attribute indicates that its element can be focused, and where it participates in sequential keyboard navigation.
+     */
+    tabIndex?: number
   }
 
   export interface DropdownTreeSelectState {

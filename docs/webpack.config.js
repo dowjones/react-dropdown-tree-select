@@ -7,6 +7,13 @@ const baseConfig = {
     extensions: ['.js', '.css'],
     modules: ['node_modules'],
   },
+  devServer: {
+    static: {
+      directory: __dirname,
+    },
+    open: true,
+    port: 3000,
+  },
   module: {
     rules: [
       {

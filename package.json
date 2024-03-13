@@ -28,7 +28,7 @@
     "build:docs": "yarn build && cross-env NODE_ENV=production webpack --config docs/webpack.config.js --bail --mode=production",
     "commit": "git-cz",
     "coveralls": "yarn test && c8 report --reporter=text-lcov | coveralls",
-    "demo": "rimraf ./docs/bundle.js && webpack-serve --content ./docs --port 3000 --open --config docs/webpack.config.js",
+    "demo": "rimraf ./docs/bundle.js && webpack serve --config docs/webpack.config.js",
     "prepublishOnly": "yarn build",
     "lint": "eslint --fix src docs webpack.config.js && stylelint --fix \"src/**/*.css\"",
     "lint:nofix": "eslint src webpack.config.js && stylelint \"src/**/*.css\"",
@@ -109,11 +109,11 @@
     "style-loader": "^0.20.1",
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.0.0",
-    "url-loader": "^1.0.1",
+    "url-loader": "^4.1.1",
     "webpack": "^5.75.0",
     "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "^5.0.1",
-    "webpack-serve": "^4.0.0",
+    "webpack-dev-server": "^5.0.3",
     "why-did-you-update": "^0.1.1"
   },
   "peerDependencies": {

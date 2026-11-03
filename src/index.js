@@ -182,6 +182,8 @@ class DropdownTreeSelect extends Component {
   }
 
   onCheckboxChange = (id, checked, callback) => {
+    if (this.props.disabled) return
+
     const { mode, keepOpenOnSelect, clearSearchOnChange } = this.props
     const { currentFocus, searchModeOn } = this.state
     this.treeManager.setNodeCheckedState(id, checked)
